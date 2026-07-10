@@ -650,7 +650,7 @@ tbody tr:hover{background:#FCF8F9}
 .module-tabs button{border:1px solid var(--line);background:#fff;color:var(--gray);padding:9px 16px;border-radius:20px;font-size:12px;font-weight:700}
 .module-tabs button.active{background:var(--brand);border-color:var(--brand);color:#fff}
 .module-tabs button:hover:not(.active){border-color:var(--brand);color:var(--brand)}
-.checkbox-cell{display:flex;justify-content:center}
+.checkbox-cell{text-align:center;vertical-align:middle}
 .checkbox-cell input{width:18px;height:18px;accent-color:var(--green)}
 .detail-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px 26px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:18px 20px;margin-bottom:18px}
 .detail-grid.cols-4{grid-template-columns:repeat(4,1fr)}
@@ -737,6 +737,23 @@ tbody tr:hover{background:#FCF8F9}
   .print-sheet{box-shadow:none;border:0;max-width:100%;margin:0;padding:10px}
   body{background:#fff}
 }
+
+/* ===== Validación de formularios ===== */
+.toast.error{background:var(--red)}
+.field input.input-error,.field select.input-error,.field textarea.input-error,.field-pair input.input-error{border-color:var(--red) !important;background:var(--red-bg)}
+.field-error{color:var(--red);font-size:11px;font-weight:700;margin-top:3px}
+.field label .required-mark{color:var(--red);margin-left:2px}
+
+/* ===== Selector de Solicitante ===== */
+.solicitante-card{display:flex;align-items:center;justify-content:space-between;gap:14px;border:1px solid var(--line);border-radius:8px;padding:14px 18px;background:#FAFBFC;flex-wrap:wrap;margin-bottom:4px}
+.solicitante-card.empty{background:#FFF8EB;border-color:#E3CC9F}
+.solicitante-card.empty span{display:flex;align-items:center;gap:8px;font-weight:700;color:#7A5A22;font-size:13px}
+.solicitante-card-info{display:grid;gap:3px}
+.solicitante-card-info strong{font-size:13.5px;color:var(--ink)}
+.solicitante-card-info span{font-size:12px;color:var(--muted)}
+
+/* ===== Corrección: texto recortado en selects (padding vertical insuficiente) ===== */
+select{padding-top:9px;padding-bottom:9px;line-height:1.3}
 
 </style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -917,14 +934,100 @@ function fieldSelect(label,id,options,selected="",extra=""){
   }).join("")}</select></div>`;
 }
 function fieldInput(label,id,value="",type="text",extra=""){
-  const full = extra==="class=full";
-  const realExtra = full?"":extra;
+  const full = extra.includes("class=full");
+  const realExtra = extra.replace("class=full","").trim();
   return `<div class="field${full?" full":""}"><label for="${id}">${label}</label><input id="${id}" type="${type}" value="${value??""}" ${realExtra}></div>`;
 }
-function fieldInputPair(label1,id1,value1,label2,id2,value2,widths="2fr 1fr"){
+function reqMark(required){ return required?'<span class="required-mark">*</span>':''; }
+function fieldPhone(label,id,value="",{required=false,full=false}={}){
+  return `<div class="field${full?" full":""}"><label for="${id}">${label}${reqMark(required)}</label><input id="${id}" type="tel" inputmode="numeric" maxlength="10" placeholder="10 dígitos" data-rule="phone" value="${value??""}"></div>`;
+}
+function fieldExt(label,id,value="",{required=false}={}){
+  return `<div class="field"><label for="${id}">${label}${reqMark(required)}</label><input id="${id}" type="text" inputmode="numeric" maxlength="6" placeholder="Ext." data-rule="numeric" value="${value??""}"></div>`;
+}
+function fieldEmail(label,id,value="",{required=false,full=false}={}){
+  return `<div class="field${full?" full":""}"><label for="${id}">${label}${reqMark(required)}</label><input id="${id}" type="email" placeholder="correo@tam.gob.mx" data-rule="email" value="${value??""}"></div>`;
+}
+function fieldCurp(label,id,value="",{required=false}={}){
+  return `<div class="field"><label for="${id}">${label}${reqMark(required)}</label><input id="${id}" type="text" maxlength="18" style="text-transform:uppercase" placeholder="18 caracteres" data-rule="curp" value="${value??""}"></div>`;
+}
+function fieldIp(label,id,value="",{required=false}={}){
+  return `<div class="field"><label for="${id}">${label}${reqMark(required)}</label><input id="${id}" type="text" placeholder="000.000.000.000" data-rule="ip" value="${value??""}"></div>`;
+}
+function fieldUrlInput(label,id,value="",{required=false,full=false}={}){
+  return `<div class="field${full?" full":""}"><label for="${id}">${label}${reqMark(required)}</label><input id="${id}" type="text" placeholder="sitio.tamaulipas.gob.mx" data-rule="url" value="${value??""}"></div>`;
+}
+function fieldNumber(label,id,value="",{required=false,min=0}={}){
+  return `<div class="field"><label for="${id}">${label}${reqMark(required)}</label><input id="${id}" type="number" min="${min}" inputmode="numeric" data-rule="posint" value="${value??""}"></div>`;
+}
+const VALIDATION_MESSAGES = {
+  required: label=>`${label} es obligatorio.`,
+  phone: label=>`${label} debe tener exactamente 10 dígitos.`,
+  email: label=>`${label} no tiene un formato de correo válido.`,
+  curp: label=>`${label} debe tener 18 caracteres (letras y números).`,
+  ip: label=>`${label} debe tener formato de IP válido (ej. 192.168.0.1).`,
+  url: label=>`${label} no parece una dirección web válida.`,
+  posint: label=>`${label} debe ser un número igual o mayor a 0.`,
+  match: label=>label
+};
+function markFieldError(el,msg){
+  if(!el) return;
+  el.classList.add("input-error");
+  const wrap = el.closest(".field") || el.parentElement;
+  let hint = wrap.querySelector(".field-error");
+  if(!hint){ hint=document.createElement("div"); hint.className="field-error"; wrap.appendChild(hint); }
+  hint.textContent = msg;
+}
+function clearFieldError(el){
+  if(!el) return;
+  el.classList.remove("input-error");
+  const wrap = el.closest(".field") || el.parentElement;
+  const hint = wrap && wrap.querySelector(".field-error");
+  if(hint) hint.remove();
+}
+const RULE_PATTERNS = {
+  phone: v=>/^\d{10}$/.test(v),
+  email: v=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v),
+  curp: v=>/^[A-Z0-9]{18}$/.test(v),
+  ip: v=>/^(\d{1,3}\.){3}\d{1,3}$/.test(v) && v.split(".").every(n=>Number(n)<=255),
+  url: v=>/^[a-zA-Z0-9][a-zA-Z0-9.\-]*\.[a-zA-Z]{2,}([\/?#].*)?$/.test(v.replace(/^https?:\/\//,"")),
+  posint: v=>/^\d+$/.test(v)
+};
+/**
+ * rules: [{id, label, type:'required'|'phone'|'email'|'curp'|'ip'|'url'|'posint', required:bool}]
+ * Devuelve true si todo es válido; si no, marca errores visuales y muestra un toast.
+ */
+function validateFields(rules){
+  let firstInvalid=null; const problems=[];
+  rules.forEach(r=>{
+    const el = $("#"+r.id);
+    if(!el) return;
+    clearFieldError(el);
+    const val = (el.value||"").trim();
+    if(!val){
+      if(r.required){ markFieldError(el, VALIDATION_MESSAGES.required(r.label)); problems.push(r.label); if(!firstInvalid) firstInvalid=el; }
+      return;
+    }
+    if(r.type && RULE_PATTERNS[r.type] && !RULE_PATTERNS[r.type](val)){
+      markFieldError(el, VALIDATION_MESSAGES[r.type](r.label));
+      problems.push(r.label); if(!firstInvalid) firstInvalid=el;
+    }
+  });
+  if(problems.length){
+    toast(`Revisa estos campos: ${problems.join(", ")}`, "error");
+    firstInvalid?.focus();
+    return false;
+  }
+  return true;
+}
+function fieldInputPair(label1,id1,value1,label2,id2,value2,widths="2fr 1fr",rules=[]){
+  const r1 = rules[0]?` data-rule="${rules[0]}"`:"";
+  const r2 = rules[1]?` data-rule="${rules[1]}"`:"";
+  const extra1 = rules[0]==="phone"?' maxlength="10" inputmode="numeric"':(rules[0]==="ip"?"":"");
+  const extra2 = rules[1]==="numeric"?' maxlength="6" inputmode="numeric"':(rules[1]==="ip"?"":"");
   return `<div class="field"><label>${label1} / ${label2}</label><div class="field-pair" style="grid-template-columns:${widths}">
-    <input id="${id1}" type="text" value="${value1??""}" placeholder="${label1}">
-    <input id="${id2}" type="text" value="${value2??""}" placeholder="${label2}">
+    <input id="${id1}" type="text" value="${value1??""}" placeholder="${label1}"${r1}${extra1}>
+    <input id="${id2}" type="text" value="${value2??""}" placeholder="${label2}"${r2}${extra2}>
   </div></div>`;
 }
 function fieldTextarea(label,id,value="",extra=""){
@@ -984,8 +1087,8 @@ const state = {
       {id:uid("BD"),dependencia:"Secretaría de Educación",nombre:"Base de Datos Padrón Escolar",estatus:"Registrado",servidor:"Ceres",fecha:"18/06/2026",ip:"",nat:"",scan:false,anexos:0,motor:"MSSQLServer 2014",bitacora:[]}
     ],
     vpns:[
-      {id:uid("VPN"),nombre:"Ricardo Salas Peña",correo:"ricardo.salas@tam.gob.mx",telefono:"8341234567",ext:"1500",ip:"10.20.0.15",observaciones:"Acceso a servidor de obras públicas"},
-      {id:uid("VPN"),nombre:"Ana Torres Salinas",correo:"ana.torres@tam.gob.mx",telefono:"8347778899",ext:"1610",ip:"",observaciones:"Sin observaciones"}
+      {id:uid("VPN"),nombre:"Ricardo Salas Peña",correo:"ricardo.salas@tam.gob.mx",telefono:"8341234567",ext:"1500",ip:"10.20.0.15",observaciones:"Acceso a servidor de obras públicas",fecha:"18/06/2026"},
+      {id:uid("VPN"),nombre:"Ana Torres Salinas",correo:"ana.torres@tam.gob.mx",telefono:"8347778899",ext:"1610",ip:"",observaciones:"Sin observaciones",fecha:"29/06/2026"}
     ],
     servidoresSolicitudes:[
       {id:uid("SRV"),dependencia:"Secretaría de Obras Públicas",solicitante:"Ricardo Salas Peña",servidorAlojamiento:"Ceres",fecha:"01/07/2026",anexos:1,bitacora:[]}
@@ -1062,6 +1165,123 @@ const state = {
 };
 function findIn(arr,id){ return arr.find(x=>x.id===id); }
 function removeIn(arr,id){ const i=arr.findIndex(x=>x.id===id); if(i>-1) arr.splice(i,1); }
+(function seedLinkSolicitantes(){
+  const s = state.data.solicitantes; // [0]=Juan Pérez(Finanzas) [1]=Laura González(Educación) [2]=Miguel Hernández(Administración)
+  if(!s.length) return;
+  if(state.data.sitiosWeb[0]) state.data.sitiosWeb[0].solicitanteId = s[2].id;
+  if(state.data.sitiosWeb[1]) state.data.sitiosWeb[1].solicitanteId = s[0].id;
+  if(state.data.sitiosWeb[2]) state.data.sitiosWeb[2].solicitanteId = s[1].id;
+  if(state.data.dominios[0]) state.data.dominios[0].solicitanteId = s[1].id;
+  if(state.data.dominios[1]) state.data.dominios[1].solicitanteId = s[2].id;
+  if(state.data.basesDatos[0]) state.data.basesDatos[0].solicitanteId = s[0].id;
+  if(state.data.basesDatos[1]) state.data.basesDatos[1].solicitanteId = s[1].id;
+  if(state.data.rrd[0]) state.data.rrd[0].solicitanteId = s[0].id;
+})();
+/* ================= Selector reutilizable de Solicitante ================= */
+function solicitanteSelectorBlock(prefix){
+  const sel = state.editing.selectedSolicitanteId ? findIn(state.data.solicitantes, state.editing.selectedSolicitanteId) : null;
+  return `<div id="${prefix}Wrap">
+    ${sel ? `
+      <div class="solicitante-card">
+        <div class="solicitante-card-info">
+          <strong>${sel.nombre} ${sel.apPaterno} ${sel.apMaterno}</strong>
+          <span>${sel.puesto||"Sin puesto registrado"} · ${sel.dependencia}</span>
+          <span>${sel.telefono||"Sin teléfono"}${sel.ext?" ext. "+sel.ext:""} · ${sel.correo}</span>
+        </div>
+        <button type="button" class="button ghost" onclick="abrirSelectorSolicitante('${prefix}')">${icon("edit")} Cambiar</button>
+      </div>` : `
+      <div class="solicitante-card empty">
+        <span>${icon("users")} Ningún solicitante seleccionado</span>
+        <button type="button" class="button primary" onclick="abrirSelectorSolicitante('${prefix}')">${icon("search")} Seleccionar solicitante</button>
+      </div>`}
+  </div>`;
+}
+function refreshSolicitanteSelector(prefix){
+  const wrap = $("#"+prefix+"Wrap");
+  if(wrap) wrap.outerHTML = solicitanteSelectorBlock(prefix);
+}
+function abrirSelectorSolicitante(prefix){
+  state.ui = state.ui || {};
+  state.ui.solicitanteSelectorTerm = "";
+  renderSelectorSolicitanteModal(prefix);
+}
+function renderSelectorSolicitanteModal(prefix){
+  const term = state.ui.solicitanteSelectorTerm||"";
+  const rows = state.data.solicitantes.filter(s=>matchesSearch(s,term));
+  openModal({
+    title:"Seleccionar solicitante", subtitle:"Busca en el directorio o registra uno nuevo", size:"large", confirm:"",
+    body:`
+      <div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap">
+        <div class="datatable-search" style="flex:1;min-width:220px">${icon("search")}<input id="fSolSelectorSearch" placeholder="Buscar por nombre, dependencia o correo" value="${term.replace(/"/g,"&quot;")}"></div>
+        <button class="button secondary" onclick="abrirAltaRapidaSolicitante('${prefix}')">${icon("plus")} Nuevo solicitante</button>
+      </div>
+      <div class="table-wrap" style="max-height:360px;overflow:auto"><table>
+        <thead><tr><th>Nombre</th><th>Dependencia</th><th>Correo</th><th></th></tr></thead>
+        <tbody>${rows.length?rows.map(s=>`<tr>
+          <td><strong>${s.nombre} ${s.apPaterno} ${s.apMaterno}</strong><span class="subtext">${s.puesto||""}</span></td>
+          <td>${s.dependencia}</td><td>${s.correo}</td>
+          <td><button class="button primary" onclick="seleccionarSolicitante('${prefix}','${s.id}')">Elegir</button></td>
+        </tr>`).join(""):`<tr><td colspan="4" class="empty-state">Sin coincidencias. Registra un nuevo solicitante.</td></tr>`}</tbody>
+      </table></div>`
+  });
+  $("#fSolSelectorSearch").oninput = e=>{ state.ui.solicitanteSelectorTerm=e.target.value; renderSelectorSolicitanteModal(prefix); const v=$("#fSolSelectorSearch"); v.focus(); v.setSelectionRange(v.value.length,v.value.length); };
+}
+function seleccionarSolicitante(prefix,id){
+  state.editing.selectedSolicitanteId = id;
+  closeModal();
+  refreshSolicitanteSelector(prefix);
+  toast("Solicitante asignado a la solicitud.");
+}
+function abrirAltaRapidaSolicitante(prefix){
+  openModal({title:"Registrar nuevo solicitante", subtitle:"Se agregará al directorio y se asignará a esta solicitud", size:"large", confirm:"Guardar y usar",
+    body:`
+      <h2 style="font-size:14px;margin:0 0 12px">Nombre del Solicitante</h2>
+      <div class="form-grid">
+        ${fieldCurp("CURP","fNuevoSolCurp")}
+        ${fieldInput("Núm. Empleado","fNuevoSolNumEmp")}
+        ${fieldInput("Nombre","fNuevoSolNombre","","text","class=full")}
+        ${fieldInput("Apellido Paterno","fNuevoSolApPat")}
+        ${fieldInput("Apellido Materno","fNuevoSolApMat")}
+        ${fieldInput("Puesto","fNuevoSolPuesto")}
+        ${fieldInputPair("Teléfono","fNuevoSolTel","","Ext","fNuevoSolExt","","2fr 1fr",["phone","numeric"])}
+        ${fieldEmail("Correo electrónico","fNuevoSolCorreo","",{required:true,full:true})}
+      </div>
+      <h2 style="font-size:14px;margin:22px 0 12px">Dependencia Solicitante</h2>
+      <div class="form-grid">
+        ${fieldSelect("Dependencia","fNuevoSolDep",DEPENDENCIAS)}
+        ${fieldSelect("Municipio","fNuevoSolMun",MUNICIPIOS)}
+        ${fieldInput("Área","fNuevoSolArea","","text","class=full")}
+      </div>`,
+    onConfirm:()=>{
+      const ok = validateFields([
+        {id:"fNuevoSolCurp",label:"CURP",type:"curp",required:false},
+        {id:"fNuevoSolNombre",label:"Nombre",required:true},
+        {id:"fNuevoSolApPat",label:"Apellido Paterno",required:true},
+        {id:"fNuevoSolTel",label:"Teléfono",type:"phone",required:false},
+        {id:"fNuevoSolCorreo",label:"Correo electrónico",type:"email",required:true}
+      ]);
+      if(!ok) return;
+      const nuevo = {id:uid("SOL"), curp:$("#fNuevoSolCurp").value, numEmpleado:$("#fNuevoSolNumEmp").value, nombre:$("#fNuevoSolNombre").value, apPaterno:$("#fNuevoSolApPat").value,
+        apMaterno:$("#fNuevoSolApMat").value, puesto:$("#fNuevoSolPuesto").value, telefono:$("#fNuevoSolTel").value, ext:$("#fNuevoSolExt").value,
+        correo:$("#fNuevoSolCorreo").value, dependencia:$("#fNuevoSolDep").value, municipio:$("#fNuevoSolMun").value, area:$("#fNuevoSolArea").value};
+      state.data.solicitantes.push(nuevo);
+      seleccionarSolicitante(prefix, nuevo.id);
+      toast("Solicitante registrado y asignado a la solicitud.");
+    }});
+}
+function nombreCompleto(sol){ return sol?`${sol.nombre} ${sol.apPaterno} ${sol.apMaterno}`.trim():"Solicitante sin nombre"; }
+
+/* ================= Historial unificado por solicitante ================= */
+function getHistorialForSolicitante(id){
+  const d = state.data; const rows=[];
+  d.sitiosWeb.filter(x=>x.solicitanteId===id).forEach(x=>rows.push({tipo:"Sitio Web",fecha:x.fecha,estatus:x.estatus,area:"Servicios · Sitios Web",view:"sitios-web"}));
+  d.dominios.filter(x=>x.solicitanteId===id).forEach(x=>rows.push({tipo:x.tipo,fecha:x.fecha,estatus:x.estatus,area:"Servicios · Dominios y Subdominios",view:"dominios"}));
+  d.basesDatos.filter(x=>x.solicitanteId===id).forEach(x=>rows.push({tipo:"Base de Datos",fecha:x.fecha,estatus:x.estatus,area:"Servicios · Crear BD",view:"crear-bd"}));
+  d.servidoresSolicitudes.filter(x=>x.solicitanteId===id).forEach(x=>rows.push({tipo:"Servidor Físico/Virtual",fecha:x.fecha,estatus:"Registrado",area:"Servicios · Servidores",view:"servidores"}));
+  d.rrd.filter(x=>x.solicitanteId===id).forEach(x=>rows.push({tipo:"Respaldo de BD (RRD)",fecha:x.fecha,estatus:"Registrado",area:"Servicios · RRD",view:"rrd"}));
+  d.vpns.filter(x=>x.solicitanteId===id).forEach(x=>rows.push({tipo:"VPN",fecha:x.fecha||todayStr(),estatus:x.ip?"IP asignada":"Registrado",area:"Servicios · VPN",view:"vpn"}));
+  return rows.sort((a,b)=>(a.fecha<b.fecha?1:-1));
+}
 /* ================= Navegación ================= */
 const navConfig = [
   {view:"dashboard", icon:"home", label:"Inicio"},
@@ -1195,6 +1415,25 @@ content.addEventListener("click", e=>{
     if(isHidden){ panel.removeAttribute("hidden"); filterToggle.classList.add("open"); filterToggle.setAttribute("aria-expanded","true"); }
     else { panel.setAttribute("hidden",""); filterToggle.classList.remove("open"); filterToggle.setAttribute("aria-expanded","false"); }
   }
+});
+content.addEventListener("input", e=>{
+  const el = e.target;
+  const rule = el.dataset && el.dataset.rule;
+  if(!rule) return;
+  const start = el.selectionStart, end = el.selectionEnd;
+  if(rule==="phone" || rule==="numeric" || rule==="posint"){
+    el.value = el.value.replace(/\D/g,"");
+    if(rule==="phone") el.value = el.value.slice(0,10);
+    if(rule==="numeric") el.value = el.value.slice(0,6);
+  } else if(rule==="curp"){
+    el.value = el.value.toUpperCase().replace(/[^A-Z0-9]/g,"").slice(0,18);
+  } else if(rule==="ip"){
+    el.value = el.value.replace(/[^0-9.]/g,"");
+  }
+  if(document.activeElement===el && typeof start==="number"){
+    try{ el.setSelectionRange(Math.min(start,el.value.length), Math.min(end,el.value.length)); }catch(err){}
+  }
+  clearFieldError(el);
 });
 
 $("#loginForm").onsubmit = e=>{
@@ -1394,12 +1633,16 @@ function abrirNuevaSolicitud(solicitanteId){
   openModal({title:"Seleccionar Solicitud a realizar", confirm:"Continuar",
     body:`${fieldSelect("Tipo de solicitud","tipoNuevaSolicitud",["Dominio","SubDominio","Crear BD","RRD","Servidores Físicos y Virtuales","Solicitudes de VPN","Sitios Web"])}`,
     onConfirm:()=>{
-      const map = {"Dominio":"dominios-form","SubDominio":"dominios-form","Crear BD":"crear-bd","RRD":"rrd","Servidores Físicos y Virtuales":"servidores","Solicitudes de VPN":"vpn","Sitios Web":"sitios-web-form"};
       const tipo = $("#tipoNuevaSolicitud").value;
       closeModal();
+      state.editing.presetSolicitanteId = solicitanteId;
       if(tipo==="Dominio"||tipo==="SubDominio"){ state.editing.dominioTipo = tipo==="Dominio"?"Dominio":"Subdominio"; state.editing.dominioId=null; navigate("dominios-form"); }
       else if(tipo==="Sitio Web"){ state.editing.sitioId=null; navigate("sitios-web-form"); }
-      else navigate(map[tipo]||"dashboard");
+      else if(tipo==="Crear BD"){ state.editing.bdId=null; navigate("crear-bd-form"); }
+      else if(tipo==="RRD"){ state.editing.rrdId=null; navigate("rrd-form"); }
+      else if(tipo==="Servidores Físicos y Virtuales"){ state.editing.servidorId=null; navigate("servidores-form"); }
+      else if(tipo==="Solicitudes de VPN"){ state.editing.autoOpenVpnForm=true; navigate("vpn"); }
+      else navigate("dashboard");
     }});
 }
 
@@ -1412,14 +1655,14 @@ function renderSolicitanteForm(editId){
     <div class="two-col">
       <div><h2 style="font-size:16px;margin:0 0 14px">Nombre del Solicitante</h2>
         <div class="form-grid">
-          ${fieldInput("CURP","fCurp",s?.curp)}
+          ${fieldCurp("CURP","fCurp",s?.curp)}
           ${fieldInput("Núm. Empleado","fNumEmp",s?.numEmpleado)}
           ${fieldInput("Nombre","fNombre",s?.nombre,"text","class=full")}
           ${fieldInput("Apellido Paterno","fApPat",s?.apPaterno)}
           ${fieldInput("Apellido Materno","fApMat",s?.apMaterno)}
           ${fieldInput("Puesto","fPuesto",s?.puesto)}
-          ${fieldInputPair("Teléfono","fTel",s?.telefono,"Ext","fExt",s?.ext)}
-          ${fieldInput("Correo electrónico","fCorreo",s?.correo,"email","class=full")}
+          ${fieldInputPair("Teléfono","fTel",s?.telefono,"Ext","fExt",s?.ext,"2fr 1fr",["phone","numeric"])}
+          ${fieldEmail("Correo electrónico","fCorreo",s?.correo,{full:true,required:true})}
         </div>
       </div>
       <div><h2 style="font-size:16px;margin:0 0 14px">Dependencia Solicitante</h2>
@@ -1428,7 +1671,6 @@ function renderSolicitanteForm(editId){
           ${fieldSelect("Municipio","fMun",MUNICIPIOS,s?.municipio)}
           ${fieldInput("Área","fArea",s?.area,"text","class=full")}
         </div>
-        <button class="button warning" style="margin-top:14px" onclick="toast('Sincronizando con el Directorio Activo…')">${icon("refresh")} Sincronizar con el Directorio Activo</button>
       </div>
     </div>
   </article>
@@ -1438,6 +1680,15 @@ function renderSolicitanteForm(editId){
   </div>`;
 }
 function guardarSolicitante(editId){
+  const ok = validateFields([
+    {id:"fCurp",label:"CURP",type:"curp",required:false},
+    {id:"fNombre",label:"Nombre",required:true},
+    {id:"fApPat",label:"Apellido Paterno",required:true},
+    {id:"fTel",label:"Teléfono",type:"phone",required:false},
+    {id:"fExt",label:"Ext",type:"posint",required:false},
+    {id:"fCorreo",label:"Correo electrónico",type:"email",required:true}
+  ]);
+  if(!ok) return;
   const payload = {
     curp:$("#fCurp").value, numEmpleado:$("#fNumEmp").value, nombre:$("#fNombre").value||"Sin nombre",
     apPaterno:$("#fApPat").value, apMaterno:$("#fApMat").value, puesto:$("#fPuesto").value,
@@ -1452,10 +1703,12 @@ function guardarSolicitante(editId){
 function renderHistorial(solicitanteId){
   const s = findIn(state.data.solicitantes,solicitanteId);
   if(!s){ navigate("solicitantes"); return; }
-  const rows = state.data.solicitudes.filter(r=>r.solicitante.includes(s.nombre)||r.solicitante.includes(s.apPaterno));
+  const rowsReales = getHistorialForSolicitante(solicitanteId);
+  const rowsDemo = state.data.solicitudes.filter(r=>r.solicitante.includes(s.nombre)||r.solicitante.includes(s.apPaterno)).map(r=>({tipo:r.tipo,fecha:r.fecha,estatus:r.estatus,area:r.dependencia,view:null}));
+  const rows = [...rowsReales, ...rowsDemo];
   content.innerHTML = `
   ${breadcrumb([{label:"Lista de Solicitantes",view:"solicitantes"},{label:"Ver detalle"}])}
-  <div class="page-header"><div><h1>Historial de solicitudes</h1><p>Todas las solicitudes presentadas por este solicitante.</p></div>
+  <div class="page-header"><div><h1>Historial de solicitudes</h1><p>Todas las solicitudes presentadas por este solicitante en cualquier módulo.</p></div>
     <div class="page-actions"><button class="button secondary" onclick="exportTable('historial-${s.nombre}',['Tipo de Solicitud','Fecha','Estatus','Área responsable'],${JSON.stringify(rows.map(r=>[r.tipo,r.fecha,r.estatus,r.area]))})">${icon("download")} Exportar a Excel</button></div>
   </div>
   <article class="card">
@@ -1468,7 +1721,7 @@ function renderHistorial(solicitanteId){
     <div class="table-wrap"><table>
       <thead><tr><th>Tipo de Solicitud</th><th>Fecha de Solicitud</th><th>Estatus</th><th>Área responsable</th><th>Acciones</th></tr></thead>
       <tbody>${rows.length?rows.map(r=>`<tr><td>${r.tipo}</td><td>${r.fecha}</td><td>${badgeEstatus(r.estatus)}</td><td>${r.area}</td>
-        <td>${actionBtn("eye","Ver",`toast('Mostrando detalle de la solicitud ${r.id}')`)}</td></tr>`).join(""):`<tr><td colspan="5" class="empty-state">Sin solicitudes registradas para este solicitante.</td></tr>`}</tbody>
+        <td>${r.view?actionBtn("eye","Ver módulo",`navigate('${r.view}')`):actionBtn("eye","Ver",`toast('Solicitud histórica de referencia')`)}</td></tr>`).join(""):`<tr><td colspan="5" class="empty-state">Sin solicitudes registradas para este solicitante.</td></tr>`}</tbody>
     </table></div>
   </article>
   <div class="page-actions" style="margin-top:18px"><button class="button ghost" onclick="navigate('solicitantes')">&raquo; Regresar</button></div>`;
@@ -1598,28 +1851,25 @@ function eliminarSitioWeb(id){
 }
 function renderSitioWebForm(editId){
   const s = editId?findIn(state.data.sitiosWeb,editId):null;
+  state.editing.selectedSolicitanteId = s ? s.solicitanteId : (state.editing.presetSolicitanteId||null);
+  state.editing.presetSolicitanteId = null;
   content.innerHTML = `
   ${breadcrumb([{label:"Servicios"},{label:"Sitio Web",view:"sitios-web"},{label:"Registrar Sitios Web"}])}
   <div class="page-header"><div><h1>${editId?"Editar Sitio Web":"Solicitar Sitio Web"}</h1><p>Datos del solicitante y del sitio web a publicar.</p></div></div>
   <article class="card">
     <h2 style="font-size:15px;margin:0 0 12px">Solicitante</h2>
-    <div class="form-grid">
-      ${fieldInput("Nombre del Solicitante","fSwSolicitante")}
-      ${fieldInput("Dependencia","fSwDependencia")}
-      ${fieldInput("Teléfono","fSwTelSol")}
-      ${fieldInput("Correo electrónico","fSwCorreoSol","","email")}
-    </div>
+    ${solicitanteSelectorBlock("fSw")}
     <h2 style="font-size:15px;margin:22px 0 12px">Datos del Sitio Web</h2>
     <div class="form-grid">
       ${fieldInput("Nombre del sitio web","fSwNombre",s?.nombre,"text","class=full")}
-      ${fieldInput("Dirección (URL)","fSwUrl",s?.url)}
+      ${fieldUrlInput("Dirección (URL)","fSwUrl",s?.url,{required:true})}
       ${fieldSelect("Estatus","fSwEstatusForm",["Activo","Inactivo"],s?.estatus)}
       ${fieldInput("Versión WordPress","fSwWp",s?.wordpress)}
       ${fieldInput("Tema","fSwTema",s?.tema)}
       ${fieldSelect("Servidor alojado","fSwServidor",["Multisite","Servidor dedicado","Otro"],s?.servidor)}
       ${fieldInput("Nombre del enlace","fSwEnlace",s?.enlace)}
-      ${fieldInput("Correo del enlace","fSwCorreoEnlace",s?.correo,"email")}
-      ${fieldInput("Teléfono del enlace","fSwTelEnlace",s?.telefono)}
+      ${fieldEmail("Correo del enlace","fSwCorreoEnlace",s?.correo)}
+      ${fieldPhone("Teléfono del enlace","fSwTelEnlace",s?.telefono)}
       ${fieldInput("Fecha de Solicitud","fSwFechaSol",s?.fecha,"date")}
       ${fieldInput("Fecha de Liberación","fSwFechaLib","","date")}
     </div>
@@ -1630,11 +1880,20 @@ function renderSitioWebForm(editId){
   </div>`;
 }
 function guardarSitioWeb(editId){
+  if(!state.editing.selectedSolicitanteId){ toast("Selecciona un solicitante para esta solicitud.","error"); return; }
+  const ok = validateFields([
+    {id:"fSwNombre",label:"Nombre del sitio web",required:true},
+    {id:"fSwUrl",label:"Dirección (URL)",type:"url",required:true},
+    {id:"fSwCorreoEnlace",label:"Correo del enlace",type:"email",required:false},
+    {id:"fSwTelEnlace",label:"Teléfono del enlace",type:"phone",required:false}
+  ]);
+  if(!ok) return;
+  const sol = findIn(state.data.solicitantes, state.editing.selectedSolicitanteId);
   const payload = {
     nombre:$("#fSwNombre").value||"Sitio web sin nombre", url:$("#fSwUrl").value, estatus:$("#fSwEstatusForm").value,
     wordpress:$("#fSwWp").value, tema:$("#fSwTema").value, servidor:$("#fSwServidor").value,
     enlace:$("#fSwEnlace").value, correo:$("#fSwCorreoEnlace").value, telefono:$("#fSwTelEnlace").value,
-    fecha:$("#fSwFechaSol").value||todayStr()
+    fecha:$("#fSwFechaSol").value||todayStr(), solicitanteId:sol.id, solicitante:nombreCompleto(sol), dependenciaSolicitante:sol.dependencia
   };
   if(editId){ Object.assign(findIn(state.data.sitiosWeb,editId),payload); toast("Sitio web actualizado."); }
   else { state.data.sitiosWeb.push({id:uid("SW"),...payload,bitacora:[{fecha:todayStr(),hora:nowTime(),usuario:"Administrador",movimiento:"Registro de solicitud",obs:""}]}); toast("Solicitud de sitio web registrada."); }
@@ -1726,8 +1985,10 @@ function abrirTurnarDominio(id){
 function abrirAsignarIpNat(id){
   const d = findIn(state.data.dominios,id);
   openModal({title:"Asignar IP / NAT / SCAN", confirm:"Guardar",
-    body:`${fieldInput("IP","fAsigIp",d.ip)}${fieldInput("NAT","fAsigNat",d.nat)}${fieldSelect("Validar SCAN","fAsigScan",[["si","Sí"],["no","No"]],d.scan?"si":"no")}`,
-    onConfirm:()=>{ d.ip=$("#fAsigIp").value; d.nat=$("#fAsigNat").value; d.scan=$("#fAsigScan").value==="si"; d.bitacora.push({fecha:todayStr(),hora:nowTime(),usuario:"Administrador",movimiento:"Asignación de IP/NAT/SCAN",obs:""}); closeModal(); toast("Datos de red actualizados."); renderDominios(); }});
+    body:`${fieldIp("IP","fAsigIp",d.ip)}${fieldIp("NAT","fAsigNat",d.nat)}${fieldSelect("Validar SCAN","fAsigScan",[["si","Sí"],["no","No"]],d.scan?"si":"no")}`,
+    onConfirm:()=>{
+      if(!validateFields([{id:"fAsigIp",label:"IP",type:"ip",required:false},{id:"fAsigNat",label:"NAT",type:"ip",required:false}])) return;
+      d.ip=$("#fAsigIp").value; d.nat=$("#fAsigNat").value; d.scan=$("#fAsigScan").value==="si"; d.bitacora.push({fecha:todayStr(),hora:nowTime(),usuario:"Administrador",movimiento:"Asignación de IP/NAT/SCAN",obs:""}); closeModal(); toast("Datos de red actualizados."); renderDominios(); }});
 }
 function eliminarDominio(id){
   openModal({title:"Eliminar solicitud", confirmClass:"danger", confirm:"Eliminar",
@@ -1737,22 +1998,19 @@ function eliminarDominio(id){
 function renderDominioForm(tipo,editId){
   const d = editId?findIn(state.data.dominios,editId):null;
   tipo = tipo || d?.tipo || "Dominio";
+  state.editing.selectedSolicitanteId = d ? d.solicitanteId : (state.editing.presetSolicitanteId||null);
+  state.editing.presetSolicitanteId = null;
   content.innerHTML = `
   ${breadcrumb([{label:"Servicios"},{label:"Solicitudes de Dominio y Subdominio",view:"dominios"},{label:"Solicitar "+tipo}])}
   <div class="page-header"><div><h1>Solicitar ${tipo}</h1><p>Completa los datos del solicitante y del proyecto.</p></div>
     <div class="page-actions">${badgeEstatus(d?.estatus||"Registrado")}</div></div>
   <article class="card">
     <h2 style="font-size:15px;margin:0 0 12px">Solicitante</h2>
-    <div class="form-grid">
-      ${fieldInput("Nombre del Solicitante","fDomSolicitante")}
-      ${fieldInput("Dependencia","fDomDependencia")}
-      ${fieldInput("Teléfono","fDomTelSol")}
-      ${fieldInput("Correo electrónico","fDomCorreoSol","","email")}
-    </div>
+    ${solicitanteSelectorBlock("fDom")}
     <h2 style="font-size:15px;margin:22px 0 12px">Datos del ${tipo}</h2>
     ${tipo==="Subdominio"?`<div class="inline-note">Se mostrarán 2 propuestas de subdominio; el sistema arma la vista previa conforme se van escribiendo.</div>`:''}
     <div class="form-grid">
-      ${fieldInput("Nombre del "+tipo,"fDomNombre",d?.nombre,"text","class=full")}
+      ${fieldUrlInput("Nombre del "+tipo,"fDomNombre",d?.nombre,{required:true,full:true})}
       ${fieldInput("Nombre del Proyecto","fDomProyecto")}
       ${fieldSelect("Tipo de servicio","fDomTipoServicio",state.data.catalogosSimples["cat-tipo-servicio"].map(c=>c.nombre))}
       ${fieldTextarea("Descripción del Proyecto","fDomDescripcion")}
@@ -1769,9 +2027,15 @@ function renderDominioForm(tipo,editId){
   </div>`;
 }
 function guardarDominio(tipo,editId){
+  if(!state.editing.selectedSolicitanteId){ toast("Selecciona un solicitante para esta solicitud.","error"); return; }
+  const ok = validateFields([
+    {id:"fDomNombre",label:"Nombre del "+tipo,type:"url",required:true}
+  ]);
+  if(!ok) return;
+  const sol = findIn(state.data.solicitantes, state.editing.selectedSolicitanteId);
   const payload = {
-    dependencia:$("#fDomDependencia").value||"AIIDT", nombre:$("#fDomNombre").value||"nuevo-dominio.tamaulipas.gob.mx",
-    solicitante:$("#fDomSolicitante").value||"Solicitante sin nombre", tipo, estatus:"Registrado",
+    dependencia:sol.dependencia, nombre:$("#fDomNombre").value||"nuevo-dominio.tamaulipas.gob.mx",
+    solicitante:nombreCompleto(sol), solicitanteId:sol.id, tipo, estatus:"Registrado",
     fecha:$("#fDomFechaPub").value||todayStr(), ip:"", nat:"", scan:false, anexos:0
   };
   if(editId){ Object.assign(findIn(state.data.dominios,editId),payload); toast("Solicitud actualizada."); }
@@ -1868,8 +2132,10 @@ function abrirEstatusBD(id){
 function abrirAsignarIpNatBD(id){
   const b = findIn(state.data.basesDatos,id);
   openModal({title:"Asignar IP / NAT", confirm:"Guardar",
-    body:`${fieldInput("IP","fBdIp",b.ip)}${fieldInput("NAT","fBdNat",b.nat)}`,
-    onConfirm:()=>{ b.ip=$("#fBdIp").value; b.nat=$("#fBdNat").value; closeModal(); toast("Datos de red actualizados."); renderBasesDatos(); }});
+    body:`${fieldIp("IP","fBdIp",b.ip)}${fieldIp("NAT","fBdNat",b.nat)}`,
+    onConfirm:()=>{
+      if(!validateFields([{id:"fBdIp",label:"IP",type:"ip",required:false},{id:"fBdNat",label:"NAT",type:"ip",required:false}])) return;
+      b.ip=$("#fBdIp").value; b.nat=$("#fBdNat").value; closeModal(); toast("Datos de red actualizados."); renderBasesDatos(); }});
 }
 function eliminarBaseDatos(id){
   openModal({title:"Eliminar solicitud", confirmClass:"danger", confirm:"Eliminar",
@@ -1878,18 +2144,15 @@ function eliminarBaseDatos(id){
 }
 function renderBaseDatosForm(editId){
   const b = editId?findIn(state.data.basesDatos,editId):null;
+  state.editing.selectedSolicitanteId = b ? b.solicitanteId : (state.editing.presetSolicitanteId||null);
+  state.editing.presetSolicitanteId = null;
   content.innerHTML = `
   ${breadcrumb([{label:"Servicios"},{label:"Solicitudes de Bases de Datos",view:"crear-bd"},{label:"Solicitar Base de Datos"}])}
   <div class="page-header"><div><h1>Solicitar Base de Datos</h1><p>Datos generales y técnicos de la base de datos a crear o alojar.</p></div>
     <div class="page-actions">${badgeEstatus(b?.estatus||"Registrado")}</div></div>
   <article class="card">
     <h2 style="font-size:15px;margin:0 0 12px">Solicitante</h2>
-    <div class="form-grid">
-      ${fieldInput("Nombre del Solicitante","fBdSolicitante")}
-      ${fieldInput("Dependencia","fBdDependencia",b?.dependencia)}
-      ${fieldInput("Teléfono","fBdTelSol")}
-      ${fieldInput("Correo electrónico","fBdCorreoSol","","email")}
-    </div>
+    ${solicitanteSelectorBlock("fBd")}
     <h2 style="font-size:15px;margin:22px 0 12px">Datos de la Base de Datos</h2>
     <div class="form-grid">
       ${fieldInput("Nombre de la Base de Datos","fBdNombre",b?.nombre)}
@@ -1914,9 +2177,19 @@ function renderBaseDatosForm(editId){
   </div>`;
 }
 function guardarBaseDatos(editId){
+  if(!state.editing.selectedSolicitanteId){ toast("Selecciona un solicitante para esta solicitud.","error"); return; }
+  const ok = validateFields([
+    {id:"fBdNombre",label:"Nombre de la Base de Datos",required:true},
+    {id:"fBdUsuarios",label:"Cantidad de usuarios",type:"posint",required:false},
+    {id:"fBdConexiones",label:"Conexiones concurrentes",type:"posint",required:false},
+    {id:"fBdTamano",label:"Tamaño de la BD",type:"posint",required:false}
+  ]);
+  if(!ok) return;
+  const sol = findIn(state.data.solicitantes, state.editing.selectedSolicitanteId);
   const payload = {
-    dependencia:$("#fBdDependencia").value||"AIIDT", nombre:$("#fBdNombre").value||"Nueva base de datos",
+    dependencia:sol.dependencia, nombre:$("#fBdNombre").value||"Nueva base de datos",
     estatus:"Registrado", servidor:$("#fBdServidor").value||"Por asignar", fecha:todayStr(),
+    solicitanteId:sol.id, solicitante:nombreCompleto(sol),
     ip:"", nat:"", scan:false, anexos:0, motor:$("#fBdMotor").value
   };
   if(editId){ Object.assign(findIn(state.data.basesDatos,editId),payload); toast("Solicitud actualizada."); }
@@ -1949,18 +2222,24 @@ function renderVpn(){
     ${paginationFoot(rows.length,"solicitudes de VPN")}
   </article>`;
   $("#vpnSearch").oninput = e=>{ state.search.vpn=e.target.value; renderVpn(); };
+  if(state.editing.autoOpenVpnForm){ state.editing.autoOpenVpnForm=false; abrirSolicitudVpn(); }
 }
 function abrirSolicitudVpn(editId){
   const v = editId?findIn(state.data.vpns,editId):null;
+  state.editing.selectedSolicitanteId = v ? v.solicitanteId : (state.editing.presetSolicitanteId||null);
+  state.editing.presetSolicitanteId = null;
   openModal({title:editId?"Editar solicitud de VPN":"Solicitar VPN", size:"large", confirm:"Guardar",
-    body:`<div class="form-grid">
-      ${fieldInput("Nombre completo","fVpnNombre",v?.nombre,"text","class=full")}
-      ${fieldInput("Correo electrónico","fVpnCorreo",v?.correo,"email")}
-      ${fieldInputPair("Teléfono","fVpnTel",v?.telefono,"Extensión","fVpnExt",v?.ext)}
-      ${fieldTextarea("Observaciones","fVpnObs",v?.observaciones)}
-    </div>`,
+    body:`<h2 style="font-size:14px;margin:0 0 12px">Solicitante</h2>
+      ${solicitanteSelectorBlock("fVpn")}
+      <h2 style="font-size:14px;margin:20px 0 12px">Datos del acceso VPN</h2>
+      <div style="display:grid;gap:14px">
+        ${fieldExt("Extensión","fVpnExt",v?.ext)}
+        ${fieldTextarea("Observaciones","fVpnObs",v?.observaciones)}
+      </div>`,
     onConfirm:()=>{
-      const payload={nombre:$("#fVpnNombre").value||"Solicitante sin nombre",correo:$("#fVpnCorreo").value,telefono:$("#fVpnTel").value,ext:$("#fVpnExt").value,observaciones:$("#fVpnObs").value};
+      if(!state.editing.selectedSolicitanteId){ toast("Selecciona un solicitante para esta solicitud.","error"); return; }
+      const sol = findIn(state.data.solicitantes, state.editing.selectedSolicitanteId);
+      const payload={nombre:nombreCompleto(sol),correo:sol.correo,telefono:sol.telefono,solicitanteId:sol.id,ext:$("#fVpnExt").value,observaciones:$("#fVpnObs").value,fecha:v?.fecha||todayStr()};
       if(editId){ Object.assign(v,payload); toast("Solicitud de VPN actualizada."); }
       else { state.data.vpns.push({id:uid("VPN"),...payload,ip:""}); toast("Solicitud de VPN registrada."); }
       closeModal(); renderVpn();
@@ -1976,8 +2255,8 @@ function verVpn(id){
 }
 function asignarIpVpn(id){
   const v = findIn(state.data.vpns,id);
-  openModal({title:"Asignar IP", confirm:"Guardar", body:fieldInput("IP o grupo de IP","fVpnIp",v.ip),
-    onConfirm:()=>{ v.ip=$("#fVpnIp").value; closeModal(); toast("IP asignada."); renderVpn(); }});
+  openModal({title:"Asignar IP", confirm:"Guardar", body:fieldIp("IP o grupo de IP","fVpnIp",v.ip),
+    onConfirm:()=>{ if(!validateFields([{id:"fVpnIp",label:"IP",type:"ip",required:false}])) return; v.ip=$("#fVpnIp").value; closeModal(); toast("IP asignada."); renderVpn(); }});
 }
 function eliminarVpn(id){
   openModal({title:"Eliminar solicitud de VPN", confirmClass:"danger", confirm:"Eliminar",
@@ -2018,10 +2297,15 @@ function eliminarServidor(id){
 }
 function renderServidorForm(editId){
   const s = editId?findIn(state.data.servidoresSolicitudes,editId):null;
+  state.editing.selectedSolicitanteId = s ? s.solicitanteId : (state.editing.presetSolicitanteId||null);
+  state.editing.presetSolicitanteId = null;
   content.innerHTML = `
   ${breadcrumb([{label:"Servicios"},{label:"Servidores Físicos y Virtuales",view:"servidores"},{label:"Solicitar Servidor"}])}
   <div class="page-header"><div><h1>Solicitar Servidor Físico o Virtual</h1><p>Requerimientos técnicos para el aprovisionamiento del servicio.</p></div></div>
   <article class="card">
+    <h2 style="font-size:15px;margin:0 0 12px">Solicitante</h2>
+    ${solicitanteSelectorBlock("fSrv")}
+    <h2 style="font-size:15px;margin:22px 0 12px">Requerimientos técnicos</h2>
     <div class="form-grid">
       ${fieldInput("No. de Oficio","fSrvOficio")}
       ${fieldInput("Cantidad de CPUs virtuales requeridos","fSrvCpu","","number")}
@@ -2043,7 +2327,15 @@ function renderServidorForm(editId){
   </div>`;
 }
 function guardarServidor(editId){
-  const payload = {dependencia:"AIIDT", solicitante:"Solicitante en captura", servidorAlojamiento:$("#fSrvServidor").value, fecha:todayStr(), anexos:0};
+  if(!state.editing.selectedSolicitanteId){ toast("Selecciona un solicitante para esta solicitud.","error"); return; }
+  const ok = validateFields([
+    {id:"fSrvCpu",label:"Cantidad de CPUs",type:"posint",required:true},
+    {id:"fSrvMem",label:"Memoria requerida",type:"posint",required:true},
+    {id:"fSrvDisco",label:"Almacenamiento requerido",type:"posint",required:false}
+  ]);
+  if(!ok) return;
+  const sol = findIn(state.data.solicitantes, state.editing.selectedSolicitanteId);
+  const payload = {dependencia:sol.dependencia, solicitante:nombreCompleto(sol), solicitanteId:sol.id, servidorAlojamiento:$("#fSrvServidor").value, fecha:todayStr(), anexos:0};
   if(editId){ Object.assign(findIn(state.data.servidoresSolicitudes,editId),payload); toast("Solicitud actualizada."); }
   else { state.data.servidoresSolicitudes.push({id:uid("SRV"),...payload,bitacora:[]}); toast("Solicitud de servidor registrada."); }
   navigate("servidores");
@@ -2086,18 +2378,24 @@ function cambiarContactoRRD(id){
   openModal({title:"Cambiar contacto BD", confirm:"Guardar",
     body:`<div class="form-grid">
       ${fieldInput("Nombre","fRrdCNombre",c.nombre)}${fieldInput("Apellido Paterno","fRrdCApPat",c.apPaterno)}
-      ${fieldInput("Puesto","fRrdCPuesto",c.puesto)}${fieldInput("Correo","fRrdCCorreo",c.correo,"email")}
-      ${fieldInput("Teléfono","fRrdCTel",c.telefono)}</div>`,
-    onConfirm:()=>{ r.contactos[0]={nombre:$("#fRrdCNombre").value,apPaterno:$("#fRrdCApPat").value,puesto:$("#fRrdCPuesto").value,correo:$("#fRrdCCorreo").value,telefono:$("#fRrdCTel").value}; closeModal(); toast("Contacto actualizado."); renderRRD(); }});
+      ${fieldInput("Puesto","fRrdCPuesto",c.puesto)}${fieldEmail("Correo","fRrdCCorreo",c.correo)}
+      ${fieldPhone("Teléfono","fRrdCTel",c.telefono)}</div>`,
+    onConfirm:()=>{
+      if(!validateFields([{id:"fRrdCCorreo",label:"Correo",type:"email",required:false},{id:"fRrdCTel",label:"Teléfono",type:"phone",required:false}])) return;
+      r.contactos[0]={nombre:$("#fRrdCNombre").value,apPaterno:$("#fRrdCApPat").value,puesto:$("#fRrdCPuesto").value,correo:$("#fRrdCCorreo").value,telefono:$("#fRrdCTel").value}; closeModal(); toast("Contacto actualizado."); renderRRD(); }});
 }
 function renderRRDForm(editId){
   const r = editId?findIn(state.data.rrd,editId):null;
+  state.editing.selectedSolicitanteId = r ? r.solicitanteId : (state.editing.presetSolicitanteId||null);
+  state.editing.presetSolicitanteId = null;
   content.innerHTML = `
   ${breadcrumb([{label:"Servicios"},{label:"Respaldo BD (RRD)",view:"rrd"},{label:"Registrar RRD"}])}
   <div class="page-header"><div><h1>${editId?"Detalle de Respaldo BD":"Registrar Respaldo de BD"}</h1><p>Datos de solicitud, contacto responsable y respaldos realizados.</p></div></div>
   <article class="card">
+    <h2 style="font-size:15px;margin:0 0 12px">Solicitante</h2>
+    ${solicitanteSelectorBlock("fRrd")}
+    <h2 style="font-size:15px;margin:22px 0 12px">Datos del Respaldo</h2>
     <div class="form-grid">
-      ${fieldSelect("Dependencia","fRrdDep",DEPENDENCIAS,r?.dependencia)}
       ${fieldInput("Nombre de la Base de Datos","fRrdNombre",r?.nombre)}
       ${fieldInput("Oficio de Solicitud","fRrdOfSol",r?.oficioSolicitud)}
       ${fieldInput("Oficio de Respuesta","fRrdOfResp",r?.oficioRespuesta)}
@@ -2116,7 +2414,11 @@ function renderRRDForm(editId){
   </div>`;
 }
 function guardarRRD(editId){
-  const payload = {dependencia:$("#fRrdDep").value, nombre:$("#fRrdNombre").value||"Base de datos sin nombre", oficioSolicitud:$("#fRrdOfSol").value, oficioRespuesta:$("#fRrdOfResp").value, fecha:$("#fRrdFecha").value||todayStr(), area:$("#fRrdArea").value};
+  if(!state.editing.selectedSolicitanteId){ toast("Selecciona un solicitante para esta solicitud.","error"); return; }
+  const ok = validateFields([{id:"fRrdNombre",label:"Nombre de la Base de Datos",required:true}]);
+  if(!ok) return;
+  const sol = findIn(state.data.solicitantes, state.editing.selectedSolicitanteId);
+  const payload = {dependencia:sol.dependencia, solicitanteId:sol.id, solicitante:nombreCompleto(sol), nombre:$("#fRrdNombre").value||"Base de datos sin nombre", oficioSolicitud:$("#fRrdOfSol").value, oficioRespuesta:$("#fRrdOfResp").value, fecha:$("#fRrdFecha").value||todayStr(), area:$("#fRrdArea").value};
   if(editId){ Object.assign(findIn(state.data.rrd,editId),payload); toast("Registro actualizado."); }
   else { state.data.rrd.push({id:uid("RRD"),...payload,contactos:[],respaldos:[],bitacora:[]}); toast("Respaldo de BD registrado."); }
   navigate("rrd");
@@ -2273,12 +2575,12 @@ function renderActaForm(editId){
     </div>
     <h2 style="font-size:15px;margin:22px 0 12px">Datos Técnicos</h2>
     <div class="form-grid">
-      ${fieldInputPair("IP LAN","fActaIpLan",a?.ipLan,"IP WAN","fActaIpWan",a?.ipWan)}
+      ${fieldInputPair("IP LAN","fActaIpLan",a?.ipLan,"IP WAN","fActaIpWan",a?.ipWan,"1fr 1fr",["ip","ip"])}
       <div class="field"><label>Puertos permitidos / Resultado del análisis</label><div class="field-pair" style="grid-template-columns:1.3fr 1fr">
         <input id="fActaPuertos" value="${a?.puertos??""}" placeholder="Puertos permitidos">
         <select id="fActaResultadoForm">${["Aprobado","Con observaciones","Rechazado"].map(o=>`<option value="${o}" ${o===a?.resultado?"selected":""}>${o}</option>`).join("")}</select>
       </div></div>
-      ${fieldInput("URL","fActaUrl",a?.url,"text","class=full")}
+      ${fieldUrlInput("URL","fActaUrl",a?.url,{required:true,full:true})}
       ${fieldTextarea("Descripción del aplicativo","fActaDescApp",a?.descripcionAplicativo)}
       ${fieldTextarea("Herramientas utilizadas","fActaHerramientas",a?.herramientas)}
       ${fieldTextarea("Descripción del análisis","fActaDescAnalisis",a?.descripcionAnalisis)}
@@ -2296,6 +2598,14 @@ function renderActaForm(editId){
   </div>`;
 }
 function guardarActa(editId){
+  const ok = validateFields([
+    {id:"fActaOficio",label:"Oficio / GLPI",required:true},
+    {id:"fActaSecretaria",label:"Secretaría",required:true},
+    {id:"fActaUrl",label:"URL",type:"url",required:true},
+    {id:"fActaIpLan",label:"IP LAN",type:"ip",required:false},
+    {id:"fActaIpWan",label:"IP WAN",type:"ip",required:false}
+  ]);
+  if(!ok) return;
   syncFirmantesDraft();
   const firmantesValidos = state.editing.firmantesDraft.filter(f=>f.nombre.trim());
   const payload = {
@@ -2683,12 +2993,15 @@ function abrirUsuario(editId){
     body:`<div class="form-grid">
       ${fieldInput("Nombre (s)","fUsrNombre",u?.nombre)}
       ${fieldInput("Nombre de usuario","fUsrUsuario",u?.usuario)}
-      ${fieldInput("Correo electrónico","fUsrEmail",u?.email,"email")}
+      ${fieldEmail("Correo electrónico","fUsrEmail",u?.email,{required:true})}
       ${fieldSelect("Tipo","fUsrTipo",["Administrador","Invitado"],u?.tipo)}
       ${fieldInput("Contraseña","fUsrPass","","password")}
       ${fieldInput("Confirmar Contraseña","fUsrPass2","","password")}
     </div>`,
     onConfirm:()=>{
+      if(!validateFields([{id:"fUsrNombre",label:"Nombre (s)",required:true},{id:"fUsrUsuario",label:"Nombre de usuario",required:true},{id:"fUsrEmail",label:"Correo electrónico",type:"email",required:true}])) return;
+      const pass=$("#fUsrPass").value, pass2=$("#fUsrPass2").value;
+      if(pass && pass!==pass2){ markFieldError($("#fUsrPass2"),"Las contraseñas no coinciden."); toast("Las contraseñas no coinciden.","error"); return; }
       const payload={nombre:$("#fUsrNombre").value||"Sin nombre",usuario:$("#fUsrUsuario").value||"usuario",email:$("#fUsrEmail").value,tipo:$("#fUsrTipo").value};
       if(editId){ Object.assign(u,payload); toast("Usuario actualizado."); }
       else { state.data.usuarios.push({id:uid("USR"),...payload,fecha:todayStr()}); toast("Usuario registrado."); }
