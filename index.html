@@ -761,6 +761,17 @@ select{padding-top:9px;padding-bottom:9px;line-height:1.3}
 .context-banner strong{display:block;font-size:12.5px;color:var(--ink)}
 .context-banner span{display:block;font-size:11px;color:var(--muted);margin-top:2px}
 
+/* ===== Selector de rol/perfil ===== */
+.role-switch-list{display:grid;gap:10px}
+.role-switch-option{display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:9px;padding:12px 14px;background:#fff;text-align:left;width:100%}
+.role-switch-option:hover{border-color:var(--brand)}
+.role-switch-option.active{border-color:var(--brand);background:var(--red-bg)}
+.role-switch-avatar{width:38px;height:38px;border-radius:50%;background:var(--brand-dark);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;flex-shrink:0}
+.role-switch-info{flex:1;display:grid;gap:2px}
+.role-switch-info strong{font-size:13px;color:var(--ink)}
+.role-switch-info small{font-size:11.5px;color:var(--muted)}
+.role-switch-check{color:var(--green);flex-shrink:0}
+
 /* ===== Dashboard v2 (inspirado en Frest) ===== */
 .kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
 .kpi-card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:20px 20px 18px;position:relative;overflow:hidden}
@@ -1533,6 +1544,27 @@ function getHistorialForSolicitante(id){
   return rows.sort((a,b)=>(a.fecha<b.fecha?1:-1));
 }
 /* ================= Navegación ================= */
+const ROLES = {
+  admin:{key:"admin",label:"Administrador",subtitle:"Administrador general",initials:"AD",
+    allowedViews:null, groups:null, serviciosItems:null},
+  jefe:{key:"jefe",label:"Jefe Dpto",subtitle:"Jefe de Departamento de Servicios e Inventarios",initials:"JD",
+    allowedViews:[
+      "dashboard","solicitantes","solicitantes-form","historial","solicitudes",
+      "sitios-web","sitios-web-form","sitios-web-bitacora",
+      "dominios","dominios-form","dominios-detalle",
+      "crear-bd","crear-bd-form",
+      "servidores","servidores-form",
+      "rrd","rrd-form",
+      "vpn",
+      "actas-seguridad","actas-seguridad-form","actas-seguridad-print",
+      "inv-software","inv-software-form",
+      "inv-hardware","inv-hardware-form",
+      "reportes"
+    ],
+    groups:["servicios","inventarios"], serviciosItems:null}
+};
+const TIPOS_POR_MODULO = {"sitios-web":["Sitio Web"],"dominios":["Dominio","Subdominio"],"crear-bd":["Base de Datos"],"servidores":["Servidor"],"rrd":["RRD"],"vpn":["VPN"],"actas-seguridad":["Protocolo de Seguridad"]};
+function currentRole(){ return ROLES[state.currentRole||"admin"]; }
 const navConfig = [
   {view:"dashboard", icon:"home", label:"Inicio"},
   {view:"solicitantes", icon:"users", label:"Solicitantes"},
@@ -1574,16 +1606,21 @@ const groupOf = {};
 navConfig.forEach(item=>{ if(item.group) item.items.forEach(([key])=>groupOf[key]=item.group); });
 
 function renderNavigation(){
-  $("#mainNav").innerHTML = navConfig.map(entry=>{
+  const role = currentRole();
+  $("#mainNav").innerHTML = navConfig.filter(entry=>{
+    if(entry.group) return !role.groups || role.groups.includes(entry.group);
+    return !role.allowedViews || role.allowedViews.includes(entry.view);
+  }).map(entry=>{
     if(entry.group){
       const expanded = state.expandedMenus[entry.group];
       const activeInGroup = groupOf[state.view]===entry.group;
+      const items = (entry.group==="servicios" && role.serviciosItems) ? entry.items.filter(([key])=>role.serviciosItems.includes(key)) : entry.items;
       return `<div class="nav-group ${expanded?"expanded":""}">
         <button data-menu-toggle="${entry.group}" class="nav-item nav-parent ${activeInGroup?"active":""}" aria-expanded="${expanded}">
           <span>${icon(entry.icon)}</span>${entry.label}<b class="nav-chevron">${icon("chevron-down")}</b>
         </button>
         <div class="nav-submenu" ${expanded?"":"hidden"}>
-          ${entry.items.map(([key,label])=>`<button class="nav-subitem ${state.view===key?"active":""}" onclick="navigate('${key}')"><span style="pointer-events:none"></span><span style="pointer-events:none">${label}</span></button>`).join("")}
+          ${items.map(([key,label])=>`<button class="nav-subitem ${state.view===key?"active":""}" onclick="navigate('${key}')"><span style="pointer-events:none"></span><span style="pointer-events:none">${label}</span></button>`).join("")}
         </div>
       </div>`;
     }
@@ -1635,6 +1672,11 @@ const renderers = {
 };
 
 function navigate(view){
+  const role = currentRole();
+  if(role.allowedViews && !role.allowedViews.includes(view)){
+    toast("No tienes permisos para acceder a ese módulo con tu rol actual.","error");
+    view = "dashboard";
+  }
   state.view = view;
   const group = groupOf[view];
   if(group) state.expandedMenus[group]=true;
@@ -1712,10 +1754,28 @@ $("#notificationsButton").onclick = ()=>openModal({
   onConfirm:()=>{ $("#notificationCount").textContent="0"; closeModal(); toast("Notificaciones marcadas como leídas."); }
 });
 $("#profileButton").onclick = ()=>openModal({
-  title:"Perfil", subtitle:"Información de la sesión actual", confirm:"Cerrar",
-  body:`<div class="current-profile"><span>AD</span><div><small>Usuario</small><strong>Administrador</strong><p>Administrador general · Servicios AIIDT</p></div></div>`,
-  onConfirm:closeModal
+  title:"Cambiar de perfil", subtitle:"Selecciona con qué rol quieres ver el sistema (solo para fines de demostración)", confirm:"",
+  body:`<div class="role-switch-list">${Object.values(ROLES).map(r=>`
+    <button type="button" class="role-switch-option ${state.currentRole===r.key||(!state.currentRole&&r.key==="admin")?"active":""}" onclick="cambiarRol('${r.key}')">
+      <span class="role-switch-avatar">${r.initials}</span>
+      <span class="role-switch-info"><strong>${r.label}</strong><small>${r.subtitle}</small></span>
+      ${(state.currentRole===r.key||(!state.currentRole&&r.key==="admin"))?`<span class="role-switch-check">${icon("check-circle")}</span>`:""}
+    </button>`).join("")}</div>
+    <p class="inline-note" style="margin-top:14px">El rol "Jefe Dpto" tiene acceso a todos los módulos de Servicios e Inventarios; no ve Catálogos ni Administrador (Usuarios/Permisos).</p>`,
+  onConfirm:null
 });
+function cambiarRol(key){
+  if(state.currentRole===key){ closeModal(); return; }
+  state.currentRole = key;
+  const role = ROLES[key];
+  $("#profileName").textContent = role.label;
+  $("#profileRole").textContent = role.subtitle;
+  $("#profileInitials").textContent = role.initials;
+  closeModal();
+  renderNavigation();
+  navigate("dashboard");
+  toast(`Ahora estás viendo el sistema como ${role.label}.`);
+}
 /* ================= Dashboard ================= */
 function estatusProgress(estatus){
   const map = {"Registrado":25,"Con observaciones":50,"Validado":55,"Turnado":60,"Autorizado":80,"IP asignada":80,"Notificado":100};
@@ -1741,6 +1801,14 @@ function getAllActivity(){
   d.actasSeguridad.forEach(x=>rows.push({solicitante:x.contacto,tipo:"Protocolo de Seguridad",dependencia:x.secretaria,fecha:x.fecha,estatus:x.estatus}));
   d.solicitudes.forEach(x=>rows.push({solicitante:x.solicitante,tipo:x.tipo,dependencia:x.dependencia,fecha:x.fecha,estatus:x.estatus}));
   return rows;
+}
+/** Actividad visible según el rol activo: el Administrador ve todo; un rol con módulos limitados solo ve sus tipos de servicio. */
+function scopedActivity(){
+  const all = getAllActivity();
+  const role = currentRole();
+  if(!role.serviciosItems) return all;
+  const allowedTipos = role.serviciosItems.flatMap(k=>TIPOS_POR_MODULO[k]||[]);
+  return all.filter(r=>allowedTipos.includes(r.tipo));
 }
 function kpiCard({iconName,color,bg,value,label,trend,up}){
   return `<article class="kpi-card" style="--kpi-color:${color};--kpi-bg:${bg}">
@@ -1789,25 +1857,33 @@ const COMBO_DATASETS = {
 };
 function renderDashboard(){
   const d = state.data;
+  const role = currentRole();
+  const scoped = !!role.serviciosItems;
+  const isAlt = (state.currentRole||"admin")!=="admin";
   state.dashTab = state.dashTab || "nuevas";
   state.comboPeriod = state.comboPeriod || "6m";
   state.dashSort = state.dashSort || {field:"fecha",dir:"desc"};
 
-  const totalSolicitudes = d.solicitudes.length + d.sitiosWeb.length + d.dominios.length + d.basesDatos.length + d.vpns.length + d.servidoresSolicitudes.length + d.rrd.length;
-  const atendidas = getAllActivity().filter(r=>["Autorizado","Notificado","IP asignada"].includes(r.estatus)).length;
+  const activity = scopedActivity();
+  const totalSolicitudes = activity.length;
+  const atendidas = activity.filter(r=>["Autorizado","Notificado","IP asignada"].includes(r.estatus)).length;
   const solicitantesRegistrados = d.solicitantes.length + 47;
   const actasAprobadas = d.actasSeguridad.filter(a=>a.resultado==="Aprobado").length;
 
-  /* ---- KPIs ---- */
-  const kpis = [
+  /* ---- KPIs (varían según el rol) ---- */
+  const kpis = (scoped ? [
+    kpiCard({iconName:"clipboard",color:"var(--brand)",bg:"var(--red-bg)",value:totalSolicitudes,label:"Solicitudes de mis módulos",trend:"+11.4%",up:true}),
+    kpiCard({iconName:"check-circle",color:"var(--green)",bg:"var(--green-bg)",value:atendidas,label:"Solicitudes Atendidas",trend:"+7.2%",up:true}),
+    kpiCard({iconName:"globe",color:"var(--blue)",bg:"var(--blue-bg)",value:d.sitiosWeb.filter(s=>s.estatus==="Activo").length,label:"Sitios Web Activos",trend:"+2.0%",up:true}),
+    kpiCard({iconName:"link",color:"var(--gold)",bg:"#FAF0DB",value:d.dominios.filter(x=>["Validado","Autorizado","Notificado"].includes(x.estatus)).length,label:"Dominios Validados",trend:"+5.5%",up:true})
+  ] : [
     kpiCard({iconName:"clipboard",color:"var(--brand)",bg:"var(--red-bg)",value:totalSolicitudes,label:"Total de Solicitudes",trend:"+18.2%",up:true}),
     kpiCard({iconName:"check-circle",color:"var(--green)",bg:"var(--green-bg)",value:atendidas,label:"Solicitudes Atendidas",trend:"+9.4%",up:true}),
     kpiCard({iconName:"users",color:"var(--blue)",bg:"var(--blue-bg)",value:solicitantesRegistrados,label:"Solicitantes Registrados",trend:"+4.1%",up:true}),
     kpiCard({iconName:"shield",color:"var(--gold)",bg:"#FAF0DB",value:actasAprobadas,label:"Protocolos de Seguridad Aprobados",trend:"-2.5%",up:false})
-  ].join("");
+  ]).join("");
 
   /* ---- Resumen de solicitudes (barra segmentada) ---- */
-  const activity = getAllActivity();
   const estGroups = [
     {key:"Registrado",label:"Registrado",color:"#C7CBD2",icon:"clock"},
     {key:"Validado",label:"Validado / En revisión",color:"var(--blue)",icon:"eye"},
@@ -1824,8 +1900,8 @@ function renderDashboard(){
     <span class="ov-pct">${estTotal?Math.round(estCounts[i]/estTotal*100):0}%</span>
   </div>`).join("");
 
-  /* ---- Donut: distribución por tipo de servicio ---- */
-  const donutData = [
+  /* ---- Donut: distribución por tipo de servicio (varía según el rol) ---- */
+  const donutDataFull = [
     {label:"Dominios y Subdominios",count:d.dominios.length,color:"var(--brand)"},
     {label:"Sitios Web",count:d.sitiosWeb.length,color:"var(--blue)"},
     {label:"Bases de Datos",count:d.basesDatos.length,color:"var(--gold)"},
@@ -1833,6 +1909,10 @@ function renderDashboard(){
     {label:"Servidores",count:d.servidoresSolicitudes.length,color:"var(--amber)"},
     {label:"RRD",count:d.rrd.length,color:"var(--muted)"}
   ];
+  const donutData = scoped ? [
+    {label:"Dominios y Subdominios",count:d.dominios.length,color:"var(--brand)"},
+    {label:"Sitios Web",count:d.sitiosWeb.length,color:"var(--blue)"}
+  ] : donutDataFull;
   const donutTotal = donutData.reduce((a,b)=>a+b.count,0)||1;
   let acc=0;
   const gradientParts = donutData.map(seg=>{
@@ -1844,18 +1924,24 @@ function renderDashboard(){
   /* ---- Combo chart ---- */
   const combo = COMBO_DATASETS[state.comboPeriod];
 
-  /* ---- Rendimiento de atención ---- */
+  /* ---- Rendimiento de atención (varía según el rol) ---- */
   const enTramite = activity.filter(r=>["Registrado","Validado","Con observaciones","Turnado"].includes(r.estatus)).length;
   const tasaAprobacion = Math.round((atendidas/(totalSolicitudes||1))*100);
-  const perfItems = [
+  const perfSource = scoped ? [
+    {icon:"clock",color:"var(--blue)",bg:"var(--blue-bg)",label:"Solicitudes en trámite",value:enTramite,trend:"+4.0%",up:true},
+    {icon:"check-circle",color:"var(--green)",bg:"var(--green-bg)",label:"Solicitudes atendidas",value:atendidas,trend:"+7.2%",up:true},
+    {icon:"chart",color:"var(--amber)",bg:"var(--amber-bg)",label:"Tasa de aprobación",value:tasaAprobacion+"%",trend:"+2.1%",up:true},
+    {icon:"globe",color:"var(--blue)",bg:"var(--blue-bg)",label:"Sitios Web activos",value:d.sitiosWeb.filter(s=>s.estatus==="Activo").length,trend:"+1.0%",up:true}
+  ] : [
     {icon:"clock",color:"var(--blue)",bg:"var(--blue-bg)",label:"Solicitudes en trámite",value:enTramite,trend:"+6.1%",up:true},
     {icon:"check-circle",color:"var(--green)",bg:"var(--green-bg)",label:"Solicitudes atendidas",value:atendidas,trend:"+9.4%",up:true},
     {icon:"chart",color:"var(--amber)",bg:"var(--amber-bg)",label:"Tasa de aprobación",value:tasaAprobacion+"%",trend:"+3.2%",up:true},
     {icon:"shield",color:"var(--gold)",bg:"#FAF0DB",label:"Protocolos aprobados",value:actasAprobadas,trend:"-2.5%",up:false},
     {icon:"users",color:"var(--brand)",bg:"var(--red-bg)",label:"Solicitantes atendidos",value:solicitantesRegistrados-3,trend:"+5.7%",up:true}
-  ].map(p=>`<div class="perf-item">
+  ];
+  const perfItems = perfSource.map(p=>`<div class="perf-item">
     <span class="perf-icon" style="background:${p.bg};color:${p.color}">${icon(p.icon)}</span>
-    <div class="perf-info"><strong>${p.label}</strong><span class="${p.up?"":"" }" style="color:${p.up?"var(--green)":"var(--red)"}">${icon(p.up?"check-circle":"alert")} ${p.trend}</span></div>
+    <div class="perf-info"><strong>${p.label}</strong><span style="color:${p.up?"var(--green)":"var(--red)"}">${icon(p.up?"check-circle":"alert")} ${p.trend}</span></div>
     <span class="perf-value">${p.value}</span>
   </div>`).join("");
 
@@ -1881,10 +1967,14 @@ function renderDashboard(){
     <td><span class="mini-progress"><span style="width:${estatusProgress(r.estatus)}%"></span></span>${estatusProgress(r.estatus)}%</td>
   </tr>`).join("");
 
+  const subtitulo = isAlt
+    ? `Resumen de solicitudes y servicios que administra tu departamento (Servicios e Inventarios).`
+    : `Resumen de solicitudes y servicios gestionados por AIIDT.`;
+
   content.innerHTML = `
   ${breadcrumb([{label:"Inicio"}])}
-  <div class="page-header"><div><h1>Panel general</h1><p>Resumen de solicitudes y servicios gestionados por AIIDT.</p></div>
-    <div class="page-actions"><span class="dashboard-date">${icon("calendar")} ${todayStr()}</span></div>
+  <div class="page-header"><div><h1>Panel general</h1><p>${subtitulo}</p></div>
+    <div class="page-actions">${isAlt?`<span class="badge review">${icon("users")} Vista: ${role.label}</span>`:""}<span class="dashboard-date">${icon("calendar")} ${todayStr()}</span></div>
   </div>
 
   <div class="kpi-grid">${kpis}</div>
@@ -1923,7 +2013,7 @@ function renderDashboard(){
   </div>
 
   <article class="card" style="margin-top:18px">
-    <div class="card-title-row"><div><h2>Actividad por Dependencia</h2><p>${activity.length} solicitudes registradas en total.</p></div></div>
+    <div class="card-title-row"><div><h2>Actividad por Dependencia</h2><p>${activity.length} solicitudes ${isAlt?"de tu departamento":"registradas en total"}.</p></div></div>
     <div class="tabs-card-nav">
       <button class="${state.dashTab==="nuevas"?"active":""}" onclick="state.dashTab='nuevas';renderDashboard()">Nuevas</button>
       <button class="${state.dashTab==="proceso"?"active":""}" onclick="state.dashTab='proceso';renderDashboard()">En proceso</button>
@@ -1933,8 +2023,8 @@ function renderDashboard(){
   </article>
 
   <article class="card table-card" style="margin-top:18px">
-    <div class="card-title-row" style="padding:20px 22px 0"><div><h2>Solicitudes Recientes</h2><p>Últimos movimientos registrados en el sistema.</p></div>
-      <button class="button secondary" onclick="navigate('solicitudes')">Ver todas</button>
+    <div class="card-title-row" style="padding:20px 22px 0"><div><h2>Solicitudes Recientes</h2><p>Últimos movimientos ${isAlt?"de tu departamento":"registrados en el sistema"}.</p></div>
+      ${role.allowedViews===null||role.allowedViews.includes("solicitudes")?`<button class="button secondary" onclick="navigate('solicitudes')">Ver todas</button>`:""}
     </div>
     <div class="table-wrap" style="margin-top:14px"><table>
       <thead><tr>
