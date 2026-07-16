@@ -755,6 +755,90 @@ tbody tr:hover{background:#FCF8F9}
 /* ===== Corrección: texto recortado en selects (padding vertical insuficiente) ===== */
 select{padding-top:9px;padding-bottom:9px;line-height:1.3}
 
+/* ===== Encabezado de contexto (Dependencia/Solicitante) ===== */
+.context-banner{display:inline-flex;align-items:center;gap:12px;background:var(--blue-bg);border:1px solid #BEE0F7;border-radius:9px;padding:10px 16px;margin-top:12px;max-width:100%}
+.context-banner-icon{width:36px;height:36px;border-radius:8px;background:#fff;color:var(--blue);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.context-banner strong{display:block;font-size:12.5px;color:var(--ink)}
+.context-banner span{display:block;font-size:11px;color:var(--muted);margin-top:2px}
+
+/* ===== Dashboard v2 (inspirado en Frest) ===== */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.kpi-card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:20px 20px 18px;position:relative;overflow:hidden}
+.kpi-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--kpi-color,var(--brand))}
+.kpi-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:var(--kpi-bg,var(--red-bg));color:var(--kpi-color,var(--brand));margin-bottom:14px}
+.kpi-icon .icon{width:22px;height:22px}
+.kpi-card strong{display:block;font-size:26px;color:var(--ink);line-height:1.1}
+.kpi-card p{margin:4px 0 10px;color:var(--gray);font-size:12.5px}
+.kpi-trend{font-size:11.5px;color:var(--muted);display:flex;align-items:center;gap:5px}
+.kpi-trend b{font-weight:800}
+.kpi-trend.up b{color:var(--green)}
+.kpi-trend.down b{color:var(--red)}
+
+.card-menu{width:30px;height:30px;border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--muted);flex-shrink:0}
+.card-menu:hover{background:var(--page);color:var(--ink)}
+.card-title-row{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:18px}
+.card-title-row h2{margin:0;font-size:15px}
+.card-title-row p{margin:3px 0 0;font-size:12px;color:var(--muted)}
+
+.overview-segbar{display:flex;height:34px;border-radius:7px;overflow:hidden;margin-bottom:20px}
+.overview-segbar span{display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:800;color:#fff;transition:flex-grow .2s}
+.overview-segbar span.muted-seg{color:var(--gray);background:#EDEFF3 !important}
+.overview-rows{display:grid;gap:14px}
+.overview-row{display:flex;align-items:center;gap:12px;font-size:12.5px}
+.overview-row .dot{width:9px;height:9px;border-radius:3px;flex-shrink:0}
+.overview-row .ov-label{display:flex;align-items:center;gap:8px;flex:1;color:var(--ink);font-weight:600}
+.overview-row .ov-value{font-weight:800;color:var(--ink);width:70px;text-align:right}
+.overview-row .ov-pct{color:var(--muted);width:48px;text-align:right}
+
+.donut-ring{width:168px;height:168px;border-radius:50%;position:relative;margin:6px auto 4px;flex-shrink:0}
+.donut-center{position:absolute;inset:28px;background:#fff;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.donut-center strong{font-size:22px;color:var(--ink);line-height:1}
+.donut-center small{font-size:9.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-top:4px}
+.donut-legend-v2{display:grid;gap:9px;margin-top:18px}
+.donut-legend-v2 .leg-row{display:flex;align-items:center;gap:9px;font-size:12px;color:var(--gray)}
+.donut-legend-v2 .leg-row i{width:9px;height:9px;border-radius:3px;flex-shrink:0}
+.donut-legend-v2 .leg-row b{margin-left:auto;color:var(--ink);font-weight:800}
+
+.combo-chart-toolbar{display:flex;justify-content:flex-end;margin-bottom:6px}
+.combo-chart-toolbar select{width:auto;height:36px;font-size:12px;padding-top:7px;padding-bottom:7px}
+.combo-legend{display:flex;gap:10px;margin-top:12px}
+.combo-legend button{border:1px solid var(--line);background:#fff;border-radius:20px;padding:7px 16px;font-size:11.5px;font-weight:700;display:flex;align-items:center;gap:7px;color:var(--gray)}
+.combo-legend button i{width:9px;height:9px;border-radius:3px}
+.combo-legend button.active{border-color:transparent;background:var(--page);color:var(--ink)}
+
+.perf-list{display:grid;gap:16px}
+.perf-item{display:flex;align-items:center;gap:12px}
+.perf-icon{width:38px;height:38px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.perf-icon .icon{width:18px;height:18px}
+.perf-info{flex:1;min-width:0}
+.perf-info strong{display:block;font-size:12.5px;color:var(--ink);font-weight:700}
+.perf-info span{display:flex;align-items:center;gap:4px;font-size:11px;margin-top:2px}
+.perf-value{font-weight:800;font-size:14px;color:var(--ink);white-space:nowrap}
+
+.tabs-card-nav{display:flex;gap:22px;border-bottom:1px solid var(--line);margin-bottom:16px}
+.tabs-card-nav button{padding:0 0 12px;font-size:12.5px;font-weight:700;color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-1px}
+.tabs-card-nav button.active{color:var(--brand);border-color:var(--brand)}
+.activity-list{display:grid;gap:0}
+.activity-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:14px 0;border-bottom:1px dashed var(--line)}
+.activity-row:last-child{border-bottom:0;padding-bottom:0}
+.activity-col small{display:flex;align-items:center;gap:6px;font-size:9.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px}
+.activity-col small.tag-from{color:var(--green)}
+.activity-col small.tag-to{color:var(--blue)}
+.activity-col strong{display:block;font-size:12.5px;color:var(--ink)}
+.activity-col span{display:block;font-size:11.5px;color:var(--muted);margin-top:2px}
+
+.avatar-circle{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;flex-shrink:0}
+.sortable-th{display:inline-flex;align-items:center;gap:6px;cursor:pointer;user-select:none}
+.sort-carets{display:flex;flex-direction:column;line-height:.6;color:#C7CBD2}
+.sort-carets .active-caret{color:var(--brand)}
+.sort-carets svg{width:9px;height:9px}
+.mini-progress{width:100px;height:7px;background:#EDEFF3;border-radius:4px;overflow:hidden;display:inline-block;vertical-align:middle;margin-right:8px}
+.mini-progress span{display:block;height:100%;background:var(--brand);border-radius:4px}
+.warn-chip{display:inline-block;padding:3px 10px;border-radius:5px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.03em}
+
+@media (max-width:1100px){.kpi-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:760px){.kpi-grid{grid-template-columns:1fr}.activity-row{grid-template-columns:1fr}}
+
 </style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1051,6 +1135,107 @@ function filtersBlock(id,fieldsHtml,{onSearch="",extraToolbar="",activeCount=0}=
 const DEPENDENCIAS = ["Secretaría de Administración","Secretaría de Finanzas","Secretaría de Educación","Secretaría de Seguridad Pública","Secretaría de Obras Públicas","Secretaría de Salud","Sistema DIF Tamaulipas","AIIDT"];
 const MUNICIPIOS = ["Victoria","Tampico","Reynosa","Matamoros","Nuevo Laredo","Ciudad Madero"];
 
+/**
+ * Catálogo organizacional en cascada (Secretaría → Subsecretaría → Dirección General → Dirección de Área → Departamento).
+ * NOTA: en el sistema real este catálogo se obtiene de la API institucional de estructura orgánica;
+ * aquí se simula localmente con la misma forma/jerarquía para poder ejemplificar el filtrado en cascada.
+ */
+const ORG_CATALOG = {
+  "Secretaría de Administración":{
+    "Subsecretaría de Recursos Humanos":{
+      "Dirección General de Administración de Personal":{
+        "Dirección de Área de Nóminas":["Departamento de Control de Pagos","Departamento de Prestaciones"],
+        "Dirección de Área de Reclutamiento":["Departamento de Selección de Personal"]
+      }
+    },
+    "Subsecretaría de Recursos Materiales":{
+      "Dirección General de Adquisiciones":{
+        "Dirección de Área de Compras":["Departamento de Licitaciones","Departamento de Proveedores"]
+      }
+    }
+  },
+  "Secretaría de Finanzas":{
+    "Subsecretaría de Ingresos":{
+      "Dirección General de Recaudación":{
+        "Dirección de Área de Fiscalización":["Departamento de Auditoría Fiscal"]
+      }
+    },
+    "Subsecretaría de Egresos":{
+      "Dirección General de Presupuesto":{
+        "Dirección de Área de Programación":["Departamento de Control Presupuestal"]
+      }
+    }
+  },
+  "Secretaría de Educación":{
+    "Subsecretaría de Educación Básica":{
+      "Dirección General de Innovación Educativa":{
+        "Dirección de Área de Tecnología Educativa":["Departamento de Plataformas Digitales","Departamento de Soporte Técnico"]
+      }
+    },
+    "Subsecretaría de Educación Media Superior":{
+      "Dirección General de Bachillerato":{
+        "Dirección de Área de Planeación":["Departamento de Estadística Educativa"]
+      }
+    }
+  },
+  "AIIDT":{
+    "Subsecretaría de Innovación Digital":{
+      "Dirección General de Sistemas":{
+        "Dirección de Área de Desarrollo":["Departamento de Desarrollo de Software","Departamento de Seguridad Informática"],
+        "Dirección de Área de Infraestructura":["Departamento de Centro de Datos","Departamento de Redes"]
+      }
+    }
+  },
+  "Secretaría de Seguridad Pública":{
+    "Subsecretaría de Prevención y Reinserción Social":{
+      "Dirección General de Prevención del Delito":{
+        "Dirección de Área de Vinculación Ciudadana":["Departamento de Programas Comunitarios","Departamento de Atención a Víctimas"]
+      }
+    },
+    "Subsecretaría de Operación Policial":{
+      "Dirección General de la Policía Estatal":{
+        "Dirección de Área de Inteligencia":["Departamento de Análisis Táctico","Departamento de Videovigilancia"]
+      }
+    }
+  },
+  "Secretaría de Obras Públicas":{
+    "Subsecretaría de Infraestructura":{
+      "Dirección General de Construcción":{
+        "Dirección de Área de Obra Civil":["Departamento de Supervisión de Obra","Departamento de Costos y Presupuestos"]
+      }
+    },
+    "Subsecretaría de Desarrollo Urbano":{
+      "Dirección General de Ordenamiento Territorial":{
+        "Dirección de Área de Proyectos Urbanos":["Departamento de Licencias y Permisos"]
+      }
+    }
+  },
+  "Secretaría de Salud":{
+    "Subsecretaría de Servicios de Salud":{
+      "Dirección General de Atención Médica":{
+        "Dirección de Área de Hospitales":["Departamento de Regulación Sanitaria","Departamento de Insumos Médicos"]
+      }
+    },
+    "Subsecretaría de Salud Pública":{
+      "Dirección General de Epidemiología":{
+        "Dirección de Área de Vigilancia Sanitaria":["Departamento de Estadísticas de Salud"]
+      }
+    }
+  },
+  "Sistema DIF Tamaulipas":{
+    "Subsecretaría de Asistencia Social":{
+      "Dirección General de Atención a Grupos Vulnerables":{
+        "Dirección de Área de Protección a la Infancia":["Departamento de Procuraduría de Protección","Departamento de Centros Asistenciales"]
+      }
+    }
+  }
+};
+/** Devuelve las opciones del siguiente nivel dado el objeto/arreglo del nivel actual. */
+function orgLevelOptions(node){
+  if(!node) return [];
+  return Array.isArray(node) ? node : Object.keys(node);
+}
+
 const state = {
   view:"dashboard",
   expandedMenus:{servicios:true,inventarios:false,catalogos:false,admin:false},
@@ -1060,9 +1245,9 @@ const state = {
   search:{},
   data:{
     solicitantes:[
-      {id:uid("SOL"),curp:"PEPJ850101HTLRRN02",numEmpleado:"10234",nombre:"Juan",apPaterno:"Pérez",apMaterno:"Pérez",puesto:"Director General",telefono:"8341234567",ext:"1200",correo:"juan.perez@tam.gob.mx",dependencia:"Secretaría de Finanzas",municipio:"Victoria",area:"Dirección de Sistemas"},
-      {id:uid("SOL"),curp:"GORL900212MTLNZS08",numEmpleado:"10897",nombre:"Laura",apPaterno:"González",apMaterno:"Ramírez",puesto:"Jefa de Departamento",telefono:"8342345678",ext:"1310",correo:"laura.gonzalez@tam.gob.mx",dependencia:"Secretaría de Educación",municipio:"Victoria",area:"Prestaciones"},
-      {id:uid("SOL"),curp:"HEML881125HTLRRS03",numEmpleado:"11045",nombre:"Miguel",apPaterno:"Hernández",apMaterno:"López",puesto:"Enlace de Tecnología",telefono:"8343456789",ext:"1420",correo:"miguel.hernandez@tam.gob.mx",dependencia:"Secretaría de Administración",municipio:"Victoria",area:"Informática"}
+      {id:uid("SOL"),curp:"PEPJ850101HTLRRN02",numEmpleado:"10234",nombre:"Juan",apPaterno:"Pérez",apMaterno:"Pérez",puesto:"Director General",telefono:"8341234567",ext:"1200",correo:"juan.perez@tam.gob.mx",dependencia:"Secretaría de Finanzas",secretaria:"Secretaría de Finanzas",subsecretaria:"Subsecretaría de Egresos",direccionGeneral:"Dirección General de Presupuesto",direccionArea:"Dirección de Área de Programación",departamento:"Departamento de Control Presupuestal",municipio:"Victoria",area:"Departamento de Control Presupuestal"},
+      {id:uid("SOL"),curp:"GORL900212MTLNZS08",numEmpleado:"10897",nombre:"Laura",apPaterno:"González",apMaterno:"Ramírez",puesto:"Jefa de Departamento",telefono:"8342345678",ext:"1310",correo:"laura.gonzalez@tam.gob.mx",dependencia:"Secretaría de Educación",secretaria:"Secretaría de Educación",subsecretaria:"Subsecretaría de Educación Básica",direccionGeneral:"Dirección General de Innovación Educativa",direccionArea:"Dirección de Área de Tecnología Educativa",departamento:"Departamento de Plataformas Digitales",municipio:"Victoria",area:"Departamento de Plataformas Digitales"},
+      {id:uid("SOL"),curp:"HEML881125HTLRRS03",numEmpleado:"11045",nombre:"Miguel",apPaterno:"Hernández",apMaterno:"López",puesto:"Enlace de Tecnología",telefono:"8343456789",ext:"1420",correo:"miguel.hernandez@tam.gob.mx",dependencia:"Secretaría de Administración",secretaria:"Secretaría de Administración",subsecretaria:"Subsecretaría de Recursos Materiales",direccionGeneral:"Dirección General de Adquisiciones",direccionArea:"Dirección de Área de Compras",departamento:"Departamento de Licitaciones",municipio:"Victoria",area:"Departamento de Licitaciones"}
     ],
     historial:{},
     solicitudes:[
@@ -1133,8 +1318,8 @@ const state = {
       {id:uid("SW-INV"),dependencia:"Secretaría de Finanzas",nombre:"SIAFIN",siglas:"SIAFIN",descripcion:"Sistema Integral de Administración Financiera",estatus:"Producción",contacto:"Juan Pérez Pérez",programador:"Empresa Externa",responsable:"Dirección de Finanzas"}
     ],
     hardwareInv:[
-      {id:uid("HW"),categoria:"Computadora",subcategoria:"Laptop",marca:"HP",serie:"MXL12345",fabricante:"HP",modelo:"HP Compaq 123"},
-      {id:uid("HW"),categoria:"Servidor",subcategoria:"Físico",marca:"Dell",serie:"DLL98765",fabricante:"Dell",modelo:"PowerEdge R740"}
+      {id:uid("HW"),categoria:"Computadora",subcategoria:"Laptop",campos:{"Marca":"HP","Número de serie":"MXL12345","Modelo":"HP Compaq 123","Fabricante":"HP"}},
+      {id:uid("HW"),categoria:"Servidor",subcategoria:"Físico",campos:{"Nombre del servidor":"Ceres-02"}}
     ],
     categorias:[
       {id:uid("CAT"),nombre:"Computadora",subcategorias:[{id:uid("SUB"),nombre:"Escritorio"},{id:uid("SUB"),nombre:"Laptop"}]},
@@ -1144,7 +1329,12 @@ const state = {
       {id:uid("CMP"),categoria:"Computadora",subcategoria:"Laptop",nombre:"Marca"},
       {id:uid("CMP"),categoria:"Computadora",subcategoria:"Laptop",nombre:"Número de serie"},
       {id:uid("CMP"),categoria:"Computadora",subcategoria:"Laptop",nombre:"Modelo"},
-      {id:uid("CMP"),categoria:"Servidor",subcategoria:"Físico",nombre:"Nombre del servidor"}
+      {id:uid("CMP"),categoria:"Computadora",subcategoria:"Laptop",nombre:"Fabricante"},
+      {id:uid("CMP"),categoria:"Computadora",subcategoria:"Escritorio",nombre:"Marca"},
+      {id:uid("CMP"),categoria:"Computadora",subcategoria:"Escritorio",nombre:"Número de serie"},
+      {id:uid("CMP"),categoria:"Servidor",subcategoria:"Físico",nombre:"Nombre del servidor"},
+      {id:uid("CMP"),categoria:"Servidor",subcategoria:"Virtual",nombre:"Nombre del servidor"},
+      {id:uid("CMP"),categoria:"Servidor",subcategoria:"Virtual",nombre:"Hipervisor"}
     ],
     usuarios:[
       {id:uid("USR"),usuario:"Admin_1",nombre:"Administrador General",email:"administrador@tam.gob.mx",fecha:"03 de marzo de 2026",tipo:"Administrador"},
@@ -1165,6 +1355,8 @@ const state = {
 };
 function findIn(arr,id){ return arr.find(x=>x.id===id); }
 function removeIn(arr,id){ const i=arr.findIndex(x=>x.id===id); if(i>-1) arr.splice(i,1); }
+function depNames(){ return state.data.catalogosSimples["cat-dependencias"].map(c=>c.nombre); }
+function catNames(key){ return state.data.catalogosSimples[key].map(c=>c.nombre); }
 (function seedLinkSolicitantes(){
   const s = state.data.solicitantes; // [0]=Juan Pérez(Finanzas) [1]=Laura González(Educación) [2]=Miguel Hernández(Administración)
   if(!s.length) return;
@@ -1176,7 +1368,48 @@ function removeIn(arr,id){ const i=arr.findIndex(x=>x.id===id); if(i>-1) arr.spl
   if(state.data.basesDatos[0]) state.data.basesDatos[0].solicitanteId = s[0].id;
   if(state.data.basesDatos[1]) state.data.basesDatos[1].solicitanteId = s[1].id;
   if(state.data.rrd[0]) state.data.rrd[0].solicitanteId = s[0].id;
+  if(state.data.actasSeguridad[0]) state.data.actasSeguridad[0].solicitanteId = s[1].id;
+  if(state.data.actasSeguridad[1]) state.data.actasSeguridad[1].solicitanteId = s[2].id;
 })();
+/* ================= Cascada organizacional (Secretaría → Subsecretaría → Dir. Gral. → Dir. de Área → Departamento) ================= */
+function orgCascadeBlock(prefix,sel={}){
+  const secretaria = sel.secretaria||"";
+  const subAll = secretaria ? orgLevelOptions(ORG_CATALOG[secretaria]) : [];
+  const subsecretaria = sel.subsecretaria || subAll[0] || "";
+  const dgAll = (secretaria&&subsecretaria) ? orgLevelOptions(ORG_CATALOG[secretaria]?.[subsecretaria]) : [];
+  const direccionGeneral = sel.direccionGeneral || dgAll[0] || "";
+  const daAll = (secretaria&&subsecretaria&&direccionGeneral) ? orgLevelOptions(ORG_CATALOG[secretaria]?.[subsecretaria]?.[direccionGeneral]) : [];
+  const direccionArea = sel.direccionArea || daAll[0] || "";
+  const depAll = (secretaria&&subsecretaria&&direccionGeneral&&direccionArea) ? orgLevelOptions(ORG_CATALOG[secretaria]?.[subsecretaria]?.[direccionGeneral]?.[direccionArea]) : [];
+  const departamento = sel.departamento || depAll[0] || "";
+  return `<div id="${prefix}OrgWrap" class="form-grid" style="grid-column:1/-1">
+    ${fieldSelect("Secretaría",prefix+"Secretaria",depNames(),secretaria,`onchange=onOrgLevelChange('${prefix}',1)`)}
+    ${fieldSelect("Subsecretaría",prefix+"Subsecretaria",subAll.length?subAll:["Selecciona una Secretaría"],subsecretaria,`onchange=onOrgLevelChange('${prefix}',2) ${subAll.length?"":"disabled"}`)}
+    ${fieldSelect("Dirección General",prefix+"DirGeneral",dgAll.length?dgAll:["Selecciona una Subsecretaría"],direccionGeneral,`onchange=onOrgLevelChange('${prefix}',3) ${dgAll.length?"":"disabled"}`)}
+    ${fieldSelect("Dirección de Área",prefix+"DirArea",daAll.length?daAll:["Selecciona una Dirección General"],direccionArea,`onchange=onOrgLevelChange('${prefix}',4) ${daAll.length?"":"disabled"}`)}
+    ${fieldSelect("Departamento",prefix+"Departamento",depAll.length?depAll:["Selecciona una Dirección de Área"],departamento,`${depAll.length?"":"disabled"}`)}
+  </div>`;
+}
+function onOrgLevelChange(prefix,level){
+  const current = {
+    secretaria: $(`#${prefix}Secretaria`).value,
+    subsecretaria: level>1 ? $(`#${prefix}Subsecretaria`).value : "",
+    direccionGeneral: level>2 ? $(`#${prefix}DirGeneral`).value : "",
+    direccionArea: level>3 ? $(`#${prefix}DirArea`).value : "",
+    departamento: ""
+  };
+  $(`#${prefix}OrgWrap`).outerHTML = orgCascadeBlock(prefix,current);
+}
+function readOrgCascade(prefix){
+  return {
+    secretaria:$(`#${prefix}Secretaria`)?.value||"",
+    subsecretaria:$(`#${prefix}Subsecretaria`)?.value||"",
+    direccionGeneral:$(`#${prefix}DirGeneral`)?.value||"",
+    direccionArea:$(`#${prefix}DirArea`)?.value||"",
+    departamento:$(`#${prefix}Departamento`)?.value||""
+  };
+}
+
 /* ================= Selector reutilizable de Solicitante ================= */
 function solicitanteSelectorBlock(prefix){
   const sel = state.editing.selectedSolicitanteId ? findIn(state.data.solicitantes, state.editing.selectedSolicitanteId) : null;
@@ -1230,10 +1463,24 @@ function seleccionarSolicitante(prefix,id){
   state.editing.selectedSolicitanteId = id;
   closeModal();
   refreshSolicitanteSelector(prefix);
+  refreshContextHeader();
   toast("Solicitante asignado a la solicitud.");
 }
+function solicitanteContextHeader(){
+  const sel = state.editing.selectedSolicitanteId ? findIn(state.data.solicitantes, state.editing.selectedSolicitanteId) : null;
+  if(!sel) return `<div id="contextHeaderWrap"></div>`;
+  const org = [sel.secretaria||sel.dependencia,sel.subsecretaria,sel.direccionGeneral].filter(Boolean).join(" · ");
+  return `<div id="contextHeaderWrap"><div class="context-banner">
+    <span class="context-banner-icon">${icon("users")}</span>
+    <div><strong>${nombreCompleto(sel)}</strong><span>${org}</span></div>
+  </div></div>`;
+}
+function refreshContextHeader(){
+  const wrap = $("#contextHeaderWrap");
+  if(wrap) wrap.outerHTML = solicitanteContextHeader();
+}
 function abrirAltaRapidaSolicitante(prefix){
-  openModal({title:"Registrar nuevo solicitante", subtitle:"Se agregará al directorio y se asignará a esta solicitud", size:"large", confirm:"Guardar y usar",
+  openModal({title:"Registro de nuevo solicitante", subtitle:"Se agregará al directorio y se asignará a esta solicitud", size:"large", confirm:"Guardar y usar",
     body:`
       <h2 style="font-size:14px;margin:0 0 12px">Nombre del Solicitante</h2>
       <div class="form-grid">
@@ -1248,9 +1495,8 @@ function abrirAltaRapidaSolicitante(prefix){
       </div>
       <h2 style="font-size:14px;margin:22px 0 12px">Dependencia Solicitante</h2>
       <div class="form-grid">
-        ${fieldSelect("Dependencia","fNuevoSolDep",DEPENDENCIAS)}
+        ${orgCascadeBlock("fNuevoSol",{})}
         ${fieldSelect("Municipio","fNuevoSolMun",MUNICIPIOS)}
-        ${fieldInput("Área","fNuevoSolArea","","text","class=full")}
       </div>`,
     onConfirm:()=>{
       const ok = validateFields([
@@ -1261,9 +1507,12 @@ function abrirAltaRapidaSolicitante(prefix){
         {id:"fNuevoSolCorreo",label:"Correo electrónico",type:"email",required:true}
       ]);
       if(!ok) return;
+      const org = readOrgCascade("fNuevoSol");
       const nuevo = {id:uid("SOL"), curp:$("#fNuevoSolCurp").value, numEmpleado:$("#fNuevoSolNumEmp").value, nombre:$("#fNuevoSolNombre").value, apPaterno:$("#fNuevoSolApPat").value,
         apMaterno:$("#fNuevoSolApMat").value, puesto:$("#fNuevoSolPuesto").value, telefono:$("#fNuevoSolTel").value, ext:$("#fNuevoSolExt").value,
-        correo:$("#fNuevoSolCorreo").value, dependencia:$("#fNuevoSolDep").value, municipio:$("#fNuevoSolMun").value, area:$("#fNuevoSolArea").value};
+        correo:$("#fNuevoSolCorreo").value, dependencia:org.secretaria, secretaria:org.secretaria, subsecretaria:org.subsecretaria,
+        direccionGeneral:org.direccionGeneral, direccionArea:org.direccionArea, departamento:org.departamento,
+        municipio:$("#fNuevoSolMun").value, area:org.departamento};
       state.data.solicitantes.push(nuevo);
       seleccionarSolicitante(prefix, nuevo.id);
       toast("Solicitante registrado y asignado a la solicitud.");
@@ -1280,13 +1529,14 @@ function getHistorialForSolicitante(id){
   d.servidoresSolicitudes.filter(x=>x.solicitanteId===id).forEach(x=>rows.push({tipo:"Servidor Físico/Virtual",fecha:x.fecha,estatus:"Registrado",area:"Servicios · Servidores",view:"servidores"}));
   d.rrd.filter(x=>x.solicitanteId===id).forEach(x=>rows.push({tipo:"Respaldo de BD (RRD)",fecha:x.fecha,estatus:"Registrado",area:"Servicios · RRD",view:"rrd"}));
   d.vpns.filter(x=>x.solicitanteId===id).forEach(x=>rows.push({tipo:"VPN",fecha:x.fecha||todayStr(),estatus:x.ip?"IP asignada":"Registrado",area:"Servicios · VPN",view:"vpn"}));
+  d.actasSeguridad.filter(x=>x.solicitanteId===id).forEach(x=>rows.push({tipo:"Protocolo de Seguridad",fecha:x.fecha,estatus:x.estatus,area:"Servicios · Protocolo de Seguridad",view:"actas-seguridad"}));
   return rows.sort((a,b)=>(a.fecha<b.fecha?1:-1));
 }
 /* ================= Navegación ================= */
 const navConfig = [
   {view:"dashboard", icon:"home", label:"Inicio"},
-  {view:"solicitantes", icon:"users", label:"Registrar Solicitantes"},
-  {view:"solicitudes", icon:"clipboard", label:"Solicitudes registradas"},
+  {view:"solicitantes", icon:"users", label:"Solicitantes"},
+  {view:"solicitudes", icon:"clipboard", label:"Solicitudes"},
   {group:"servicios", icon:"server", label:"Servicios", items:[
     ["sitios-web","Sitios Web"],
     ["rrd","RRD"],
@@ -1467,115 +1717,243 @@ $("#profileButton").onclick = ()=>openModal({
   onConfirm:closeModal
 });
 /* ================= Dashboard ================= */
-function svgBarChart(categories,series){
-  const width=620,height=250,padLeft=32,padBottom=32,padTop=16,padRight=8;
+function estatusProgress(estatus){
+  const map = {"Registrado":25,"Con observaciones":50,"Validado":55,"Turnado":60,"Autorizado":80,"IP asignada":80,"Notificado":100};
+  return map[estatus] ?? 40;
+}
+function initialsOf(name){
+  const parts = (name||"?").trim().split(/\s+/);
+  return ((parts[0]?.[0]||"")+(parts[1]?.[0]||"")).toUpperCase() || "SA";
+}
+function avatarColor(name){
+  const palette = ["var(--brand)","var(--blue)","var(--green)","var(--gold)","var(--amber)"];
+  let hash=0; for(const ch of (name||"")) hash = (hash*31 + ch.charCodeAt(0))%palette.length;
+  return palette[Math.abs(hash)%palette.length];
+}
+function getAllActivity(){
+  const d = state.data; const rows=[];
+  d.sitiosWeb.forEach(x=>rows.push({solicitante:x.solicitante||"Sin asignar",tipo:"Sitio Web",dependencia:x.dependenciaSolicitante||"—",fecha:x.fecha,estatus:x.estatus}));
+  d.dominios.forEach(x=>rows.push({solicitante:x.solicitante,tipo:x.tipo,dependencia:x.dependencia,fecha:x.fecha,estatus:x.estatus}));
+  d.basesDatos.forEach(x=>rows.push({solicitante:x.solicitante||"Sin asignar",tipo:"Base de Datos",dependencia:x.dependencia,fecha:x.fecha,estatus:x.estatus}));
+  d.servidoresSolicitudes.forEach(x=>rows.push({solicitante:x.solicitante,tipo:"Servidor",dependencia:x.dependencia,fecha:x.fecha,estatus:"Registrado"}));
+  d.rrd.forEach(x=>rows.push({solicitante:x.solicitante||"Sin asignar",tipo:"RRD",dependencia:x.dependencia,fecha:x.fecha,estatus:"Registrado"}));
+  d.vpns.forEach(x=>rows.push({solicitante:x.nombre,tipo:"VPN",dependencia:"—",fecha:x.fecha,estatus:x.ip?"IP asignada":"Registrado"}));
+  d.actasSeguridad.forEach(x=>rows.push({solicitante:x.contacto,tipo:"Protocolo de Seguridad",dependencia:x.secretaria,fecha:x.fecha,estatus:x.estatus}));
+  d.solicitudes.forEach(x=>rows.push({solicitante:x.solicitante,tipo:x.tipo,dependencia:x.dependencia,fecha:x.fecha,estatus:x.estatus}));
+  return rows;
+}
+function kpiCard({iconName,color,bg,value,label,trend,up}){
+  return `<article class="kpi-card" style="--kpi-color:${color};--kpi-bg:${bg}">
+    <span class="kpi-icon">${icon(iconName)}</span>
+    <strong>${value}</strong>
+    <p>${label}</p>
+    <span class="kpi-trend ${up?"up":"down"}">${icon(up?"check-circle":"alert","icon")} <b>${trend}</b> vs. mes anterior</span>
+  </article>`;
+}
+function svgComboChart(labels,bars,line){
+  const width=560,height=230,padLeft=30,padBottom=26,padTop=14,padRight=8;
   const chartW=width-padLeft-padRight, chartH=height-padTop-padBottom;
-  const maxRaw=Math.max(...series.flatMap(s=>s.valores),1);
-  const niceMax=Math.ceil(maxRaw/5)*5||5;
-  const groupWidth=chartW/categories.length;
-  const groupPad=12, barGap=3;
-  const barWidth=(groupWidth-groupPad*2-barGap*(series.length-1))/series.length;
-
-  const gridLines=[0,0.25,0.5,0.75,1].map(f=>{
-    const y=padTop+chartH*(1-f); const val=Math.round(niceMax*f);
+  const maxRaw=Math.max(...bars,...line,1);
+  const niceMax=Math.ceil(maxRaw/10)*10||10;
+  const slot=chartW/labels.length;
+  const barW=slot*0.42;
+  const grid=[0,0.25,0.5,0.75,1].map(f=>{
+    const y=padTop+chartH*(1-f), val=Math.round(niceMax*f);
     return `<line x1="${padLeft}" y1="${y.toFixed(1)}" x2="${width-padRight}" y2="${y.toFixed(1)}" style="stroke:var(--line);stroke-width:1"/>
       <text x="${padLeft-8}" y="${(y+3).toFixed(1)}" text-anchor="end" style="font:700 9px 'Encode Sans',sans-serif;fill:var(--muted)">${val}</text>`;
   }).join("");
-
-  let bars="";
-  categories.forEach((cat,ci)=>{
-    const gx=padLeft+ci*groupWidth+groupPad;
-    series.forEach((s,si)=>{
-      const val=s.valores[ci];
-      const barH=chartH*(val/niceMax);
-      const bx=gx+si*(barWidth+barGap);
-      const by=padTop+chartH-barH;
-      bars+=`<rect x="${bx.toFixed(1)}" y="${by.toFixed(1)}" width="${Math.max(barWidth,0).toFixed(1)}" height="${Math.max(barH,0).toFixed(1)}" rx="3" style="fill:${s.color}"><title>${s.dep} · ${cat}: ${val}</title></rect>`;
-    });
-    const labelX=padLeft+ci*groupWidth+groupWidth/2;
-    bars+=`<text x="${labelX.toFixed(1)}" y="${height-10}" text-anchor="middle" style="font:800 10.5px 'Encode Sans',sans-serif;fill:var(--ink)">${cat}</text>`;
+  let barsHtml="", linePts=[];
+  labels.forEach((lab,i)=>{
+    const bx=padLeft+i*slot+(slot-barW)/2;
+    const bh=chartH*(bars[i]/niceMax);
+    const by=padTop+chartH-bh;
+    barsHtml+=`<rect x="${bx.toFixed(1)}" y="${by.toFixed(1)}" width="${barW.toFixed(1)}" height="${Math.max(bh,0).toFixed(1)}" rx="4" style="fill:var(--gold)"><title>${lab}: ${bars[i]} solicitudes</title></rect>`;
+    const lx=padLeft+i*slot+slot/2;
+    const ly=padTop+chartH-chartH*(line[i]/niceMax);
+    linePts.push([lx,ly]);
+    barsHtml+=`<text x="${lx.toFixed(1)}" y="${height-8}" text-anchor="middle" style="font:800 10px 'Encode Sans',sans-serif;fill:var(--ink)">${lab}</text>`;
   });
-
-  return `<svg viewBox="0 0 ${width} ${height}" width="100%" height="${height}" role="img" aria-label="Solicitudes por dependencia y servicio" preserveAspectRatio="xMinYMin meet">
-    ${gridLines}
+  const path = linePts.map((p,i)=>`${i===0?"M":"L"}${p[0].toFixed(1)},${p[1].toFixed(1)}`).join(" ");
+  const dots = linePts.map(p=>`<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="4" style="fill:var(--blue);stroke:#fff;stroke-width:2"/>`).join("");
+  return `<svg viewBox="0 0 ${width} ${height}" width="100%" height="${height}" preserveAspectRatio="xMinYMin meet" role="img" aria-label="Actividad mensual">
+    ${grid}
     <line x1="${padLeft}" y1="${(padTop+chartH).toFixed(1)}" x2="${width-padRight}" y2="${(padTop+chartH).toFixed(1)}" style="stroke:var(--gray);stroke-width:1"/>
-    ${bars}
+    ${barsHtml}
+    <path d="${path}" style="fill:none;stroke:var(--blue);stroke-width:2.5"/>
+    ${dots}
   </svg>`;
 }
-function svgDonut(percent,color,trackColor="#EDEFF3",size=132,strokeWidth=15){
-  const r=(size-strokeWidth)/2, c=size/2, circumference=2*Math.PI*r;
-  const offset=circumference*(1-Math.min(percent,100)/100);
-  return `<svg viewBox="0 0 ${size} ${size}" width="${size}" height="${size}" role="img" aria-label="Porcentaje de solicitudes atendidas">
-    <circle cx="${c}" cy="${c}" r="${r}" style="fill:none;stroke:${trackColor};stroke-width:${strokeWidth}"/>
-    <circle cx="${c}" cy="${c}" r="${r}" style="fill:none;stroke:${color};stroke-width:${strokeWidth};stroke-linecap:round" stroke-dasharray="${circumference.toFixed(1)}" stroke-dashoffset="${offset.toFixed(1)}" transform="rotate(-90 ${c} ${c})"/>
-    <text x="${c}" y="${c-1}" text-anchor="middle" style="font:800 24px 'Encode Sans',sans-serif;fill:var(--ink)">${percent}%</text>
-    <text x="${c}" y="${c+18}" text-anchor="middle" style="font:700 9px 'Encode Sans',sans-serif;fill:var(--muted);text-transform:uppercase;letter-spacing:.04em">Atendidas</text>
-  </svg>`;
-}
+const COMBO_DATASETS = {
+  "6m":{labels:["Feb","Mar","Abr","May","Jun","Jul"],bars:[14,19,23,17,26,22],line:[10,14,16,15,20,19]},
+  "12m":{labels:["Ago","Sep","Oct","Nov","Dic","Ene","Feb","Mar","Abr","May","Jun","Jul"],bars:[9,11,13,10,15,12,14,19,23,17,26,22],line:[6,8,10,9,11,10,10,14,16,15,20,19]}
+};
 function renderDashboard(){
   const d = state.data;
-  const totalSolicitudes = d.solicitudes.length + d.sitiosWeb.length + d.dominios.length + d.basesDatos.length + d.vpns.length + d.servidoresSolicitudes.length;
-  const atendidas = d.solicitudes.filter(s=>["Autorizado","Validado","Notificado"].includes(s.estatus)).length + 6;
-  const solicitantesRegistrados = d.solicitantes.length + 47;
-  const solicitantesAtendidos = solicitantesRegistrados - 3;
-  const pctAtendidas = Math.round((atendidas/totalSolicitudes)*100);
+  state.dashTab = state.dashTab || "nuevas";
+  state.comboPeriod = state.comboPeriod || "6m";
+  state.dashSort = state.dashSort || {field:"fecha",dir:"desc"};
 
-  const categorias = ["Servidores","Dominios","Sitios Web","Bases de Datos","VPN","Sistemas"];
-  const series = [
-    {dep:"Administración",color:"var(--brand)",valores:[4,2,3,10,8,15]},
-    {dep:"Finanzas",color:"var(--blue)",valores:[6,3,4,8,7,8]},
-    {dep:"Contraloría",color:"var(--gold)",valores:[1,1,2,8,6,5]},
-    {dep:"Seguridad Pública",color:"var(--green)",valores:[6,2,4,9,8,10]}
+  const totalSolicitudes = d.solicitudes.length + d.sitiosWeb.length + d.dominios.length + d.basesDatos.length + d.vpns.length + d.servidoresSolicitudes.length + d.rrd.length;
+  const atendidas = getAllActivity().filter(r=>["Autorizado","Notificado","IP asignada"].includes(r.estatus)).length;
+  const solicitantesRegistrados = d.solicitantes.length + 47;
+  const actasAprobadas = d.actasSeguridad.filter(a=>a.resultado==="Aprobado").length;
+
+  /* ---- KPIs ---- */
+  const kpis = [
+    kpiCard({iconName:"clipboard",color:"var(--brand)",bg:"var(--red-bg)",value:totalSolicitudes,label:"Total de Solicitudes",trend:"+18.2%",up:true}),
+    kpiCard({iconName:"check-circle",color:"var(--green)",bg:"var(--green-bg)",value:atendidas,label:"Solicitudes Atendidas",trend:"+9.4%",up:true}),
+    kpiCard({iconName:"users",color:"var(--blue)",bg:"var(--blue-bg)",value:solicitantesRegistrados,label:"Solicitantes Registrados",trend:"+4.1%",up:true}),
+    kpiCard({iconName:"shield",color:"var(--gold)",bg:"#FAF0DB",value:actasAprobadas,label:"Protocolos de Seguridad Aprobados",trend:"-2.5%",up:false})
+  ].join("");
+
+  /* ---- Resumen de solicitudes (barra segmentada) ---- */
+  const activity = getAllActivity();
+  const estGroups = [
+    {key:"Registrado",label:"Registrado",color:"#C7CBD2",icon:"clock"},
+    {key:"Validado",label:"Validado / En revisión",color:"var(--blue)",icon:"eye"},
+    {key:"Autorizado",label:"Autorizado",color:"var(--green)",icon:"check-circle"},
+    {key:"Notificado",label:"Notificado",color:"var(--gold)",icon:"bell"}
   ];
-  const legend = series.map(s=>`<span><i style="background:${s.color}"></i>${s.dep}</span>`).join("");
-  const recientes = [...d.solicitudes].slice(-5).reverse();
+  const estCounts = estGroups.map(g=>activity.filter(r=>g.key==="Validado"?["Validado","Con observaciones","Turnado"].includes(r.estatus):(g.key==="Autorizado"?["Autorizado","IP asignada"].includes(r.estatus):r.estatus===g.key)).length);
+  const estTotal = estCounts.reduce((a,b)=>a+b,0)||1;
+  const segBar = estGroups.map((g,i)=>`<span class="${i===0?"muted-seg":""}" style="flex-grow:${Math.max(estCounts[i],0.001)};background:${g.color}">${estTotal?Math.round(estCounts[i]/estTotal*100):0}%</span>`).join("");
+  const overviewRows = estGroups.map((g,i)=>`<div class="overview-row">
+    <span class="dot" style="background:${g.color}"></span>
+    <span class="ov-label">${icon(g.icon)} ${g.label}</span>
+    <span class="ov-value">${estCounts[i]}</span>
+    <span class="ov-pct">${estTotal?Math.round(estCounts[i]/estTotal*100):0}%</span>
+  </div>`).join("");
+
+  /* ---- Donut: distribución por tipo de servicio ---- */
+  const donutData = [
+    {label:"Dominios y Subdominios",count:d.dominios.length,color:"var(--brand)"},
+    {label:"Sitios Web",count:d.sitiosWeb.length,color:"var(--blue)"},
+    {label:"Bases de Datos",count:d.basesDatos.length,color:"var(--gold)"},
+    {label:"VPN",count:d.vpns.length,color:"var(--green)"},
+    {label:"Servidores",count:d.servidoresSolicitudes.length,color:"var(--amber)"},
+    {label:"RRD",count:d.rrd.length,color:"var(--muted)"}
+  ];
+  const donutTotal = donutData.reduce((a,b)=>a+b.count,0)||1;
+  let acc=0;
+  const gradientParts = donutData.map(seg=>{
+    const start=acc/donutTotal*100; acc+=seg.count; const end=acc/donutTotal*100;
+    return `${seg.color} ${start.toFixed(2)}% ${end.toFixed(2)}%`;
+  }).join(",");
+  const donutLegend = donutData.map(seg=>`<div class="leg-row"><i style="background:${seg.color}"></i>${seg.label}<b>${seg.count}</b></div>`).join("");
+
+  /* ---- Combo chart ---- */
+  const combo = COMBO_DATASETS[state.comboPeriod];
+
+  /* ---- Rendimiento de atención ---- */
+  const enTramite = activity.filter(r=>["Registrado","Validado","Con observaciones","Turnado"].includes(r.estatus)).length;
+  const tasaAprobacion = Math.round((atendidas/(totalSolicitudes||1))*100);
+  const perfItems = [
+    {icon:"clock",color:"var(--blue)",bg:"var(--blue-bg)",label:"Solicitudes en trámite",value:enTramite,trend:"+6.1%",up:true},
+    {icon:"check-circle",color:"var(--green)",bg:"var(--green-bg)",label:"Solicitudes atendidas",value:atendidas,trend:"+9.4%",up:true},
+    {icon:"chart",color:"var(--amber)",bg:"var(--amber-bg)",label:"Tasa de aprobación",value:tasaAprobacion+"%",trend:"+3.2%",up:true},
+    {icon:"shield",color:"var(--gold)",bg:"#FAF0DB",label:"Protocolos aprobados",value:actasAprobadas,trend:"-2.5%",up:false},
+    {icon:"users",color:"var(--brand)",bg:"var(--red-bg)",label:"Solicitantes atendidos",value:solicitantesRegistrados-3,trend:"+5.7%",up:true}
+  ].map(p=>`<div class="perf-item">
+    <span class="perf-icon" style="background:${p.bg};color:${p.color}">${icon(p.icon)}</span>
+    <div class="perf-info"><strong>${p.label}</strong><span class="${p.up?"":"" }" style="color:${p.up?"var(--green)":"var(--red)"}">${icon(p.up?"check-circle":"alert")} ${p.trend}</span></div>
+    <span class="perf-value">${p.value}</span>
+  </div>`).join("");
+
+  /* ---- Tabs: actividad por dependencia ---- */
+  const tabMap = {nuevas:["Registrado"], proceso:["Validado","Con observaciones","Turnado"], atendidas:["Autorizado","Notificado","IP asignada"]};
+  const tabRows = activity.filter(r=>tabMap[state.dashTab].includes(r.estatus)).slice(0,4);
+  const activityList = tabRows.length ? tabRows.map(r=>`<div class="activity-row">
+      <div class="activity-col"><small class="tag-from">${icon("users")} Solicitante</small><strong>${r.solicitante}</strong><span>${r.dependencia}</span></div>
+      <div class="activity-col"><small class="tag-to">${icon("clipboard")} Solicitud</small><strong>${r.tipo}</strong><span>${r.fecha} · ${r.estatus}</span></div>
+    </div>`).join("") : `<p class="empty-state" style="padding:20px 0">Sin registros en esta categoría.</p>`;
+
+  /* ---- Tabla: solicitudes recientes con orden ---- */
+  const sortField = state.dashSort.field, sortDir = state.dashSort.dir;
+  const sorted = [...activity].sort((a,b)=>{
+    const av=(a[sortField]||"").toString(), bv=(b[sortField]||"").toString();
+    return sortDir==="asc" ? av.localeCompare(bv) : bv.localeCompare(av);
+  }).slice(0,8);
+  const caret = (field)=>`<span class="sort-carets"><svg class="${sortField===field&&sortDir==="asc"?"active-caret":""}" viewBox="0 0 10 6"><path d="M5 0l5 6H0z" fill="currentColor"/></svg><svg class="${sortField===field&&sortDir==="desc"?"active-caret":""}" viewBox="0 0 10 6"><path d="M5 6L0 0h10z" fill="currentColor"/></svg></span>`;
+  const tableRows = sorted.map(r=>`<tr>
+    <td class="checkbox-cell"><input type="checkbox"></td>
+    <td><div style="display:flex;align-items:center;gap:10px"><span class="avatar-circle" style="background:${avatarColor(r.solicitante)}">${initialsOf(r.solicitante)}</span><strong>${r.solicitante}</strong></div></td>
+    <td>${r.tipo}</td><td>${r.dependencia}</td><td>${r.fecha}</td><td>${badgeEstatus(r.estatus)}</td>
+    <td><span class="mini-progress"><span style="width:${estatusProgress(r.estatus)}%"></span></span>${estatusProgress(r.estatus)}%</td>
+  </tr>`).join("");
 
   content.innerHTML = `
   ${breadcrumb([{label:"Inicio"}])}
   <div class="page-header"><div><h1>Panel general</h1><p>Resumen de solicitudes y servicios gestionados por AIIDT.</p></div>
     <div class="page-actions"><span class="dashboard-date">${icon("calendar")} ${todayStr()}</span></div>
   </div>
-  <div class="stats-grid">
-    <article class="stat-card blue"><span class="stat-icon">${icon("clipboard")}</span><div><h3>Total de Solicitudes</h3><strong>${totalSolicitudes}</strong></div><small>Acumulado del periodo</small></article>
-    <article class="stat-card gold"><span class="stat-icon">${icon("check-circle")}</span><div><h3>Solicitudes Atendidas</h3><strong>${atendidas}</strong></div><small class="positive">En proceso o concluidas</small></article>
-    <article class="stat-card blue"><span class="stat-icon">${icon("users")}</span><div><h3>Solicitantes Registrados</h3><strong>${solicitantesRegistrados}</strong></div><small>Directorio general</small></article>
-    <article class="stat-card gold"><span class="stat-icon">${icon("users")}</span><div><h3>Solicitantes Atendidos</h3><strong>${solicitantesAtendidos}</strong></div><small class="positive">Con al menos una solicitud</small></article>
-  </div>
-  <div class="dashboard-chart-row">
-    <article class="card chart-card">
-      <div class="card-header"><div><h2>Solicitudes por dependencia y servicio</h2><p>Distribución de solicitudes recibidas por tipo de servicio en el periodo actual.</p></div></div>
-      ${svgBarChart(categorias,series)}
-      <div class="chart-legend">${legend}</div>
+
+  <div class="kpi-grid">${kpis}</div>
+
+  <div class="dashboard-chart-row" style="grid-template-columns:1.4fr 1fr;margin-top:18px">
+    <article class="card">
+      <div class="card-title-row"><div><h2>Resumen de Solicitudes</h2><p>Distribución por estatus en el periodo actual.</p></div><span class="card-menu">${icon("chevron-down")}</span></div>
+      <div class="overview-segbar">${segBar}</div>
+      <div class="overview-rows">${overviewRows}</div>
     </article>
-    <article class="card chart-card donut-card">
-      <div class="card-header"><h2>Avance general</h2></div>
-      ${svgDonut(pctAtendidas,"var(--brand)")}
-      <p class="donut-caption"><strong>${atendidas}</strong> de <strong>${totalSolicitudes}</strong> solicitudes atendidas en el periodo.</p>
+    <article class="card" style="text-align:center">
+      <div class="card-title-row" style="text-align:left"><div><h2>Distribución por Servicio</h2><p>Solicitudes por tipo de servicio.</p></div><span class="card-menu">${icon("chevron-down")}</span></div>
+      <div class="donut-ring" style="background:conic-gradient(${gradientParts})"><div class="donut-center"><strong>${donutTotal}</strong><small>Solicitudes</small></div></div>
+      <div class="donut-legend-v2" style="text-align:left">${donutLegend}</div>
     </article>
   </div>
-  <div class="workspace-grid" style="margin-top:18px">
+
+  <div class="dashboard-chart-row" style="grid-template-columns:1.6fr 1fr;margin-top:18px">
     <article class="card">
-      <div class="card-header"><h2>Solicitudes recientes</h2><button class="button ghost" onclick="navigate('solicitudes')">Ver todas</button></div>
-      <div class="table-wrap"><table><thead><tr><th>Solicitante</th><th>Tipo</th><th>Fecha</th><th>Estatus</th></tr></thead>
-        <tbody>${recientes.map(r=>`<tr><td>${r.solicitante}</td><td>${r.tipo}</td><td>${r.fecha}</td><td>${badgeEstatus(r.estatus)}</td></tr>`).join("")}</tbody>
-      </table></div>
-    </article>
-    <article class="card">
-      <div class="card-header"><h2>Accesos rápidos</h2></div>
-      <div class="quick-actions">
-        <button class="button secondary" onclick="navigate('solicitantes')">${icon("users")} Registrar solicitante</button>
-        <button class="button secondary" onclick="navigate('dominios')">${icon("globe")} Dominios y subdominios</button>
-        <button class="button secondary" onclick="navigate('crear-bd')">${icon("database")} Bases de datos</button>
-        <button class="button secondary" onclick="navigate('reportes')">${icon("chart")} Generar reporte</button>
+      <div class="card-title-row"><div><h2>Actividad Mensual</h2><p>Nuevas solicitudes vs. servicios atendidos.</p></div>
+        <div class="combo-chart-toolbar"><select onchange="state.comboPeriod=this.value;renderDashboard()">
+          <option value="6m" ${state.comboPeriod==="6m"?"selected":""}>Últimos 6 meses</option>
+          <option value="12m" ${state.comboPeriod==="12m"?"selected":""}>Últimos 12 meses</option>
+        </select></div>
       </div>
-      <div class="card-header" style="margin-top:18px"><h2>Avisos</h2></div>
-      <div class="alert-list">
-        <span>3 solicitudes de dominio pendientes de asignar IP.</span>
-        <span>1 sitio web marcado como inactivo.</span>
-        <span>2 bases de datos con respaldo próximo a vencer.</span>
+      ${svgComboChart(combo.labels,combo.bars,combo.line)}
+      <div class="combo-legend">
+        <button class="active"><i style="background:var(--gold)"></i>Nuevas solicitudes</button>
+        <button><i style="background:var(--blue)"></i>Servicios atendidos</button>
       </div>
     </article>
-  </div>`;
+    <article class="card">
+      <div class="card-title-row"><div><h2>Rendimiento de Atención</h2><p>12% de incremento este mes.</p></div><span class="card-menu">${icon("chevron-down")}</span></div>
+      <div class="perf-list">${perfItems}</div>
+    </article>
+  </div>
+
+  <article class="card" style="margin-top:18px">
+    <div class="card-title-row"><div><h2>Actividad por Dependencia</h2><p>${activity.length} solicitudes registradas en total.</p></div></div>
+    <div class="tabs-card-nav">
+      <button class="${state.dashTab==="nuevas"?"active":""}" onclick="state.dashTab='nuevas';renderDashboard()">Nuevas</button>
+      <button class="${state.dashTab==="proceso"?"active":""}" onclick="state.dashTab='proceso';renderDashboard()">En proceso</button>
+      <button class="${state.dashTab==="atendidas"?"active":""}" onclick="state.dashTab='atendidas';renderDashboard()">Atendidas</button>
+    </div>
+    <div class="activity-list">${activityList}</div>
+  </article>
+
+  <article class="card table-card" style="margin-top:18px">
+    <div class="card-title-row" style="padding:20px 22px 0"><div><h2>Solicitudes Recientes</h2><p>Últimos movimientos registrados en el sistema.</p></div>
+      <button class="button secondary" onclick="navigate('solicitudes')">Ver todas</button>
+    </div>
+    <div class="table-wrap" style="margin-top:14px"><table>
+      <thead><tr>
+        <th class="checkbox-cell"><input type="checkbox"></th>
+        <th><span class="sortable-th" onclick="toggleDashSort('solicitante')">Solicitante ${caret("solicitante")}</span></th>
+        <th><span class="sortable-th" onclick="toggleDashSort('tipo')">Tipo ${caret("tipo")}</span></th>
+        <th>Dependencia</th>
+        <th><span class="sortable-th" onclick="toggleDashSort('fecha')">Fecha ${caret("fecha")}</span></th>
+        <th>Estatus</th><th>Progreso</th>
+      </tr></thead>
+      <tbody>${tableRows||`<tr><td colspan="7" class="empty-state">Sin actividad registrada.</td></tr>`}</tbody>
+    </table></div>
+    ${paginationFoot(sorted.length,"solicitudes")}
+  </article>`;
+}
+function toggleDashSort(field){
+  if(state.dashSort.field===field) state.dashSort.dir = state.dashSort.dir==="asc"?"desc":"asc";
+  else state.dashSort = {field,dir:"asc"};
+  renderDashboard();
 }
 /* ================= Registrar Solicitantes ================= */
 function renderSolicitantes(){
@@ -1611,7 +1989,7 @@ function renderSolicitantes(){
 }
 function verSolicitante(id){
   const s = findIn(state.data.solicitantes,id);
-  openModal({title:"Datos del solicitante", subtitle:s.dependencia, confirm:"Cerrar",
+  openModal({title:"Datos del solicitante", subtitle:s.dependencia, size:"large", confirm:"Cerrar",
     body:`<div class="detail-grid">
       <div><span>Nombre completo</span><strong>${s.nombre} ${s.apPaterno} ${s.apMaterno}</strong></div>
       <div><span>CURP</span><strong>${s.curp}</strong></div>
@@ -1619,9 +1997,15 @@ function verSolicitante(id){
       <div><span>Puesto</span><strong>${s.puesto}</strong></div>
       <div><span>Teléfono</span><strong>${s.telefono} ext. ${s.ext}</strong></div>
       <div><span>Correo electrónico</span><strong>${s.correo}</strong></div>
-      <div><span>Dependencia</span><strong>${s.dependencia}</strong></div>
       <div><span>Municipio</span><strong>${s.municipio}</strong></div>
-      <div><span>Área</span><strong>${s.area}</strong></div>
+    </div>
+    <h2 style="font-size:14px;margin:4px 0 10px">Adscripción organizacional</h2>
+    <div class="detail-grid">
+      <div><span>Secretaría</span><strong>${s.secretaria||s.dependencia||"—"}</strong></div>
+      <div><span>Subsecretaría</span><strong>${s.subsecretaria||"—"}</strong></div>
+      <div><span>Dirección General</span><strong>${s.direccionGeneral||"—"}</strong></div>
+      <div><span>Dirección de Área</span><strong>${s.direccionArea||"—"}</strong></div>
+      <div><span>Departamento</span><strong>${s.departamento||"—"}</strong></div>
     </div>`, onConfirm:closeModal});
 }
 function eliminarSolicitante(id){
@@ -1649,8 +2033,8 @@ function abrirNuevaSolicitud(solicitanteId){
 function renderSolicitanteForm(editId){
   const s = editId?findIn(state.data.solicitantes,editId):null;
   content.innerHTML = `
-  ${breadcrumb([{label:"Lista de Solicitantes",view:"solicitantes"},{label:editId?"Editar Solicitante":"Registrar Solicitante"}])}
-  <div class="page-header"><div><h1>${editId?"Editar Solicitante":"Registrar Solicitante"}</h1><p>Captura los datos de identificación y adscripción del solicitante.</p></div></div>
+  ${breadcrumb([{label:"Lista de Solicitantes",view:"solicitantes"},{label:editId?"Editar Solicitante":"Registro de Solicitante"}])}
+  <div class="page-header"><div><h1>${editId?"Editar Solicitante":"Registro de Solicitante"}</h1><p>Captura los datos de identificación y adscripción del solicitante.</p></div></div>
   <article class="card">
     <div class="two-col">
       <div><h2 style="font-size:16px;margin:0 0 14px">Nombre del Solicitante</h2>
@@ -1667,9 +2051,8 @@ function renderSolicitanteForm(editId){
       </div>
       <div><h2 style="font-size:16px;margin:0 0 14px">Dependencia Solicitante</h2>
         <div class="form-grid">
-          ${fieldSelect("Dependencia","fDep",DEPENDENCIAS,s?.dependencia)}
+          ${orgCascadeBlock("fSol",{secretaria:s?.secretaria||s?.dependencia,subsecretaria:s?.subsecretaria,direccionGeneral:s?.direccionGeneral,direccionArea:s?.direccionArea,departamento:s?.departamento})}
           ${fieldSelect("Municipio","fMun",MUNICIPIOS,s?.municipio)}
-          ${fieldInput("Área","fArea",s?.area,"text","class=full")}
         </div>
       </div>
     </div>
@@ -1689,11 +2072,14 @@ function guardarSolicitante(editId){
     {id:"fCorreo",label:"Correo electrónico",type:"email",required:true}
   ]);
   if(!ok) return;
+  const org = readOrgCascade("fSol");
   const payload = {
     curp:$("#fCurp").value, numEmpleado:$("#fNumEmp").value, nombre:$("#fNombre").value||"Sin nombre",
     apPaterno:$("#fApPat").value, apMaterno:$("#fApMat").value, puesto:$("#fPuesto").value,
     telefono:$("#fTel").value, ext:$("#fExt").value, correo:$("#fCorreo").value,
-    dependencia:$("#fDep").value, municipio:$("#fMun").value, area:$("#fArea").value
+    dependencia:org.secretaria, secretaria:org.secretaria, subsecretaria:org.subsecretaria,
+    direccionGeneral:org.direccionGeneral, direccionArea:org.direccionArea, departamento:org.departamento,
+    municipio:$("#fMun").value, area:org.departamento
   };
   if(editId){ Object.assign(findIn(state.data.solicitantes,editId),payload); toast("Solicitante actualizado."); }
   else { state.data.solicitantes.push({id:uid("SOL"),...payload}); toast("Solicitante registrado."); }
@@ -1739,7 +2125,7 @@ function renderSolicitudes(){
   <div class="page-header"><div><h1>Lista de Solicitudes Registradas</h1><p>Consulta general de todas las solicitudes de servicios de tecnología.</p></div></div>
   <article class="card table-card">
     ${filtersBlock("filtersSolicitudes",`
-      ${fieldSelect("Dependencia","fSolDep",["Todos",...DEPENDENCIAS],f.dep)}
+      ${fieldSelect("Dependencia","fSolDep",["Todos",...depNames()],f.dep)}
       ${fieldSelect("Tipo de Solicitud","fSolTipo",["Todos",...tipos],f.tipo)}
       ${fieldInput("Desde Fecha Solicitud","fSolDesde","","date")}
       ${fieldInput("Hasta Fecha Solicitud","fSolHasta","","date")}
@@ -1854,8 +2240,8 @@ function renderSitioWebForm(editId){
   state.editing.selectedSolicitanteId = s ? s.solicitanteId : (state.editing.presetSolicitanteId||null);
   state.editing.presetSolicitanteId = null;
   content.innerHTML = `
-  ${breadcrumb([{label:"Servicios"},{label:"Sitio Web",view:"sitios-web"},{label:"Registrar Sitios Web"}])}
-  <div class="page-header"><div><h1>${editId?"Editar Sitio Web":"Solicitar Sitio Web"}</h1><p>Datos del solicitante y del sitio web a publicar.</p></div></div>
+  ${breadcrumb([{label:"Servicios"},{label:"Sitio Web",view:"sitios-web"},{label:"Registro de Sitios Web"}])}
+  <div class="page-header"><div><h1>${editId?"Editar Sitio Web":"Solicitar Sitio Web"}</h1><p>Datos del solicitante y del sitio web a publicar.</p>${solicitanteContextHeader()}</div></div>
   <article class="card">
     <h2 style="font-size:15px;margin:0 0 12px">Solicitante</h2>
     ${solicitanteSelectorBlock("fSw")}
@@ -1938,7 +2324,7 @@ function renderDominios(){
   </div>
   <article class="card table-card">
     ${filtersBlock("filtersDominios",`
-      ${fieldSelect("Dependencia","fDomDep",["Todos",...DEPENDENCIAS],f.dep)}
+      ${fieldSelect("Dependencia","fDomDep",["Todos",...depNames()],f.dep)}
       ${fieldSelect("Estatus","fDomEst",["Todos","Registrado","Validado","Autorizado","Notificado"],f.estatus)}
       ${fieldSelect("Tipo","fDomTipo",["Todos","Dominio","Subdominio"],f.tipo)}
       ${fieldInput("Desde Fecha Solicitud","fDomDesde","","date")}
@@ -2002,21 +2388,24 @@ function renderDominioForm(tipo,editId){
   state.editing.presetSolicitanteId = null;
   content.innerHTML = `
   ${breadcrumb([{label:"Servicios"},{label:"Solicitudes de Dominio y Subdominio",view:"dominios"},{label:"Solicitar "+tipo}])}
-  <div class="page-header"><div><h1>Solicitar ${tipo}</h1><p>Completa los datos del solicitante y del proyecto.</p></div>
+  <div class="page-header"><div><h1>Solicitar ${tipo}</h1><p>Completa los datos del solicitante y del proyecto.</p>${solicitanteContextHeader()}</div>
     <div class="page-actions">${badgeEstatus(d?.estatus||"Registrado")}</div></div>
   <article class="card">
     <h2 style="font-size:15px;margin:0 0 12px">Solicitante</h2>
     ${solicitanteSelectorBlock("fDom")}
     <h2 style="font-size:15px;margin:22px 0 12px">Datos del ${tipo}</h2>
-    ${tipo==="Subdominio"?`<div class="inline-note">Se mostrarán 2 propuestas de subdominio; el sistema arma la vista previa conforme se van escribiendo.</div>`:''}
     <div class="form-grid">
-      ${fieldUrlInput("Nombre del "+tipo,"fDomNombre",d?.nombre,{required:true,full:true})}
+      ${tipo==="Subdominio"?`
+        ${fieldSelect("Dominio base","fDomBase",catNames("cat-dominios"))}
+        ${fieldInput("Nombre del subdominio","fDomSubNombre","","text","oninput=actualizarPreviaSubdominio()")}
+        <div class="field full"><label>Vista previa</label><div class="inline-note" id="previaSubdominio" style="margin:0">—</div></div>
+      `:`${fieldUrlInput("Nombre del "+tipo,"fDomNombre",d?.nombre,{required:true,full:true})}`}
       ${fieldInput("Nombre del Proyecto","fDomProyecto")}
-      ${fieldSelect("Tipo de servicio","fDomTipoServicio",state.data.catalogosSimples["cat-tipo-servicio"].map(c=>c.nombre))}
+      ${fieldSelect("Tipo de servicio","fDomTipoServicio",catNames("cat-tipo-servicio"))}
       ${fieldTextarea("Descripción del Proyecto","fDomDescripcion")}
       ${fieldSelect("Desarrollado por","fDomDesarrollado",["AIIDT","Dependencia","Externo"])}
       ${fieldSelect("Usuario Final","fDomUsuarioFinal",["Servidores Públicos","Público en General","Empresas"])}
-      ${fieldSelect("Motor de Base de Datos","fDomMotor",state.data.catalogosSimples["cat-motor-bd"].map(c=>c.nombre))}
+      ${fieldSelect("Motor de Base de Datos","fDomMotor",catNames("cat-motor-bd"))}
       ${fieldSelect("¿Solicita hospedaje en Centro de Datos?","fDomHospedaje",["Sí","No"])}
       ${fieldInput("Fecha de publicación","fDomFechaPub",d?.fecha,"date")}
     </div>
@@ -2025,16 +2414,26 @@ function renderDominioForm(tipo,editId){
     <button class="button ghost" onclick="navigate('dominios')">&raquo; Regresar</button>
     <button class="button primary" onclick="guardarDominio('${tipo}','${editId||""}')">Guardar</button>
   </div>`;
+  if(tipo==="Subdominio") actualizarPreviaSubdominio();
+}
+function actualizarPreviaSubdominio(){
+  const base = $("#fDomBase")?.value||"";
+  const nombre = $("#fDomSubNombre")?.value.trim().toLowerCase().replace(/[^a-z0-9-]/g,"")||"";
+  const el = $("#previaSubdominio");
+  if(el) el.textContent = nombre ? `${nombre}.${base}` : "Escribe el nombre del subdominio para ver la vista previa.";
 }
 function guardarDominio(tipo,editId){
   if(!state.editing.selectedSolicitanteId){ toast("Selecciona un solicitante para esta solicitud.","error"); return; }
-  const ok = validateFields([
-    {id:"fDomNombre",label:"Nombre del "+tipo,type:"url",required:true}
-  ]);
+  const ok = tipo==="Subdominio"
+    ? validateFields([{id:"fDomSubNombre",label:"Nombre del subdominio",required:true}])
+    : validateFields([{id:"fDomNombre",label:"Nombre del "+tipo,type:"url",required:true}]);
   if(!ok) return;
   const sol = findIn(state.data.solicitantes, state.editing.selectedSolicitanteId);
+  const nombreFinal = tipo==="Subdominio"
+    ? `${$("#fDomSubNombre").value.trim().toLowerCase().replace(/[^a-z0-9-]/g,"")}.${$("#fDomBase").value}`
+    : ($("#fDomNombre").value||"nuevo-dominio.tamaulipas.gob.mx");
   const payload = {
-    dependencia:sol.dependencia, nombre:$("#fDomNombre").value||"nuevo-dominio.tamaulipas.gob.mx",
+    dependencia:sol.dependencia, nombre:nombreFinal,
     solicitante:nombreCompleto(sol), solicitanteId:sol.id, tipo, estatus:"Registrado",
     fecha:$("#fDomFechaPub").value||todayStr(), ip:"", nat:"", scan:false, anexos:0
   };
@@ -2087,7 +2486,7 @@ function renderBasesDatos(){
   </div>
   <article class="card table-card">
     ${filtersBlock("filtersBd",`
-      ${fieldSelect("Dependencia","fBdDep",["Todos",...DEPENDENCIAS])}
+      ${fieldSelect("Dependencia","fBdDep",["Todos",...depNames()])}
       ${fieldSelect("Estatus","fBdEst",["Todos","Registrado","Validado","Autorizado","Notificado"])}
       ${fieldInput("Desde Fecha Solicitud","fBdDesde","","date")}
       ${fieldInput("Hasta Fecha Solicitud","fBdHasta","","date")}
@@ -2115,7 +2514,7 @@ function verBaseDatos(id){
   const b = findIn(state.data.basesDatos,id);
   openModal({title:b.nombre, subtitle:b.dependencia, confirm:"Cerrar",
     body:`<div class="detail-grid">
-      <div><span>Motor de BD</span><strong>${b.motor}</strong></div>
+      <div><span>Motor de BD</span><strong>${b.motor}${b.version?" "+b.version:""}</strong></div>
       <div><span>Servidor</span><strong>${b.servidor}</strong></div>
       <div><span>Estatus</span><strong>${b.estatus}</strong></div>
       <div><span>IP</span><strong>${b.ip||"Sin asignar"}</strong></div>
@@ -2148,7 +2547,7 @@ function renderBaseDatosForm(editId){
   state.editing.presetSolicitanteId = null;
   content.innerHTML = `
   ${breadcrumb([{label:"Servicios"},{label:"Solicitudes de Bases de Datos",view:"crear-bd"},{label:"Solicitar Base de Datos"}])}
-  <div class="page-header"><div><h1>Solicitar Base de Datos</h1><p>Datos generales y técnicos de la base de datos a crear o alojar.</p></div>
+  <div class="page-header"><div><h1>Solicitar Base de Datos</h1><p>Datos generales y técnicos de la base de datos a crear o alojar.</p>${solicitanteContextHeader()}</div>
     <div class="page-actions">${badgeEstatus(b?.estatus||"Registrado")}</div></div>
   <article class="card">
     <h2 style="font-size:15px;margin:0 0 12px">Solicitante</h2>
@@ -2158,7 +2557,8 @@ function renderBaseDatosForm(editId){
       ${fieldInput("Nombre de la Base de Datos","fBdNombre",b?.nombre)}
       ${fieldInput("Descripción breve (máx. 100 caracteres)","fBdDescripcion")}
       ${fieldSelect("Base de datos administrada por","fBdAdmin",["AIIDT","Dependencia","Empresa","Gobierno Federal"])}
-      ${fieldSelect("Motor de Base de Datos","fBdMotor",state.data.catalogosSimples["cat-motor-bd"].map(c=>c.nombre),b?.motor)}
+      ${fieldSelect("Motor de Base de Datos","fBdMotor",catNames("cat-motor-bd"),b?.motor)}
+      ${fieldSelect("Versión","fBdVersion",catNames("cat-version-bd"),b?.version)}
       ${fieldInput("Cantidad de usuarios de la BD","fBdUsuarios","","number")}
       ${fieldInput("Número de conexiones concurrentes","fBdConexiones","","number")}
       ${fieldInput("Tamaño de la BD (en MB)","fBdTamano","","number")}
@@ -2190,7 +2590,7 @@ function guardarBaseDatos(editId){
     dependencia:sol.dependencia, nombre:$("#fBdNombre").value||"Nueva base de datos",
     estatus:"Registrado", servidor:$("#fBdServidor").value||"Por asignar", fecha:todayStr(),
     solicitanteId:sol.id, solicitante:nombreCompleto(sol),
-    ip:"", nat:"", scan:false, anexos:0, motor:$("#fBdMotor").value
+    ip:"", nat:"", scan:false, anexos:0, motor:$("#fBdMotor").value, version:$("#fBdVersion").value
   };
   if(editId){ Object.assign(findIn(state.data.basesDatos,editId),payload); toast("Solicitud actualizada."); }
   else { state.data.basesDatos.push({id:uid("BD"),...payload,bitacora:[]}); toast("Solicitud de base de datos registrada."); }
@@ -2301,7 +2701,7 @@ function renderServidorForm(editId){
   state.editing.presetSolicitanteId = null;
   content.innerHTML = `
   ${breadcrumb([{label:"Servicios"},{label:"Servidores Físicos y Virtuales",view:"servidores"},{label:"Solicitar Servidor"}])}
-  <div class="page-header"><div><h1>Solicitar Servidor Físico o Virtual</h1><p>Requerimientos técnicos para el aprovisionamiento del servicio.</p></div></div>
+  <div class="page-header"><div><h1>Solicitar Servidor Físico o Virtual</h1><p>Requerimientos técnicos para el aprovisionamiento del servicio.</p>${solicitanteContextHeader()}</div></div>
   <article class="card">
     <h2 style="font-size:15px;margin:0 0 12px">Solicitante</h2>
     ${solicitanteSelectorBlock("fSrv")}
@@ -2315,7 +2715,7 @@ function renderServidorForm(editId){
       ${fieldSelect("¿Requiere apoyo para la instalación?","fSrvApoyo",["Sí","No"])}
       ${fieldSelect("Servidor de alojamiento","fSrvServidor",state.data.servidoresProductos.map(p=>p.nombre),s?.servidorAlojamiento)}
       ${fieldSelect("¿Quién instalará el servicio?","fSrvQuien",["Infraestructura","Servicios Externos","Usuario solicitante"])}
-      ${fieldSelect("Sistema Operativo","fSrvSo",["Windows Server","Linux"])}
+      ${fieldSelect("Plataforma / Sistema Operativo","fSrvSo",catNames("cat-plataforma"))}
       ${fieldInput("Versión del Sistema Operativo","fSrvSoVer")}
       ${fieldTextarea("Observaciones","fSrvObs")}
     </div>
@@ -2389,8 +2789,8 @@ function renderRRDForm(editId){
   state.editing.selectedSolicitanteId = r ? r.solicitanteId : (state.editing.presetSolicitanteId||null);
   state.editing.presetSolicitanteId = null;
   content.innerHTML = `
-  ${breadcrumb([{label:"Servicios"},{label:"Respaldo BD (RRD)",view:"rrd"},{label:"Registrar RRD"}])}
-  <div class="page-header"><div><h1>${editId?"Detalle de Respaldo BD":"Registrar Respaldo de BD"}</h1><p>Datos de solicitud, contacto responsable y respaldos realizados.</p></div></div>
+  ${breadcrumb([{label:"Servicios"},{label:"Respaldo BD (RRD)",view:"rrd"},{label:"Registro de RRD"}])}
+  <div class="page-header"><div><h1>${editId?"Detalle de Respaldo BD":"Registro de Respaldo de BD"}</h1><p>Datos de solicitud, contacto responsable y respaldos realizados.</p>${solicitanteContextHeader()}</div></div>
   <article class="card">
     <h2 style="font-size:15px;margin:0 0 12px">Solicitante</h2>
     ${solicitanteSelectorBlock("fRrd")}
@@ -2441,7 +2841,7 @@ function renderActasSeguridad(){
   </div>
   <article class="card table-card">
     ${filtersBlock("filtersActas",`
-      ${fieldSelect("Dependencia","fActaDep",["Todos",...DEPENDENCIAS])}
+      ${fieldSelect("Dependencia","fActaDep",["Todos",...depNames()])}
       ${fieldSelect("Resultado","fActaResultado",["Todos","Aprobado","Con observaciones","Rechazado"])}
       ${fieldInput("Desde Fecha","fActaDesde","","date")}
       ${fieldInput("Hasta Fecha","fActaHasta","","date")}
@@ -2560,18 +2960,17 @@ function renderActaForm(editId){
   ];
   state.editing.evidenciasDraft = a ? a.evidencias.map(e=>({...e})) : [];
   content.innerHTML = `
-  ${breadcrumb([{label:"Servicios"},{label:"Protocolo de Seguridad",view:"actas-seguridad"},{label:editId?"Editar Protocolo":"Registrar Protocolo"}])}
-  <div class="page-header"><div><h1>${editId?"Editar":"Registrar"} Protocolo de Evaluación de Seguridad</h1><p>Evaluación del estado de seguridad previa a la publicación de un servicio.</p></div>
+  ${breadcrumb([{label:"Servicios"},{label:"Protocolo de Seguridad",view:"actas-seguridad"},{label:editId?"Editar Protocolo":"Registro de Protocolo"}])}
+  <div class="page-header"><div><h1>${editId?"Editar":"Registro de"} Protocolo de Evaluación de Seguridad</h1><p>Evaluación del estado de seguridad previa a la publicación de un servicio.</p>${solicitanteContextHeader()}</div>
     <div class="page-actions">${badgeEstatus(a?.estatus||"Registrado")}</div></div>
   <article class="card">
-    <h2 style="font-size:15px;margin:0 0 12px">Datos Generales</h2>
+    <h2 style="font-size:15px;margin:0 0 12px">Solicitante</h2>
+    ${solicitanteSelectorBlock("fActa")}
+    <p style="color:var(--muted);font-size:12px;margin:8px 0 0">La Secretaría, Subsecretaría y Dirección General se toman automáticamente de los datos del solicitante seleccionado.</p>
+    <h2 style="font-size:15px;margin:22px 0 12px">Datos Generales</h2>
     <div class="form-grid">
-      ${fieldSelect("Secretaría","fActaSecretaria",DEPENDENCIAS,a?.secretaria)}
-      ${fieldInput("Subsecretaría","fActaSubsecretaria",a?.subsecretaria)}
-      ${fieldInput("Dirección General","fActaDirGeneral",a?.dirGeneral,"text","class=full")}
       ${fieldInput("Fecha de emisión","fActaFecha",a?.fecha,"date")}
       ${fieldInput("Oficio / GLPI","fActaOficio",a?.oficio)}
-      ${fieldInputPair("Contacto","fActaContacto",a?.contacto,"Tel / Ext","fActaTelExt",a?.telExt)}
     </div>
     <h2 style="font-size:15px;margin:22px 0 12px">Datos Técnicos</h2>
     <div class="form-grid">
@@ -2598,9 +2997,9 @@ function renderActaForm(editId){
   </div>`;
 }
 function guardarActa(editId){
+  if(!state.editing.selectedSolicitanteId){ toast("Selecciona un solicitante para esta solicitud.","error"); return; }
   const ok = validateFields([
     {id:"fActaOficio",label:"Oficio / GLPI",required:true},
-    {id:"fActaSecretaria",label:"Secretaría",required:true},
     {id:"fActaUrl",label:"URL",type:"url",required:true},
     {id:"fActaIpLan",label:"IP LAN",type:"ip",required:false},
     {id:"fActaIpWan",label:"IP WAN",type:"ip",required:false}
@@ -2608,10 +3007,11 @@ function guardarActa(editId){
   if(!ok) return;
   syncFirmantesDraft();
   const firmantesValidos = state.editing.firmantesDraft.filter(f=>f.nombre.trim());
+  const sol = findIn(state.data.solicitantes, state.editing.selectedSolicitanteId);
   const payload = {
     fecha:$("#fActaFecha").value||todayStr(), oficio:$("#fActaOficio").value||"Sin número de oficio",
-    secretaria:$("#fActaSecretaria").value, subsecretaria:$("#fActaSubsecretaria").value,
-    dirGeneral:$("#fActaDirGeneral").value, contacto:$("#fActaContacto").value, telExt:$("#fActaTelExt").value,
+    solicitanteId:sol.id, secretaria:sol.secretaria||sol.dependencia, subsecretaria:sol.subsecretaria||"",
+    dirGeneral:sol.direccionGeneral||"", contacto:nombreCompleto(sol), telExt:`${sol.telefono||""}${sol.ext?" ext. "+sol.ext:""}`,
     ipLan:$("#fActaIpLan").value, ipWan:$("#fActaIpWan").value, url:$("#fActaUrl").value, puertos:$("#fActaPuertos").value,
     resultado:$("#fActaResultadoForm").value, descripcionAplicativo:$("#fActaDescApp").value,
     herramientas:$("#fActaHerramientas").value, descripcionAnalisis:$("#fActaDescAnalisis").value,
@@ -2684,7 +3084,7 @@ function renderInvSoftware(){
   </div>
   <article class="card table-card">
     ${filtersBlock("filtersSwInv",`
-      ${fieldSelect("Dependencia","fSwiDep",["Todos",...DEPENDENCIAS])}
+      ${fieldSelect("Dependencia","fSwiDep",["Todos",...depNames()])}
       ${fieldSelect("Cobertura","fSwiCob",["Seleccione","Municipal","Estatal","Solo en la Dependencia"])}
     `)}
     <div class="datatable-toolbar"><div class="entries-control">Mostrar <select><option>10</option></select> registros</div>
@@ -2707,6 +3107,7 @@ function verSoftware(id){
   const s = findIn(state.data.softwareInv,id);
   openModal({title:s.nombre, subtitle:s.siglas, confirm:"Cerrar", body:`<div class="detail-grid">
     <div><span>Dependencia</span><strong>${s.dependencia}</strong></div><div><span>Estatus</span><strong>${s.estatus}</strong></div>
+    <div><span>Trámite o Servicio</span><strong>${s.tramite||"—"}</strong></div><div><span>Plataforma</span><strong>${s.plataforma||"—"}</strong></div>
     <div><span>Contacto</span><strong>${s.contacto}</strong></div><div><span>Programador(es)</span><strong>${s.programador}</strong></div>
     <div><span>Responsable</span><strong>${s.responsable}</strong></div></div><p style="margin-top:12px;color:var(--muted)">${s.descripcion}</p>`, onConfirm:closeModal});
 }
@@ -2717,17 +3118,19 @@ function eliminarSoftware(id){
 function renderSoftwareForm(editId){
   const s = editId?findIn(state.data.softwareInv,editId):null;
   content.innerHTML = `
-  ${breadcrumb([{label:"Inventarios"},{label:"Inventario de Software",view:"inv-software"},{label:"Registrar Software"}])}
-  <div class="page-header"><div><h1>${editId?"Editar Software":"Registrar Software"}</h1><p>Datos generales, de desarrollo y de alojamiento del sistema.</p></div></div>
+  ${breadcrumb([{label:"Inventarios"},{label:"Inventario de Software",view:"inv-software"},{label:"Registro de Software"}])}
+  <div class="page-header"><div><h1>${editId?"Editar Software":"Registro de Software"}</h1><p>Datos generales, de desarrollo y de alojamiento del sistema.</p></div></div>
   <article class="card">
     <div class="form-grid">
-      ${fieldSelect("Dependencia o Entidad","fSwiDependencia",DEPENDENCIAS,s?.dependencia)}
+      ${fieldSelect("Dependencia o Entidad","fSwiDependencia",depNames(),s?.dependencia)}
       ${fieldInputPair("Nombre del sistema","fSwiNombre",s?.nombre,"Siglas","fSwiSiglas",s?.siglas)}
       ${fieldInput("Descripción breve","fSwiDescripcion",s?.descripcion,"text","class=full")}
+      ${fieldSelect("Trámite o Servicio","fSwiTramite",catNames("cat-tramite"))}
       ${fieldSelect("Cobertura del sistema","fSwiCobertura",["Municipal","Estatal","Solo en la Dependencia"])}
       ${fieldSelect("Uso de la aplicación","fSwiUso",["Interno (Dependencia)","Externo (Otra Entidad)","Externo (Ciudadanía)"])}
       ${fieldSelect("Tipo de aplicación","fSwiTipoApp",["Móvil","Escritorio","Web","Web + Móvil"])}
       ${fieldSelect("Estatus","fSwiEstatus",["Producción","Desarrollo","Pruebas","En Boceto","En Idea"],s?.estatus)}
+      ${fieldSelect("Plataforma / Sistema Operativo","fSwiPlataforma",catNames("cat-plataforma"))}
       ${fieldInput("Número de usuarios del sistema","fSwiUsuarios","","number")}
       ${fieldInput("Nombre del contacto/enlace","fSwiContacto",s?.contacto)}
       ${fieldInput("Nombre del programador(es)","fSwiProgramador",s?.programador)}
@@ -2742,6 +3145,7 @@ function renderSoftwareForm(editId){
 function guardarSoftware(editId){
   const payload = {dependencia:$("#fSwiDependencia").value, nombre:$("#fSwiNombre").value||"Sistema sin nombre", siglas:$("#fSwiSiglas").value,
     descripcion:$("#fSwiDescripcion").value, estatus:$("#fSwiEstatus").value, contacto:$("#fSwiContacto").value,
+    tramite:$("#fSwiTramite").value, plataforma:$("#fSwiPlataforma").value,
     programador:$("#fSwiProgramador").value, responsable:$("#fSwiResponsable").value};
   if(editId){ Object.assign(findIn(state.data.softwareInv,editId),payload); toast("Sistema actualizado."); }
   else { state.data.softwareInv.push({id:uid("SW-INV"),...payload}); toast("Software registrado en el inventario."); }
@@ -2751,7 +3155,10 @@ function guardarSoftware(editId){
 /* ================= Inventarios > Hardware ================= */
 function renderInvHardware(){
   const term = state.search.hwinv||"";
-  const rows = state.data.hardwareInv.filter(h=>matchesSearch(h,term));
+  const rows = state.data.hardwareInv.filter(h=>{
+    const flat = {categoria:h.categoria, subcategoria:h.subcategoria, ...(h.campos||{})};
+    return matchesSearch(flat,term);
+  });
   content.innerHTML = `
   ${breadcrumb([{label:"Inventarios"},{label:"Inventario de Hardware"}])}
   <div class="page-header"><div><h1>Inventario de Hardware</h1><p>Equipos de cómputo y servidores registrados por categoría y subcategoría.</p></div>
@@ -2765,13 +3172,14 @@ function renderInvHardware(){
     <div class="datatable-toolbar"><div class="entries-control">Mostrar <select><option>10</option></select> registros</div>
       <div class="datatable-actions">${searchBox("hwinvSearch","Buscar registros",term)}</div></div>
     <div class="table-wrap"><table>
-      <thead><tr><th>No.</th><th>Categoría</th><th>Subcategoría</th><th>Marca</th><th>Serie</th><th>Fabricante</th><th>Modelo</th><th>Acciones</th></tr></thead>
+      <thead><tr><th>No.</th><th>Categoría</th><th>Subcategoría</th><th>Componentes capturados</th><th>Acciones</th></tr></thead>
       <tbody>${rows.length?rows.map((h,i)=>`<tr>
-        <td>${i+1}</td><td>${h.categoria}</td><td>${h.subcategoria}</td><td>${h.marca}</td><td>${h.serie}</td><td>${h.fabricante}</td><td>${h.modelo}</td>
+        <td>${i+1}</td><td>${h.categoria}</td><td>${h.subcategoria}</td>
+        <td>${Object.entries(h.campos||{}).map(([k,v])=>`${k}: <strong>${v||"—"}</strong>`).join(" · ")||"—"}</td>
         <td><div class="actions-cell">
           ${actionBtn("eye","Ver detalle",`verHardware('${h.id}')`)}
           ${actionBtn("trash","Eliminar",`eliminarHardware('${h.id}')`,"danger")}
-        </div></td></tr>`).join(""):`<tr><td colspan="8" class="empty-state">Sin equipos registrados.</td></tr>`}</tbody>
+        </div></td></tr>`).join(""):`<tr><td colspan="5" class="empty-state">Sin equipos registrados.</td></tr>`}</tbody>
     </table></div>
     ${paginationFoot(rows.length,"equipos")}
   </article>`;
@@ -2779,9 +3187,8 @@ function renderInvHardware(){
 }
 function verHardware(id){
   const h = findIn(state.data.hardwareInv,id);
-  openModal({title:`${h.categoria} · ${h.subcategoria}`, confirm:"Cerrar", body:`<div class="detail-grid">
-    <div><span>Marca</span><strong>${h.marca}</strong></div><div><span>Número de serie</span><strong>${h.serie}</strong></div>
-    <div><span>Fabricante</span><strong>${h.fabricante}</strong></div><div><span>Modelo</span><strong>${h.modelo}</strong></div></div>`, onConfirm:closeModal});
+  const filas = Object.entries(h.campos||{}).map(([k,v])=>`<div><span>${k}</span><strong>${v||"—"}</strong></div>`).join("");
+  openModal({title:`${h.categoria} · ${h.subcategoria}`, confirm:"Cerrar", body:`<div class="detail-grid">${filas||"<p>Sin componentes capturados.</p>"}</div>`, onConfirm:closeModal});
 }
 function eliminarHardware(id){
   openModal({title:"Eliminar equipo", confirmClass:"danger", confirm:"Eliminar", body:"<p>¿Deseas eliminar este equipo del inventario?</p>",
@@ -2790,32 +3197,43 @@ function eliminarHardware(id){
 function renderHardwareForm(){
   const categoriasOpt = state.data.categorias.map(c=>c.nombre);
   content.innerHTML = `
-  ${breadcrumb([{label:"Inventarios"},{label:"Inventario de Hardware",view:"inv-hardware"},{label:"Registrar Hardware"}])}
-  <div class="page-header"><div><h1>Registrar Hardware</h1><p>Selecciona la categoría y subcategoría para capturar los componentes correspondientes.</p></div></div>
+  ${breadcrumb([{label:"Inventarios"},{label:"Inventario de Hardware",view:"inv-hardware"},{label:"Registro de Hardware"}])}
+  <div class="page-header"><div><h1>Registro de Hardware</h1><p>Selecciona la categoría y subcategoría; los campos se generan según el catálogo de Componentes.</p></div></div>
   <article class="card">
     <div class="form-grid">
-      ${fieldSelect("Categoría","fHwFormCat",categoriasOpt,"","onchange=refreshHwSubcats()")}
-      ${fieldSelect("Subcategoría","fHwFormSub",(state.data.categorias[0]?.subcategorias||[]).map(s=>s.nombre))}
-      ${fieldInput("Marca","fHwFormMarca")}
-      ${fieldInput("Número de serie","fHwFormSerie")}
-      ${fieldInput("Fabricante","fHwFormFab")}
-      ${fieldInput("Modelo","fHwFormModelo")}
+      ${fieldSelect("Categoría","fHwFormCat",categoriasOpt,"","onchange=onHwCategoriaChange()")}
+      ${fieldSelect("Subcategoría","fHwFormSub",(state.data.categorias[0]?.subcategorias||[]).map(s=>s.nombre),"","onchange=refreshHwComponentFields()")}
     </div>
+    <h2 style="font-size:14px;margin:22px 0 4px">Componentes a capturar</h2>
+    <p style="color:var(--muted);font-size:12px;margin:0 0 14px">Definidos en Catálogos → Componentes para esta categoría y subcategoría.</p>
+    <div class="form-grid" id="hwComponentFields">${renderHwComponentFields()}</div>
   </article>
   <div class="page-actions" style="margin-top:18px;justify-content:flex-end">
     <button class="button ghost" onclick="navigate('inv-hardware')">&raquo; Regresar</button>
     <button class="button primary" onclick="guardarHardware()">Guardar</button>
   </div>`;
 }
+function renderHwComponentFields(){
+  const cat = $("#fHwFormCat")?.value || state.data.categorias[0]?.nombre;
+  const sub = $("#fHwFormSub")?.value || (state.data.categorias[0]?.subcategorias||[])[0]?.nombre;
+  const comps = state.data.componentes.filter(c=>c.categoria===cat && c.subcategoria===sub);
+  if(!comps.length) return `<p class="empty-state" style="padding:16px 0;grid-column:1/-1">No hay componentes registrados en el catálogo para "${cat} · ${sub}". Agrégalos en Catálogos → Componentes.</p>`;
+  return comps.map(c=>`<div class="field"><label>${c.nombre}</label><input id="hwc_${c.id}" placeholder="${c.nombre}"></div>`).join("");
+}
+function onHwCategoriaChange(){ refreshHwSubcats(); refreshHwComponentFields(); }
 function refreshHwSubcats(){
   const cat = findAny(state.data.categorias,c=>c.nombre===$("#fHwFormCat").value);
   $("#fHwFormSub").innerHTML = (cat?.subcategorias||[]).map(s=>`<option>${s.nombre}</option>`).join("");
 }
+function refreshHwComponentFields(){ $("#hwComponentFields").innerHTML = renderHwComponentFields(); }
 function findAny(arr,fn){ return arr.find(fn); }
 function guardarHardware(){
-  const payload = {categoria:$("#fHwFormCat").value, subcategoria:$("#fHwFormSub").value, marca:$("#fHwFormMarca").value,
-    serie:$("#fHwFormSerie").value, fabricante:$("#fHwFormFab").value, modelo:$("#fHwFormModelo").value};
-  state.data.hardwareInv.push({id:uid("HW"),...payload});
+  const categoria = $("#fHwFormCat").value, subcategoria = $("#fHwFormSub").value;
+  const comps = state.data.componentes.filter(c=>c.categoria===categoria && c.subcategoria===subcategoria);
+  if(!comps.length){ toast("No hay componentes configurados para esta categoría/subcategoría. Agrégalos primero en Catálogos → Componentes.","error"); return; }
+  const campos = {};
+  comps.forEach(c=>{ campos[c.nombre] = $("#hwc_"+c.id)?.value||""; });
+  state.data.hardwareInv.push({id:uid("HW"), categoria, subcategoria, campos});
   toast("Equipo registrado en el inventario.");
   navigate("inv-hardware");
 }
@@ -2844,7 +3262,7 @@ function renderCatProductos(){
   $("#productosSearch").oninput = e=>{ state.search.productos=e.target.value; renderCatProductos(); };
 }
 function abrirRegistrarProducto(){
-  openModal({title:"Registrar Producto", confirm:"Continuar",
+  openModal({title:"Registro de Producto", confirm:"Continuar",
     body:fieldSelect("Seleccione categoría","fProdCat",["Bases de Datos","Dominio y Subdominio"]),
     onConfirm:()=>{ const cat=$("#fProdCat").value; closeModal(); navigate(cat==="Bases de Datos"?"crear-bd-form":"dominios-form"); }});
 }
@@ -3014,7 +3432,7 @@ function eliminarUsuario(id){
 }
 
 /* ================= Administrador > Permisos ================= */
-const PERMISOS_MODULOS = ["Registrar Solicitantes","Servicios (Sitios Web, Dominios, BD, VPN, Servidores)","Inventario de Software y Hardware","Catálogos","Administrador","Reportes"];
+const PERMISOS_MODULOS = ["Solicitantes","Servicios (Sitios Web, Dominios, BD, VPN, Servidores)","Inventario de Software y Hardware","Catálogos","Administrador","Reportes"];
 function renderPermisos(usuarioId){
   const u = usuarioId?findIn(state.data.usuarios,usuarioId):state.data.usuarios[0];
   content.innerHTML = `
@@ -3051,7 +3469,7 @@ function renderReportes(){
   <div class="page-header"><div><h1>Reportes</h1><p>Genera reportes de servicios de tecnología por dependencia y periodo.</p></div></div>
   <article class="card">
     <div class="form-grid">
-      ${fieldSelect("Dependencia","fRepDep",["Ninguna","Todas",...DEPENDENCIAS])}
+      ${fieldSelect("Dependencia","fRepDep",["Ninguna","Todas",...depNames()])}
       ${fieldInput("Fecha de Inicio","fRepDesde",todayStr(),"date")}
       ${fieldInput("Fecha Final","fRepHasta",todayStr(),"date")}
       ${fieldSelect("Mostrar por","fRepTipo",Object.keys(REPORTE_CONFIG),rep||"")}
