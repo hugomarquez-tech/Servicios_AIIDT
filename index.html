@@ -446,7 +446,11 @@ tbody tr:hover{background:#FCF8F9}
 .table-tools{display:flex;gap:10px;align-items:center}
 .table-tools input{height:38px}
 .actions-cell{display:flex;gap:6px;align-items:center}
-.action-icon{width:34px;height:34px;border:1px solid #D5D9E0;background:#fff;color:var(--gray);border-radius:6px;display:grid;place-items:center;padding:0}
+.action-icon{width:34px;height:34px;border:1px solid #D5D9E0;background:#fff;color:var(--gray);border-radius:6px;display:grid;place-items:center;padding:0;position:relative}
+.evidence-count{position:absolute;top:-6px;right:-6px;background:var(--brand);color:#fff;font-size:9px;font-weight:800;border-radius:8px;min-width:16px;height:16px;display:flex;align-items:center;justify-content:center;padding:0 3px;line-height:1}
+.escaneo-box{border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin-bottom:12px;background:#FAFBFC}
+.escaneo-box-head{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;color:var(--ink);margin-bottom:8px}
+.escaneo-box-head span{color:var(--muted);font-size:11.5px}
 .action-icon .icon{width:17px;height:17px}
 .action-icon:hover{border-color:var(--brand);color:var(--brand)}
 .action-icon.warning{color:var(--amber);border-color:#E8C77C;background:#FFFBF2}
@@ -689,7 +693,7 @@ tbody tr:hover{background:#FCF8F9}
 .bulk-actions-select{display:flex;align-items:center;gap:10px}
 .bulk-actions-select label{font-size:11px;font-weight:700;color:var(--muted);white-space:nowrap}
 .bulk-actions-select select{height:38px;font-size:12.5px}
-.field-pair{display:grid;gap:8px}
+.field-pair-wrap{display:grid;gap:12px}
 .dashboard-chart-row{display:grid;grid-template-columns:2fr 1fr;gap:18px;margin-top:18px;align-items:stretch}
 .donut-card{display:flex;flex-direction:column;align-items:center;text-align:center;justify-content:center}
 .donut-card svg{margin:6px 0 14px}
@@ -702,6 +706,12 @@ tbody tr:hover{background:#FCF8F9}
 .firmante-row{display:grid;grid-template-columns:1fr 1.4fr 1.4fr auto;gap:10px;align-items:end;border:1px solid var(--line);border-radius:8px;padding:14px;background:#FAFBFC}
 .firmante-row .field{margin:0}
 @media (max-width:760px){.firmante-row{grid-template-columns:1fr}}
+
+/* ===== Servicios que presta un Departamento ===== */
+.depto-service-row{border:1px solid var(--line);border-radius:9px;padding:14px 16px;margin-bottom:12px;background:#fff}
+.depto-service-check{display:flex;align-items:center;gap:10px;font-size:13px;cursor:pointer}
+.depto-service-check input{width:18px;height:18px;accent-color:var(--brand)}
+.depto-service-detail{margin-top:14px;padding-top:14px;border-top:1px dashed var(--line)}
 
 /* ===== Hoja imprimible (Acta) ===== */
 .print-toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:12px}
@@ -740,7 +750,7 @@ tbody tr:hover{background:#FCF8F9}
 
 /* ===== Validación de formularios ===== */
 .toast.error{background:var(--red)}
-.field input.input-error,.field select.input-error,.field textarea.input-error,.field-pair input.input-error{border-color:var(--red) !important;background:var(--red-bg)}
+.field input.input-error,.field select.input-error,.field textarea.input-error{border-color:var(--red) !important;background:var(--red-bg)}
 .field-error{color:var(--red);font-size:11px;font-weight:700;margin-top:3px}
 .field label .required-mark{color:var(--red);margin-left:2px}
 
@@ -1120,10 +1130,10 @@ function fieldInputPair(label1,id1,value1,label2,id2,value2,widths="2fr 1fr",rul
   const r2 = rules[1]?` data-rule="${rules[1]}"`:"";
   const extra1 = rules[0]==="phone"?' maxlength="10" inputmode="numeric"':(rules[0]==="ip"?"":"");
   const extra2 = rules[1]==="numeric"?' maxlength="6" inputmode="numeric"':(rules[1]==="ip"?"":"");
-  return `<div class="field"><label>${label1} / ${label2}</label><div class="field-pair" style="grid-template-columns:${widths}">
-    <input id="${id1}" type="text" value="${value1??""}" placeholder="${label1}"${r1}${extra1}>
-    <input id="${id2}" type="text" value="${value2??""}" placeholder="${label2}"${r2}${extra2}>
-  </div></div>`;
+  return `<div class="field-pair-wrap" style="grid-template-columns:${widths}">
+    <div class="field"><label for="${id1}">${label1}</label><input id="${id1}" type="text" value="${value1??""}" placeholder="${label1}"${r1}${extra1}></div>
+    <div class="field"><label for="${id2}">${label2}</label><input id="${id2}" type="text" value="${value2??""}" placeholder="${label2}"${r2}${extra2}></div>
+  </div>`;
 }
 function fieldTextarea(label,id,value="",extra=""){
   return `<div class="field full"><label for="${id}">${label}</label><textarea id="${id}" rows="3" ${extra}>${value??""}</textarea></div>`;
@@ -1306,7 +1316,10 @@ const state = {
         descripcionAplicativo:"Portal de trámites en línea para solicitud de constancias educativas.",
         herramientas:"Nessus, OWASP ZAP, Burp Suite",resultado:"Aprobado",
         descripcionAnalisis:"Se realizó un análisis de vulnerabilidades sin hallazgos críticos. Se recomienda actualizar el certificado SSL antes de su vencimiento.",
-        evidencias:[{nombre:"reporte_escaneo_nessus.pdf"},{nombre:"captura_resultados_zap.png"}],
+        escaneos:[
+          {id:uid("SCAN"),fecha:"10/06/2026",hora:"09:30",evidencias:[{nombre:"reporte_escaneo_inicial.pdf"}]},
+          {id:uid("SCAN"),fecha:"23/06/2026",hora:"12:05",evidencias:[{nombre:"reporte_escaneo_nessus.pdf"},{nombre:"captura_resultados_zap.png"}]}
+        ],
         firmantes:[
           {rol:"Elaboración",nombre:"Ing. Carlos Margarito Martínez Martínez",puesto:"Jefe de Departamento de Seguridad Informática"},
           {rol:"Autorización",nombre:"Ing. Luis Manuel Vanoye Maldonado",puesto:"Subdirector de Comunicaciones"}
@@ -1317,7 +1330,7 @@ const state = {
         descripcionAplicativo:"Sistema de consulta de recibos de nómina para empleados del gobierno estatal.",
         herramientas:"Nessus, Nikto",resultado:"Con observaciones",
         descripcionAnalisis:"Se detectaron cabeceras de seguridad HTTP incompletas. Pendiente de corrección antes de autorización final.",
-        evidencias:[{nombre:"reporte_nikto.txt"}],
+        escaneos:[{id:uid("SCAN"),fecha:"01/07/2026",hora:"10:15",evidencias:[{nombre:"reporte_nikto.txt"}]}],
         firmantes:[
           {rol:"Elaboración",nombre:"Ing. Carlos Margarito Martínez Martínez",puesto:"Jefe de Departamento de Seguridad Informática"},
           {rol:"Autorización",nombre:"Ing. Luis Manuel Vanoye Maldonado",puesto:"Subdirector de Comunicaciones"}
@@ -1347,6 +1360,34 @@ const state = {
       {id:uid("CMP"),categoria:"Servidor",subcategoria:"Virtual",nombre:"Nombre del servidor"},
       {id:uid("CMP"),categoria:"Servidor",subcategoria:"Virtual",nombre:"Hipervisor"}
     ],
+    departamentosCatalogo:[
+      {id:uid("DEP"),nombre:"Departamento de Seguridad Informática",
+        titular:{nombre:"Ing. Carlos Margarito Martínez Martínez",correo:"carlos.martinez@tam.gob.mx",telefono:"8341078000",ext:"42011"},
+        servicios:[
+          {modulo:"actas-seguridad",generaDocumentos:true,firmantes:[
+            {rol:"Elaboración",nombre:"Ing. Carlos Margarito Martínez Martínez",puesto:"Jefe de Departamento de Seguridad Informática"},
+            {rol:"Autorización",nombre:"Ing. Luis Manuel Vanoye Maldonado",puesto:"Subdirector de Comunicaciones"}
+          ]}
+        ]},
+      {id:uid("DEP"),nombre:"Departamento de Desarrollo de Sistemas",
+        titular:{nombre:"Miguel Hernández López",correo:"miguel.hernandez@tam.gob.mx",telefono:"8343456789",ext:"1420"},
+        servicios:[
+          {modulo:"sitios-web",generaDocumentos:false,firmantes:[]},
+          {modulo:"dominios",generaDocumentos:false,firmantes:[]}
+        ]},
+      {id:uid("DEP"),nombre:"Departamento de Base de Datos",
+        titular:{nombre:"Juan Pérez Pérez",correo:"juan.perez@tam.gob.mx",telefono:"8341234567",ext:"1200"},
+        servicios:[
+          {modulo:"crear-bd",generaDocumentos:false,firmantes:[]},
+          {modulo:"rrd",generaDocumentos:false,firmantes:[]}
+        ]},
+      {id:uid("DEP"),nombre:"Departamento de Infraestructura",
+        titular:{nombre:"Ricardo Salas Peña",correo:"ricardo.salas@tam.gob.mx",telefono:"8341234567",ext:"1500"},
+        servicios:[
+          {modulo:"servidores",generaDocumentos:false,firmantes:[]},
+          {modulo:"vpn",generaDocumentos:false,firmantes:[]}
+        ]}
+    ],
     usuarios:[
       {id:uid("USR"),usuario:"Admin_1",nombre:"Administrador General",email:"administrador@tam.gob.mx",fecha:"03 de marzo de 2026",tipo:"Administrador"},
       {id:uid("USR"),usuario:"Invitado_1",nombre:"Usuario Invitado",email:"invitado1@tam.gob.mx",fecha:"03 de marzo de 2026",tipo:"Invitado"}
@@ -1355,7 +1396,6 @@ const state = {
       "cat-motor-bd":["MySQL","MariaDB","MSSQLServer 2014","MSSQLServer 2019","Oracle 11g","PostgreSQL"].map(n=>({id:uid("MBD"),nombre:n})),
       "cat-version-bd":["4.0","5.7","8.0","2014","2019","11.2.04"].map(n=>({id:uid("VBD"),nombre:n})),
       "cat-plataforma":["Windows Server 2019","Linux CentOS 7","Linux Ubuntu 22.04","Multisite WordPress"].map(n=>({id:uid("PLT"),nombre:n})),
-      "cat-departamentos":["Base de Datos","Infraestructura","Diseño","Seguridad Informática","Desarrollo de Sistemas"].map(n=>({id:uid("DEP"),nombre:n})),
       "cat-tipo-solicitudes":["Dominio","Subdominio","Sitio Web","Base de Datos","VPN","Servidor Físico o Virtual","RRD"].map(n=>({id:uid("TSO"),nombre:n})),
       "cat-tipo-servicio":["HTTP","HTTPS","API","WS","MySQL","MSSQL"].map(n=>({id:uid("TSV"),nombre:n})),
       "cat-dependencias":DEPENDENCIAS.map(n=>({id:uid("DPN"),nombre:n})),
@@ -1364,6 +1404,16 @@ const state = {
     }
   }
 };
+const MODULOS_SERVICIO = [
+  ["sitios-web","Sitios Web"],
+  ["rrd","RRD"],
+  ["crear-bd","Crear BD"],
+  ["vpn","VPN"],
+  ["dominios","Dominios y Subdominios"],
+  ["servidores","Servidores Físicos y Virtuales"],
+  ["actas-seguridad","Protocolo de Seguridad"]
+];
+function moduloLabel(key){ return MODULOS_SERVICIO.find(m=>m[0]===key)?.[1]||key; }
 function findIn(arr,id){ return arr.find(x=>x.id===id); }
 function removeIn(arr,id){ const i=arr.findIndex(x=>x.id===id); if(i>-1) arr.splice(i,1); }
 function depNames(){ return state.data.catalogosSimples["cat-dependencias"].map(c=>c.nombre); }
@@ -1508,6 +1558,7 @@ function abrirAltaRapidaSolicitante(prefix){
       <div class="form-grid">
         ${orgCascadeBlock("fNuevoSol",{})}
         ${fieldSelect("Municipio","fNuevoSolMun",MUNICIPIOS)}
+        ${fieldInput("Ubicación del centro de trabajo","fNuevoSolUbicacion","","text","class=full")}
       </div>`,
     onConfirm:()=>{
       const ok = validateFields([
@@ -1523,7 +1574,7 @@ function abrirAltaRapidaSolicitante(prefix){
         apMaterno:$("#fNuevoSolApMat").value, puesto:$("#fNuevoSolPuesto").value, telefono:$("#fNuevoSolTel").value, ext:$("#fNuevoSolExt").value,
         correo:$("#fNuevoSolCorreo").value, dependencia:org.secretaria, secretaria:org.secretaria, subsecretaria:org.subsecretaria,
         direccionGeneral:org.direccionGeneral, direccionArea:org.direccionArea, departamento:org.departamento,
-        municipio:$("#fNuevoSolMun").value, area:org.departamento};
+        municipio:$("#fNuevoSolMun").value, area:org.departamento, ubicacionCentroTrabajo:$("#fNuevoSolUbicacion").value};
       state.data.solicitantes.push(nuevo);
       seleccionarSolicitante(prefix, nuevo.id);
       toast("Solicitante registrado y asignado a la solicitud.");
@@ -1660,7 +1711,8 @@ const renderers = {
   "cat-motor-bd": ()=>renderSimpleCatalog("cat-motor-bd","Motor de BD"),
   "cat-version-bd": ()=>renderSimpleCatalog("cat-version-bd","Versión de BD"),
   "cat-plataforma": ()=>renderSimpleCatalog("cat-plataforma","Plataforma de alojamiento"),
-  "cat-departamentos": ()=>renderSimpleCatalog("cat-departamentos","Departamentos"),
+  "cat-departamentos": ()=>renderCatDepartamentos(),
+  "cat-departamentos-form": ()=>renderDepartamentoForm(state.editing.departamentoId),
   "cat-tipo-solicitudes": ()=>renderSimpleCatalog("cat-tipo-solicitudes","Tipo de Solicitudes"),
   "cat-tipo-servicio": ()=>renderSimpleCatalog("cat-tipo-servicio","Tipo de Servicio"),
   "cat-dependencias": ()=>renderSimpleCatalog("cat-dependencias","Dependencias"),
@@ -2088,6 +2140,7 @@ function verSolicitante(id){
       <div><span>Teléfono</span><strong>${s.telefono} ext. ${s.ext}</strong></div>
       <div><span>Correo electrónico</span><strong>${s.correo}</strong></div>
       <div><span>Municipio</span><strong>${s.municipio}</strong></div>
+      <div><span>Ubicación del centro de trabajo</span><strong>${s.ubicacionCentroTrabajo||"—"}</strong></div>
     </div>
     <h2 style="font-size:14px;margin:4px 0 10px">Adscripción organizacional</h2>
     <div class="detail-grid">
@@ -2143,6 +2196,7 @@ function renderSolicitanteForm(editId){
         <div class="form-grid">
           ${orgCascadeBlock("fSol",{secretaria:s?.secretaria||s?.dependencia,subsecretaria:s?.subsecretaria,direccionGeneral:s?.direccionGeneral,direccionArea:s?.direccionArea,departamento:s?.departamento})}
           ${fieldSelect("Municipio","fMun",MUNICIPIOS,s?.municipio)}
+          ${fieldInput("Ubicación del centro de trabajo","fUbicacion",s?.ubicacionCentroTrabajo,"text","class=full")}
         </div>
       </div>
     </div>
@@ -2169,7 +2223,7 @@ function guardarSolicitante(editId){
     telefono:$("#fTel").value, ext:$("#fExt").value, correo:$("#fCorreo").value,
     dependencia:org.secretaria, secretaria:org.secretaria, subsecretaria:org.subsecretaria,
     direccionGeneral:org.direccionGeneral, direccionArea:org.direccionArea, departamento:org.departamento,
-    municipio:$("#fMun").value, area:org.departamento
+    municipio:$("#fMun").value, area:org.departamento, ubicacionCentroTrabajo:$("#fUbicacion").value
   };
   if(editId){ Object.assign(findIn(state.data.solicitantes,editId),payload); toast("Solicitante actualizado."); }
   else { state.data.solicitantes.push({id:uid("SOL"),...payload}); toast("Solicitante registrado."); }
@@ -2890,7 +2944,7 @@ function renderRRDForm(editId){
       ${fieldInput("Oficio de Solicitud","fRrdOfSol",r?.oficioSolicitud)}
       ${fieldInput("Oficio de Respuesta","fRrdOfResp",r?.oficioRespuesta)}
       ${fieldInput("Fecha de registro","fRrdFecha",r?.fecha,"date")}
-      ${fieldSelect("Área responsable","fRrdArea",state.data.catalogosSimples["cat-departamentos"].map(c=>c.nombre),r?.area)}
+      ${fieldSelect("Área responsable","fRrdArea",state.data.departamentosCatalogo.map(c=>c.nombre),r?.area)}
     </div>
     <h2 style="font-size:15px;margin:20px 0 10px">Respaldos registrados</h2>
     <div class="table-wrap"><table><thead><tr><th>Fecha recepción</th><th>Medio de envío</th><th>Fecha de respaldo</th><th>Tamaño</th><th>Última mod.</th><th>Calidad</th></tr></thead>
@@ -2939,18 +2993,20 @@ function renderActasSeguridad(){
     <div class="datatable-toolbar"><div class="entries-control">Mostrar <select><option>10</option></select> registros</div>
       <div class="datatable-actions">${searchBox("actasSearch","Buscar registros",term)}</div></div>
     <div class="table-wrap"><table>
-      <thead><tr><th>Oficio / GLPI</th><th>Secretaría</th><th>URL / Aplicativo</th><th>Fecha</th><th>Resultado</th><th>Estatus</th><th>Firmantes</th><th>Acciones</th></tr></thead>
-      <tbody>${rows.length?rows.map(a=>`<tr>
+      <thead><tr><th>Oficio / GLPI</th><th>Secretaría</th><th>URL / Aplicativo</th><th>Fecha</th><th>Resultado</th><th>Estatus</th><th>Firmantes</th><th>Evidencias</th><th>Acciones</th></tr></thead>
+      <tbody>${rows.length?rows.map(a=>{ const totalEv=totalEvidencias(a); return `<tr>
         <td><strong>${a.oficio}</strong></td><td>${a.secretaria}</td><td>${a.url}</td><td>${a.fecha}</td>
         <td><span class="acta-result ${resultadoClass(a.resultado)}">${a.resultado}</span></td><td>${badgeEstatus(a.estatus)}</td>
         <td>${a.firmantes.length}</td>
+        <td class="checkbox-cell"><button type="button" class="action-icon ${totalEv?'':'neutral'}" title="Ver evidencias" onclick="abrirEvidenciasActa('${a.id}')">${icon("file-text")}${totalEv?`<span class="evidence-count">${totalEv}</span>`:""}</button></td>
         <td><div class="actions-cell">
           ${actionBtn("eye","Ver detalle",`verActa('${a.id}')`)}
           ${actionBtn("edit","Editar",`state.editing.actaId='${a.id}';navigate('actas-seguridad-form')`,"warning")}
+          ${actionBtn("upload","Subir evidencias",`abrirEvidenciasActa('${a.id}')`,"success")}
           ${actionBtn("print","Imprimir",`state.editing.actaId='${a.id}';navigate('actas-seguridad-print')`,"success")}
           ${actionBtn("clock","Bitácora",`abrirBitacoraActa('${a.id}')`)}
           ${actionBtn("trash","Eliminar",`eliminarActa('${a.id}')`,"danger")}
-        </div></td></tr>`).join(""):`<tr><td colspan="8" class="empty-state">No hay protocolos de seguridad registrados.</td></tr>`}</tbody>
+        </div></td></tr>`;}).join(""):`<tr><td colspan="9" class="empty-state">No hay protocolos de seguridad registrados.</td></tr>`}</tbody>
     </table></div>
     ${paginationFoot(rows.length,"protocolos")}
   </article>`;
@@ -3024,31 +3080,83 @@ function quitarFirmante(idx){
   $("#firmantesSection").innerHTML = renderFirmantesEditor();
 }
 
-/* ---- Evidencia: lista simple de adjuntos ---- */
-function renderEvidenciaList(){
-  const draft = state.editing.evidenciasDraft||[];
-  return `<div id="evidenciaList" class="firmantes-editor">
-    ${draft.map((e,i)=>`<div class="attach-row"><span>${icon("file-text")} ${e.nombre}</span><button class="action-icon danger" title="Quitar" onclick="quitarEvidencia(${i})">${icon("trash")}</button></div>`).join("")||`<p class="empty-state" style="padding:10px 0">Sin evidencia adjunta.</p>`}
-  </div>`;
+/* ---- Evidencias: historial de escaneos (una solicitud puede tener varios escaneos) ---- */
+function findUltimoEscaneo(acta){
+  const esc = acta.escaneos||[];
+  return esc.length ? esc[esc.length-1] : null;
 }
-function agregarEvidenciaSimulada(){
-  const nombre = "evidencia_" + (state.editing.evidenciasDraft.length+1) + ".pdf";
-  state.editing.evidenciasDraft.push({nombre});
-  $("#evidenciaSection").innerHTML = renderEvidenciaList();
-  toast("Archivo agregado (simulado): "+nombre);
+function totalEvidencias(acta){
+  return (acta.escaneos||[]).reduce((sum,e)=>sum+e.evidencias.length,0);
 }
-function quitarEvidencia(idx){
-  state.editing.evidenciasDraft.splice(idx,1);
-  $("#evidenciaSection").innerHTML = renderEvidenciaList();
+function abrirEvidenciasActa(id){
+  state.editing.actaEvidenciaId = id;
+  state.editing.nuevoEscaneoDraft = {evidencias:[]};
+  renderEvidenciasActaModal();
+}
+function renderEvidenciasActaModal(){
+  const acta = findIn(state.data.actasSeguridad, state.editing.actaEvidenciaId);
+  const ultimo = findUltimoEscaneo(acta);
+  const anteriores = (acta.escaneos||[]).slice(0,-1).reverse();
+  openModal({title:"Evidencias del Protocolo", subtitle:`${acta.oficio} · ${acta.url}`, size:"large", confirm:"Cerrar",
+    body:`
+      <h3 style="font-size:13px;margin:0 0 10px">Último escaneo realizado</h3>
+      ${ultimo?`<div class="escaneo-box">
+          <div class="escaneo-box-head"><strong>${ultimo.fecha}</strong><span>${ultimo.hora||""}</span></div>
+          <ul class="acta-evidence-list">${ultimo.evidencias.map(e=>`<li>${icon("file-text")} ${e.nombre}</li>`).join("")||"<li>Sin archivos.</li>"}</ul>
+        </div>`
+        :`<p class="empty-state" style="padding:14px 0">Aún no se ha registrado ningún escaneo con evidencia para este protocolo.</p>`}
+
+      <h3 style="font-size:13px;margin:22px 0 10px">Registrar nuevo escaneo</h3>
+      <div class="form-grid">
+        ${fieldInput("Fecha del escaneo","fNuevoEscaneoFecha",todayStr(),"date")}
+      </div>
+      <div id="nuevoEscaneoEvidencias" style="margin-top:10px">${renderNuevoEscaneoEvidencias()}</div>
+      <div style="display:flex;gap:10px;margin-top:12px">
+        <button type="button" class="button secondary" onclick="agregarEvidenciaNuevoEscaneo()">${icon("upload")} Agregar evidencia</button>
+        <button type="button" class="button primary" onclick="guardarNuevoEscaneo()">${icon("plus")} Guardar escaneo</button>
+      </div>
+
+      <h3 style="font-size:13px;margin:24px 0 10px">Historial de escaneos anteriores</h3>
+      ${anteriores.length?anteriores.map(e=>`<div class="escaneo-box" style="background:#F4F6F8">
+          <div class="escaneo-box-head"><strong>${e.fecha}</strong><span>${e.hora||""}</span></div>
+          <ul class="acta-evidence-list">${e.evidencias.map(x=>`<li>${icon("file-text")} ${x.nombre}</li>`).join("")||"<li>Sin archivos.</li>"}</ul>
+        </div>`).join(""):`<p class="empty-state" style="padding:10px 0">Sin escaneos anteriores registrados.</p>`}
+    `,
+    onConfirm:closeModal});
+}
+function renderNuevoEscaneoEvidencias(){
+  const draft = state.editing.nuevoEscaneoDraft.evidencias;
+  if(!draft.length) return `<p class="empty-state" style="padding:8px 0">Sin archivos agregados todavía para este nuevo escaneo.</p>`;
+  return `<div class="firmantes-editor">${draft.map((e,i)=>`<div class="attach-row"><span>${icon("file-text")} ${e.nombre}</span><button type="button" class="action-icon danger" title="Quitar" onclick="quitarEvidenciaNuevoEscaneo(${i})">${icon("trash")}</button></div>`).join("")}</div>`;
+}
+function agregarEvidenciaNuevoEscaneo(){
+  const n = state.editing.nuevoEscaneoDraft.evidencias.length+1;
+  state.editing.nuevoEscaneoDraft.evidencias.push({nombre:`evidencia_escaneo_${n}.pdf`});
+  $("#nuevoEscaneoEvidencias").innerHTML = renderNuevoEscaneoEvidencias();
+  toast("Archivo agregado (simulado).");
+}
+function quitarEvidenciaNuevoEscaneo(idx){
+  state.editing.nuevoEscaneoDraft.evidencias.splice(idx,1);
+  $("#nuevoEscaneoEvidencias").innerHTML = renderNuevoEscaneoEvidencias();
+}
+function guardarNuevoEscaneo(){
+  const draft = state.editing.nuevoEscaneoDraft;
+  if(!draft.evidencias.length){ toast("Agrega al menos un archivo de evidencia antes de guardar el escaneo.","error"); return; }
+  const fecha = $("#fNuevoEscaneoFecha").value || todayStr();
+  const acta = findIn(state.data.actasSeguridad, state.editing.actaEvidenciaId);
+  acta.escaneos = acta.escaneos || [];
+  acta.escaneos.push({id:uid("SCAN"), fecha, hora:nowTime(), evidencias:[...draft.evidencias]});
+  acta.bitacora.push({fecha:todayStr(),hora:nowTime(),usuario:"Administrador",movimiento:"Nuevo escaneo con evidencia registrado",obs:`${draft.evidencias.length} archivo(s)`});
+  toast("Escaneo registrado con su evidencia.");
+  state.editing.nuevoEscaneoDraft = {evidencias:[]};
+  renderEvidenciasActaModal();
+  renderActasSeguridad();
 }
 
 function renderActaForm(editId){
   const a = editId?findIn(state.data.actasSeguridad,editId):null;
-  state.editing.firmantesDraft = a ? a.firmantes.map(f=>({...f})) : [
-    {rol:"Elaboración",nombre:"",puesto:"Jefe de Departamento de Seguridad Informática"},
-    {rol:"Autorización",nombre:"",puesto:"Subdirector de Comunicaciones"}
-  ];
-  state.editing.evidenciasDraft = a ? a.evidencias.map(e=>({...e})) : [];
+  const deptosDisponibles = state.data.departamentosCatalogo.filter(d=>d.servicios.some(s=>s.modulo==="actas-seguridad"&&s.generaDocumentos));
+  state.editing.deptoActaId = a?.departamentoId || deptosDisponibles[0]?.id || null;
   content.innerHTML = `
   ${breadcrumb([{label:"Servicios"},{label:"Protocolo de Seguridad",view:"actas-seguridad"},{label:editId?"Editar Protocolo":"Registro de Protocolo"}])}
   <div class="page-header"><div><h1>${editId?"Editar":"Registro de"} Protocolo de Evaluación de Seguridad</h1><p>Evaluación del estado de seguridad previa a la publicación de un servicio.</p>${solicitanteContextHeader()}</div>
@@ -3065,27 +3173,48 @@ function renderActaForm(editId){
     <h2 style="font-size:15px;margin:22px 0 12px">Datos Técnicos</h2>
     <div class="form-grid">
       ${fieldInputPair("IP LAN","fActaIpLan",a?.ipLan,"IP WAN","fActaIpWan",a?.ipWan,"1fr 1fr",["ip","ip"])}
-      <div class="field"><label>Puertos permitidos / Resultado del análisis</label><div class="field-pair" style="grid-template-columns:1.3fr 1fr">
-        <input id="fActaPuertos" value="${a?.puertos??""}" placeholder="Puertos permitidos">
-        <select id="fActaResultadoForm">${["Aprobado","Con observaciones","Rechazado"].map(o=>`<option value="${o}" ${o===a?.resultado?"selected":""}>${o}</option>`).join("")}</select>
-      </div></div>
+      <div class="field-pair-wrap" style="grid-template-columns:1.3fr 1fr">
+        <div class="field"><label for="fActaPuertos">Puertos permitidos</label><input id="fActaPuertos" value="${a?.puertos??""}" placeholder="Ej. 80, 443"></div>
+        <div class="field"><label for="fActaResultadoForm">Resultado del análisis</label><select id="fActaResultadoForm">${["Aprobado","Con observaciones","Rechazado"].map(o=>`<option value="${o}" ${o===a?.resultado?"selected":""}>${o}</option>`).join("")}</select></div>
+      </div>
       ${fieldUrlInput("URL","fActaUrl",a?.url,{required:true,full:true})}
       ${fieldTextarea("Descripción del aplicativo","fActaDescApp",a?.descripcionAplicativo)}
       ${fieldTextarea("Herramientas utilizadas","fActaHerramientas",a?.herramientas)}
       ${fieldTextarea("Descripción del análisis","fActaDescAnalisis",a?.descripcionAnalisis)}
     </div>
-    <h2 style="font-size:15px;margin:22px 0 12px">Evidencia del análisis</h2>
-    <div id="evidenciaSection">${renderEvidenciaList()}</div>
-    <button class="button secondary" style="margin-top:12px" onclick="agregarEvidenciaSimulada()">${icon("upload")} Agregar evidencia</button>
+    ${editId?`<div class="inline-note">La evidencia de los escaneos de este protocolo ahora se administra desde la acción "Subir evidencias" en la lista de protocolos, ya que una misma solicitud puede tener varios escaneos a lo largo del tiempo.</div>`:`<div class="inline-note">Una vez guardado el protocolo, podrás subir la evidencia de cada escaneo desde la acción "Subir evidencias" en la lista de protocolos.</div>`}
     <h2 style="font-size:15px;margin:26px 0 4px">${icon("signature")} Firmantes del acta</h2>
-    <p style="color:var(--muted);font-size:12px;margin:0 0 14px">Configura quién elabora, autoriza o da Vo.Bo. en este protocolo. Se usarán para generar el formato de impresión.</p>
-    <div id="firmantesSection">${renderFirmantesEditor()}</div>
+    <p style="color:var(--muted);font-size:12px;margin:0 0 14px">Los firmantes se configuran una sola vez en Catálogos → Departamentos, para el servicio "Protocolo de Seguridad". Aquí solo eliges qué departamento firma este documento.</p>
+    ${deptosDisponibles.length ? `
+      <div class="form-grid">
+        <div class="field full"><label>Departamento responsable</label>
+          <select id="fActaDepto" onchange="state.editing.deptoActaId=this.value;refreshFirmantesPreviewActa()">
+            ${deptosDisponibles.map(d=>`<option value="${d.id}" ${d.id===state.editing.deptoActaId?"selected":""}>${d.nombre}</option>`).join("")}
+          </select>
+        </div>
+      </div>
+      <div id="firmantesPreviewActa">${renderFirmantesPreviewActa()}</div>
+    ` : `
+      <div class="inline-note">Ningún departamento tiene configurados firmantes para "Protocolo de Seguridad". Ve a <a href="#" onclick="navigate('cat-departamentos');return false">Catálogos → Departamentos</a> y marca ese servicio con "¿Genera documentos? Sí" para capturarlos ahí.</div>
+    `}
   </article>
   <div class="page-actions" style="margin-top:18px;justify-content:flex-end">
     <button class="button ghost" onclick="navigate('actas-seguridad')">&raquo; Regresar</button>
     <button class="button primary" onclick="guardarActa('${editId||""}')">Guardar</button>
   </div>`;
 }
+function renderFirmantesPreviewActa(){
+  const dep = findIn(state.data.departamentosCatalogo, state.editing.deptoActaId);
+  const svc = dep?.servicios.find(s=>s.modulo==="actas-seguridad");
+  const firmantes = svc?.firmantes||[];
+  if(!firmantes.length) return `<p class="empty-state" style="padding:10px 0">Este departamento no tiene firmantes configurados todavía.</p>`;
+  return `<div class="firmantes-editor">${firmantes.map(f=>`<div class="firmante-row" style="grid-template-columns:1fr 1.4fr 1.4fr;background:#F4F6F8">
+    <div><span style="display:block;font-size:10.5px;color:var(--muted);text-transform:uppercase">Rol</span><strong>${f.rol}</strong></div>
+    <div><span style="display:block;font-size:10.5px;color:var(--muted);text-transform:uppercase">Nombre</span><strong>${f.nombre||"—"}</strong></div>
+    <div><span style="display:block;font-size:10.5px;color:var(--muted);text-transform:uppercase">Puesto</span><strong>${f.puesto||"—"}</strong></div>
+  </div>`).join("")}</div>`;
+}
+function refreshFirmantesPreviewActa(){ $("#firmantesPreviewActa").innerHTML = renderFirmantesPreviewActa(); }
 function guardarActa(editId){
   if(!state.editing.selectedSolicitanteId){ toast("Selecciona un solicitante para esta solicitud.","error"); return; }
   const ok = validateFields([
@@ -3095,9 +3224,10 @@ function guardarActa(editId){
     {id:"fActaIpWan",label:"IP WAN",type:"ip",required:false}
   ]);
   if(!ok) return;
-  syncFirmantesDraft();
-  const firmantesValidos = state.editing.firmantesDraft.filter(f=>f.nombre.trim());
   const sol = findIn(state.data.solicitantes, state.editing.selectedSolicitanteId);
+  const depto = findIn(state.data.departamentosCatalogo, state.editing.deptoActaId);
+  const svc = depto?.servicios.find(s=>s.modulo==="actas-seguridad");
+  const firmantes = svc?.firmantes?.map(f=>({...f})) || [];
   const payload = {
     fecha:$("#fActaFecha").value||todayStr(), oficio:$("#fActaOficio").value||"Sin número de oficio",
     solicitanteId:sol.id, secretaria:sol.secretaria||sol.dependencia, subsecretaria:sol.subsecretaria||"",
@@ -3105,10 +3235,10 @@ function guardarActa(editId){
     ipLan:$("#fActaIpLan").value, ipWan:$("#fActaIpWan").value, url:$("#fActaUrl").value, puertos:$("#fActaPuertos").value,
     resultado:$("#fActaResultadoForm").value, descripcionAplicativo:$("#fActaDescApp").value,
     herramientas:$("#fActaHerramientas").value, descripcionAnalisis:$("#fActaDescAnalisis").value,
-    evidencias:[...state.editing.evidenciasDraft], firmantes:firmantesValidos.length?firmantesValidos:state.editing.firmantesDraft
+    departamentoId:depto?.id||null, firmantes
   };
   if(editId){ Object.assign(findIn(state.data.actasSeguridad,editId),payload); toast("Protocolo actualizado."); }
-  else { state.data.actasSeguridad.push({id:uid("ACT"),...payload,estatus:"Registrado",bitacora:[{fecha:todayStr(),hora:nowTime(),usuario:"Administrador",movimiento:"Registro del protocolo",obs:""}]}); toast("Protocolo de seguridad registrado."); }
+  else { state.data.actasSeguridad.push({id:uid("ACT"),...payload,estatus:"Registrado",escaneos:[],bitacora:[{fecha:todayStr(),hora:nowTime(),usuario:"Administrador",movimiento:"Registro del protocolo",obs:""}]}); toast("Protocolo de seguridad registrado."); }
   navigate("actas-seguridad");
 }
 
@@ -3116,6 +3246,7 @@ function guardarActa(editId){
 function renderActaPrint(id){
   const a = findIn(state.data.actasSeguridad,id);
   if(!a){ navigate("actas-seguridad"); return; }
+  const ultimoImpresion = findUltimoEscaneo(a);
   const firmantesHtml = a.firmantes.map(f=>`<div class="signature-block">
       <em>${f.rol}</em>
       <div class="signature-line"></div>
@@ -3155,8 +3286,8 @@ function renderActaPrint(id){
       <tr><td class="acta-label">Descripción del análisis</td><td colspan="3">${a.descripcionAnalisis||"—"}</td></tr>
     </table>
 
-    <table class="acta-table"><caption>Evidencia del Análisis</caption>
-      <tr><td><ul class="acta-evidence-list">${a.evidencias.length?a.evidencias.map(e=>`<li>${icon("file-text")} ${e.nombre}</li>`).join(""):"<li>Sin evidencia adjunta.</li>"}</ul></td></tr>
+    <table class="acta-table"><caption>Evidencia del Análisis (último escaneo)</caption>
+      <tr><td>${ultimoImpresion?`<span style="display:block;margin-bottom:8px;font-size:11px;color:var(--muted)">Escaneo del ${ultimoImpresion.fecha}${ultimoImpresion.hora?" · "+ultimoImpresion.hora:""}</span><ul class="acta-evidence-list">${ultimoImpresion.evidencias.map(e=>`<li>${icon("file-text")} ${e.nombre}</li>`).join("")}</ul>`:`<ul class="acta-evidence-list"><li>Sin evidencia adjunta todavía.</li></ul>`}</td></tr>
     </table>
 
     <div class="signature-row">${firmantesHtml}</div>
@@ -3422,6 +3553,165 @@ function agregarComponente(){
   toast("Componente registrado."); renderCatComponentes();
 }
 function eliminarComponente(id){ removeIn(state.data.componentes,id); toast("Componente eliminado."); renderCatComponentes(); }
+
+/* ================= Catálogos > Departamentos ================= */
+function renderCatDepartamentos(){
+  const term = state.search.departamentos||"";
+  const rows = state.data.departamentosCatalogo.filter(d=>matchesSearch({nombre:d.nombre,titular:d.titular?.nombre,correo:d.titular?.correo},term));
+  content.innerHTML = `
+  ${breadcrumb([{label:"Catálogos"},{label:"Departamentos"}])}
+  <div class="page-header"><div><h1>Catálogo de Departamentos</h1><p>Departamentos responsables de administrar los servicios de tecnología del sistema.</p></div>
+    <div class="page-actions"><button class="button primary" onclick="state.editing.departamentoId=null;navigate('cat-departamentos-form')">${icon("plus")} Registro de Departamento</button></div>
+  </div>
+  <article class="card table-card">
+    <div class="datatable-toolbar"><div class="entries-control">Mostrar <select><option>10</option></select> registros</div>
+      <div class="datatable-actions">${searchBox("departamentosSearch","Buscar registros",term)}</div></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Departamento</th><th>Titular</th><th>Correo</th><th>Teléfono</th><th>Servicios que presta</th><th>Acciones</th></tr></thead>
+      <tbody>${rows.length?rows.map(d=>`<tr>
+        <td><strong>${d.nombre}</strong></td><td>${d.titular?.nombre||"—"}</td><td>${d.titular?.correo||"—"}</td>
+        <td>${d.titular?.telefono||"—"}${d.titular?.ext?" ext. "+d.titular.ext:""}</td>
+        <td>${d.servicios.length?d.servicios.map(s=>`<span class="badge neutral" style="margin:2px 3px 2px 0">${moduloLabel(s.modulo)}${s.generaDocumentos?" "+icon("file-text"):""}</span>`).join(""):"—"}</td>
+        <td><div class="actions-cell">
+          ${actionBtn("eye","Ver",`verDepartamento('${d.id}')`)}
+          ${actionBtn("edit","Editar",`state.editing.departamentoId='${d.id}';navigate('cat-departamentos-form')`,"warning")}
+          ${actionBtn("trash","Eliminar",`eliminarDepartamento('${d.id}')`,"danger")}
+        </div></td></tr>`).join(""):`<tr><td colspan="6" class="empty-state">Sin departamentos registrados.</td></tr>`}</tbody>
+    </table></div>
+    ${paginationFoot(rows.length,"departamentos")}
+  </article>`;
+  $("#departamentosSearch").oninput = e=>{ state.search.departamentos=e.target.value; renderCatDepartamentos(); };
+}
+function verDepartamento(id){
+  const d = findIn(state.data.departamentosCatalogo,id);
+  const serviciosHtml = d.servicios.length ? d.servicios.map(s=>`<div style="border:1px solid var(--line);border-radius:7px;padding:10px 14px;margin-bottom:8px">
+      <strong>${moduloLabel(s.modulo)}</strong> — ${s.generaDocumentos?"Genera documentos":"No genera documentos"}
+      ${s.generaDocumentos&&s.firmantes.length?`<ul style="margin:8px 0 0 18px;padding:0;font-size:12.5px;color:var(--muted)">${s.firmantes.map(f=>`<li>${f.rol}: ${f.nombre||"(sin nombre)"} — ${f.puesto||""}</li>`).join("")}</ul>`:""}
+    </div>`).join("") : "<p class=\"empty-state\">Sin servicios asignados.</p>";
+  openModal({title:d.nombre, subtitle:d.titular?.nombre, size:"large", confirm:"Cerrar",
+    body:`<div class="detail-grid">
+      <div><span>Titular</span><strong>${d.titular?.nombre||"—"}</strong></div>
+      <div><span>Correo</span><strong>${d.titular?.correo||"—"}</strong></div>
+      <div><span>Teléfono</span><strong>${d.titular?.telefono||"—"}${d.titular?.ext?" ext. "+d.titular.ext:""}</strong></div>
+    </div>
+    <h2 style="font-size:14px;margin:14px 0 10px">Servicios que presta</h2>
+    ${serviciosHtml}`, onConfirm:closeModal});
+}
+function eliminarDepartamento(id){
+  openModal({title:"Eliminar departamento", confirmClass:"danger", confirm:"Eliminar",
+    body:"<p>¿Deseas eliminar este departamento del catálogo? Si tiene firmantes configurados para algún servicio, esos protocolos deberán reconfigurarse.</p>",
+    onConfirm:()=>{ removeIn(state.data.departamentosCatalogo,id); closeModal(); toast("Departamento eliminado."); renderCatDepartamentos(); }});
+}
+function renderDepartamentoForm(editId){
+  const dep = editId?findIn(state.data.departamentosCatalogo,editId):null;
+  state.editing.departamentoDraft = {servicios:{}};
+  if(dep) dep.servicios.forEach(s=>{ state.editing.departamentoDraft.servicios[s.modulo] = {activo:true, generaDocumentos:s.generaDocumentos, firmantes:s.firmantes.map(f=>({...f}))}; });
+  content.innerHTML = `
+  ${breadcrumb([{label:"Catálogos"},{label:"Departamentos",view:"cat-departamentos"},{label:editId?"Editar Departamento":"Registro de Departamento"}])}
+  <div class="page-header"><div><h1>${editId?"Editar":"Registro de"} Departamento</h1><p>Datos del titular y los servicios de tecnología que administra este departamento.</p></div></div>
+  <article class="card">
+    <div class="form-grid">
+      ${fieldInput("Nombre del Departamento","fDeptoNombre",dep?.nombre,"text","class=full")}
+    </div>
+    <h2 style="font-size:15px;margin:22px 0 12px">Titular del Departamento</h2>
+    <div class="form-grid">
+      ${fieldInput("Nombre completo del titular","fDeptoTitularNombre",dep?.titular?.nombre,"text","class=full")}
+      ${fieldEmail("Correo electrónico","fDeptoTitularCorreo",dep?.titular?.correo,{required:true})}
+      ${fieldInputPair("Teléfono","fDeptoTitularTel",dep?.titular?.telefono,"Extensión","fDeptoTitularExt",dep?.titular?.ext,"2fr 1fr",["phone","numeric"])}
+    </div>
+    <h2 style="font-size:15px;margin:22px 0 4px">Servicios que presta este Departamento</h2>
+    <p style="color:var(--muted);font-size:12px;margin:0 0 14px">Marca los módulos que administra. Si un servicio genera documentos oficiales (como el Protocolo de Seguridad), podrás capturar quiénes lo firman.</p>
+    ${renderServiciosDepartamentoSection()}
+  </article>
+  <div class="page-actions" style="margin-top:18px;justify-content:flex-end">
+    <button class="button ghost" onclick="navigate('cat-departamentos')">&raquo; Regresar</button>
+    <button class="button primary" onclick="guardarDepartamento('${editId||""}')">Guardar</button>
+  </div>`;
+}
+function renderServiciosDepartamentoSection(){
+  return `<div id="deptoServiciosWrap">${MODULOS_SERVICIO.map(([key])=>renderDeptoServiceRow(key)).join("")}</div>`;
+}
+function renderDeptoServiceRow(key){
+  const label = moduloLabel(key);
+  state.editing.departamentoDraft.servicios[key] = state.editing.departamentoDraft.servicios[key] || {activo:false,generaDocumentos:false,firmantes:[]};
+  const cfg = state.editing.departamentoDraft.servicios[key];
+  return `<div class="depto-service-row" id="deptoSvcRow_${key}">
+    <label class="depto-service-check"><input type="checkbox" ${cfg.activo?"checked":""} onchange="toggleDeptoServicio('${key}',this.checked)"><strong>${label}</strong></label>
+    ${cfg.activo?`<div class="depto-service-detail">
+      <div class="field" style="max-width:280px"><label>¿Este servicio generará documentos?</label>
+        <select id="deptoGenDocs_${key}" onchange="toggleDeptoGeneraDocs('${key}',this.value)">
+          <option value="no" ${!cfg.generaDocumentos?"selected":""}>No</option>
+          <option value="si" ${cfg.generaDocumentos?"selected":""}>Sí</option>
+        </select>
+      </div>
+      ${cfg.generaDocumentos?`
+        <h3 style="font-size:12.5px;margin:14px 0 8px">${icon("signature")} Firmantes para ${label}</h3>
+        <div class="firmantes-editor" id="deptoFirmWrap_${key}">${renderFirmantesRowsForService(key)}</div>
+        <button type="button" class="button secondary" style="margin-top:10px" onclick="agregarFirmanteDepto('${key}')">${icon("plus")} Agregar firmante</button>
+      `:""}
+    </div>`:""}
+  </div>`;
+}
+function renderFirmantesRowsForService(key){
+  const cfg = state.editing.departamentoDraft.servicios[key];
+  if(!cfg.firmantes.length) return `<p class="empty-state" style="padding:10px 0">Sin firmantes configurados. Agrega al menos uno.</p>`;
+  return cfg.firmantes.map((f,i)=>`<div class="firmante-row">
+    <div class="field"><label>Rol / Cargo</label><input id="deptoFirmRol_${key}_${i}" value="${f.rol||""}" placeholder="Ej. Elaboración, Autorización"></div>
+    <div class="field"><label>Nombre completo</label><input id="deptoFirmNombre_${key}_${i}" value="${f.nombre||""}" placeholder="Nombre del firmante"></div>
+    <div class="field"><label>Puesto</label><input id="deptoFirmPuesto_${key}_${i}" value="${f.puesto||""}" placeholder="Puesto institucional"></div>
+    <button type="button" class="action-icon danger" title="Quitar firmante" onclick="quitarFirmanteDepto('${key}',${i})">${icon("trash")}</button>
+  </div>`).join("");
+}
+function syncDeptoFirmantes(key){
+  const cfg = state.editing.departamentoDraft.servicios[key];
+  if(!cfg) return;
+  cfg.firmantes.forEach((f,i)=>{
+    const rol=$(`#deptoFirmRol_${key}_${i}`), nombre=$(`#deptoFirmNombre_${key}_${i}`), puesto=$(`#deptoFirmPuesto_${key}_${i}`);
+    if(rol) f.rol=rol.value; if(nombre) f.nombre=nombre.value; if(puesto) f.puesto=puesto.value;
+  });
+}
+function toggleDeptoServicio(key,checked){
+  state.editing.departamentoDraft.servicios[key] = state.editing.departamentoDraft.servicios[key] || {activo:false,generaDocumentos:false,firmantes:[]};
+  state.editing.departamentoDraft.servicios[key].activo = checked;
+  $(`#deptoSvcRow_${key}`).outerHTML = renderDeptoServiceRow(key);
+}
+function toggleDeptoGeneraDocs(key,value){
+  const cfg = state.editing.departamentoDraft.servicios[key];
+  cfg.generaDocumentos = (value==="si");
+  if(cfg.generaDocumentos && !cfg.firmantes.length) cfg.firmantes = [{rol:"Elaboración",nombre:"",puesto:""},{rol:"Autorización",nombre:"",puesto:""}];
+  $(`#deptoSvcRow_${key}`).outerHTML = renderDeptoServiceRow(key);
+}
+function agregarFirmanteDepto(key){
+  syncDeptoFirmantes(key);
+  state.editing.departamentoDraft.servicios[key].firmantes.push({rol:"",nombre:"",puesto:""});
+  $(`#deptoSvcRow_${key}`).outerHTML = renderDeptoServiceRow(key);
+}
+function quitarFirmanteDepto(key,idx){
+  syncDeptoFirmantes(key);
+  state.editing.departamentoDraft.servicios[key].firmantes.splice(idx,1);
+  $(`#deptoSvcRow_${key}`).outerHTML = renderDeptoServiceRow(key);
+}
+function guardarDepartamento(editId){
+  const ok = validateFields([
+    {id:"fDeptoNombre",label:"Nombre del Departamento",required:true},
+    {id:"fDeptoTitularNombre",label:"Nombre completo del titular",required:true},
+    {id:"fDeptoTitularCorreo",label:"Correo electrónico",type:"email",required:true},
+    {id:"fDeptoTitularTel",label:"Teléfono",type:"phone",required:true}
+  ]);
+  if(!ok) return;
+  Object.keys(state.editing.departamentoDraft.servicios).forEach(key=>syncDeptoFirmantes(key));
+  const servicios = Object.entries(state.editing.departamentoDraft.servicios)
+    .filter(([,cfg])=>cfg.activo)
+    .map(([key,cfg])=>({modulo:key, generaDocumentos:cfg.generaDocumentos, firmantes:cfg.generaDocumentos?cfg.firmantes.filter(f=>f.nombre.trim()):[]}));
+  const payload = {
+    nombre:$("#fDeptoNombre").value||"Departamento sin nombre",
+    titular:{nombre:$("#fDeptoTitularNombre").value, correo:$("#fDeptoTitularCorreo").value, telefono:$("#fDeptoTitularTel").value, ext:$("#fDeptoTitularExt").value},
+    servicios
+  };
+  if(editId){ Object.assign(findIn(state.data.departamentosCatalogo,editId),payload); toast("Departamento actualizado."); }
+  else { state.data.departamentosCatalogo.push({id:uid("DEP"),...payload}); toast("Departamento registrado."); }
+  navigate("cat-departamentos");
+}
 
 /* ================= Catálogos simples (Motor de BD, Versión, Plataforma, etc.) ================= */
 function renderSimpleCatalog(key,title){
