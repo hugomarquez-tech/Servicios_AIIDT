@@ -729,6 +729,11 @@ tbody tr:hover{background:#FCF8F9}
 .acta-result.aprobado{background:var(--green-bg);color:var(--green)}
 .acta-result.observaciones{background:var(--amber-bg);color:var(--amber)}
 .acta-result.rechazado{background:var(--red-bg);color:var(--red)}
+.impact-badge{display:inline-block;font-weight:800;padding:3px 10px;border-radius:5px;font-size:11px}
+.impact-badge.critico{background:var(--red-bg);color:var(--red)}
+.impact-badge.alto{background:var(--amber-bg);color:var(--amber)}
+.impact-badge.medio{background:var(--blue-bg);color:var(--blue)}
+.impact-badge.bajo{background:var(--green-bg);color:var(--green)}
 .acta-evidence-list{list-style:none;margin:0;padding:0;display:grid;gap:7px}
 .acta-evidence-list li{display:flex;align-items:center;gap:9px;font-size:12px;color:var(--ink)}
 .acta-evidence-list li svg{color:var(--brand);width:15px;height:15px}
@@ -1014,9 +1019,9 @@ function actionBtn(iconName,title,onclick,cls="neutral"){
 function badgeEstatus(status){
   const value=(status||"").toLowerCase();
   let cls="neutral";
-  if(["registrado","pendiente","por asignar"].some(x=>value.includes(x))) cls="pending";
-  if(["revisión","turnado","en proceso"].some(x=>value.includes(x))) cls="review";
-  if(["validado","autorizado","activo","activa","aprobad"].some(x=>value.includes(x))) cls="approved";
+  if(["registrado","pendiente","por asignar","abierto"].some(x=>value.includes(x))) cls="pending";
+  if(["revisión","turnado","en proceso","en análisis","contenido"].some(x=>value.includes(x))) cls="review";
+  if(["validado","autorizado","activo","activa","aprobad","erradicado","resuelto"].some(x=>value.includes(x))) cls="approved";
   if(["notificado"].some(x=>value.includes(x))) cls="review";
   if(["rechazad","inactivo","cancelad","observad"].some(x=>value.includes(x))) cls="observed";
   return `<span class="badge ${cls}">${status}</span>`;
@@ -1388,6 +1393,43 @@ const state = {
           {modulo:"vpn",generaDocumentos:false,firmantes:[]}
         ]}
     ],
+    activos:[
+      {id:uid("ACT-A"),nombre:"Servidor de Nómina (Afelio)",responsableDeptoId:"",
+        responsablesTecnicos:[{nombre:"Juan Pérez Pérez",correo:"juan.perez@tam.gob.mx",telefono:"8341234567"}],
+        ubicacion:"Datacenter central, Palacio de Gobierno",
+        servicioEsencial:"Pago de nómina a empleados del gobierno estatal",impacto:"Crítico",
+        dependenciaSistemas:"SIRHET, Portal de recibos de nómina",
+        nivelClasificacion:"Confidencial",requisitoDisponibilidad:"Crítico en cierres mensuales",requisitoIntegridad:"Muy alto: los montos y datos de pago no deben alterarse bajo ninguna circunstancia.",
+        tipoActivo:"Servidor Físico",direccionesIpDns:"172.16.0.10",tecnologiasPlataforma:"Windows Server 2019",
+        medidasSeguridad:["Firewall","VPN","Encriptación en reposo"]},
+      {id:uid("ACT-A"),nombre:"Base de Datos SIRHET",responsableDeptoId:"",
+        responsablesTecnicos:[{nombre:"Juan Pérez Pérez",correo:"juan.perez@tam.gob.mx",telefono:"8341234567"},{nombre:"Ana Torres Salinas",correo:"ana.torres@tam.gob.mx",telefono:"8347778899"}],
+        ubicacion:"Datacenter central, segmento de red de bases de datos",
+        servicioEsencial:"Administración de recursos humanos del estado",impacto:"Crítico",
+        dependenciaSistemas:"Servidor de Nómina, Portal de trámites de RH",
+        nivelClasificacion:"Confidencial",requisitoDisponibilidad:"24/7",requisitoIntegridad:"Alto: contiene datos personales y laborales de servidores públicos.",
+        tipoActivo:"Base de Datos",direccionesIpDns:"10.10.1.20",tecnologiasPlataforma:"MySQL",
+        medidasSeguridad:["Firewall","Encriptación en reposo","IDS/IPS"]},
+      {id:uid("ACT-A"),nombre:"Sistema de Trámites en Línea",responsableDeptoId:"",
+        responsablesTecnicos:[{nombre:"Miguel Hernández López",correo:"miguel.hernandez@tam.gob.mx",telefono:"8343456789"}],
+        ubicacion:"Multisite WordPress, nube compartida de gobierno",
+        servicioEsencial:"Trámite Ciudadano en línea",impacto:"Alto",
+        dependenciaSistemas:"Portal de transparencia",
+        nivelClasificacion:"Reservado",requisitoDisponibilidad:"Horario laboral",requisitoIntegridad:"Medio: información pública de trámites, pero requiere disponibilidad constante.",
+        tipoActivo:"Aplicación Web",direccionesIpDns:"tramites.tamaulipas.gob.mx",tecnologiasPlataforma:"Multisite WordPress",
+        medidasSeguridad:["Firewall","WAF"]}
+    ],
+    incidentes:[
+      {id:uid("INC"),folio:"INC-2026-001",fechaDeteccion:"12/06/2026",estatus:"En análisis",tipoIncidente:"Acceso no autorizado",
+        descripcion:"Se detectaron múltiples intentos fallidos de inicio de sesión seguidos de un acceso exitoso fuera de horario laboral al servidor de nómina.",
+        activoId:"",solicitanteId:"",bitacora:[{fecha:"12/06/2026",hora:"08:15",usuario:"Administrador",movimiento:"Registro del incidente",obs:""}]},
+      {id:uid("INC"),folio:"INC-2026-002",fechaDeteccion:"20/06/2026",estatus:"Contenido",tipoIncidente:"Phishing",
+        descripcion:"Personal de la Secretaría de Educación reportó correos suplantando al área de TI solicitando credenciales de acceso al portal de trámites.",
+        activoId:"",solicitanteId:"",bitacora:[{fecha:"20/06/2026",hora:"11:40",usuario:"Administrador",movimiento:"Registro del incidente",obs:""}]},
+      {id:uid("INC"),folio:"INC-2026-003",fechaDeteccion:"29/06/2026",estatus:"Resuelto",tipoIncidente:"Configuración insegura",
+        descripcion:"Escaneo de seguridad detectó cabeceras HTTP de seguridad ausentes en la Base de Datos SIRHET, exponiendo información de versión del motor.",
+        activoId:"",solicitanteId:"",bitacora:[{fecha:"29/06/2026",hora:"09:00",usuario:"Administrador",movimiento:"Registro del incidente",obs:""},{fecha:"30/06/2026",hora:"16:20",usuario:"Administrador",movimiento:"Incidente cerrado tras aplicar corrección",obs:"Se configuraron las cabeceras de seguridad faltantes."}]}
+    ],
     usuarios:[
       {id:uid("USR"),usuario:"Admin_1",nombre:"Administrador General",email:"administrador@tam.gob.mx",fecha:"03 de marzo de 2026",tipo:"Administrador"},
       {id:uid("USR"),usuario:"Invitado_1",nombre:"Usuario Invitado",email:"invitado1@tam.gob.mx",fecha:"03 de marzo de 2026",tipo:"Invitado"}
@@ -1400,7 +1442,10 @@ const state = {
       "cat-tipo-servicio":["HTTP","HTTPS","API","WS","MySQL","MSSQL"].map(n=>({id:uid("TSV"),nombre:n})),
       "cat-dependencias":DEPENDENCIAS.map(n=>({id:uid("DPN"),nombre:n})),
       "cat-tramite":["Alta de dominio","Renovación de certificado","Solicitud de hospedaje","Publicación de sistema"].map(n=>({id:uid("TRM"),nombre:n})),
-      "cat-dominios":["www.tamaulipas.gob.mx","www.tamaulipas2.gob.mx"].map(n=>({id:uid("CDM"),nombre:n}))
+      "cat-dominios":["www.tamaulipas.gob.mx","www.tamaulipas2.gob.mx"].map(n=>({id:uid("CDM"),nombre:n})),
+      "cat-tipo-activo":["Servidor Físico","Servidor Virtual","Base de Datos","API","Dominio","Aplicación Web","Otro"].map(n=>({id:uid("TAC"),nombre:n})),
+      "cat-medidas-seguridad":["Firewall","WAF","Encriptación en reposo","VPN","IDS/IPS","Antivirus","Doble Factor de Autenticación"].map(n=>({id:uid("MSG"),nombre:n})),
+      "cat-tipo-incidente":["Malware","Phishing","Acceso no autorizado","Fuga de información","Denegación de servicio (DDoS)","Ransomware","Configuración insegura","Otro"].map(n=>({id:uid("TIN"),nombre:n}))
     }
   }
 };
@@ -1411,7 +1456,8 @@ const MODULOS_SERVICIO = [
   ["vpn","VPN"],
   ["dominios","Dominios y Subdominios"],
   ["servidores","Servidores Físicos y Virtuales"],
-  ["actas-seguridad","Protocolo de Seguridad"]
+  ["actas-seguridad","Protocolo de Seguridad"],
+  ["incidentes-seguridad","Incidentes de Seguridad"]
 ];
 function moduloLabel(key){ return MODULOS_SERVICIO.find(m=>m[0]===key)?.[1]||key; }
 function findIn(arr,id){ return arr.find(x=>x.id===id); }
@@ -1431,6 +1477,15 @@ function catNames(key){ return state.data.catalogosSimples[key].map(c=>c.nombre)
   if(state.data.rrd[0]) state.data.rrd[0].solicitanteId = s[0].id;
   if(state.data.actasSeguridad[0]) state.data.actasSeguridad[0].solicitanteId = s[1].id;
   if(state.data.actasSeguridad[1]) state.data.actasSeguridad[1].solicitanteId = s[2].id;
+  const dep = state.data.departamentosCatalogo; // [0]=Seguridad Informática [1]=Desarrollo de Sistemas [2]=Base de Datos [3]=Infraestructura
+  const act = state.data.activos;
+  if(act[0]&&dep[2]) act[0].responsableDeptoId = dep[2].id;
+  if(act[1]&&dep[2]) act[1].responsableDeptoId = dep[2].id;
+  if(act[2]&&dep[1]) act[2].responsableDeptoId = dep[1].id;
+  const inc = state.data.incidentes;
+  if(inc[0]){ inc[0].activoId = act[0]?.id||""; inc[0].solicitanteId = s[0].id; }
+  if(inc[1]){ inc[1].activoId = act[2]?.id||""; inc[1].solicitanteId = s[1].id; }
+  if(inc[2]){ inc[2].activoId = act[1]?.id||""; inc[2].solicitanteId = s[2].id; }
 })();
 /* ================= Cascada organizacional (Secretaría → Subsecretaría → Dir. Gral. → Dir. de Área → Departamento) ================= */
 function orgCascadeBlock(prefix,sel={}){
@@ -1608,13 +1663,14 @@ const ROLES = {
       "rrd","rrd-form",
       "vpn",
       "actas-seguridad","actas-seguridad-form","actas-seguridad-print",
+      "incidentes-seguridad","incidentes-seguridad-form",
       "inv-software","inv-software-form",
       "inv-hardware","inv-hardware-form",
       "reportes"
     ],
     groups:["servicios","inventarios"], serviciosItems:null}
 };
-const TIPOS_POR_MODULO = {"sitios-web":["Sitio Web"],"dominios":["Dominio","Subdominio"],"crear-bd":["Base de Datos"],"servidores":["Servidor"],"rrd":["RRD"],"vpn":["VPN"],"actas-seguridad":["Protocolo de Seguridad"]};
+const TIPOS_POR_MODULO = {"sitios-web":["Sitio Web"],"dominios":["Dominio","Subdominio"],"crear-bd":["Base de Datos"],"servidores":["Servidor"],"rrd":["RRD"],"vpn":["VPN"],"actas-seguridad":["Protocolo de Seguridad"],"incidentes-seguridad":["Incidente de Seguridad"]};
 function currentRole(){ return ROLES[state.currentRole||"admin"]; }
 const navConfig = [
   {view:"dashboard", icon:"home", label:"Inicio"},
@@ -1627,25 +1683,30 @@ const navConfig = [
     ["vpn","VPN"],
     ["dominios","Dominios y Subdominios"],
     ["servidores","Servidores Físicos y Virtuales"],
-    ["actas-seguridad","Protocolo de Seguridad"]
+    ["actas-seguridad","Protocolo de Seguridad"],
+    ["incidentes-seguridad","Incidentes de Seguridad"]
   ]},
   {group:"inventarios", icon:"box", label:"Inventarios", items:[
     ["inv-software","Software"],
     ["inv-hardware","Hardware"]
   ]},
   {group:"catalogos", icon:"library", label:"Catálogos", items:[
-    ["cat-productos","Productos"],
+    ["cat-activos","Activos"],
     ["cat-categorias","Categorías"],
     ["cat-componentes","Componentes"],
-    ["cat-motor-bd","Motor de BD"],
-    ["cat-version-bd","Versión de BD"],
-    ["cat-plataforma","Plataforma de alojamiento"],
     ["cat-departamentos","Departamentos"],
-    ["cat-tipo-solicitudes","Tipo de Solicitudes"],
-    ["cat-tipo-servicio","Tipo de Servicio"],
     ["cat-dependencias","Dependencias"],
+    ["cat-dominios","Dominios"],
+    ["cat-medidas-seguridad","Medidas de Seguridad"],
+    ["cat-motor-bd","Motor de BD"],
+    ["cat-plataforma","Plataforma de alojamiento"],
+    ["cat-productos","Productos"],
+    ["cat-tipo-activo","Tipo de Activo"],
+    ["cat-tipo-incidente","Tipo de Incidente"],
+    ["cat-tipo-servicio","Tipo de Servicio"],
+    ["cat-tipo-solicitudes","Tipo de Solicitudes"],
     ["cat-tramite","Trámite o Servicio"],
-    ["cat-dominios","Dominios"]
+    ["cat-version-bd","Versión de BD"]
   ]},
   {group:"admin", icon:"settings", label:"Administrador", items:[
     ["usuarios","Usuarios"],
@@ -1701,6 +1762,8 @@ const renderers = {
   "actas-seguridad": ()=>renderActasSeguridad(),
   "actas-seguridad-form": ()=>renderActaForm(state.editing.actaId),
   "actas-seguridad-print": ()=>renderActaPrint(state.editing.actaId),
+  "incidentes-seguridad": ()=>renderIncidentesSeguridad(),
+  "incidentes-seguridad-form": ()=>renderIncidenteForm(state.editing.incidenteId),
   "inv-software": ()=>renderInvSoftware(),
   "inv-software-form": ()=>renderSoftwareForm(state.editing.softwareId),
   "inv-hardware": ()=>renderInvHardware(),
@@ -1713,6 +1776,11 @@ const renderers = {
   "cat-plataforma": ()=>renderSimpleCatalog("cat-plataforma","Plataforma de alojamiento"),
   "cat-departamentos": ()=>renderCatDepartamentos(),
   "cat-departamentos-form": ()=>renderDepartamentoForm(state.editing.departamentoId),
+  "cat-activos": ()=>renderCatActivos(),
+  "cat-activos-form": ()=>renderActivoForm(state.editing.activoId),
+  "cat-tipo-activo": ()=>renderSimpleCatalog("cat-tipo-activo","Tipo de Activo"),
+  "cat-medidas-seguridad": ()=>renderSimpleCatalog("cat-medidas-seguridad","Medidas de Seguridad"),
+  "cat-tipo-incidente": ()=>renderSimpleCatalog("cat-tipo-incidente","Tipo de Incidente"),
   "cat-tipo-solicitudes": ()=>renderSimpleCatalog("cat-tipo-solicitudes","Tipo de Solicitudes"),
   "cat-tipo-servicio": ()=>renderSimpleCatalog("cat-tipo-servicio","Tipo de Servicio"),
   "cat-dependencias": ()=>renderSimpleCatalog("cat-dependencias","Dependencias"),
@@ -1851,6 +1919,7 @@ function getAllActivity(){
   d.rrd.forEach(x=>rows.push({solicitante:x.solicitante||"Sin asignar",tipo:"RRD",dependencia:x.dependencia,fecha:x.fecha,estatus:"Registrado"}));
   d.vpns.forEach(x=>rows.push({solicitante:x.nombre,tipo:"VPN",dependencia:"—",fecha:x.fecha,estatus:x.ip?"IP asignada":"Registrado"}));
   d.actasSeguridad.forEach(x=>rows.push({solicitante:x.contacto,tipo:"Protocolo de Seguridad",dependencia:x.secretaria,fecha:x.fecha,estatus:x.estatus}));
+  d.incidentes.forEach(x=>{ const sol=findIn(d.solicitantes,x.solicitanteId); rows.push({solicitante:sol?nombreCompleto(sol):"Sin asignar",tipo:"Incidente de Seguridad",dependencia:sol?.dependencia||"—",fecha:x.fechaDeteccion,estatus:x.estatus}); });
   d.solicitudes.forEach(x=>rows.push({solicitante:x.solicitante,tipo:x.tipo,dependencia:x.dependencia,fecha:x.fecha,estatus:x.estatus}));
   return rows;
 }
@@ -3711,6 +3780,291 @@ function guardarDepartamento(editId){
   if(editId){ Object.assign(findIn(state.data.departamentosCatalogo,editId),payload); toast("Departamento actualizado."); }
   else { state.data.departamentosCatalogo.push({id:uid("DEP"),...payload}); toast("Departamento registrado."); }
   navigate("cat-departamentos");
+}
+
+/* ================= Catálogos > Activos (Anexo 3 - Protocolo Nacional Homologado) ================= */
+function impactoClass(v){ const m={"Crítico":"critico","Alto":"alto","Medio":"medio","Bajo":"bajo"}; return m[v]||"medio"; }
+function renderCatActivos(){
+  const term = state.search.activos||"";
+  const rows = state.data.activos.filter(a=>matchesSearch({nombre:a.nombre,tipoActivo:a.tipoActivo,ubicacion:a.ubicacion},term));
+  content.innerHTML = `
+  ${breadcrumb([{label:"Catálogos"},{label:"Activos"}])}
+  <div class="page-header"><div><h1>Catálogo de Activos</h1><p>Inventario de activos críticos, alineado al Anexo 3 del Protocolo Nacional Homologado.</p></div>
+    <div class="page-actions"><button class="button primary" onclick="state.editing.activoId=null;navigate('cat-activos-form')">${icon("plus")} Registro de Activo</button></div>
+  </div>
+  <article class="card table-card">
+    <div class="datatable-toolbar"><div class="entries-control">Mostrar <select><option>10</option></select> registros</div>
+      <div class="datatable-actions">${searchBox("activosSearch","Buscar registros",term)}</div></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Nombre del Activo</th><th>Responsable Dueño</th><th>Tipo</th><th>Impacto</th><th>Clasificación</th><th>Responsables Técnicos</th><th>Acciones</th></tr></thead>
+      <tbody>${rows.length?rows.map(a=>{ const dep=findIn(state.data.departamentosCatalogo,a.responsableDeptoId); return `<tr>
+        <td><strong>${a.nombre}</strong><span class="subtext">${a.direccionesIpDns||""}</span></td>
+        <td>${dep?dep.nombre:"—"}</td><td>${a.tipoActivo}</td>
+        <td><span class="impact-badge ${impactoClass(a.impacto)}">${a.impacto}</span></td>
+        <td>${a.nivelClasificacion}</td><td>${a.responsablesTecnicos.length}</td>
+        <td><div class="actions-cell">
+          ${actionBtn("eye","Ver",`verActivo('${a.id}')`)}
+          ${actionBtn("edit","Editar",`state.editing.activoId='${a.id}';navigate('cat-activos-form')`,"warning")}
+          ${actionBtn("trash","Eliminar",`eliminarActivo('${a.id}')`,"danger")}
+        </div></td></tr>`;}).join(""):`<tr><td colspan="7" class="empty-state">Sin activos registrados.</td></tr>`}</tbody>
+    </table></div>
+    ${paginationFoot(rows.length,"activos")}
+  </article>`;
+  $("#activosSearch").oninput = e=>{ state.search.activos=e.target.value; renderCatActivos(); };
+}
+function verActivo(id){
+  const a = findIn(state.data.activos,id);
+  const dep = findIn(state.data.departamentosCatalogo,a.responsableDeptoId);
+  openModal({title:a.nombre, subtitle:a.tipoActivo, size:"large", confirm:"Cerrar",
+    body:`<div class="detail-grid">
+      <div><span>Responsable Dueño</span><strong>${dep?dep.nombre:"—"}</strong></div>
+      <div><span>Ubicación Física/Lógica</span><strong>${a.ubicacion||"—"}</strong></div>
+      <div><span>Impacto por Interrupción</span><strong>${a.impacto}</strong></div>
+      <div><span>Nivel de Clasificación</span><strong>${a.nivelClasificacion}</strong></div>
+      <div><span>Requisito de Disponibilidad</span><strong>${a.requisitoDisponibilidad}</strong></div>
+      <div><span>Direcciones IP / DNS</span><strong>${a.direccionesIpDns||"—"}</strong></div>
+      <div><span>Tecnologías / Plataforma</span><strong>${a.tecnologiasPlataforma||"—"}</strong></div>
+      <div><span>Medidas de Seguridad</span><strong>${a.medidasSeguridad.join(", ")||"—"}</strong></div>
+    </div>
+    <div class="detail-grid" style="grid-template-columns:1fr;margin-top:0">
+      <div><span>Servicio Esencial Soportado</span><strong>${a.servicioEsencial||"—"}</strong></div>
+      <div><span>Dependencia (otros sistemas)</span><strong>${a.dependenciaSistemas||"—"}</strong></div>
+      <div><span>Requisito de Integridad</span><strong>${a.requisitoIntegridad||"—"}</strong></div>
+    </div>
+    <h2 style="font-size:14px;margin:14px 0 10px">Responsables Técnicos</h2>
+    ${a.responsablesTecnicos.length?a.responsablesTecnicos.map(t=>`<div style="border:1px solid var(--line);border-radius:7px;padding:8px 12px;margin-bottom:6px;font-size:12.5px"><strong>${t.nombre}</strong> — ${t.correo||"—"} · ${t.telefono||"—"}</div>`).join(""):`<p class="empty-state">Sin responsables técnicos capturados.</p>`}
+    `, onConfirm:closeModal});
+}
+function eliminarActivo(id){
+  openModal({title:"Eliminar activo", confirmClass:"danger", confirm:"Eliminar",
+    body:"<p>¿Deseas eliminar este activo del catálogo? Si algún incidente lo tiene asignado, seguirá mostrando su información histórica.</p>",
+    onConfirm:()=>{ removeIn(state.data.activos,id); closeModal(); toast("Activo eliminado."); renderCatActivos(); }});
+}
+function renderActivoForm(editId){
+  const a = editId?findIn(state.data.activos,editId):null;
+  state.editing.responsablesTecnicosDraft = a ? a.responsablesTecnicos.map(t=>({...t})) : [{nombre:"",correo:"",telefono:""}];
+  content.innerHTML = `
+  ${breadcrumb([{label:"Catálogos"},{label:"Activos",view:"cat-activos"},{label:editId?"Editar Activo":"Registro de Activo"}])}
+  <div class="page-header"><div><h1>${editId?"Editar":"Registro de"} Activo</h1><p>Ficha de clasificación alineada al Anexo 3 del Protocolo Nacional Homologado.</p></div></div>
+  <article class="card">
+    <h2 style="font-size:15px;margin:0 0 12px">I. Información del Activo</h2>
+    <div class="form-grid">
+      ${fieldInput("Nombre del Activo","fActivoNombre",a?.nombre,"text","class=full")}
+      ${fieldSelect("Responsable Dueño (área/dependencia)","fActivoDepto",state.data.departamentosCatalogo.map(d=>d.nombre),findIn(state.data.departamentosCatalogo,a?.responsableDeptoId)?.nombre)}
+      ${fieldInput("Ubicación Física/Lógica","fActivoUbicacion",a?.ubicacion)}
+    </div>
+    <h3 style="font-size:12.5px;margin:16px 0 8px">${icon("users")} Responsable(s) Técnico(s)</h3>
+    <p style="color:var(--muted);font-size:12px;margin:0 0 10px">Puede haber uno o más responsables técnicos para un mismo activo.</p>
+    <div id="respTecnicosWrap">${renderResponsablesTecnicosSection()}</div>
+    <button type="button" class="button secondary" style="margin-top:10px" onclick="agregarResponsableTecnico()">${icon("plus")} Agregar responsable técnico</button>
+
+    <h2 style="font-size:15px;margin:26px 0 12px">II. Criticidad y Servicio Esencial</h2>
+    <div class="form-grid">
+      ${fieldSelect("Impacto por Interrupción","fActivoImpacto",["Crítico","Alto","Medio","Bajo"],a?.impacto)}
+      ${fieldInput("Servicio Esencial Soportado","fActivoServicioEsencial",a?.servicioEsencial)}
+      ${fieldTextarea("Dependencia (¿qué otros sistemas dependen de este activo?)","fActivoDependencia",a?.dependenciaSistemas)}
+    </div>
+
+    <h2 style="font-size:15px;margin:26px 0 12px">III. Clasificación de Seguridad</h2>
+    <div class="form-grid">
+      ${fieldSelect("Nivel de Clasificación","fActivoClasificacion",["Público","Reservado","Confidencial","Restringido"],a?.nivelClasificacion)}
+      ${fieldSelect("Requisito de Disponibilidad","fActivoDisponibilidad",["24/7","Horario laboral","Crítico en cierres mensuales"],a?.requisitoDisponibilidad)}
+      ${fieldTextarea("Requisito de Integridad (¿qué tan crítico es que los datos no sean alterados?)","fActivoIntegridad",a?.requisitoIntegridad)}
+    </div>
+
+    <h2 style="font-size:15px;margin:26px 0 12px">IV. Datos Técnicos (para ERISC y CERT-MX)</h2>
+    <div class="form-grid">
+      ${fieldSelect("Tipo de Activo","fActivoTipo",catNames("cat-tipo-activo"),a?.tipoActivo)}
+      ${fieldSelect("Tecnologías / Plataforma","fActivoPlataforma",catNames("cat-plataforma"),a?.tecnologiasPlataforma)}
+      ${fieldInput("Direcciones IP / DNS","fActivoIpDns",a?.direccionesIpDns,"text","class=full")}
+    </div>
+    <h3 style="font-size:12.5px;margin:16px 0 8px">Medidas de Seguridad</h3>
+    <div class="form-grid">
+      ${catNames("cat-medidas-seguridad").map((m,i)=>`<label style="display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600"><input type="checkbox" id="fActivoMedida_${i}" value="${m}" ${a?.medidasSeguridad?.includes(m)?"checked":""} style="width:16px;height:16px;accent-color:var(--brand)"> ${m}</label>`).join("")}
+    </div>
+  </article>
+  <div class="page-actions" style="margin-top:18px;justify-content:flex-end">
+    <button class="button ghost" onclick="navigate('cat-activos')">&raquo; Regresar</button>
+    <button class="button primary" onclick="guardarActivo('${editId||""}')">Guardar</button>
+  </div>`;
+}
+function renderResponsablesTecnicosSection(){
+  const draft = state.editing.responsablesTecnicosDraft;
+  return `<div class="firmantes-editor">${draft.map((t,i)=>`<div class="firmante-row">
+    <div class="field"><label>Nombre completo</label><input id="respTecNombre_${i}" value="${t.nombre||""}" placeholder="Nombre del responsable técnico"></div>
+    <div class="field"><label>Correo electrónico</label><input id="respTecCorreo_${i}" value="${t.correo||""}" placeholder="correo@tam.gob.mx" data-rule="email"></div>
+    <div class="field"><label>Teléfono</label><input id="respTecTelefono_${i}" value="${t.telefono||""}" placeholder="10 dígitos" data-rule="phone" maxlength="10" inputmode="numeric"></div>
+    <button type="button" class="action-icon danger" title="Quitar" onclick="quitarResponsableTecnico(${i})">${icon("trash")}</button>
+  </div>`).join("")}</div>`;
+}
+function syncResponsablesTecnicos(){
+  state.editing.responsablesTecnicosDraft.forEach((t,i)=>{
+    const n=$(`#respTecNombre_${i}`), c=$(`#respTecCorreo_${i}`), tel=$(`#respTecTelefono_${i}`);
+    if(n) t.nombre=n.value; if(c) t.correo=c.value; if(tel) t.telefono=tel.value;
+  });
+}
+function agregarResponsableTecnico(){
+  syncResponsablesTecnicos();
+  state.editing.responsablesTecnicosDraft.push({nombre:"",correo:"",telefono:""});
+  $("#respTecnicosWrap").innerHTML = renderResponsablesTecnicosSection();
+}
+function quitarResponsableTecnico(idx){
+  syncResponsablesTecnicos();
+  state.editing.responsablesTecnicosDraft.splice(idx,1);
+  $("#respTecnicosWrap").innerHTML = renderResponsablesTecnicosSection();
+}
+function guardarActivo(editId){
+  const ok = validateFields([{id:"fActivoNombre",label:"Nombre del Activo",required:true}]);
+  if(!ok) return;
+  syncResponsablesTecnicos();
+  const depto = state.data.departamentosCatalogo.find(d=>d.nombre===$("#fActivoDepto").value);
+  const medidas = catNames("cat-medidas-seguridad").filter((m,i)=>$(`#fActivoMedida_${i}`)?.checked);
+  const payload = {
+    nombre:$("#fActivoNombre").value||"Activo sin nombre", responsableDeptoId:depto?.id||"",
+    responsablesTecnicos:state.editing.responsablesTecnicosDraft.filter(t=>t.nombre.trim()),
+    ubicacion:$("#fActivoUbicacion").value,
+    servicioEsencial:$("#fActivoServicioEsencial").value, impacto:$("#fActivoImpacto").value,
+    dependenciaSistemas:$("#fActivoDependencia").value,
+    nivelClasificacion:$("#fActivoClasificacion").value, requisitoDisponibilidad:$("#fActivoDisponibilidad").value, requisitoIntegridad:$("#fActivoIntegridad").value,
+    tipoActivo:$("#fActivoTipo").value, direccionesIpDns:$("#fActivoIpDns").value, tecnologiasPlataforma:$("#fActivoPlataforma").value,
+    medidasSeguridad:medidas
+  };
+  if(editId){ Object.assign(findIn(state.data.activos,editId),payload); toast("Activo actualizado."); }
+  else { state.data.activos.push({id:uid("ACT-A"),...payload}); toast("Activo registrado en el catálogo."); }
+  navigate("cat-activos");
+}
+
+/* ================= Servicios > Incidentes de Seguridad ================= */
+function renderIncidentesSeguridad(){
+  const term = state.search.incidentes||"";
+  const rows = state.data.incidentes.filter(i=>matchesSearch({folio:i.folio,tipoIncidente:i.tipoIncidente,descripcion:i.descripcion},term));
+  content.innerHTML = `
+  ${breadcrumb([{label:"Servicios"},{label:"Incidentes de Seguridad"}])}
+  <div class="page-header"><div><h1>Incidentes de Seguridad</h1><p>Registro y seguimiento de incidentes que afectan activos de tecnología del estado.</p></div>
+    <div class="page-actions"><button class="button primary" onclick="state.editing.incidenteId=null;navigate('incidentes-seguridad-form')">${icon("plus")} Registrar Incidente</button></div>
+  </div>
+  <article class="card table-card">
+    <div class="datatable-toolbar"><div class="entries-control">Mostrar <select><option>10</option></select> registros</div>
+      <div class="datatable-actions">${searchBox("incidentesSearch","Buscar registros",term)}</div></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Folio</th><th>Activo Afectado</th><th>Tipo de Incidente</th><th>Fecha</th><th>Impacto</th><th>Estatus</th><th>Acciones</th></tr></thead>
+      <tbody>${rows.length?rows.map(i=>{ const act=findIn(state.data.activos,i.activoId); return `<tr>
+        <td><strong>${i.folio}</strong></td><td>${act?act.nombre:"—"}</td><td>${i.tipoIncidente}</td><td>${i.fechaDeteccion}</td>
+        <td>${act?`<span class="impact-badge ${impactoClass(act.impacto)}">${act.impacto}</span>`:"—"}</td>
+        <td>${badgeEstatus(i.estatus)}</td>
+        <td><div class="actions-cell">
+          ${actionBtn("eye","Ver detalle",`verIncidente('${i.id}')`)}
+          ${actionBtn("edit","Editar",`state.editing.incidenteId='${i.id}';navigate('incidentes-seguridad-form')`,"warning")}
+          ${actionBtn("clock","Bitácora",`abrirBitacoraIncidente('${i.id}')`)}
+          ${actionBtn("trash","Eliminar",`eliminarIncidente('${i.id}')`,"danger")}
+        </div></td></tr>`;}).join(""):`<tr><td colspan="7" class="empty-state">No hay incidentes de seguridad registrados.</td></tr>`}</tbody>
+    </table></div>
+    ${paginationFoot(rows.length,"incidentes")}
+  </article>`;
+  $("#incidentesSearch").oninput = e=>{ state.search.incidentes=e.target.value; renderIncidentesSeguridad(); };
+}
+function verIncidente(id){
+  const i = findIn(state.data.incidentes,id);
+  const act = findIn(state.data.activos,i.activoId);
+  openModal({title:i.folio, subtitle:i.tipoIncidente, size:"large", confirm:"Cerrar",
+    body:`<div class="detail-grid">
+      <div><span>Fecha de detección</span><strong>${i.fechaDeteccion}</strong></div>
+      <div><span>Estatus</span><strong>${i.estatus}</strong></div>
+      <div><span>Activo afectado</span><strong>${act?act.nombre:"—"}</strong></div>
+      <div><span>Impacto del activo</span><strong>${act?.impacto||"—"}</strong></div>
+    </div>
+    <p style="margin-top:10px;color:var(--muted);font-size:12.5px">${i.descripcion}</p>`, onConfirm:closeModal});
+}
+function eliminarIncidente(id){
+  openModal({title:"Eliminar incidente", confirmClass:"danger", confirm:"Eliminar",
+    body:"<p>¿Deseas eliminar este incidente de seguridad del registro?</p>",
+    onConfirm:()=>{ removeIn(state.data.incidentes,id); closeModal(); toast("Incidente eliminado."); renderIncidentesSeguridad(); }});
+}
+function abrirBitacoraIncidente(id){
+  const i = findIn(state.data.incidentes,id);
+  openModal({title:"Bitácora del incidente", subtitle:i.folio, confirm:"Cerrar",
+    body:`<div style="display:flex;gap:10px;margin-bottom:14px"><input id="fIncBitNota" placeholder="Agregar observación" style="flex:1"><button class="button primary" onclick="agregarBitacoraIncidente('${id}')">Agregar</button></div>
+      <div class="bitacora-box"><table><thead><tr><th>Fecha</th><th>Hora</th><th>Usuario</th><th>Movimiento</th><th>Observaciones</th></tr></thead>
+      <tbody>${i.bitacora.length?i.bitacora.map(b=>`<tr><td>${b.fecha}</td><td>${b.hora}</td><td>${b.usuario}</td><td>${b.movimiento}</td><td>${b.obs||"-"}</td></tr>`).join(""):`<tr><td colspan="5" class="empty-state">Sin movimientos.</td></tr>`}</tbody></table></div>`,
+    onConfirm:closeModal});
+}
+function agregarBitacoraIncidente(id){
+  const i = findIn(state.data.incidentes,id);
+  const nota = $("#fIncBitNota").value.trim();
+  if(!nota){ toast("Escribe una observación antes de agregar.","warning"); return; }
+  i.bitacora.push({fecha:todayStr(),hora:nowTime(),usuario:"Administrador",movimiento:"Observación manual",obs:nota});
+  abrirBitacoraIncidente(id);
+}
+function renderIncidenteForm(editId){
+  const inc = editId?findIn(state.data.incidentes,editId):null;
+  state.editing.selectedSolicitanteId = inc ? inc.solicitanteId : (state.editing.presetSolicitanteId||null);
+  state.editing.presetSolicitanteId = null;
+  state.editing.activoIncidenteId = inc?.activoId || state.data.activos[0]?.id || null;
+  content.innerHTML = `
+  ${breadcrumb([{label:"Servicios"},{label:"Incidentes de Seguridad",view:"incidentes-seguridad"},{label:editId?"Editar Incidente":"Registro de Incidente"}])}
+  <div class="page-header"><div><h1>${editId?"Editar":"Registro de"} Incidente de Seguridad</h1><p>Documenta el incidente y el activo afectado, alineado al Anexo 3 del Protocolo Nacional Homologado.</p>${solicitanteContextHeader()}</div>
+    <div class="page-actions">${badgeEstatus(inc?.estatus||"Abierto")}</div></div>
+  <article class="card">
+    <h2 style="font-size:15px;margin:0 0 12px">Solicitante que reporta</h2>
+    ${solicitanteSelectorBlock("fInc")}
+    <h2 style="font-size:15px;margin:22px 0 12px">Datos del Incidente</h2>
+    <div class="form-grid">
+      ${fieldInput("Folio","fIncFolio",inc?.folio||("INC-2026-"+String(state.data.incidentes.length+1).padStart(3,"0")))}
+      ${fieldInput("Fecha de detección","fIncFecha",inc?.fechaDeteccion,"date")}
+      ${fieldSelect("Tipo de Incidente","fIncTipo",catNames("cat-tipo-incidente"),inc?.tipoIncidente)}
+      ${fieldSelect("Estatus","fIncEstatus",["Abierto","En análisis","Contenido","Erradicado","Resuelto","Cerrado"],inc?.estatus||"Abierto")}
+      ${fieldTextarea("Descripción del incidente","fIncDescripcion",inc?.descripcion)}
+    </div>
+    <h2 style="font-size:15px;margin:22px 0 12px">Activo Afectado</h2>
+    ${state.data.activos.length?`
+      <div class="form-grid">
+        <div class="field full"><label>Selecciona el activo afectado</label>
+          <select id="fIncActivo" onchange="state.editing.activoIncidenteId=this.value;refreshActivoPreviewIncidente()">
+            ${state.data.activos.map(a=>`<option value="${a.id}" ${a.id===state.editing.activoIncidenteId?"selected":""}>${a.nombre}</option>`).join("")}
+          </select>
+        </div>
+      </div>
+      <div id="activoPreviewIncidente">${renderActivoPreviewIncidente()}</div>
+    `:`<div class="inline-note">Aún no hay activos registrados en el catálogo. Ve a <a href="#" onclick="navigate('cat-activos');return false">Catálogos → Activos</a> para registrar el activo afectado antes de continuar.</div>`}
+  </article>
+  <div class="page-actions" style="margin-top:18px;justify-content:flex-end">
+    <button class="button ghost" onclick="navigate('incidentes-seguridad')">&raquo; Regresar</button>
+    <button class="button primary" onclick="guardarIncidente('${editId||""}')">Guardar</button>
+  </div>`;
+}
+function renderActivoPreviewIncidente(){
+  const a = findIn(state.data.activos, state.editing.activoIncidenteId);
+  if(!a) return `<p class="empty-state" style="padding:10px 0">Selecciona un activo para ver su clasificación.</p>`;
+  const dep = findIn(state.data.departamentosCatalogo,a.responsableDeptoId);
+  return `<div class="detail-grid cols-4">
+      <div><span>Responsable Dueño</span><strong>${dep?dep.nombre:"—"}</strong></div>
+      <div><span>Tipo de Activo</span><strong>${a.tipoActivo}</strong></div>
+      <div><span>Impacto por Interrupción</span><strong><span class="impact-badge ${impactoClass(a.impacto)}">${a.impacto}</span></strong></div>
+      <div><span>Nivel de Clasificación</span><strong>${a.nivelClasificacion}</strong></div>
+      <div><span>Ubicación</span><strong>${a.ubicacion||"—"}</strong></div>
+      <div><span>Direcciones IP / DNS</span><strong>${a.direccionesIpDns||"—"}</strong></div>
+      <div><span>Tecnologías / Plataforma</span><strong>${a.tecnologiasPlataforma||"—"}</strong></div>
+      <div><span>Medidas de Seguridad</span><strong>${a.medidasSeguridad.join(", ")||"—"}</strong></div>
+    </div>
+    <p style="font-size:12px;color:var(--muted);margin-top:2px"><strong>Responsables técnicos:</strong> ${a.responsablesTecnicos.map(t=>t.nombre).join(", ")||"Sin capturar"}</p>`;
+}
+function refreshActivoPreviewIncidente(){ $("#activoPreviewIncidente").innerHTML = renderActivoPreviewIncidente(); }
+function guardarIncidente(editId){
+  if(!state.editing.selectedSolicitanteId){ toast("Selecciona un solicitante que reporte este incidente.","error"); return; }
+  const ok = validateFields([
+    {id:"fIncFolio",label:"Folio",required:true},
+    {id:"fIncFecha",label:"Fecha de detección",required:true},
+    {id:"fIncDescripcion",label:"Descripción del incidente",required:true}
+  ]);
+  if(!ok) return;
+  const payload = {
+    folio:$("#fIncFolio").value, fechaDeteccion:$("#fIncFecha").value, tipoIncidente:$("#fIncTipo").value,
+    estatus:$("#fIncEstatus").value, descripcion:$("#fIncDescripcion").value,
+    activoId:state.editing.activoIncidenteId||"", solicitanteId:state.editing.selectedSolicitanteId
+  };
+  if(editId){ Object.assign(findIn(state.data.incidentes,editId),payload); toast("Incidente actualizado."); }
+  else { state.data.incidentes.push({id:uid("INC"),...payload,bitacora:[{fecha:todayStr(),hora:nowTime(),usuario:"Administrador",movimiento:"Registro del incidente",obs:""}]}); toast("Incidente de seguridad registrado."); }
+  navigate("incidentes-seguridad");
 }
 
 /* ================= Catálogos simples (Motor de BD, Versión, Plataforma, etc.) ================= */
