@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Servicios AIIDT - Sistema de Gestión de Servicios de Tecnología</title>
+  <title>Servicios SIID - Sistema de Gestión de Servicios de Tecnología</title>
   <style>
 :root{
   --brand:#AB1738;
@@ -451,6 +451,9 @@ tbody tr:hover{background:#FCF8F9}
 .escaneo-box{border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin-bottom:12px;background:#FAFBFC}
 .escaneo-box-head{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;color:var(--ink);margin-bottom:8px}
 .escaneo-box-head span{color:var(--muted);font-size:11.5px}
+.draft-banner{display:flex;align-items:center;justify-content:space-between;gap:14px;background:#FFF8EB;border:1px solid #E3CC9F;border-radius:8px;padding:12px 16px;margin-bottom:18px;flex-wrap:wrap}
+.draft-banner span{display:flex;align-items:center;gap:8px;font-size:12.5px;color:#7A5A22;font-weight:700}
+.draft-banner .draft-actions{display:flex;gap:8px}
 .action-icon .icon{width:17px;height:17px}
 .action-icon:hover{border-color:var(--brand);color:var(--brand)}
 .action-icon.warning{color:var(--amber);border-color:#E8C77C;background:#FFFBF2}
@@ -639,7 +642,7 @@ tbody tr:hover{background:#FCF8F9}
   .agent-availability{border-left:0;padding-left:0}
 }
 
-/* ===== Extensiones de estilo propias de Servicios AIIDT ===== */
+/* ===== Extensiones de estilo propias de Servicios SIID ===== */
 .stat-card.gold .stat-icon{background:#FAF0DB;color:var(--gold)}
 .chart-card{padding:22px}
 .bars-chart{display:flex;align-items:flex-end;gap:22px;height:230px;margin-top:14px;border-bottom:1px solid var(--line);padding-bottom:2px;overflow-x:auto}
@@ -921,8 +924,8 @@ select{padding-top:9px;padding-bottom:9px;line-height:1.3}
     <div class="login-copy">
       <p class="login-kicker">Agencia de Innovación e Inteligencia Digital de Tamaulipas</p>
       <h1 class="aiidt">Hola,<br><strong>Bienvenido</strong></h1>
-      <p>Te encuentras en la plataforma de <strong>Servicios AIIDT</strong>, el sistema de gestión de servicios de tecnología (sitios web, dominios, bases de datos, servidores, VPN e inventarios). Ingresa tus credenciales institucionales para continuar.</p>
-      <p class="help-copy">Si necesitas ayuda para ingresar, contacta al equipo de Soporte TI de AIIDT.</p>
+      <p>Te encuentras en la plataforma de <strong>Servicios SIID</strong>, el sistema de gestión de servicios de tecnología (sitios web, dominios, bases de datos, servidores, VPN e inventarios). Ingresa tus credenciales institucionales para continuar.</p>
+      <p class="help-copy">Si necesitas ayuda para ingresar, contacta al equipo de Soporte TI de SIID.</p>
     </div>
     <form class="login-form" id="loginForm">
       <label for="loginEmail">Usuario</label>
@@ -935,18 +938,18 @@ select{padding-top:9px;padding-bottom:9px;line-height:1.3}
       <p class="form-error" id="loginError" hidden>Ingresa usuario y contraseña.</p>
       <button class="button primary wide" type="submit">Ingresar</button>
     </form>
-    <div class="login-footer"><span class="seal-placeholder">AIIDT</span><div><strong>Gobierno del Estado de Tamaulipas</strong><small>Acceso institucional seguro · Servicios AIIDT</small></div></div>
+    <div class="login-footer"><span class="seal-placeholder">SIID</span><div><strong>Gobierno del Estado de Tamaulipas</strong><small>Acceso institucional seguro · Servicios SIID</small></div></div>
   </div>
   <div class="login-visual" style="background:linear-gradient(160deg,var(--brand) 0%,var(--brand-dark) 100%)">
-    <div class="login-visual-overlay"><span>AIIDT</span><strong>Gestión de servicios de tecnología</strong><small>Sitios web, dominios, bases de datos, servidores, VPN e inventarios en un solo lugar.</small></div>
+    <div class="login-visual-overlay"><span>SIID</span><strong>Gestión de servicios de tecnología</strong><small>Sitios web, dominios, bases de datos, servidores, VPN e inventarios en un solo lugar.</small></div>
   </div>
 </section>
 <div class="app-shell" id="appShell" hidden>
   <header class="topbar">
     <div class="brand-block">
       <button class="mobile-menu" id="mobileMenu" aria-label="Abrir menú"><svg class="icon"><use href="#i-menu"/></svg></button>
-      <span class="government-logo" style="padding-right:16px;width:auto"><span class="seal-placeholder" style="background:rgba(255,255,255,.16);color:#fff">AIIDT</span></span>
-      <div><strong>Servicios AIIDT</strong><small id="panelTitle">Panel Administrativo</small></div>
+      <span class="government-logo" style="padding-right:16px;width:auto"><span class="seal-placeholder" style="background:rgba(255,255,255,.16);color:#fff">SIID</span></span>
+      <div><strong>Servicios SIID</strong><small id="panelTitle">Panel Administrativo</small></div>
     </div>
     <div class="topbar-actions">
       <button class="icon-button top-icon" id="helpButton" aria-label="Ayuda"><svg class="icon"><use href="#i-help"/></svg></button>
@@ -959,7 +962,7 @@ select{padding-top:9px;padding-bottom:9px;line-height:1.3}
     <button class="nav-item danger" id="logoutButton"><span><svg class="icon"><use href="#i-log-out"/></svg></span>Cerrar sesión</button>
   </aside>
   <main class="main-content" id="mainContent" tabindex="-1"></main>
-  <footer class="app-footer"><span>&copy; 2026 Gobierno del Estado de Tamaulipas · AIIDT</span><span>Aviso de privacidad · Términos y condiciones</span></footer>
+  <footer class="app-footer"><span>&copy; 2026 Gobierno del Estado de Tamaulipas · SIID</span><span>Aviso de privacidad · Términos y condiciones</span></footer>
 </div>
 <div id="modalRoot"></div>
 <div id="toastRoot" class="toast-root" aria-live="polite"></div>
@@ -1158,7 +1161,7 @@ function filtersBlock(id,fieldsHtml,{onSearch="",extraToolbar="",activeCount=0}=
 }
 
 /* ================= Catálogos base y datos semilla ================= */
-const DEPENDENCIAS = ["Secretaría de Administración","Secretaría de Finanzas","Secretaría de Educación","Secretaría de Seguridad Pública","Secretaría de Obras Públicas","Secretaría de Salud","Sistema DIF Tamaulipas","AIIDT"];
+const DEPENDENCIAS = ["Secretaría de Administración","Secretaría de Finanzas","Secretaría de Educación","Secretaría de Seguridad Pública","Secretaría de Obras Públicas","Secretaría de Salud","Sistema DIF Tamaulipas","SIID"];
 const MUNICIPIOS = ["Victoria","Tampico","Reynosa","Matamoros","Nuevo Laredo","Ciudad Madero"];
 
 /**
@@ -1204,7 +1207,7 @@ const ORG_CATALOG = {
       }
     }
   },
-  "AIIDT":{
+  "SIID":{
     "Subsecretaría de Innovación Digital":{
       "Dirección General de Sistemas":{
         "Dirección de Área de Desarrollo":["Departamento de Desarrollo de Software","Departamento de Seguridad Informática"],
@@ -1310,14 +1313,14 @@ const state = {
       {id:uid("PRV"),nombre:"Caluem",ubicacion:"Torre Bicentenario",cpu:24,memoria:192,ip:"172.16.0.12"}
     ],
     dominiosProductos:[
-      {id:uid("PRD"),nombre:"tam.gob.mx",registradoPor:"Administrador",puesto:"Director General",telefono:"8341234567",correo:"admin@tam.gob.mx",dependencia:"AIIDT",area:"Infraestructura"}
+      {id:uid("PRD"),nombre:"tam.gob.mx",registradoPor:"Administrador",puesto:"Director General",telefono:"8341234567",correo:"admin@tam.gob.mx",dependencia:"SIID",area:"Infraestructura"}
     ],
     rrd:[
       {id:uid("RRD"),dependencia:"Secretaría de Finanzas",nombre:"Base de Datos Nómina",oficioSolicitud:"OF-2026-102",oficioRespuesta:"OF-2026-115",fecha:"24/06/2026",area:"Base de Datos",contactos:[{nombre:"Juan",apPaterno:"Pérez",apMaterno:"Pérez",puesto:"Director",correo:"juan.perez@tam.gob.mx",telefono:"8341234567"}],respaldos:[{fechaRecepcion:"24/06/2026",medio:"Enlace seguro",fechaRespaldo:"24/06/2026",tamano:"512 MB",fechaMod:"23/06/2026",calidad:"Alta"}],bitacora:[]}
     ],
     actasSeguridad:[
       {id:uid("ACT"),fecha:"23/06/2026",oficio:"SE/DA/431/2026",secretaria:"Secretaría de Educación",subsecretaria:"Subsecretaría de Educación Básica",dirGeneral:"Dirección General de Innovación Educativa",contacto:"Miguel Hernández López",telExt:"8343456789 ext. 1420",
-        ipLan:"10.10.5.20",ipWan:"200.23.45.30",url:"tramites.tamaulipas.gob.mx",puertos:"443, 80",
+        ipLan:"10.10.5.20",ipWan:["200.23.45.30","200.23.45.31"],url:"tramites.tamaulipas.gob.mx",puertos:"443, 80",dominioId:"",servidorId:"",
         descripcionAplicativo:"Portal de trámites en línea para solicitud de constancias educativas.",
         herramientas:"Nessus, OWASP ZAP, Burp Suite",resultado:"Aprobado",
         descripcionAnalisis:"Se realizó un análisis de vulnerabilidades sin hallazgos críticos. Se recomienda actualizar el certificado SSL antes de su vencimiento.",
@@ -1331,7 +1334,7 @@ const state = {
         ],
         estatus:"Autorizado", bitacora:[{fecha:"23/06/2026",hora:"12:10",usuario:"Administrador",movimiento:"Registro del protocolo de evaluación",obs:""}]},
       {id:uid("ACT"),fecha:"01/07/2026",oficio:"SA/DTI/210/2026",secretaria:"Secretaría de Administración",subsecretaria:"—",dirGeneral:"Dirección de Tecnologías de la Información",contacto:"Juan Pérez Pérez",telExt:"8341234567 ext. 1200",
-        ipLan:"10.10.2.14",ipWan:"200.23.45.18",url:"nomina.tamaulipas.gob.mx",puertos:"443",
+        ipLan:"10.10.2.14",ipWan:["200.23.45.18"],url:"nomina.tamaulipas.gob.mx",puertos:"443",dominioId:"",servidorId:"",
         descripcionAplicativo:"Sistema de consulta de recibos de nómina para empleados del gobierno estatal.",
         herramientas:"Nessus, Nikto",resultado:"Con observaciones",
         descripcionAnalisis:"Se detectaron cabeceras de seguridad HTTP incompletas. Pendiente de corrección antes de autorización final.",
@@ -1343,7 +1346,7 @@ const state = {
         estatus:"Registrado", bitacora:[]}
     ],
     softwareInv:[
-      {id:uid("SW-INV"),dependencia:"Secretaría de Administración",nombre:"SIRHET",siglas:"SIRHET",descripcion:"Sistema de Recursos Humanos del Estado de Tamaulipas",estatus:"Producción",contacto:"Miguel Hernández López",programador:"Equipo AIIDT",responsable:"Dirección de Sistemas"},
+      {id:uid("SW-INV"),dependencia:"Secretaría de Administración",nombre:"SIRHET",siglas:"SIRHET",descripcion:"Sistema de Recursos Humanos del Estado de Tamaulipas",estatus:"Producción",contacto:"Miguel Hernández López",programador:"Equipo SIID",responsable:"Dirección de Sistemas"},
       {id:uid("SW-INV"),dependencia:"Secretaría de Finanzas",nombre:"SIAFIN",siglas:"SIAFIN",descripcion:"Sistema Integral de Administración Financiera",estatus:"Producción",contacto:"Juan Pérez Pérez",programador:"Empresa Externa",responsable:"Dirección de Finanzas"}
     ],
     hardwareInv:[
@@ -1422,13 +1425,21 @@ const state = {
     incidentes:[
       {id:uid("INC"),folio:"INC-2026-001",fechaDeteccion:"12/06/2026",estatus:"En análisis",tipoIncidente:"Acceso no autorizado",
         descripcion:"Se detectaron múltiples intentos fallidos de inicio de sesión seguidos de un acceso exitoso fuera de horario laboral al servidor de nómina.",
-        activoId:"",solicitanteId:"",bitacora:[{fecha:"12/06/2026",hora:"08:15",usuario:"Administrador",movimiento:"Registro del incidente",obs:""}]},
+        activoId:"",solicitanteId:"",dominioId:"",servidorId:"",
+        escaneos:[
+          {id:uid("SCAN"),fecha:"12/06/2026",hora:"08:30",evidencias:[{nombre:"bitacora_accesos_servidor.log"}]},
+          {id:uid("SCAN"),fecha:"14/06/2026",hora:"10:15",evidencias:[{nombre:"analisis_forense_preliminar.pdf"},{nombre:"capturas_ip_origen.png"}]}
+        ],
+        bitacora:[{fecha:"12/06/2026",hora:"08:15",usuario:"Administrador",movimiento:"Registro del incidente",obs:""}]},
       {id:uid("INC"),folio:"INC-2026-002",fechaDeteccion:"20/06/2026",estatus:"Contenido",tipoIncidente:"Phishing",
         descripcion:"Personal de la Secretaría de Educación reportó correos suplantando al área de TI solicitando credenciales de acceso al portal de trámites.",
-        activoId:"",solicitanteId:"",bitacora:[{fecha:"20/06/2026",hora:"11:40",usuario:"Administrador",movimiento:"Registro del incidente",obs:""}]},
+        activoId:"",solicitanteId:"",dominioId:"",servidorId:"",escaneos:[],
+        bitacora:[{fecha:"20/06/2026",hora:"11:40",usuario:"Administrador",movimiento:"Registro del incidente",obs:""}]},
       {id:uid("INC"),folio:"INC-2026-003",fechaDeteccion:"29/06/2026",estatus:"Resuelto",tipoIncidente:"Configuración insegura",
         descripcion:"Escaneo de seguridad detectó cabeceras HTTP de seguridad ausentes en la Base de Datos SIRHET, exponiendo información de versión del motor.",
-        activoId:"",solicitanteId:"",bitacora:[{fecha:"29/06/2026",hora:"09:00",usuario:"Administrador",movimiento:"Registro del incidente",obs:""},{fecha:"30/06/2026",hora:"16:20",usuario:"Administrador",movimiento:"Incidente cerrado tras aplicar corrección",obs:"Se configuraron las cabeceras de seguridad faltantes."}]}
+        activoId:"",solicitanteId:"",dominioId:"",servidorId:"",
+        escaneos:[{id:uid("SCAN"),fecha:"29/06/2026",hora:"09:15",evidencias:[{nombre:"reporte_cabeceras_http.pdf"}]}],
+        bitacora:[{fecha:"29/06/2026",hora:"09:00",usuario:"Administrador",movimiento:"Registro del incidente",obs:""},{fecha:"30/06/2026",hora:"16:20",usuario:"Administrador",movimiento:"Incidente cerrado tras aplicar corrección",obs:"Se configuraron las cabeceras de seguridad faltantes."}]}
     ],
     usuarios:[
       {id:uid("USR"),usuario:"Admin_1",nombre:"Administrador General",email:"administrador@tam.gob.mx",fecha:"03 de marzo de 2026",tipo:"Administrador"},
@@ -1486,6 +1497,11 @@ function catNames(key){ return state.data.catalogosSimples[key].map(c=>c.nombre)
   if(inc[0]){ inc[0].activoId = act[0]?.id||""; inc[0].solicitanteId = s[0].id; }
   if(inc[1]){ inc[1].activoId = act[2]?.id||""; inc[1].solicitanteId = s[1].id; }
   if(inc[2]){ inc[2].activoId = act[1]?.id||""; inc[2].solicitanteId = s[2].id; }
+  const dom = state.data.dominios, srv = state.data.servidoresSolicitudes;
+  if(state.data.actasSeguridad[0] && dom[1]) state.data.actasSeguridad[0].dominioId = dom[1].id; // tramites.tamaulipas.gob.mx
+  if(state.data.actasSeguridad[1] && srv[0]) state.data.actasSeguridad[1].servidorId = srv[0].id;
+  if(inc[0] && srv[0]) inc[0].servidorId = srv[0].id;
+  if(inc[1] && dom[0]) inc[1].dominioId = dom[0].id;
 })();
 /* ================= Cascada organizacional (Secretaría → Subsecretaría → Dir. Gral. → Dir. de Área → Departamento) ================= */
 function orgCascadeBlock(prefix,sel={}){
@@ -1595,6 +1611,128 @@ function refreshContextHeader(){
   const wrap = $("#contextHeaderWrap");
   if(wrap) wrap.outerHTML = solicitanteContextHeader();
 }
+
+/* ================= Servicio relacionado (Dominio/Subdominio y Servidor Físico/Virtual) ================= */
+function servicioRelacionadoBlock(prefix,selDominioId,selServidorId){
+  const dominios = state.data.dominios;
+  const servidores = state.data.servidoresSolicitudes;
+  return `<h2 style="font-size:15px;margin:22px 0 12px">Servicio Relacionado</h2>
+  <p style="color:var(--muted);font-size:12px;margin:0 0 12px">Opcional: liga este registro a una solicitud existente de Dominio/Subdominio o de Servidor Físico/Virtual.</p>
+  <div class="form-grid">
+    <div class="field"><label for="${prefix}Dominio">Dominio / Subdominio relacionado</label>
+      <select id="${prefix}Dominio">
+        <option value="">Ninguno</option>
+        ${dominios.map(d=>`<option value="${d.id}" ${d.id===selDominioId?"selected":""}>${d.nombre} (${d.tipo})</option>`).join("")}
+      </select>
+    </div>
+    <div class="field"><label for="${prefix}Servidor">Servidor Físico/Virtual relacionado</label>
+      <select id="${prefix}Servidor">
+        <option value="">Ninguno</option>
+        ${servidores.map(s=>`<option value="${s.id}" ${s.id===selServidorId?"selected":""}>${s.servidorAlojamiento||"Servidor"} · ${s.dependencia||""} (${s.fecha||""})</option>`).join("")}
+      </select>
+    </div>
+  </div>`;
+}
+
+/* ================= IP WAN múltiple (Protocolo de Seguridad) ================= */
+function renderIpWanList(){
+  const draft = state.editing.ipWanDraft||[];
+  if(!draft.length) return `<p class="empty-state" style="padding:6px 0;margin:0">Sin IPs WAN agregadas todavía.</p>`;
+  return `<div class="firmantes-editor" style="gap:6px">${draft.map((ip,i)=>`<div class="attach-row"><span>${icon("globe")} ${ip}</span><button type="button" class="action-icon danger" title="Quitar" onclick="quitarIpWan(${i})">${icon("trash")}</button></div>`).join("")}</div>`;
+}
+function agregarIpWan(){
+  const input = $("#fActaIpWanInput");
+  const val = input.value.trim();
+  if(!val) return;
+  if(!RULE_PATTERNS.ip(val)){ markFieldError(input,"Formato de IP no válido (ej. 200.23.45.10)."); return; }
+  clearFieldError(input);
+  state.editing.ipWanDraft = state.editing.ipWanDraft||[];
+  state.editing.ipWanDraft.push(val);
+  input.value="";
+  $("#ipWanListWrap").innerHTML = renderIpWanList();
+}
+function quitarIpWan(idx){
+  state.editing.ipWanDraft.splice(idx,1);
+  $("#ipWanListWrap").innerHTML = renderIpWanList();
+}
+
+/* ================= Borradores (autoguardado local para no perder el avance) ================= */
+const DRAFT_FORMS = ["actas-seguridad-form","incidentes-seguridad-form"];
+function draftKey(view){ return "aiidt_borrador_"+view; }
+function currentEditingIdForDraft(view){
+  return view==="actas-seguridad-form" ? state.editing.actaId : state.editing.incidenteId;
+}
+function autosaveDraft(){
+  const view = state.view;
+  if(!DRAFT_FORMS.includes(view)) return;
+  if(currentEditingIdForDraft(view)) return; // no autoguardar cuando se edita un registro existente
+  const data = {};
+  $$("#mainContent input, #mainContent select, #mainContent textarea").forEach(el=>{
+    if(!el.id) return;
+    data[el.id] = (el.type==="checkbox") ? el.checked : el.value;
+  });
+  data.__meta = {
+    selectedSolicitanteId: state.editing.selectedSolicitanteId||null,
+    deptoActaId: state.editing.deptoActaId||null,
+    ipWanDraft: state.editing.ipWanDraft||null,
+    activoIncidenteId: state.editing.activoIncidenteId||null,
+    timestamp: new Date().toISOString()
+  };
+  try{ localStorage.setItem(draftKey(view), JSON.stringify(data)); }catch(e){}
+}
+let _autosaveTimer=null;
+function scheduleAutosave(){
+  clearTimeout(_autosaveTimer);
+  _autosaveTimer = setTimeout(autosaveDraft, 500);
+}
+function draftBanner(view){
+  let raw; try{ raw = localStorage.getItem(draftKey(view)); }catch(e){ return ""; }
+  if(!raw) return "";
+  let data; try{ data = JSON.parse(raw); }catch(e){ return ""; }
+  const fecha = data.__meta?.timestamp ? new Date(data.__meta.timestamp).toLocaleString("es-MX",{dateStyle:"short",timeStyle:"short"}) : "";
+  return `<div class="draft-banner" id="draftBanner">
+    <span>${icon("clock")} Tienes un borrador sin guardar de este formulario (${fecha}). No se ha perdido tu avance.</span>
+    <div class="draft-actions">
+      <button type="button" class="button secondary" onclick="restaurarBorrador('${view}')">Continuar borrador</button>
+      <button type="button" class="button ghost" onclick="descartarBorrador('${view}')">Descartar</button>
+    </div>
+  </div>`;
+}
+function restaurarBorrador(view){
+  let raw; try{ raw = localStorage.getItem(draftKey(view)); }catch(e){ return; }
+  if(!raw) return;
+  let data; try{ data = JSON.parse(raw); }catch(e){ return; }
+  Object.keys(data).forEach(id=>{
+    if(id==="__meta") return;
+    const el = $("#"+id);
+    if(!el) return;
+    if(el.type==="checkbox") el.checked = data[id]; else el.value = data[id];
+  });
+  const meta = data.__meta||{};
+  if(meta.selectedSolicitanteId){
+    state.editing.selectedSolicitanteId = meta.selectedSolicitanteId;
+    refreshSolicitanteSelector(view==="actas-seguridad-form"?"fActa":"fInc");
+    refreshContextHeader();
+  }
+  if(view==="actas-seguridad-form"){
+    if(meta.deptoActaId && $("#fActaDepto")){ state.editing.deptoActaId=meta.deptoActaId; $("#fActaDepto").value=meta.deptoActaId; refreshFirmantesPreviewActa(); }
+    if(meta.ipWanDraft){ state.editing.ipWanDraft = meta.ipWanDraft; if($("#ipWanListWrap")) $("#ipWanListWrap").innerHTML = renderIpWanList(); }
+  }
+  if(view==="incidentes-seguridad-form" && meta.activoIncidenteId && $("#fIncActivo")){
+    state.editing.activoIncidenteId = meta.activoIncidenteId; $("#fIncActivo").value = meta.activoIncidenteId; refreshActivoPreviewIncidente();
+  }
+  const banner = $("#draftBanner"); if(banner) banner.remove();
+  toast("Borrador restaurado. Continúa donde te quedaste.");
+}
+function descartarBorrador(view){
+  try{ localStorage.removeItem(draftKey(view)); }catch(e){}
+  const banner = $("#draftBanner"); if(banner) banner.remove();
+  toast("Borrador descartado.");
+}
+function clearDraft(view){ try{ localStorage.removeItem(draftKey(view)); }catch(e){} }
+content.addEventListener("input", scheduleAutosave);
+content.addEventListener("change", scheduleAutosave);
+
 function abrirAltaRapidaSolicitante(prefix){
   openModal({title:"Registro de nuevo solicitante", subtitle:"Se agregará al directorio y se asignará a esta solicitud", size:"large", confirm:"Guardar y usar",
     body:`
@@ -1860,11 +1998,11 @@ $("#mobileMenu").onclick = ()=>{ $("#sidebar").classList.toggle("open"); };
 $("#logoutButton").onclick = ()=>openModal({
   title:"Cerrar sesión", subtitle:"Tu avance guardado permanecerá disponible.",
   confirm:"Cerrar sesión", confirmClass:"danger",
-  body:`<p>¿Deseas salir del espacio de trabajo de Servicios AIIDT?</p>`,
+  body:`<p>¿Deseas salir del espacio de trabajo de Servicios SIID?</p>`,
   onConfirm:()=>{ closeModal(); $("#appShell").hidden=true; $("#loginView").hidden=false; }
 });
 $("#helpButton").onclick = ()=>openModal({
-  title:"Centro de ayuda", subtitle:"Soporte para el sistema Servicios AIIDT", confirm:"Cerrar",
+  title:"Centro de ayuda", subtitle:"Soporte para el sistema Servicios SIID", confirm:"Cerrar",
   body:`<div class="alert-list"><span>Guía de registro de solicitantes y solicitudes</span><span>Manual de gestión de dominios, sitios web y bases de datos</span><span>Soporte técnico: soporte.aiidt@tamaulipas.gob.mx</span></div>`,
   onConfirm:closeModal
 });
@@ -2090,7 +2228,7 @@ function renderDashboard(){
 
   const subtitulo = isAlt
     ? `Resumen de solicitudes y servicios que administra tu departamento (Servicios e Inventarios).`
-    : `Resumen de solicitudes y servicios gestionados por AIIDT.`;
+    : `Resumen de solicitudes y servicios gestionados por SIID.`;
 
   content.innerHTML = `
   ${breadcrumb([{label:"Inicio"}])}
@@ -2616,7 +2754,7 @@ function renderDominioForm(tipo,editId){
       ${fieldInput("Nombre del Proyecto","fDomProyecto")}
       ${fieldSelect("Tipo de servicio","fDomTipoServicio",catNames("cat-tipo-servicio"))}
       ${fieldTextarea("Descripción del Proyecto","fDomDescripcion")}
-      ${fieldSelect("Desarrollado por","fDomDesarrollado",["AIIDT","Dependencia","Externo"])}
+      ${fieldSelect("Desarrollado por","fDomDesarrollado",["SIID","Dependencia","Externo"])}
       ${fieldSelect("Usuario Final","fDomUsuarioFinal",["Servidores Públicos","Público en General","Empresas"])}
       ${fieldSelect("Motor de Base de Datos","fDomMotor",catNames("cat-motor-bd"))}
       ${fieldSelect("¿Solicita hospedaje en Centro de Datos?","fDomHospedaje",["Sí","No"])}
@@ -2769,7 +2907,7 @@ function renderBaseDatosForm(editId){
     <div class="form-grid">
       ${fieldInput("Nombre de la Base de Datos","fBdNombre",b?.nombre)}
       ${fieldInput("Descripción breve (máx. 100 caracteres)","fBdDescripcion")}
-      ${fieldSelect("Base de datos administrada por","fBdAdmin",["AIIDT","Dependencia","Empresa","Gobierno Federal"])}
+      ${fieldSelect("Base de datos administrada por","fBdAdmin",["SIID","Dependencia","Empresa","Gobierno Federal"])}
       ${fieldSelect("Motor de Base de Datos","fBdMotor",catNames("cat-motor-bd"),b?.motor)}
       ${fieldSelect("Versión","fBdVersion",catNames("cat-version-bd"),b?.version)}
       ${fieldInput("Cantidad de usuarios de la BD","fBdUsuarios","","number")}
@@ -3067,11 +3205,11 @@ function renderActasSeguridad(){
         <td><strong>${a.oficio}</strong></td><td>${a.secretaria}</td><td>${a.url}</td><td>${a.fecha}</td>
         <td><span class="acta-result ${resultadoClass(a.resultado)}">${a.resultado}</span></td><td>${badgeEstatus(a.estatus)}</td>
         <td>${a.firmantes.length}</td>
-        <td class="checkbox-cell"><button type="button" class="action-icon ${totalEv?'':'neutral'}" title="Ver evidencias" onclick="abrirEvidenciasActa('${a.id}')">${icon("file-text")}${totalEv?`<span class="evidence-count">${totalEv}</span>`:""}</button></td>
+        <td class="checkbox-cell"><button type="button" class="action-icon ${totalEv?'':'neutral'}" title="Ver evidencias" onclick="abrirEvidencias('acta','${a.id}')">${icon("file-text")}${totalEv?`<span class="evidence-count">${totalEv}</span>`:""}</button></td>
         <td><div class="actions-cell">
           ${actionBtn("eye","Ver detalle",`verActa('${a.id}')`)}
           ${actionBtn("edit","Editar",`state.editing.actaId='${a.id}';navigate('actas-seguridad-form')`,"warning")}
-          ${actionBtn("upload","Subir evidencias",`abrirEvidenciasActa('${a.id}')`,"success")}
+          ${actionBtn("upload","Subir evidencias",`abrirEvidencias('acta','${a.id}')`,"success")}
           ${actionBtn("print","Imprimir",`state.editing.actaId='${a.id}';navigate('actas-seguridad-print')`,"success")}
           ${actionBtn("clock","Bitácora",`abrirBitacoraActa('${a.id}')`)}
           ${actionBtn("trash","Eliminar",`eliminarActa('${a.id}')`,"danger")}
@@ -3090,7 +3228,7 @@ function verActa(id){
       <div><span>Contacto</span><strong>${a.contacto}</strong></div>
       <div><span>Estatus</span><strong>${a.estatus}</strong></div>
       <div><span>URL</span><strong>${a.url}</strong></div>
-      <div><span>IP LAN / WAN</span><strong>${a.ipLan} / ${a.ipWan}</strong></div>
+      <div><span>IP LAN / WAN</span><strong>${a.ipLan||"—"} / ${(Array.isArray(a.ipWan)?a.ipWan.join(", "):a.ipWan)||"—"}</strong></div>
       <div><span>Puertos permitidos</span><strong>${a.puertos}</strong></div>
       <div><span>Herramientas</span><strong>${a.herramientas}</strong></div>
     </div>
@@ -3150,30 +3288,34 @@ function quitarFirmante(idx){
 }
 
 /* ---- Evidencias: historial de escaneos (una solicitud puede tener varios escaneos) ---- */
-function findUltimoEscaneo(acta){
-  const esc = acta.escaneos||[];
+function findUltimoEscaneo(entidad){
+  const esc = entidad.escaneos||[];
   return esc.length ? esc[esc.length-1] : null;
 }
-function totalEvidencias(acta){
-  return (acta.escaneos||[]).reduce((sum,e)=>sum+e.evidencias.length,0);
+function totalEvidencias(entidad){
+  return (entidad.escaneos||[]).reduce((sum,e)=>sum+e.evidencias.length,0);
 }
-function abrirEvidenciasActa(id){
-  state.editing.actaEvidenciaId = id;
+function evidenciaArray(tipo){ return tipo==="acta" ? state.data.actasSeguridad : state.data.incidentes; }
+function abrirEvidencias(tipo,id){
+  state.editing.evidenciaTipo = tipo;
+  state.editing.evidenciaEntidadId = id;
   state.editing.nuevoEscaneoDraft = {evidencias:[]};
-  renderEvidenciasActaModal();
+  renderEvidenciasModal();
 }
-function renderEvidenciasActaModal(){
-  const acta = findIn(state.data.actasSeguridad, state.editing.actaEvidenciaId);
-  const ultimo = findUltimoEscaneo(acta);
-  const anteriores = (acta.escaneos||[]).slice(0,-1).reverse();
-  openModal({title:"Evidencias del Protocolo", subtitle:`${acta.oficio} · ${acta.url}`, size:"large", confirm:"Cerrar",
+function renderEvidenciasModal(){
+  const tipo = state.editing.evidenciaTipo;
+  const entidad = findIn(evidenciaArray(tipo), state.editing.evidenciaEntidadId);
+  const ultimo = findUltimoEscaneo(entidad);
+  const anteriores = (entidad.escaneos||[]).slice(0,-1).reverse();
+  const titulo = tipo==="acta" ? `${entidad.oficio} · ${entidad.url}` : `${entidad.folio} · ${entidad.tipoIncidente}`;
+  openModal({title:"Evidencias del "+(tipo==="acta"?"Protocolo":"Incidente"), subtitle:titulo, size:"large", confirm:"Cerrar",
     body:`
       <h3 style="font-size:13px;margin:0 0 10px">Último escaneo realizado</h3>
       ${ultimo?`<div class="escaneo-box">
           <div class="escaneo-box-head"><strong>${ultimo.fecha}</strong><span>${ultimo.hora||""}</span></div>
           <ul class="acta-evidence-list">${ultimo.evidencias.map(e=>`<li>${icon("file-text")} ${e.nombre}</li>`).join("")||"<li>Sin archivos.</li>"}</ul>
         </div>`
-        :`<p class="empty-state" style="padding:14px 0">Aún no se ha registrado ningún escaneo con evidencia para este protocolo.</p>`}
+        :`<p class="empty-state" style="padding:14px 0">Aún no se ha registrado ningún escaneo con evidencia.</p>`}
 
       <h3 style="font-size:13px;margin:22px 0 10px">Registrar nuevo escaneo</h3>
       <div class="form-grid">
@@ -3212,24 +3354,27 @@ function guardarNuevoEscaneo(){
   const draft = state.editing.nuevoEscaneoDraft;
   if(!draft.evidencias.length){ toast("Agrega al menos un archivo de evidencia antes de guardar el escaneo.","error"); return; }
   const fecha = $("#fNuevoEscaneoFecha").value || todayStr();
-  const acta = findIn(state.data.actasSeguridad, state.editing.actaEvidenciaId);
-  acta.escaneos = acta.escaneos || [];
-  acta.escaneos.push({id:uid("SCAN"), fecha, hora:nowTime(), evidencias:[...draft.evidencias]});
-  acta.bitacora.push({fecha:todayStr(),hora:nowTime(),usuario:"Administrador",movimiento:"Nuevo escaneo con evidencia registrado",obs:`${draft.evidencias.length} archivo(s)`});
+  const tipo = state.editing.evidenciaTipo;
+  const entidad = findIn(evidenciaArray(tipo), state.editing.evidenciaEntidadId);
+  entidad.escaneos = entidad.escaneos || [];
+  entidad.escaneos.push({id:uid("SCAN"), fecha, hora:nowTime(), evidencias:[...draft.evidencias]});
+  entidad.bitacora.push({fecha:todayStr(),hora:nowTime(),usuario:"Administrador",movimiento:"Nuevo escaneo con evidencia registrado",obs:`${draft.evidencias.length} archivo(s)`});
   toast("Escaneo registrado con su evidencia.");
   state.editing.nuevoEscaneoDraft = {evidencias:[]};
-  renderEvidenciasActaModal();
-  renderActasSeguridad();
+  renderEvidenciasModal();
+  if(tipo==="acta") renderActasSeguridad(); else renderIncidentesSeguridad();
 }
 
 function renderActaForm(editId){
   const a = editId?findIn(state.data.actasSeguridad,editId):null;
   const deptosDisponibles = state.data.departamentosCatalogo.filter(d=>d.servicios.some(s=>s.modulo==="actas-seguridad"&&s.generaDocumentos));
   state.editing.deptoActaId = a?.departamentoId || deptosDisponibles[0]?.id || null;
+  state.editing.ipWanDraft = a ? (Array.isArray(a.ipWan)?[...a.ipWan]:(a.ipWan?[a.ipWan]:[])) : [];
   content.innerHTML = `
   ${breadcrumb([{label:"Servicios"},{label:"Protocolo de Seguridad",view:"actas-seguridad"},{label:editId?"Editar Protocolo":"Registro de Protocolo"}])}
   <div class="page-header"><div><h1>${editId?"Editar":"Registro de"} Protocolo de Evaluación de Seguridad</h1><p>Evaluación del estado de seguridad previa a la publicación de un servicio.</p>${solicitanteContextHeader()}</div>
     <div class="page-actions">${badgeEstatus(a?.estatus||"Registrado")}</div></div>
+  ${!editId?draftBanner("actas-seguridad-form"):""}
   <article class="card">
     <h2 style="font-size:15px;margin:0 0 12px">Solicitante</h2>
     ${solicitanteSelectorBlock("fActa")}
@@ -3239,9 +3384,18 @@ function renderActaForm(editId){
       ${fieldInput("Fecha de emisión","fActaFecha",a?.fecha,"date")}
       ${fieldInput("Oficio / GLPI","fActaOficio",a?.oficio)}
     </div>
+    ${servicioRelacionadoBlock("fActa",a?.dominioId,a?.servidorId)}
     <h2 style="font-size:15px;margin:22px 0 12px">Datos Técnicos</h2>
     <div class="form-grid">
-      ${fieldInputPair("IP LAN","fActaIpLan",a?.ipLan,"IP WAN","fActaIpWan",a?.ipWan,"1fr 1fr",["ip","ip"])}
+      <div class="field"><label for="fActaIpLan">IP LAN</label><input id="fActaIpLan" type="text" placeholder="000.000.000.000" data-rule="ip" value="${a?.ipLan??""}"></div>
+      <div class="field">
+        <label for="fActaIpWanInput">IP WAN (puedes agregar varias)</label>
+        <div style="display:flex;gap:8px">
+          <input id="fActaIpWanInput" type="text" placeholder="000.000.000.000" data-rule="ip" style="flex:1">
+          <button type="button" class="button secondary" onclick="agregarIpWan()">${icon("plus")}</button>
+        </div>
+      </div>
+      <div class="field full" style="margin-top:-8px"><div id="ipWanListWrap">${renderIpWanList()}</div></div>
       <div class="field-pair-wrap" style="grid-template-columns:1.3fr 1fr">
         <div class="field"><label for="fActaPuertos">Puertos permitidos</label><input id="fActaPuertos" value="${a?.puertos??""}" placeholder="Ej. 80, 443"></div>
         <div class="field"><label for="fActaResultadoForm">Resultado del análisis</label><select id="fActaResultadoForm">${["Aprobado","Con observaciones","Rechazado"].map(o=>`<option value="${o}" ${o===a?.resultado?"selected":""}>${o}</option>`).join("")}</select></div>
@@ -3289,8 +3443,7 @@ function guardarActa(editId){
   const ok = validateFields([
     {id:"fActaOficio",label:"Oficio / GLPI",required:true},
     {id:"fActaUrl",label:"URL",type:"url",required:true},
-    {id:"fActaIpLan",label:"IP LAN",type:"ip",required:false},
-    {id:"fActaIpWan",label:"IP WAN",type:"ip",required:false}
+    {id:"fActaIpLan",label:"IP LAN",type:"ip",required:false}
   ]);
   if(!ok) return;
   const sol = findIn(state.data.solicitantes, state.editing.selectedSolicitanteId);
@@ -3301,13 +3454,15 @@ function guardarActa(editId){
     fecha:$("#fActaFecha").value||todayStr(), oficio:$("#fActaOficio").value||"Sin número de oficio",
     solicitanteId:sol.id, secretaria:sol.secretaria||sol.dependencia, subsecretaria:sol.subsecretaria||"",
     dirGeneral:sol.direccionGeneral||"", contacto:nombreCompleto(sol), telExt:`${sol.telefono||""}${sol.ext?" ext. "+sol.ext:""}`,
-    ipLan:$("#fActaIpLan").value, ipWan:$("#fActaIpWan").value, url:$("#fActaUrl").value, puertos:$("#fActaPuertos").value,
+    ipLan:$("#fActaIpLan").value, ipWan:[...(state.editing.ipWanDraft||[])], url:$("#fActaUrl").value, puertos:$("#fActaPuertos").value,
+    dominioId:$("#fActaDominio").value||null, servidorId:$("#fActaServidor").value||null,
     resultado:$("#fActaResultadoForm").value, descripcionAplicativo:$("#fActaDescApp").value,
     herramientas:$("#fActaHerramientas").value, descripcionAnalisis:$("#fActaDescAnalisis").value,
     departamentoId:depto?.id||null, firmantes
   };
   if(editId){ Object.assign(findIn(state.data.actasSeguridad,editId),payload); toast("Protocolo actualizado."); }
   else { state.data.actasSeguridad.push({id:uid("ACT"),...payload,estatus:"Registrado",escaneos:[],bitacora:[{fecha:todayStr(),hora:nowTime(),usuario:"Administrador",movimiento:"Registro del protocolo",obs:""}]}); toast("Protocolo de seguridad registrado."); }
+  clearDraft("actas-seguridad-form");
   navigate("actas-seguridad");
 }
 
@@ -3332,7 +3487,7 @@ function renderActaPrint(id){
   </div>
   <div class="print-sheet">
     <div class="acta-brand">
-      <span class="seal-placeholder">AIIDT</span>
+      <span class="seal-placeholder">SIID</span>
       <div><strong>Gobierno del Estado de Tamaulipas</strong><small>Agencia de Innovación e Inteligencia Digital de Tamaulipas</small></div>
     </div>
     <h1>Protocolo de Evaluación del Estado de Seguridad<br>para Publicación de Servicios Gubernamentales</h1>
@@ -3346,7 +3501,7 @@ function renderActaPrint(id){
     </table>
 
     <table class="acta-table"><caption>Datos Técnicos</caption>
-      <tr><td class="acta-label">IP LAN</td><td>${a.ipLan||"—"}</td><td class="acta-label">IP WAN</td><td>${a.ipWan||"—"}</td></tr>
+      <tr><td class="acta-label">IP LAN</td><td>${a.ipLan||"—"}</td><td class="acta-label">IP WAN</td><td>${(Array.isArray(a.ipWan)?a.ipWan.join(", "):a.ipWan)||"—"}</td></tr>
       <tr><td class="acta-label">URL</td><td colspan="3">${a.url}</td></tr>
       <tr><td class="acta-label">Puertos permitidos</td><td colspan="3">${a.puertos||"—"}</td></tr>
       <tr><td class="acta-label">Descripción del aplicativo</td><td colspan="3">${a.descripcionAplicativo||"—"}</td></tr>
@@ -3360,7 +3515,7 @@ function renderActaPrint(id){
     </table>
 
     <div class="signature-row">${firmantesHtml}</div>
-    <p class="acta-footnote">Documento generado por Servicios AIIDT · ${todayStr()} · Folio ${a.id}</p>
+    <p class="acta-footnote">Documento generado por Servicios SIID · ${todayStr()} · Folio ${a.id}</p>
   </div>`;
 }
 /* ================= Inventarios > Software ================= */
@@ -3530,7 +3685,7 @@ function guardarHardware(){
 /* ================= Catálogos > Productos ================= */
 function renderCatProductos(){
   const dominioRows = state.data.dominiosProductos.map(p=>({...p,categoria:"Dominio"}));
-  const servidorRows = state.data.servidoresProductos.map(p=>({...p,categoria:"Servidor",registradoPor:"Administrador",puesto:"—",telefono:"—",correo:"—",dependencia:"AIIDT",area:"Infraestructura"}));
+  const servidorRows = state.data.servidoresProductos.map(p=>({...p,categoria:"Servidor",registradoPor:"Administrador",puesto:"—",telefono:"—",correo:"—",dependencia:"SIID",area:"Infraestructura"}));
   const term = state.search.productos||"";
   const rows = [...dominioRows,...servidorRows].filter(p=>matchesSearch(p,term));
   content.innerHTML = `
@@ -3790,7 +3945,10 @@ function renderCatActivos(){
   content.innerHTML = `
   ${breadcrumb([{label:"Catálogos"},{label:"Activos"}])}
   <div class="page-header"><div><h1>Catálogo de Activos</h1><p>Inventario de activos críticos, alineado al Anexo 3 del Protocolo Nacional Homologado.</p></div>
-    <div class="page-actions"><button class="button primary" onclick="state.editing.activoId=null;navigate('cat-activos-form')">${icon("plus")} Registro de Activo</button></div>
+    <div class="page-actions">
+      <button class="button secondary" onclick="abrirImportarActivosCSV()">${icon("upload")} Importar CSV</button>
+      <button class="button primary" onclick="state.editing.activoId=null;navigate('cat-activos-form')">${icon("plus")} Registro de Activo</button>
+    </div>
   </div>
   <article class="card table-card">
     <div class="datatable-toolbar"><div class="entries-control">Mostrar <select><option>10</option></select> registros</div>
@@ -3934,6 +4092,101 @@ function guardarActivo(editId){
   navigate("cat-activos");
 }
 
+/* ================= Importar Activos desde CSV (sistema interno del usuario) ================= */
+const CSV_ACTIVOS_HEADERS = ["Nombre del Activo","Responsable Dueño","Responsables Técnicos","Ubicación","Servicio Esencial","Impacto","Dependencia","Nivel de Clasificación","Requisito de Disponibilidad","Requisito de Integridad","Tipo de Activo","Direcciones IP DNS","Tecnologias Plataforma","Medidas de Seguridad"];
+function parseCSV(text){
+  const rows=[]; let row=[], field="", inQuotes=false;
+  for(let i=0;i<text.length;i++){
+    const c=text[i];
+    if(inQuotes){
+      if(c==='"'){ if(text[i+1]==='"'){ field+='"'; i++; } else inQuotes=false; }
+      else field+=c;
+    } else {
+      if(c==='"') inQuotes=true;
+      else if(c===','){ row.push(field); field=""; }
+      else if(c==='\n'||c==='\r'){
+        if(field.length||row.length){ row.push(field); rows.push(row); row=[]; field=""; }
+        if(c==='\r'&&text[i+1]==='\n') i++;
+      } else field+=c;
+    }
+  }
+  if(field.length||row.length){ row.push(field); rows.push(row); }
+  return rows.filter(r=>r.some(x=>x.trim()!==""));
+}
+function csvRowsToObjects(rows){
+  const headers = rows[0].map(h=>h.trim());
+  return rows.slice(1).map(r=>{ const obj={}; headers.forEach((h,i)=>obj[h]=(r[i]||"").trim()); return obj; });
+}
+function descargarPlantillaActivosCSV(){
+  const ejemplo = ["Servidor de Ejemplo","Departamento de Base de Datos","Juan Pérez|juan.perez@tam.gob.mx|8341234567; María López|maria.lopez@tam.gob.mx|8347654321","Datacenter central, Palacio de Gobierno","Descripción del servicio que soporta","Alto","Sistema X, Sistema Y","Reservado","24/7","Alto: contiene datos sensibles","Servidor Físico","10.10.1.1","Windows Server 2019","Firewall;VPN;Encriptación en reposo"];
+  const csv = "\uFEFF"+[CSV_ACTIVOS_HEADERS,ejemplo].map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(",")).join("\r\n");
+  downloadFile("plantilla_activos.csv",csv,"text/csv;charset=utf-8");
+  toast("Plantilla descargada.");
+}
+function abrirImportarActivosCSV(){
+  state.editing.csvActivosPreview = [];
+  openModal({title:"Importar Activos desde CSV", subtitle:"Sube el archivo exportado de tu sistema interno de inventario de activos", size:"large", confirm:"",
+    body:`
+      <p style="font-size:12.5px;color:var(--muted);margin:0 0 12px">El archivo debe tener estas columnas (encabezados exactos, en cualquier orden). Si tu sistema interno usa otros nombres de columna, renómbralas antes de subir el archivo.</p>
+      <div class="table-wrap" style="margin-bottom:14px"><table style="font-size:11px"><tr>${CSV_ACTIVOS_HEADERS.map(h=>`<th>${h}</th>`).join("")}</tr></table></div>
+      <button type="button" class="button secondary" onclick="descargarPlantillaActivosCSV()" style="margin-bottom:16px">${icon("download")} Descargar plantilla CSV</button>
+      <div class="field"><label for="fCsvActivos">Selecciona el archivo CSV</label><input type="file" id="fCsvActivos" accept=".csv,text/csv"></div>
+      <div id="csvPreviewWrap" style="margin-top:14px"></div>
+    `, onConfirm:null});
+  $("#fCsvActivos").onchange = handleCsvActivosFile;
+}
+function handleCsvActivosFile(e){
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = (ev)=>{
+    try{
+      const rows = parseCSV(ev.target.result);
+      if(rows.length<2){ toast("El archivo no contiene registros para importar.","error"); return; }
+      const objs = csvRowsToObjects(rows);
+      state.editing.csvActivosPreview = objs;
+      $("#csvPreviewWrap").innerHTML = renderCsvActivosPreview(objs);
+    }catch(err){ toast("No se pudo leer el archivo CSV. Verifica el formato.","error"); }
+  };
+  reader.readAsText(file,"UTF-8");
+}
+function renderCsvActivosPreview(objs){
+  return `<div class="inline-note">Se detectaron <strong>${objs.length}</strong> activo(s) en el archivo. Revisa la vista previa y confirma la importación.</div>
+    <div class="table-wrap" style="max-height:260px;overflow:auto"><table><thead><tr><th>Nombre</th><th>Responsable Dueño</th><th>Tipo</th><th>Impacto</th></tr></thead>
+    <tbody>${objs.map(o=>`<tr><td>${o["Nombre del Activo"]||"—"}</td><td>${o["Responsable Dueño"]||"—"}</td><td>${o["Tipo de Activo"]||"—"}</td><td>${o["Impacto"]||"—"}</td></tr>`).join("")}</tbody></table></div>
+    <button type="button" class="button primary" style="margin-top:14px" onclick="confirmarImportacionActivosCSV()">${icon("upload")} Importar ${objs.length} activo(s)</button>`;
+}
+function confirmarImportacionActivosCSV(){
+  const objs = state.editing.csvActivosPreview||[];
+  let importados = 0;
+  objs.forEach(o=>{
+    if(!o["Nombre del Activo"]) return;
+    const depto = state.data.departamentosCatalogo.find(d=>d.nombre.trim().toLowerCase()===(o["Responsable Dueño"]||"").trim().toLowerCase());
+    const responsablesTecnicos = (o["Responsables Técnicos"]||"").split(";").map(s=>s.trim()).filter(Boolean).map(part=>{
+      const [nombre,correo,telefono] = part.split("|").map(x=>(x||"").trim());
+      return {nombre:nombre||part, correo:correo||"", telefono:telefono||""};
+    });
+    const medidas = (o["Medidas de Seguridad"]||"").split(";").map(s=>s.trim()).filter(Boolean);
+    state.data.activos.push({
+      id:uid("ACT-A"), nombre:o["Nombre del Activo"], responsableDeptoId:depto?depto.id:"",
+      responsablesTecnicos, ubicacion:o["Ubicación"]||"",
+      servicioEsencial:o["Servicio Esencial"]||"", impacto:o["Impacto"]||"Medio",
+      dependenciaSistemas:o["Dependencia"]||"",
+      nivelClasificacion:o["Nivel de Clasificación"]||"Reservado",
+      requisitoDisponibilidad:o["Requisito de Disponibilidad"]||"Horario laboral",
+      requisitoIntegridad:o["Requisito de Integridad"]||"",
+      tipoActivo:o["Tipo de Activo"]||"Otro",
+      direccionesIpDns:o["Direcciones IP DNS"]||"",
+      tecnologiasPlataforma:o["Tecnologias Plataforma"]||"",
+      medidasSeguridad:medidas
+    });
+    importados++;
+  });
+  closeModal();
+  toast(`${importados} activo(s) importado(s) correctamente.`);
+  renderCatActivos();
+}
+
 /* ================= Servicios > Incidentes de Seguridad ================= */
 function renderIncidentesSeguridad(){
   const term = state.search.incidentes||"";
@@ -3947,17 +4200,19 @@ function renderIncidentesSeguridad(){
     <div class="datatable-toolbar"><div class="entries-control">Mostrar <select><option>10</option></select> registros</div>
       <div class="datatable-actions">${searchBox("incidentesSearch","Buscar registros",term)}</div></div>
     <div class="table-wrap"><table>
-      <thead><tr><th>Folio</th><th>Activo Afectado</th><th>Tipo de Incidente</th><th>Fecha</th><th>Impacto</th><th>Estatus</th><th>Acciones</th></tr></thead>
-      <tbody>${rows.length?rows.map(i=>{ const act=findIn(state.data.activos,i.activoId); return `<tr>
+      <thead><tr><th>Folio</th><th>Activo Afectado</th><th>Tipo de Incidente</th><th>Fecha</th><th>Impacto</th><th>Estatus</th><th>Evidencias</th><th>Acciones</th></tr></thead>
+      <tbody>${rows.length?rows.map(i=>{ const act=findIn(state.data.activos,i.activoId); const totalEv=totalEvidencias(i); return `<tr>
         <td><strong>${i.folio}</strong></td><td>${act?act.nombre:"—"}</td><td>${i.tipoIncidente}</td><td>${i.fechaDeteccion}</td>
         <td>${act?`<span class="impact-badge ${impactoClass(act.impacto)}">${act.impacto}</span>`:"—"}</td>
         <td>${badgeEstatus(i.estatus)}</td>
+        <td class="checkbox-cell"><button type="button" class="action-icon ${totalEv?'':'neutral'}" title="Ver evidencias" onclick="abrirEvidencias('incidente','${i.id}')">${icon("file-text")}${totalEv?`<span class="evidence-count">${totalEv}</span>`:""}</button></td>
         <td><div class="actions-cell">
           ${actionBtn("eye","Ver detalle",`verIncidente('${i.id}')`)}
           ${actionBtn("edit","Editar",`state.editing.incidenteId='${i.id}';navigate('incidentes-seguridad-form')`,"warning")}
+          ${actionBtn("upload","Subir evidencias",`abrirEvidencias('incidente','${i.id}')`,"success")}
           ${actionBtn("clock","Bitácora",`abrirBitacoraIncidente('${i.id}')`)}
           ${actionBtn("trash","Eliminar",`eliminarIncidente('${i.id}')`,"danger")}
-        </div></td></tr>`;}).join(""):`<tr><td colspan="7" class="empty-state">No hay incidentes de seguridad registrados.</td></tr>`}</tbody>
+        </div></td></tr>`;}).join(""):`<tr><td colspan="8" class="empty-state">No hay incidentes de seguridad registrados.</td></tr>`}</tbody>
     </table></div>
     ${paginationFoot(rows.length,"incidentes")}
   </article>`;
@@ -4004,6 +4259,7 @@ function renderIncidenteForm(editId){
   ${breadcrumb([{label:"Servicios"},{label:"Incidentes de Seguridad",view:"incidentes-seguridad"},{label:editId?"Editar Incidente":"Registro de Incidente"}])}
   <div class="page-header"><div><h1>${editId?"Editar":"Registro de"} Incidente de Seguridad</h1><p>Documenta el incidente y el activo afectado, alineado al Anexo 3 del Protocolo Nacional Homologado.</p>${solicitanteContextHeader()}</div>
     <div class="page-actions">${badgeEstatus(inc?.estatus||"Abierto")}</div></div>
+  ${!editId?draftBanner("incidentes-seguridad-form"):""}
   <article class="card">
     <h2 style="font-size:15px;margin:0 0 12px">Solicitante que reporta</h2>
     ${solicitanteSelectorBlock("fInc")}
@@ -4015,6 +4271,7 @@ function renderIncidenteForm(editId){
       ${fieldSelect("Estatus","fIncEstatus",["Abierto","En análisis","Contenido","Erradicado","Resuelto","Cerrado"],inc?.estatus||"Abierto")}
       ${fieldTextarea("Descripción del incidente","fIncDescripcion",inc?.descripcion)}
     </div>
+    ${servicioRelacionadoBlock("fInc",inc?.dominioId,inc?.servidorId)}
     <h2 style="font-size:15px;margin:22px 0 12px">Activo Afectado</h2>
     ${state.data.activos.length?`
       <div class="form-grid">
@@ -4060,10 +4317,12 @@ function guardarIncidente(editId){
   const payload = {
     folio:$("#fIncFolio").value, fechaDeteccion:$("#fIncFecha").value, tipoIncidente:$("#fIncTipo").value,
     estatus:$("#fIncEstatus").value, descripcion:$("#fIncDescripcion").value,
+    dominioId:$("#fIncDominio").value||null, servidorId:$("#fIncServidor").value||null,
     activoId:state.editing.activoIncidenteId||"", solicitanteId:state.editing.selectedSolicitanteId
   };
   if(editId){ Object.assign(findIn(state.data.incidentes,editId),payload); toast("Incidente actualizado."); }
-  else { state.data.incidentes.push({id:uid("INC"),...payload,bitacora:[{fecha:todayStr(),hora:nowTime(),usuario:"Administrador",movimiento:"Registro del incidente",obs:""}]}); toast("Incidente de seguridad registrado."); }
+  else { state.data.incidentes.push({id:uid("INC"),...payload,escaneos:[],bitacora:[{fecha:todayStr(),hora:nowTime(),usuario:"Administrador",movimiento:"Registro del incidente",obs:""}]}); toast("Incidente de seguridad registrado."); }
+  clearDraft("incidentes-seguridad-form");
   navigate("incidentes-seguridad");
 }
 
@@ -4109,7 +4368,7 @@ function renderUsuarios(){
   const rows = state.data.usuarios.filter(u=>matchesSearch(u,term));
   content.innerHTML = `
   ${breadcrumb([{label:"Administrador"},{label:"Usuarios"}])}
-  <div class="page-header"><div><h1>Usuarios</h1><p>Cuentas con acceso al sistema Servicios AIIDT.</p></div>
+  <div class="page-header"><div><h1>Usuarios</h1><p>Cuentas con acceso al sistema Servicios SIID.</p></div>
     <div class="page-actions">
       <button class="button secondary" onclick="toast('Sincronizando usuarios con el Directorio Activo…')">${icon("refresh")} Sincronizar con Directorio Activo</button>
       <button class="button primary" onclick="abrirUsuario()">${icon("plus")} Nuevo Usuario</button>
