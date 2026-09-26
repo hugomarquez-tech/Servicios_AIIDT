@@ -868,6 +868,55 @@ select{padding-top:9px;padding-bottom:9px;line-height:1.3}
 @media (max-width:1100px){.kpi-grid{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:760px){.kpi-grid{grid-template-columns:1fr}.activity-row{grid-template-columns:1fr}}
 
+
+/* ===== Tablas estilo Frest: selección, menú de acciones y exportar ===== */
+th.select-col,td.select-col{width:44px;text-align:center;padding-left:14px;padding-right:6px}
+.select-col input,.checkbox-cell input.row-check,.checkbox-cell input.select-all{width:17px;height:17px;accent-color:var(--brand);cursor:pointer}
+tr.row-selected td{background:#FBF3F5}
+.row-actions{display:flex;align-items:center;gap:4px}
+.row-actions .ra-btn{width:32px;height:32px;border:0;background:transparent;border-radius:6px;display:grid;place-items:center;color:#5A5F69;cursor:pointer;padding:0}
+.row-actions .ra-btn .icon{width:18px;height:18px}
+.row-actions .ra-btn:hover,.row-actions .ra-btn.open{background:#F1F2F4;color:var(--brand)}
+.row-actions .ra-btn.edit:hover{color:var(--amber)}
+.row-menu{position:fixed;z-index:400;min-width:190px;background:#fff;border:1px solid var(--line);border-radius:8px;box-shadow:0 10px 28px rgba(20,24,33,.16);padding:6px;display:flex;flex-direction:column}
+.row-menu button{display:flex;align-items:center;gap:10px;border:0;background:transparent;text-align:left;padding:9px 12px;border-radius:6px;font:inherit;font-size:13px;color:var(--text,#202938);cursor:pointer;white-space:nowrap}
+.row-menu button .icon{width:16px;height:16px;color:#6B7079}
+.row-menu button:hover{background:#F5F6F8;color:var(--brand)}
+.row-menu button:hover .icon{color:var(--brand)}
+.row-menu button.danger{color:var(--red)}.row-menu button.danger .icon{color:var(--red)}
+.row-menu button.danger:hover{background:var(--red-bg)}
+.row-menu hr{border:0;border-top:1px solid var(--line);margin:4px 2px}
+.row-menu .row-menu-title{font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:#8B8F98;padding:6px 12px 4px;font-weight:700}
+.export-wrap{position:relative;display:inline-flex}
+.field input:disabled{background:#F4F5F7;color:#8B8F98;cursor:not-allowed}
+.table-export-bar{display:flex;justify-content:flex-end;margin:0 0 12px}
+.button.export-btn{background:#FBEFF2;color:var(--brand);border-color:#F0CBD4}
+.button.export-btn:hover{background:#F6E0E6}
+.export-btn .count-pill{background:var(--brand);color:#fff;border-radius:999px;font-size:11px;padding:1px 7px;margin-left:2px}
+.choice-checks{display:flex;gap:12px;flex-wrap:wrap}
+.choice-check{display:flex;align-items:center;gap:10px;border:1px solid #D5D9E0;border-radius:8px;padding:12px 16px;min-width:200px;cursor:pointer;font-weight:600;font-size:13px;background:#fff;transition:.15s}
+.choice-check input{width:18px;height:18px;accent-color:var(--brand);margin:0}
+.choice-check:hover{border-color:var(--brand)}
+.choice-check.checked{border-color:var(--brand);background:#FBEFF2;color:var(--brand)}
+.choice-checks.input-error .choice-check{border-color:var(--red)}
+.field-host[hidden]{display:none}
+.server-checks{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+.server-check{display:flex;gap:10px;align-items:flex-start;border:1px solid #D5D9E0;border-radius:8px;padding:11px 13px;cursor:pointer;background:#fff}
+.server-check input{width:17px;height:17px;accent-color:var(--brand);margin-top:2px}
+.server-check strong{display:block;font-size:13px}.server-check small{color:var(--muted);font-size:11.5px}
+.server-check:has(input:checked){border-color:var(--brand);background:#FBEFF2}
+.nav-subitem.phase-off{color:#A9ACB3}
+.nav-subitem.phase-off .phase-label{display:inline-flex;align-items:center;gap:6px;flex-wrap:nowrap;white-space:nowrap}
+.nav-subitem.phase-off .phase-tag{display:inline-flex;align-items:center;gap:3px;font-size:9.5px;font-style:normal;font-weight:800;letter-spacing:.03em;text-transform:uppercase;background:#EEF0F3;color:#8B8F98;border-radius:10px;padding:2px 7px 2px 5px}
+.nav-subitem.phase-off .phase-tag .icon{width:10px;height:10px;display:inline-block}
+.nav-subitem.phase-off:hover{color:#8B8F98;background:#F6F7F8}
+@media (min-width:900px){.page-header>.page-actions{flex-shrink:0;flex-wrap:nowrap}}
+.phase-off-card{text-align:center;padding:48px 24px}
+.phase-off-card .phase-icon{width:64px;height:64px;border-radius:50%;background:#F1F2F4;display:grid;place-items:center;margin:0 auto 16px;color:#8B8F98}
+.phase-off-card .phase-icon .icon{width:28px;height:28px}
+.phase-off-card h2{font-size:20px;margin:0 0 8px}
+.phase-off-card p{color:var(--muted);max-width:560px;margin:0 auto 18px;font-size:13.5px;line-height:1.55}
+.phase-off-card .phase-links{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
 </style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -905,6 +954,10 @@ select{padding-top:9px;padding-bottom:9px;line-height:1.3}
   <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-2.8 2.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6v.2h-4V21a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1L4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9A1.7 1.7 0 0 0 3 14H2.8v-4H3a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9L4.2 7 7 4.2l.1.1A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-1.6v-.2h4V3a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1L19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1h.2v4H21a1.7 1.7 0 0 0-1.6 1Z"/></symbol>
   <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 14h10l1-14M10 11v6M14 11v6"/></symbol>
   <symbol id="i-ban" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m6 6 12 12"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+  <symbol id="i-more-vertical" viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.6" fill="currentColor"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/><circle cx="12" cy="19" r="1.6" fill="currentColor"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></symbol>
+  <symbol id="i-file-sheet" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/><line x1="12" y1="11" x2="12" y2="19"/></symbol>
   <symbol id="i-upload" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></symbol>
     <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
   <symbol id="i-server" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="6" rx="1.5"/><rect x="3" y="14" width="18" height="6" rx="1.5"/><path d="M7 7h.01M7 17h.01"/></symbol>
@@ -1294,18 +1347,22 @@ const state = {
     dominios:[
       {id:uid("DOM"),dependencia:"Secretaría de Educación",tipo:"Dominio",nombre:"educacion.tamaulipas.gob.mx",solicitante:"Laura González Ramírez",estatus:"Validado",fecha:"04/04/2026",ip:"172.16.10.20",nat:"200.23.45.10",scan:true,anexos:1,bitacora:[]},
       {id:uid("DOM"),dependencia:"Secretaría de Administración",tipo:"Subdominio",nombre:"tramites.tamaulipas.gob.mx",solicitante:"Miguel Hernández López",estatus:"Notificado",fecha:"12/06/2026",ip:"",nat:"",scan:false,anexos:0,bitacora:[]},
-      {id:uid("DOM"),dependencia:"Secretaría de Salud",tipo:"Dominio",nombre:"salud.tamaulipas.gob.mx",solicitante:"Ana Torres Salinas",estatus:"Registrado",fecha:"29/06/2026",ip:"",nat:"",scan:false,anexos:1,bitacora:[]}
+      {id:uid("DOM"),dependencia:"Secretaría de Salud",tipo:"Dominio",nombre:"salud.tamaulipas.gob.mx",solicitante:"Ana Torres Salinas",estatus:"Registrado",fecha:"29/06/2026",ip:"",nat:"",scan:false,anexos:1,bitacora:[]},
+      {id:uid("DOM"),dependencia:"Agencia de Innovación e Inteligencia Digital de Tamaulipas",tipo:"Dominio",nombre:"tamaulipas.gob.mx",solicitante:"Juan Pérez Pérez",estatus:"Validado",fecha:"15/01/2026",ip:"200.23.45.1",nat:"",scan:true,anexos:0,bitacora:[{fecha:"15/01/2026",hora:"09:00",usuario:"Administrador",movimiento:"Registro del dominio institucional",obs:""}]}
     ],
     basesDatos:[
       {id:uid("BD"),dependencia:"Secretaría de Finanzas",nombre:"Base de Datos Nómina",estatus:"Autorizado",servidor:"Afelio",fecha:"09/06/2026",ip:"10.10.1.20",nat:"200.23.45.11",scan:true,anexos:1,motor:"MySQL",bitacora:[]},
       {id:uid("BD"),dependencia:"Secretaría de Educación",nombre:"Base de Datos Padrón Escolar",estatus:"Registrado",servidor:"Ceres",fecha:"18/06/2026",ip:"",nat:"",scan:false,anexos:0,motor:"MSSQLServer 2014",bitacora:[]}
     ],
     vpns:[
-      {id:uid("VPN"),nombre:"Ricardo Salas Peña",correo:"ricardo.salas@tam.gob.mx",telefono:"8341234567",ext:"1500",ip:"10.20.0.15",observaciones:"Acceso a servidor de obras públicas",fecha:"18/06/2026"},
-      {id:uid("VPN"),nombre:"Ana Torres Salinas",correo:"ana.torres@tam.gob.mx",telefono:"8347778899",ext:"1610",ip:"",observaciones:"Sin observaciones",fecha:"29/06/2026"}
+      {id:uid("VPN"),nombre:"Ricardo Salas Peña",correo:"ricardo.salas@tam.gob.mx",telefono:"8341234567",ext:"1500",ip:"10.20.0.15",observaciones:"Acceso a servidor de obras públicas",fecha:"18/06/2026",bitacora:[{fecha:"18/06/2026",hora:"11:20",usuario:"Administrador",movimiento:"Registro de solicitud de VPN",obs:""},{fecha:"19/06/2026",hora:"09:10",usuario:"Administrador",movimiento:"IP asignada: 10.20.0.15",obs:""}]},
+      {id:uid("VPN"),nombre:"Ana Torres Salinas",correo:"ana.torres@tam.gob.mx",telefono:"8347778899",ext:"1610",ip:"",observaciones:"Sin observaciones",fecha:"29/06/2026",bitacora:[{fecha:"29/06/2026",hora:"13:45",usuario:"Administrador",movimiento:"Registro de solicitud de VPN",obs:""}]}
     ],
     servidoresSolicitudes:[
-      {id:uid("SRV"),dependencia:"Secretaría de Obras Públicas",solicitante:"Ricardo Salas Peña",servidorAlojamiento:"Ceres",fecha:"01/07/2026",anexos:1,bitacora:[]}
+      {id:uid("SRV"),tipoServidor:"Virtual",ip:"10.10.20.15",dependencia:"Secretaría de Finanzas",solicitante:"Juan Pérez Pérez",solicitanteId:"",oficio:"SF/0412/2026",cpu:4,memoria:16,disco:200,respaldo:"Semanal",apoyo:"No",servidorAlojamiento:"Ceres",quienInstala:"Infraestructura",so:"Linux Ubuntu 22.04",soVersion:"22.04 LTS",antivirus:"Sí",antivirusNombre:"ESET Endpoint Security",tipoBD:"PostgreSQL",observaciones:"Servidor para el sistema de nómina.",fecha:"01/07/2026",anexos:1,
+        bitacora:[{fecha:"01/07/2026",hora:"10:05",usuario:"Administrador",movimiento:"Registro del servidor",obs:""}]},
+      {id:uid("SRV"),tipoServidor:"Físico",ip:"10.10.5.20",dependencia:"Secretaría de Administración",solicitante:"Miguel Hernández López",solicitanteId:"",oficio:"SA/0231/2026",cpu:16,memoria:64,disco:2000,respaldo:"Diario",apoyo:"Sí",servidorAlojamiento:"",quienInstala:"Infraestructura",so:"Windows Server 2019",soVersion:"1809",antivirus:"No",antivirusNombre:"",tipoBD:"MariaDB",observaciones:"Servidor de trámites en línea.",fecha:"10/06/2026",anexos:0,
+        bitacora:[{fecha:"10/06/2026",hora:"09:40",usuario:"Administrador",movimiento:"Registro del servidor",obs:""}]}
     ],
     servidoresProductos:[
       {id:uid("PRV"),nombre:"Afelio",ubicacion:"Palacio de Gobierno",cpu:40,memoria:130,ip:"172.16.0.10"},
@@ -1456,6 +1513,8 @@ const state = {
       "cat-dominios":["www.tamaulipas.gob.mx","www.tamaulipas2.gob.mx"].map(n=>({id:uid("CDM"),nombre:n})),
       "cat-tipo-activo":["Servidor Físico","Servidor Virtual","Base de Datos","API","Dominio","Aplicación Web","Otro"].map(n=>({id:uid("TAC"),nombre:n})),
       "cat-medidas-seguridad":["Firewall","WAF","Encriptación en reposo","VPN","IDS/IPS","Antivirus","Doble Factor de Autenticación"].map(n=>({id:uid("MSG"),nombre:n})),
+      "cat-antivirus":["ESET Endpoint Security","Kaspersky Endpoint Security","Bitdefender GravityZone","Microsoft Defender for Endpoint","Sophos Intercept X","Trend Micro Apex One","Symantec Endpoint Protection","CrowdStrike Falcon","McAfee Endpoint Security"].map(n=>({id:uid("ANV"),nombre:n})),
+      "cat-tipo-bd":["Oracle","MySQL","MariaDB","Microsoft SQL Server","PostgreSQL","MongoDB","IBM Db2","SQLite","Firebird"].map(n=>({id:uid("TBD"),nombre:n})),
       "cat-tipo-incidente":["Malware","Phishing","Acceso no autorizado","Fuga de información","Denegación de servicio (DDoS)","Ransomware","Configuración insegura","Otro"].map(n=>({id:uid("TIN"),nombre:n}))
     }
   }
@@ -1467,7 +1526,7 @@ const MODULOS_SERVICIO = [
   ["vpn","VPN"],
   ["dominios","Dominios y Subdominios"],
   ["servidores","Servidores Físicos y Virtuales"],
-  ["actas-seguridad","Protocolo de Seguridad"],
+  ["actas-seguridad","Protocolos de Seguridad"],
   ["incidentes-seguridad","Incidentes de Seguridad"]
 ];
 function moduloLabel(key){ return MODULOS_SERVICIO.find(m=>m[0]===key)?.[1]||key; }
@@ -1499,8 +1558,11 @@ function catNames(key){ return state.data.catalogosSimples[key].map(c=>c.nombre)
   if(inc[2]){ inc[2].activoId = act[1]?.id||""; inc[2].solicitanteId = s[2].id; }
   const dom = state.data.dominios, srv = state.data.servidoresSolicitudes;
   if(state.data.actasSeguridad[0] && dom[1]) state.data.actasSeguridad[0].dominioId = dom[1].id; // tramites.tamaulipas.gob.mx
+  if(srv[0]) srv[0].solicitanteId = s[0].id;
+  if(srv[1]) srv[1].solicitanteId = s[2].id;
+  if(state.data.actasSeguridad[0] && srv[1]) state.data.actasSeguridad[0].servidorId = srv[1].id;
   if(state.data.actasSeguridad[1] && srv[0]) state.data.actasSeguridad[1].servidorId = srv[0].id;
-  if(inc[0] && srv[0]) inc[0].servidorId = srv[0].id;
+  inc.forEach((x,i)=>{ if(srv.length) x.servidorId = srv[i%srv.length].id; });
   if(inc[1] && dom[0]) inc[1].dominioId = dom[0].id;
 })();
 /* ================= Cascada organizacional (Secretaría → Subsecretaría → Dir. Gral. → Dir. de Área → Departamento) ================= */
@@ -1616,22 +1678,39 @@ function refreshContextHeader(){
 function servicioRelacionadoBlock(prefix,selDominioId,selServidorId){
   const dominios = state.data.dominios;
   const servidores = state.data.servidoresSolicitudes;
-  return `<h2 style="font-size:15px;margin:22px 0 12px">Servicio Relacionado</h2>
-  <p style="color:var(--muted);font-size:12px;margin:0 0 12px">Opcional: liga este registro a una solicitud existente de Dominio/Subdominio o de Servidor Físico/Virtual.</p>
+  return `<h2 style="font-size:15px;margin:22px 0 12px">Servidor Relacionado</h2>
+  <p style="color:var(--muted);font-size:12px;margin:0 0 12px">Todo registro parte de un servidor: selecciona el servidor al que pertenece. El dominio/subdominio es opcional.</p>
+  ${servidores.length?"":`<div class="inline-note">No hay servidores registrados. <a href="#" onclick="state.editing.servidorId=null;navigate('servidores-form');return false">Registra primero un servidor</a> en Servidores Físicos y Virtuales.</div>`}
   <div class="form-grid">
-    <div class="field"><label for="${prefix}Dominio">Dominio / Subdominio relacionado</label>
+    <div class="field"><label for="${prefix}Servidor">Servidor Físico/Virtual<span class="required-mark">*</span></label>
+      <select id="${prefix}Servidor" onchange="alCambiarServidorRelacionado('${prefix}')">
+        <option value="">Selecciona un servidor</option>
+        ${servidores.map(s=>`<option value="${s.id}" ${s.id===selServidorId?"selected":""}>${servidorLabel(s)}</option>`).join("")}
+      </select>
+    </div>
+    <div class="field"><label for="${prefix}Dominio">Dominio / Subdominio relacionado (opcional)</label>
       <select id="${prefix}Dominio">
         <option value="">Ninguno</option>
         ${dominios.map(d=>`<option value="${d.id}" ${d.id===selDominioId?"selected":""}>${d.nombre} (${d.tipo})</option>`).join("")}
       </select>
     </div>
-    <div class="field"><label for="${prefix}Servidor">Servidor Físico/Virtual relacionado</label>
-      <select id="${prefix}Servidor">
-        <option value="">Ninguno</option>
-        ${servidores.map(s=>`<option value="${s.id}" ${s.id===selServidorId?"selected":""}>${s.servidorAlojamiento||"Servidor"} · ${s.dependencia||""} (${s.fecha||""})</option>`).join("")}
-      </select>
-    </div>
   </div>`;
+}
+function alCambiarServidorRelacionado(prefix){
+  const sel=$("#"+prefix+"Servidor"); if(sel&&sel.value) clearFieldError(sel);
+  // En Protocolos: si IP LAN está vacía, se toma la IP del servidor seleccionado
+  const sv = sel?.value ? findIn(state.data.servidoresSolicitudes, sel.value) : null;
+  const ipLan = $("#fActaIpLan");
+  if(prefix==="fActa" && sv?.ip && ipLan && !ipLan.value){ ipLan.value = sv.ip; }
+}
+function validarServidorRelacionado(prefix){
+  const sel=$("#"+prefix+"Servidor");
+  if(sel && !sel.value){
+    markFieldError(sel,"Selecciona el servidor al que pertenece este registro.");
+    toast(state.data.servidoresSolicitudes.length?"Selecciona el Servidor Físico/Virtual relacionado.":"Primero registra un servidor en Servidores Físicos y Virtuales.","error");
+    sel.focus(); return false;
+  }
+  return true;
 }
 
 /* ================= IP WAN múltiple (Protocolo de Seguridad) ================= */
@@ -1784,7 +1863,7 @@ function getHistorialForSolicitante(id){
   d.servidoresSolicitudes.filter(x=>x.solicitanteId===id).forEach(x=>rows.push({tipo:"Servidor Físico/Virtual",fecha:x.fecha,estatus:"Registrado",area:"Servicios · Servidores",view:"servidores"}));
   d.rrd.filter(x=>x.solicitanteId===id).forEach(x=>rows.push({tipo:"Respaldo de BD (RRD)",fecha:x.fecha,estatus:"Registrado",area:"Servicios · RRD",view:"rrd"}));
   d.vpns.filter(x=>x.solicitanteId===id).forEach(x=>rows.push({tipo:"VPN",fecha:x.fecha||todayStr(),estatus:x.ip?"IP asignada":"Registrado",area:"Servicios · VPN",view:"vpn"}));
-  d.actasSeguridad.filter(x=>x.solicitanteId===id).forEach(x=>rows.push({tipo:"Protocolo de Seguridad",fecha:x.fecha,estatus:x.estatus,area:"Servicios · Protocolo de Seguridad",view:"actas-seguridad"}));
+  d.actasSeguridad.filter(x=>x.solicitanteId===id).forEach(x=>rows.push({tipo:"Protocolo de Seguridad",fecha:x.fecha,estatus:x.estatus,area:"Servicios · Protocolos de Seguridad",view:"actas-seguridad"}));
   return rows.sort((a,b)=>(a.fecha<b.fecha?1:-1));
 }
 /* ================= Navegación ================= */
@@ -1799,7 +1878,7 @@ const ROLES = {
       "crear-bd","crear-bd-form",
       "servidores","servidores-form",
       "rrd","rrd-form",
-      "vpn",
+      "vpn","vpn-form",
       "actas-seguridad","actas-seguridad-form","actas-seguridad-print",
       "incidentes-seguridad","incidentes-seguridad-form",
       "inv-software","inv-software-form",
@@ -1821,7 +1900,7 @@ const navConfig = [
     ["vpn","VPN"],
     ["dominios","Dominios y Subdominios"],
     ["servidores","Servidores Físicos y Virtuales"],
-    ["actas-seguridad","Protocolo de Seguridad"],
+    ["actas-seguridad","Protocolos de Seguridad"],
     ["incidentes-seguridad","Incidentes de Seguridad"]
   ]},
   {group:"inventarios", icon:"box", label:"Inventarios", items:[
@@ -1830,6 +1909,7 @@ const navConfig = [
   ]},
   {group:"catalogos", icon:"library", label:"Catálogos", items:[
     ["cat-activos","Activos"],
+    ["cat-antivirus","Antivirus"],
     ["cat-categorias","Categorías"],
     ["cat-componentes","Componentes"],
     ["cat-departamentos","Departamentos"],
@@ -1840,6 +1920,7 @@ const navConfig = [
     ["cat-plataforma","Plataforma de alojamiento"],
     ["cat-productos","Productos"],
     ["cat-tipo-activo","Tipo de Activo"],
+    ["cat-tipo-bd","Tipo de Base de Datos"],
     ["cat-tipo-incidente","Tipo de Incidente"],
     ["cat-tipo-servicio","Tipo de Servicio"],
     ["cat-tipo-solicitudes","Tipo de Solicitudes"],
@@ -1855,6 +1936,23 @@ const navConfig = [
 const groupOf = {};
 navConfig.forEach(item=>{ if(item.group) item.items.forEach(([key])=>groupOf[key]=item.group); });
 
+/* ================= Fase 1: módulos activos / inhabilitados ================= */
+const MODULOS_FASE2 = {"sitios-web":"Sitios Web","rrd":"RRD (Respaldo de Bases de Datos)","crear-bd":"Crear BD"};
+const MODULOS_FASE1 = [["vpn","VPN"],["dominios","Dominios y Subdominios"],["servidores","Servidores Físicos y Virtuales"],["actas-seguridad","Protocolos de Seguridad"],["incidentes-seguridad","Incidentes de Seguridad"]];
+function moduloFase2DeVista(view){ return Object.keys(MODULOS_FASE2).find(k=>view===k||view.startsWith(k+"-"))||null; }
+function renderModuloInhabilitado(key){
+  const role = currentRole();
+  const activos = MODULOS_FASE1.filter(([k])=>!role.allowedViews||role.allowedViews.includes(k));
+  content.innerHTML = `
+  ${breadcrumb([{label:"Servicios"},{label:MODULOS_FASE2[key]}])}
+  <div class="page-header"><div><h1>${MODULOS_FASE2[key]}</h1><p>Módulo contemplado para una fase posterior del proyecto.</p></div></div>
+  <article class="card phase-off-card">
+    <div class="phase-icon">${icon("lock")}</div>
+    <h2>Módulo inhabilitado en la Fase 1</h2>
+    <p>Este módulo se mantiene visible en el menú, pero todavía no está habilitado. En esta primera fase se trabaja con los siguientes módulos:</p>
+    <div class="phase-links">${activos.map(([k,l])=>`<button class="button secondary" onclick="navigate('${k}')">${l}</button>`).join("")}</div>
+  </article>`;
+}
 function renderNavigation(){
   const role = currentRole();
   $("#mainNav").innerHTML = navConfig.filter(entry=>{
@@ -1870,7 +1968,7 @@ function renderNavigation(){
           <span>${icon(entry.icon)}</span>${entry.label}<b class="nav-chevron">${icon("chevron-down")}</b>
         </button>
         <div class="nav-submenu" ${expanded?"":"hidden"}>
-          ${items.map(([key,label])=>`<button class="nav-subitem ${state.view===key?"active":""}" onclick="navigate('${key}')"><span style="pointer-events:none"></span><span style="pointer-events:none">${label}</span></button>`).join("")}
+          ${items.map(([key,label])=>{ const off=MODULOS_FASE2[key]; return `<button class="nav-subitem ${state.view===key?"active":""} ${off?"phase-off":""}" onclick="navigate('${key}')" ${off?`title="Módulo inhabilitado en esta fase"`:""}><span style="pointer-events:none"></span><span style="pointer-events:none"${off?' class="phase-label"':""}>${label}${off?`<em class="phase-tag">${icon("lock")}Fase 2</em>`:""}</span></button>`; }).join("")}
         </div>
       </div>`;
     }
@@ -1893,6 +1991,7 @@ const renderers = {
   "crear-bd": ()=>renderBasesDatos(),
   "crear-bd-form": ()=>renderBaseDatosForm(state.editing.bdId),
   vpn: ()=>renderVpn(),
+  "vpn-form": ()=>renderVpnForm(state.editing.vpnId),
   servidores: ()=>renderServidores(),
   "servidores-form": ()=>renderServidorForm(state.editing.servidorId),
   rrd: ()=>renderRRD(),
@@ -1917,6 +2016,8 @@ const renderers = {
   "cat-activos": ()=>renderCatActivos(),
   "cat-activos-form": ()=>renderActivoForm(state.editing.activoId),
   "cat-tipo-activo": ()=>renderSimpleCatalog("cat-tipo-activo","Tipo de Activo"),
+  "cat-antivirus": ()=>renderSimpleCatalog("cat-antivirus","Antivirus"),
+  "cat-tipo-bd": ()=>renderSimpleCatalog("cat-tipo-bd","Tipo de Base de Datos"),
   "cat-medidas-seguridad": ()=>renderSimpleCatalog("cat-medidas-seguridad","Medidas de Seguridad"),
   "cat-tipo-incidente": ()=>renderSimpleCatalog("cat-tipo-incidente","Tipo de Incidente"),
   "cat-tipo-solicitudes": ()=>renderSimpleCatalog("cat-tipo-solicitudes","Tipo de Solicitudes"),
@@ -1939,7 +2040,9 @@ function navigate(view){
   const group = groupOf[view];
   if(group) state.expandedMenus[group]=true;
   renderNavigation();
-  (renderers[view]||renderers.dashboard)();
+  const inhabilitado = moduloFase2DeVista(view);
+  if(inhabilitado) renderModuloInhabilitado(inhabilitado);
+  else (renderers[view]||renderers.dashboard)();
   content.focus();
   window.scrollTo({top:0,behavior:"smooth"});
   $("#sidebar").classList.remove("open");
@@ -2365,7 +2468,8 @@ function eliminarSolicitante(id){
 }
 function abrirNuevaSolicitud(solicitanteId){
   openModal({title:"Seleccionar Solicitud a realizar", confirm:"Continuar",
-    body:`${fieldSelect("Tipo de solicitud","tipoNuevaSolicitud",["Dominio","SubDominio","Crear BD","RRD","Servidores Físicos y Virtuales","Solicitudes de VPN","Sitios Web"])}`,
+    body:`${fieldSelect("Tipo de solicitud","tipoNuevaSolicitud",["Servidores Físicos y Virtuales","SubDominio","Dominio","Solicitudes de VPN","Protocolo de Seguridad","Incidente de Seguridad"])}
+      <p style="color:var(--muted);font-size:12px;margin:10px 0 0">Sitios Web, RRD y Crear BD están inhabilitados en esta fase.</p>`,
     onConfirm:()=>{
       const tipo = $("#tipoNuevaSolicitud").value;
       closeModal();
@@ -2375,7 +2479,9 @@ function abrirNuevaSolicitud(solicitanteId){
       else if(tipo==="Crear BD"){ state.editing.bdId=null; navigate("crear-bd-form"); }
       else if(tipo==="RRD"){ state.editing.rrdId=null; navigate("rrd-form"); }
       else if(tipo==="Servidores Físicos y Virtuales"){ state.editing.servidorId=null; navigate("servidores-form"); }
-      else if(tipo==="Solicitudes de VPN"){ state.editing.autoOpenVpnForm=true; navigate("vpn"); }
+      else if(tipo==="Solicitudes de VPN"){ state.editing.vpnId=null; navigate("vpn-form"); }
+      else if(tipo==="Protocolo de Seguridad"){ state.editing.actaId=null; navigate("actas-seguridad-form"); }
+      else if(tipo==="Incidente de Seguridad"){ state.editing.incidenteId=null; navigate("incidentes-seguridad-form"); }
       else navigate("dashboard");
     }});
 }
@@ -2667,10 +2773,10 @@ function renderDominios(){
   if(f.tipo!=="Todos") rows = rows.filter(d=>d.tipo===f.tipo);
   content.innerHTML = `
   ${breadcrumb([{label:"Servicios"},{label:"Solicitudes Dominio y Subdominio"}])}
-  <div class="page-header"><div><h1>Solicitudes de Dominio y Subdominio</h1><p>Gestiona las solicitudes de dominios y subdominios institucionales.</p></div>
+  <div class="page-header"><div><h1>Dominios y Subdominios</h1><p>Registra las solicitudes (comúnmente por oficio) de subdominios. Agrega un Dominio solo la primera vez, para que aparezca como dominio base al agregar subdominios.</p></div>
     <div class="page-actions">
-      <button class="button secondary" onclick="state.editing.dominioTipo='Subdominio';state.editing.dominioId=null;navigate('dominios-form')">${icon("link")} Solicitar Subdominio</button>
-      <button class="button primary" onclick="state.editing.dominioTipo='Dominio';state.editing.dominioId=null;navigate('dominios-form')">${icon("globe")} Solicitar Dominio</button>
+      <button class="button secondary" onclick="state.editing.dominioTipo='Dominio';state.editing.dominioId=null;navigate('dominios-form')">${icon("globe")} Agregar Dominio</button>
+      <button class="button primary" onclick="state.editing.dominioTipo='Subdominio';state.editing.dominioId=null;navigate('dominios-form')">${icon("link")} Agregar Subdominio</button>
     </div>
   </div>
   <article class="card table-card">
@@ -2690,10 +2796,12 @@ function renderDominios(){
         <td class="checkbox-cell">${checkIcon(!!d.ip)}</td><td class="checkbox-cell">${checkIcon(!!d.nat)}</td><td class="checkbox-cell">${checkIcon(!!d.scan)}</td>
         <td class="checkbox-cell">${d.anexos?icon("file-text"):"-"}</td>
         <td><div class="actions-cell">
-          ${actionBtn("eye","Ver detalle",`navigate('dominios-detalle');state.editing.dominioId='${d.id}'`)}
+          ${actionBtn("eye","Ver detalle",`state.editing.dominioId='${d.id}';navigate('dominios-detalle')`)}
           ${actionBtn("refresh","Actualizar estatus",`abrirEstatusDominio('${d.id}')`)}
           ${actionBtn("users","Turnar",`abrirTurnarDominio('${d.id}')`)}
-          ${actionBtn("key","Asignar IP/NAT",`abrirAsignarIpNat('${d.id}')`,"warning")}
+          ${actionBtn("key","Asignar IP/NAT",`abrirAsignarIpNat('${d.id}')`)}
+          ${actionBtn("edit","Editar",`state.editing.dominioTipo='${d.tipo}';state.editing.dominioId='${d.id}';navigate('dominios-form')`,"warning")}
+          ${actionBtn("clock","Bitácora",`abrirBitacora('dominios','${d.id}')`)}
           ${actionBtn("trash","Eliminar",`eliminarDominio('${d.id}')`,"danger")}
         </div></td></tr>`).join(""):`<tr><td colspan="10" class="empty-state">No hay solicitudes de dominio con estos criterios.</td></tr>`}</tbody>
     </table></div>
@@ -2732,33 +2840,43 @@ function eliminarDominio(id){
     body:"<p>¿Deseas eliminar esta solicitud de dominio/subdominio?</p>",
     onConfirm:()=>{ removeIn(state.data.dominios,id); closeModal(); toast("Solicitud eliminada."); renderDominios(); }});
 }
+function dominiosBase(){
+  return [...new Set(state.data.dominios.filter(d=>d.tipo==="Dominio").map(d=>d.nombre.replace(/^www\./,"")))].sort((a,b)=>a.split(".").length-b.split(".").length||a.localeCompare(b));
+}
 function renderDominioForm(tipo,editId){
   const d = editId?findIn(state.data.dominios,editId):null;
   tipo = tipo || d?.tipo || "Dominio";
   state.editing.selectedSolicitanteId = d ? d.solicitanteId : (state.editing.presetSolicitanteId||null);
   state.editing.presetSolicitanteId = null;
+  const bases = dominiosBase();
+  let subNombre="", subBase=bases[0]||"";
+  if(d && tipo==="Subdominio"){ const b=bases.filter(x=>d.nombre.endsWith("."+x)).sort((a,b)=>b.length-a.length)[0]; if(b){ subBase=b; subNombre=d.nombre.slice(0,-(b.length+1)); } else subNombre=d.nombre; }
+  const p = d?.proyecto||{};
   content.innerHTML = `
-  ${breadcrumb([{label:"Servicios"},{label:"Solicitudes de Dominio y Subdominio",view:"dominios"},{label:"Solicitar "+tipo}])}
-  <div class="page-header"><div><h1>Solicitar ${tipo}</h1><p>Completa los datos del solicitante y del proyecto.</p>${solicitanteContextHeader()}</div>
+  ${breadcrumb([{label:"Servicios"},{label:"Dominios y Subdominios",view:"dominios"},{label:(editId?"Editar ":"Agregar ")+tipo}])}
+  <div class="page-header"><div><h1>${editId?"Editar":"Agregar"} ${tipo}</h1><p>${tipo==="Subdominio"?"Captura la solicitud del subdominio recibida por oficio.":"Registra el dominio para que esté disponible como dominio base de nuevos subdominios."}</p>${solicitanteContextHeader()}</div>
     <div class="page-actions">${badgeEstatus(d?.estatus||"Registrado")}</div></div>
   <article class="card">
     <h2 style="font-size:15px;margin:0 0 12px">Solicitante</h2>
     ${solicitanteSelectorBlock("fDom")}
     <h2 style="font-size:15px;margin:22px 0 12px">Datos del ${tipo}</h2>
+    ${tipo==="Subdominio"&&!bases.length?`<div class="inline-note">Aún no hay dominios registrados. <a href="#" onclick="state.editing.dominioTipo='Dominio';state.editing.dominioId=null;navigate('dominios-form');return false">Agrega primero un Dominio</a> para poder seleccionarlo como dominio base.</div>`:""}
     <div class="form-grid">
       ${tipo==="Subdominio"?`
-        ${fieldSelect("Dominio base","fDomBase",catNames("cat-dominios"))}
-        ${fieldInput("Nombre del subdominio","fDomSubNombre","","text","oninput=actualizarPreviaSubdominio()")}
-        <div class="field full"><label>Vista previa</label><div class="inline-note" id="previaSubdominio" style="margin:0">—</div></div>
+        ${fieldSelect("Dominio base","fDomBase",bases,subBase,'onchange="actualizarPreviaSubdominio()"')}
+        ${fieldInput("Nombre del subdominio","fDomSubNombre",subNombre,"text","oninput=actualizarPreviaSubdominio()")}
+        ${fieldIp("IP del Subdominio","fDomSubIp",d?.ip)}
+        <div class="field"><label>Vista previa</label><div class="inline-note" id="previaSubdominio" style="margin:0">—</div></div>
       `:`${fieldUrlInput("Nombre del "+tipo,"fDomNombre",d?.nombre,{required:true,full:true})}`}
-      ${fieldInput("Nombre del Proyecto","fDomProyecto")}
-      ${fieldSelect("Tipo de servicio","fDomTipoServicio",catNames("cat-tipo-servicio"))}
-      ${fieldTextarea("Descripción del Proyecto","fDomDescripcion")}
-      ${fieldSelect("Desarrollado por","fDomDesarrollado",["SIID","Dependencia","Externo"])}
-      ${fieldSelect("Usuario Final","fDomUsuarioFinal",["Servidores Públicos","Público en General","Empresas"])}
-      ${fieldSelect("Motor de Base de Datos","fDomMotor",catNames("cat-motor-bd"))}
-      ${fieldSelect("¿Solicita hospedaje en Centro de Datos?","fDomHospedaje",["Sí","No"])}
-      ${fieldInput("Fecha de publicación","fDomFechaPub",d?.fecha,"date")}
+      ${fieldInput("No. de Oficio","fDomOficio",d?.oficio)}
+      ${fieldInput("Nombre del Proyecto","fDomProyecto",p.nombre)}
+      ${fieldSelect("Tipo de servicio","fDomTipoServicio",catNames("cat-tipo-servicio"),p.tipoServicio)}
+      ${fieldSelect("Desarrollado por","fDomDesarrollado",["SIID","Dependencia","Externo"],p.desarrollado)}
+      ${fieldSelect("Usuario Final","fDomUsuarioFinal",["Servidores Públicos","Público en General","Empresas"],p.usuarioFinal)}
+      ${fieldSelect("Motor de Base de Datos","fDomMotor",catNames("cat-motor-bd"),p.motor)}
+      ${fieldSelect("¿Solicita hospedaje en Centro de Datos?","fDomHospedaje",["Sí","No"],p.hospedaje)}
+      ${fieldInput("Fecha de publicación","fDomFechaPub",d?.fechaPublicacion,"date")}
+      ${fieldTextarea("Descripción del Proyecto","fDomDescripcion",p.descripcion)}
     </div>
   </article>
   <div class="page-actions" style="margin-top:18px;justify-content:flex-end">
@@ -2775,21 +2893,33 @@ function actualizarPreviaSubdominio(){
 }
 function guardarDominio(tipo,editId){
   if(!state.editing.selectedSolicitanteId){ toast("Selecciona un solicitante para esta solicitud.","error"); return; }
+  if(tipo==="Subdominio" && !$("#fDomBase")?.value){ toast("Primero agrega un Dominio para usarlo como dominio base.","error"); return; }
   const ok = tipo==="Subdominio"
-    ? validateFields([{id:"fDomSubNombre",label:"Nombre del subdominio",required:true}])
+    ? validateFields([{id:"fDomSubNombre",label:"Nombre del subdominio",required:true},{id:"fDomSubIp",label:"IP del Subdominio",type:"ip",required:false}])
     : validateFields([{id:"fDomNombre",label:"Nombre del "+tipo,type:"url",required:true}]);
   if(!ok) return;
   const sol = findIn(state.data.solicitantes, state.editing.selectedSolicitanteId);
   const nombreFinal = tipo==="Subdominio"
     ? `${$("#fDomSubNombre").value.trim().toLowerCase().replace(/[^a-z0-9-]/g,"")}.${$("#fDomBase").value}`
-    : ($("#fDomNombre").value||"nuevo-dominio.tamaulipas.gob.mx");
+    : $("#fDomNombre").value.trim().toLowerCase().replace(/^https?:\/\//,"").replace(/\/.*$/,"");
+  const duplicado = state.data.dominios.find(x=>x.nombre===nombreFinal && x.id!==editId);
+  if(duplicado){ toast(`"${nombreFinal}" ya está registrado.`,"error"); return; }
+  const prev = editId?findIn(state.data.dominios,editId):null;
   const payload = {
-    dependencia:sol.dependencia, nombre:nombreFinal,
-    solicitante:nombreCompleto(sol), solicitanteId:sol.id, tipo, estatus:"Registrado",
-    fecha:$("#fDomFechaPub").value||todayStr(), ip:"", nat:"", scan:false, anexos:0
+    dependencia:sol.dependencia, nombre:nombreFinal, oficio:$("#fDomOficio").value,
+    solicitante:nombreCompleto(sol), solicitanteId:sol.id, tipo,
+    fechaPublicacion:$("#fDomFechaPub").value,
+    proyecto:{nombre:$("#fDomProyecto").value, tipoServicio:$("#fDomTipoServicio").value, desarrollado:$("#fDomDesarrollado").value,
+      usuarioFinal:$("#fDomUsuarioFinal").value, motor:$("#fDomMotor").value, hospedaje:$("#fDomHospedaje").value, descripcion:$("#fDomDescripcion").value}
   };
-  if(editId){ Object.assign(findIn(state.data.dominios,editId),payload); toast("Solicitud actualizada."); }
-  else { state.data.dominios.push({id:uid("DOM"),...payload,bitacora:[{fecha:todayStr(),hora:nowTime(),usuario:"Administrador",movimiento:"Registro de solicitud",obs:""}]}); toast("Solicitud de "+tipo.toLowerCase()+" registrada."); }
+  if(tipo==="Subdominio") payload.ip = $("#fDomSubIp").value.trim();
+  if(prev){ Object.assign(prev,payload); logBitacora(prev,`Actualización del ${tipo.toLowerCase()}`); toast(`${tipo} actualizado.`); }
+  else {
+    const nd = {id:uid("DOM"),estatus:"Registrado",fecha:todayStr(),ip:"",nat:"",scan:false,anexos:0,...payload,bitacora:[]};
+    state.data.dominios.push(nd);
+    logBitacora(nd,`Registro de ${tipo.toLowerCase()}`, nd.ip?`IP del subdominio: ${nd.ip}`:"");
+    toast(`${tipo} agregado.`);
+  }
   navigate("dominios");
 }
 function renderDominioDetalle(id){
@@ -2854,6 +2984,7 @@ function renderBasesDatos(){
           ${actionBtn("edit","Editar",`state.editing.bdId='${b.id}';navigate('crear-bd-form')`,"warning")}
           ${actionBtn("refresh","Actualizar estatus",`abrirEstatusBD('${b.id}')`)}
           ${actionBtn("key","Asignar IP/NAT",`abrirAsignarIpNatBD('${b.id}')`)}
+          ${actionBtn("clock","Bitácora",`abrirBitacora('basesDatos','${b.id}')`)}
           ${actionBtn("trash","Eliminar",`eliminarBaseDatos('${b.id}')`,"danger")}
         </div></td></tr>`).join(""):`<tr><td colspan="9" class="empty-state">No hay solicitudes de bases de datos.</td></tr>`}</tbody>
     </table></div>
@@ -2913,11 +3044,14 @@ function renderBaseDatosForm(editId){
       ${fieldInput("Cantidad de usuarios de la BD","fBdUsuarios","","number")}
       ${fieldInput("Número de conexiones concurrentes","fBdConexiones","","number")}
       ${fieldInput("Tamaño de la BD (en MB)","fBdTamano","","number")}
-      ${fieldInput("Servidor de alojamiento","fBdServidor",b?.servidor)}
       ${fieldSelect("Región que cubren los datos","fBdRegion",["Estatal","Municipal","Nacional"])}
       ${fieldSelect("Periodo en que se actualiza la BD","fBdPeriodo",["Diariamente","Semanalmente","Quincenalmente","Mensualmente"])}
       ${fieldSelect("Calidad de los datos contenidos","fBdCalidad",["Alta","Media","Baja"])}
       ${fieldInput("No. de Oficio","fBdOficio")}
+      <div class="field full"><label>Servidor(es) de alojamiento</label>
+        ${servidorOpciones().length?`<div class="server-checks" id="fBdServidores">${servidorOpciones().map(sv=>`<label class="server-check"><input type="checkbox" value="${sv.id}" ${(b?.servidorIds||[]).includes(sv.id)?"checked":""}><span><strong>${sv.ip||"IP por asignar"} · Servidor ${sv.tipoServidor||"Virtual"}</strong><small>${sv.dependencia}${sv.so?" · "+sv.so:""}</small></span></label>`).join("")}</div>`
+          :`<div class="inline-note" style="margin:0">No hay servidores registrados. <a href="#" onclick="state.editing.servidorId=null;navigate('servidores-form');return false">Registra primero un servidor</a> en Servidores Físicos y Virtuales.</div>`}
+      </div>
       ${fieldTextarea("Descripción detallada del contenido de la BD","fBdDescDetallada")}
       ${fieldTextarea("Observaciones","fBdObs")}
     </div>
@@ -2937,14 +3071,15 @@ function guardarBaseDatos(editId){
   ]);
   if(!ok) return;
   const sol = findIn(state.data.solicitantes, state.editing.selectedSolicitanteId);
+  const servidorIds = $$("#fBdServidores input:checked").map(cb=>cb.value);
   const payload = {
     dependencia:sol.dependencia, nombre:$("#fBdNombre").value||"Nueva base de datos",
-    estatus:"Registrado", servidor:$("#fBdServidor").value||"Por asignar", fecha:todayStr(),
+    estatus:"Registrado", servidorIds, servidor:servidorIds.map(id=>{const sv=findIn(state.data.servidoresSolicitudes,id);return sv?(sv.ip||servidorLabel(sv)):"";}).filter(Boolean).join(", ")||"Por asignar", fecha:todayStr(),
     solicitanteId:sol.id, solicitante:nombreCompleto(sol),
     ip:"", nat:"", scan:false, anexos:0, motor:$("#fBdMotor").value, version:$("#fBdVersion").value
   };
-  if(editId){ Object.assign(findIn(state.data.basesDatos,editId),payload); toast("Solicitud actualizada."); }
-  else { state.data.basesDatos.push({id:uid("BD"),...payload,bitacora:[]}); toast("Solicitud de base de datos registrada."); }
+  if(editId){ const b=findIn(state.data.basesDatos,editId); Object.assign(b,payload); logBitacora(b,"Actualización de la solicitud"); toast("Solicitud actualizada."); }
+  else { const b={id:uid("BD"),...payload,bitacora:[]}; state.data.basesDatos.push(b); logBitacora(b,"Registro de solicitud de base de datos"); toast("Solicitud de base de datos registrada."); }
   navigate("crear-bd");
 }
 /* ================= Servicios > VPN ================= */
@@ -2954,7 +3089,7 @@ function renderVpn(){
   content.innerHTML = `
   ${breadcrumb([{label:"Servicios"},{label:"Servicios de VPN"}])}
   <div class="page-header"><div><h1>Servicios de VPN</h1><p>Solicitudes de acceso remoto mediante VPN institucional.</p></div>
-    <div class="page-actions"><button class="button primary" onclick="abrirSolicitudVpn()">${icon("plus")} Solicitar VPN</button></div>
+    <div class="page-actions"><button class="button primary" onclick="state.editing.vpnId=null;navigate('vpn-form')">${icon("plus")} Solicitar VPN</button></div>
   </div>
   <article class="card table-card">
     <div class="datatable-toolbar"><div class="entries-control">Mostrar <select><option>10</option></select> registros</div>
@@ -2967,35 +3102,47 @@ function renderVpn(){
           ${actionBtn("eye","Ver detalle",`verVpn('${v.id}')`)}
           ${actionBtn("edit","Editar",`editarVpn('${v.id}')`,"warning")}
           ${actionBtn("key","Asignar IP",`asignarIpVpn('${v.id}')`)}
+          ${actionBtn("clock","Bitácora",`abrirBitacora('vpns','${v.id}')`)}
           ${actionBtn("trash","Eliminar",`eliminarVpn('${v.id}')`,"danger")}
         </div></td></tr>`).join(""):`<tr><td colspan="7" class="empty-state">No hay solicitudes de VPN.</td></tr>`}</tbody>
     </table></div>
     ${paginationFoot(rows.length,"solicitudes de VPN")}
   </article>`;
   $("#vpnSearch").oninput = e=>{ state.search.vpn=e.target.value; renderVpn(); };
-  if(state.editing.autoOpenVpnForm){ state.editing.autoOpenVpnForm=false; abrirSolicitudVpn(); }
 }
-function abrirSolicitudVpn(editId){
+function renderVpnForm(editId){
   const v = editId?findIn(state.data.vpns,editId):null;
   state.editing.selectedSolicitanteId = v ? v.solicitanteId : (state.editing.presetSolicitanteId||null);
   state.editing.presetSolicitanteId = null;
-  openModal({title:editId?"Editar solicitud de VPN":"Solicitar VPN", size:"large", confirm:"Guardar",
-    body:`<h2 style="font-size:14px;margin:0 0 12px">Solicitante</h2>
-      ${solicitanteSelectorBlock("fVpn")}
-      <h2 style="font-size:14px;margin:20px 0 12px">Datos del acceso VPN</h2>
-      <div style="display:grid;gap:14px">
-        ${fieldExt("Extensión","fVpnExt",v?.ext)}
-        ${fieldTextarea("Observaciones","fVpnObs",v?.observaciones)}
-      </div>`,
-    onConfirm:()=>{
-      if(!state.editing.selectedSolicitanteId){ toast("Selecciona un solicitante para esta solicitud.","error"); return; }
-      const sol = findIn(state.data.solicitantes, state.editing.selectedSolicitanteId);
-      const payload={nombre:nombreCompleto(sol),correo:sol.correo,telefono:sol.telefono,solicitanteId:sol.id,ext:$("#fVpnExt").value,observaciones:$("#fVpnObs").value,fecha:v?.fecha||todayStr()};
-      if(editId){ Object.assign(v,payload); toast("Solicitud de VPN actualizada."); }
-      else { state.data.vpns.push({id:uid("VPN"),...payload,ip:""}); toast("Solicitud de VPN registrada."); }
-      closeModal(); renderVpn();
-    }});
+  content.innerHTML = `
+  ${breadcrumb([{label:"Servicios"},{label:"Servicios de VPN",view:"vpn"},{label:editId?"Editar solicitud de VPN":"Registro de solicitud de VPN"}])}
+  <div class="page-header"><div><h1>${editId?"Editar solicitud de VPN":"Registro de solicitud de VPN"}</h1><p>Solicitud de acceso remoto mediante VPN institucional.</p>${solicitanteContextHeader()}</div></div>
+  <article class="card">
+    <h2 style="font-size:15px;margin:0 0 12px">Solicitante</h2>
+    ${solicitanteSelectorBlock("fVpn")}
+    <p style="color:var(--muted);font-size:12px;margin:8px 0 0">Nombre, correo y teléfono se toman del solicitante seleccionado.</p>
+    <h2 style="font-size:15px;margin:22px 0 12px">Datos del acceso VPN</h2>
+    <div class="form-grid">
+      ${fieldExt("Extensión","fVpnExt",v?.ext)}
+      ${fieldInput("IP o grupo de IP (se asigna después)","fVpnIpInfo",v?.ip||"Sin asignar","text","disabled")}
+      ${fieldTextarea("Observaciones","fVpnObs",v?.observaciones)}
+    </div>
+  </article>
+  <div class="page-actions" style="margin-top:18px;justify-content:flex-end">
+    <button class="button ghost" onclick="navigate('vpn')">&raquo; Regresar</button>
+    <button class="button primary" onclick="guardarVpn('${editId||""}')">Guardar</button>
+  </div>`;
 }
+function guardarVpn(editId){
+  if(!state.editing.selectedSolicitanteId){ toast("Selecciona un solicitante para esta solicitud.","error"); return; }
+  const v = editId?findIn(state.data.vpns,editId):null;
+  const sol = findIn(state.data.solicitantes, state.editing.selectedSolicitanteId);
+  const payload={nombre:nombreCompleto(sol),correo:sol.correo,telefono:sol.telefono,solicitanteId:sol.id,ext:$("#fVpnExt").value||sol.ext||"",observaciones:$("#fVpnObs").value,fecha:v?.fecha||todayStr()};
+  if(v){ Object.assign(v,payload); logBitacora(v,"Actualización de la solicitud de VPN"); toast("Solicitud de VPN actualizada."); }
+  else { const nv={id:uid("VPN"),...payload,ip:"",bitacora:[]}; state.data.vpns.push(nv); logBitacora(nv,"Registro de solicitud de VPN"); toast("Solicitud de VPN registrada."); }
+  navigate("vpn");
+}
+function abrirSolicitudVpn(editId){ state.editing.vpnId=editId||null; navigate("vpn-form"); }
 function editarVpn(id){ abrirSolicitudVpn(id); }
 function verVpn(id){
   const v = findIn(state.data.vpns,id);
@@ -3007,7 +3154,7 @@ function verVpn(id){
 function asignarIpVpn(id){
   const v = findIn(state.data.vpns,id);
   openModal({title:"Asignar IP", confirm:"Guardar", body:fieldIp("IP o grupo de IP","fVpnIp",v.ip),
-    onConfirm:()=>{ if(!validateFields([{id:"fVpnIp",label:"IP",type:"ip",required:false}])) return; v.ip=$("#fVpnIp").value; closeModal(); toast("IP asignada."); renderVpn(); }});
+    onConfirm:()=>{ if(!validateFields([{id:"fVpnIp",label:"IP",type:"ip",required:false}])) return; v.ip=$("#fVpnIp").value; logBitacora(v,v.ip?`IP asignada: ${v.ip}`:"IP retirada"); closeModal(); toast("IP asignada."); renderVpn(); }});
 }
 function eliminarVpn(id){
   openModal({title:"Eliminar solicitud de VPN", confirmClass:"danger", confirm:"Eliminar",
@@ -3016,80 +3163,190 @@ function eliminarVpn(id){
 }
 
 /* ================= Servicios > Servidores Físicos y Virtuales ================= */
+function servidorLabel(sv){
+  if(!sv) return "Servidor no encontrado";
+  return `Servidor ${sv.tipoServidor||"Virtual"} · ${sv.ip||"IP por asignar"} · ${sv.dependencia||""}`;
+}
+function servidorCelda(id){
+  const sv = id?findIn(state.data.servidoresSolicitudes,id):null;
+  if(!sv) return `<span class="subtext" style="color:var(--red)">Sin servidor</span>`;
+  return `<strong>${sv.ip||"IP por asignar"}</strong><span class="subtext">${sv.tipoServidor||"Virtual"}</span>`;
+}
+function servidorOpciones(){ return state.data.servidoresSolicitudes; }
 function renderServidores(){
   const term = state.search.servidores||"";
   const rows = state.data.servidoresSolicitudes.filter(s=>matchesSearch(s,term));
   content.innerHTML = `
-  ${breadcrumb([{label:"Servicios"},{label:"Solicitudes de Servidores Físicos y Virtuales"}])}
-  <div class="page-header"><div><h1>Servidores Físicos y Virtuales</h1><p>Solicitudes de aprovisionamiento de servidores para nuevos servicios.</p></div>
-    <div class="page-actions"><button class="button primary" onclick="state.editing.servidorId=null;navigate('servidores-form')">${icon("plus")} Solicitar Servidor</button></div>
+  ${breadcrumb([{label:"Servicios"},{label:"Servidores Físicos y Virtuales"}])}
+  <div class="page-header"><div><h1>Servidores Físicos y Virtuales</h1><p>Registro de servidores. Todo Protocolo de Seguridad e Incidente de Seguridad se liga a un servidor registrado aquí.</p></div>
+    <div class="page-actions"><button class="button primary" onclick="state.editing.servidorId=null;navigate('servidores-form')">${icon("plus")} Registrar Servidor</button></div>
   </div>
   <article class="card table-card">
     <div class="datatable-toolbar"><div class="entries-control">Mostrar <select><option>10</option></select> registros</div>
       <div class="datatable-actions">${searchBox("servidoresSearch","Buscar registros",term)}</div></div>
     <div class="table-wrap"><table>
-      <thead><tr><th>Dependencia</th><th>Solicitante</th><th>Servidor de alojamiento</th><th>Fecha Solicitud</th><th>Anexos</th><th>Acciones</th></tr></thead>
+      <thead><tr><th>Tipo</th><th>IP del Servidor</th><th>Dependencia</th><th>Solicitante</th><th>Sistema Operativo</th><th>Antivirus</th><th>Fecha</th><th>Acciones</th></tr></thead>
       <tbody>${rows.length?rows.map(s=>`<tr>
-        <td>${s.dependencia}</td><td>${s.solicitante}</td><td>${s.servidorAlojamiento}</td><td>${s.fecha}</td><td class="checkbox-cell">${s.anexos?icon("file-text"):"-"}</td>
+        <td><span class="badge ${s.tipoServidor==="Físico"?"review":"approved"}">${s.tipoServidor||"Virtual"}</span></td>
+        <td><strong>${s.ip||"Por asignar"}</strong>${s.servidorAlojamiento&&s.tipoServidor!=="Físico"?`<span class="subtext">Host: ${s.servidorAlojamiento}</span>`:""}</td>
+        <td>${s.dependencia}</td><td>${s.solicitante}</td><td>${s.so||"-"}</td>
+        <td>${s.antivirus==="Sí"?`${checkIcon(true)} <span class="subtext" style="display:inline">${s.antivirusNombre||""}</span>`:checkIcon(false)}</td>
+        <td>${s.fecha}</td>
         <td><div class="actions-cell">
-          ${actionBtn("eye","Ver",`toast('Consultando la solicitud de ${s.solicitante}')`)}
+          ${actionBtn("eye","Ver detalle",`verServidor('${s.id}')`)}
           ${actionBtn("edit","Editar",`state.editing.servidorId='${s.id}';navigate('servidores-form')`,"warning")}
+          ${actionBtn("clock","Bitácora",`abrirBitacora('servidoresSolicitudes','${s.id}')`)}
           ${actionBtn("trash","Eliminar",`eliminarServidor('${s.id}')`,"danger")}
-        </div></td></tr>`).join(""):`<tr><td colspan="6" class="empty-state">No hay solicitudes de servidores.</td></tr>`}</tbody>
+        </div></td></tr>`).join(""):`<tr><td colspan="8" class="empty-state">No hay servidores registrados.</td></tr>`}</tbody>
     </table></div>
-    ${paginationFoot(rows.length,"solicitudes")}
+    ${paginationFoot(rows.length,"servidores")}
   </article>`;
   $("#servidoresSearch").oninput = e=>{ state.search.servidores=e.target.value; renderServidores(); };
 }
+function verServidor(id){
+  const s = findIn(state.data.servidoresSolicitudes,id);
+  const ligados = [
+    ...state.data.actasSeguridad.filter(a=>a.servidorId===id).map(a=>`Protocolo · ${a.oficio}`),
+    ...state.data.incidentes.filter(i=>i.servidorId===id).map(i=>`Incidente · ${i.folio}`)
+  ];
+  openModal({title:servidorLabel(s), subtitle:`${s.dependencia} · ${s.solicitante}`, size:"large", confirm:"Cerrar", body:`<div class="detail-grid">
+    <div><span>Tipo de Servidor</span><strong>${s.tipoServidor||"Virtual"}</strong></div>
+    <div><span>IP del Servidor</span><strong>${s.ip||"Por asignar"}</strong></div>
+    <div><span>No. de Oficio</span><strong>${s.oficio||"-"}</strong></div>
+    <div><span>CPUs / Memoria / Almacenamiento</span><strong>${s.cpu||"-"} CPU · ${s.memoria||"-"} GB · ${s.disco||"-"} GB</strong></div>
+    ${s.tipoServidor!=="Físico"?`<div><span>Servidor de alojamiento (host)</span><strong>${s.servidorAlojamiento||"-"}</strong></div>`:""}
+    <div><span>Sistema Operativo</span><strong>${s.so||"-"} ${s.soVersion||""}</strong></div>
+    <div><span>Antivirus</span><strong>${s.antivirus==="Sí"?(s.antivirusNombre||"Sí"):"No tiene"}</strong></div>
+    <div><span>Tipo de Base de Datos</span><strong>${s.tipoBD||"No aplica"}</strong></div>
+    <div><span>Esquema de respaldo</span><strong>${s.respaldo||"-"}</strong></div>
+    <div><span>¿Quién instalará?</span><strong>${s.quienInstala||"-"}</strong></div>
+    <div style="grid-column:1/-1"><span>Protocolos e Incidentes ligados</span><strong>${ligados.length?ligados.join(" · "):"Ninguno"}</strong></div>
+    <div style="grid-column:1/-1"><span>Observaciones</span><strong>${s.observaciones||"Sin observaciones"}</strong></div>
+  </div>`, onConfirm:closeModal});
+}
 function eliminarServidor(id){
-  openModal({title:"Eliminar solicitud", confirmClass:"danger", confirm:"Eliminar",
-    body:"<p>¿Deseas eliminar esta solicitud de servidor?</p>",
-    onConfirm:()=>{ removeIn(state.data.servidoresSolicitudes,id); closeModal(); toast("Solicitud eliminada."); renderServidores(); }});
+  const usados = state.data.actasSeguridad.filter(a=>a.servidorId===id).length + state.data.incidentes.filter(i=>i.servidorId===id).length;
+  openModal({title:"Eliminar servidor", confirmClass:"danger", confirm:"Eliminar",
+    body:usados?`<p>Este servidor tiene <strong>${usados}</strong> protocolo(s)/incidente(s) ligados. Si lo eliminas, esos registros quedarán sin servidor.</p><p>¿Deseas continuar?</p>`:"<p>¿Deseas eliminar este servidor?</p>",
+    onConfirm:()=>{ removeIn(state.data.servidoresSolicitudes,id); closeModal(); toast("Servidor eliminado."); renderServidores(); }});
+}
+function tipoServidorChecks(sel){
+  return `<div class="field full"><label>Tipo de Servidor<span class="required-mark">*</span></label>
+    <div class="choice-checks" id="fSrvTipoWrap">
+      ${["Físico","Virtual"].map(t=>`<label class="choice-check ${sel===t?"checked":""}"><input type="checkbox" name="fSrvTipo" value="${t}" ${sel===t?"checked":""} onchange="seleccionarTipoServidor('${t}')"><span>Servidor ${t}</span></label>`).join("")}
+    </div></div>`;
+}
+function seleccionarTipoServidor(t){
+  $$('input[name="fSrvTipo"]').forEach(cb=>{ cb.checked = cb.value===t; cb.closest(".choice-check").classList.toggle("checked",cb.checked); });
+  const wrap=$("#fSrvTipoWrap"); if(wrap) clearFieldError(wrap);
+  const host=$("#fSrvHostWrap"); if(host) host.hidden = t!=="Virtual";
+  const cpuLbl=$('label[for="fSrvCpu"]'); if(cpuLbl) cpuLbl.textContent = t==="Físico"?"Cantidad de CPUs (núcleos físicos)":"Cantidad de CPUs virtuales requeridos";
+}
+function toggleAntivirusServidor(){
+  const w=$("#fSrvAntivirusNombreWrap"); if(w) w.hidden = $("#fSrvAntivirus").value!=="Sí";
 }
 function renderServidorForm(editId){
   const s = editId?findIn(state.data.servidoresSolicitudes,editId):null;
   state.editing.selectedSolicitanteId = s ? s.solicitanteId : (state.editing.presetSolicitanteId||null);
   state.editing.presetSolicitanteId = null;
+  const tipo = s?.tipoServidor||"";
   content.innerHTML = `
-  ${breadcrumb([{label:"Servicios"},{label:"Servidores Físicos y Virtuales",view:"servidores"},{label:"Solicitar Servidor"}])}
-  <div class="page-header"><div><h1>Solicitar Servidor Físico o Virtual</h1><p>Requerimientos técnicos para el aprovisionamiento del servicio.</p>${solicitanteContextHeader()}</div></div>
+  ${breadcrumb([{label:"Servicios"},{label:"Servidores Físicos y Virtuales",view:"servidores"},{label:editId?"Editar Servidor":"Registro de Servidor"}])}
+  <div class="page-header"><div><h1>${editId?"Editar Servidor":"Registro de Servidor Físico o Virtual"}</h1><p>Datos del servidor y requerimientos técnicos.</p>${solicitanteContextHeader()}</div></div>
   <article class="card">
-    <h2 style="font-size:15px;margin:0 0 12px">Solicitante</h2>
+    <div class="form-grid">${tipoServidorChecks(tipo)}</div>
+    <h2 style="font-size:15px;margin:18px 0 12px">Solicitante</h2>
     ${solicitanteSelectorBlock("fSrv")}
-    <h2 style="font-size:15px;margin:22px 0 12px">Requerimientos técnicos</h2>
+    <h2 style="font-size:15px;margin:22px 0 12px">Datos del Servidor</h2>
     <div class="form-grid">
-      ${fieldInput("No. de Oficio","fSrvOficio")}
-      ${fieldInput("Cantidad de CPUs virtuales requeridos","fSrvCpu","","number")}
-      ${fieldInput("Memoria requerida (GB)","fSrvMem","","number")}
-      ${fieldInput("Almacenamiento requerido (GB)","fSrvDisco","","number")}
-      ${fieldSelect("Esquema de respaldo requerido","fSrvRespaldo",["Sin respaldo","Diario","Semanal","Mensual"])}
-      ${fieldSelect("¿Requiere apoyo para la instalación?","fSrvApoyo",["Sí","No"])}
-      ${fieldSelect("Servidor de alojamiento","fSrvServidor",state.data.servidoresProductos.map(p=>p.nombre),s?.servidorAlojamiento)}
-      ${fieldSelect("¿Quién instalará el servicio?","fSrvQuien",["Infraestructura","Servicios Externos","Usuario solicitante"])}
-      ${fieldSelect("Plataforma / Sistema Operativo","fSrvSo",catNames("cat-plataforma"))}
-      ${fieldInput("Versión del Sistema Operativo","fSrvSoVer")}
-      ${fieldTextarea("Observaciones","fSrvObs")}
+      ${fieldIp("IP del Servidor","fSrvIp",s?.ip)}
+      ${fieldInput("No. de Oficio","fSrvOficio",s?.oficio)}
+      ${fieldInput(tipo==="Físico"?"Cantidad de CPUs (núcleos físicos)":"Cantidad de CPUs virtuales requeridos","fSrvCpu",s?.cpu,"number")}
+      ${fieldInput("Memoria requerida (GB)","fSrvMem",s?.memoria,"number")}
+      ${fieldInput("Almacenamiento requerido (GB)","fSrvDisco",s?.disco,"number")}
+      ${fieldSelect("Esquema de respaldo requerido","fSrvRespaldo",["Sin respaldo","Diario","Semanal","Mensual"],s?.respaldo)}
+      <div id="fSrvHostWrap" class="field-host" ${tipo==="Virtual"?"":"hidden"}>${fieldSelect("Servidor de alojamiento (host)","fSrvServidor",state.data.servidoresProductos.map(p=>p.nombre),s?.servidorAlojamiento)}</div>
+      ${fieldSelect("¿Requiere apoyo para la instalación?","fSrvApoyo",["Sí","No"],s?.apoyo)}
+      ${fieldSelect("¿Quién instalará el servicio?","fSrvQuien",["Infraestructura","Servicios Externos","Usuario solicitante"],s?.quienInstala)}
+      ${fieldSelect("Plataforma / Sistema Operativo","fSrvSo",catNames("cat-plataforma"),s?.so)}
+      ${fieldInput("Versión del Sistema Operativo","fSrvSoVer",s?.soVersion)}
+      ${fieldSelect("¿Tiene antivirus instalado?","fSrvAntivirus",["No","Sí"],s?.antivirus||"No",'onchange="toggleAntivirusServidor()"')}
+      <div id="fSrvAntivirusNombreWrap" class="field-host" ${s?.antivirus==="Sí"?"":"hidden"}>${fieldSelect("Antivirus instalado","fSrvAntivirusNombre",catNames("cat-antivirus"),s?.antivirusNombre)}</div>
+      ${fieldSelect("Tipo de Base de Datos (opcional)","fSrvTipoBD",[["","No aplica / Ninguna"],...catNames("cat-tipo-bd")],s?.tipoBD||"")}
+      ${fieldTextarea("Observaciones","fSrvObs",s?.observaciones)}
     </div>
   </article>
   <div class="page-actions" style="margin-top:18px;justify-content:flex-end">
     <button class="button ghost" onclick="navigate('servidores')">&raquo; Regresar</button>
-    <button class="button secondary" onclick="toast('Solicitud turnada a Infraestructura.')">Turnar</button>
     <button class="button primary" onclick="guardarServidor('${editId||""}')">Guardar</button>
   </div>`;
 }
 function guardarServidor(editId){
-  if(!state.editing.selectedSolicitanteId){ toast("Selecciona un solicitante para esta solicitud.","error"); return; }
+  const tipo = $$('input[name="fSrvTipo"]').find(cb=>cb.checked)?.value;
+  if(!tipo){ markFieldError($("#fSrvTipoWrap"),"Selecciona si el servidor es Físico o Virtual."); toast("Indica el Tipo de Servidor (Físico o Virtual).","error"); $("#fSrvTipoWrap").scrollIntoView?.({block:"center"}); return; }
+  if(!state.editing.selectedSolicitanteId){ toast("Selecciona un solicitante para este servidor.","error"); return; }
   const ok = validateFields([
+    {id:"fSrvIp",label:"IP del Servidor",type:"ip",required:false},
     {id:"fSrvCpu",label:"Cantidad de CPUs",type:"posint",required:true},
     {id:"fSrvMem",label:"Memoria requerida",type:"posint",required:true},
     {id:"fSrvDisco",label:"Almacenamiento requerido",type:"posint",required:false}
   ]);
   if(!ok) return;
   const sol = findIn(state.data.solicitantes, state.editing.selectedSolicitanteId);
-  const payload = {dependencia:sol.dependencia, solicitante:nombreCompleto(sol), solicitanteId:sol.id, servidorAlojamiento:$("#fSrvServidor").value, fecha:todayStr(), anexos:0};
-  if(editId){ Object.assign(findIn(state.data.servidoresSolicitudes,editId),payload); toast("Solicitud actualizada."); }
-  else { state.data.servidoresSolicitudes.push({id:uid("SRV"),...payload,bitacora:[]}); toast("Solicitud de servidor registrada."); }
+  const antivirus = $("#fSrvAntivirus").value;
+  const prev = editId?findIn(state.data.servidoresSolicitudes,editId):null;
+  const payload = {
+    tipoServidor:tipo, ip:$("#fSrvIp").value.trim(), oficio:$("#fSrvOficio").value,
+    dependencia:sol.dependencia, solicitante:nombreCompleto(sol), solicitanteId:sol.id,
+    cpu:$("#fSrvCpu").value, memoria:$("#fSrvMem").value, disco:$("#fSrvDisco").value,
+    respaldo:$("#fSrvRespaldo").value, apoyo:$("#fSrvApoyo").value,
+    servidorAlojamiento: tipo==="Virtual" ? $("#fSrvServidor").value : "",
+    quienInstala:$("#fSrvQuien").value, so:$("#fSrvSo").value, soVersion:$("#fSrvSoVer").value,
+    antivirus, antivirusNombre: antivirus==="Sí" ? $("#fSrvAntivirusNombre").value : "",
+    tipoBD:$("#fSrvTipoBD").value, observaciones:$("#fSrvObs").value,
+    fecha:prev?.fecha||todayStr(), anexos:prev?.anexos||0
+  };
+  if(prev){ Object.assign(prev,payload); logBitacora(prev,"Actualización de datos del servidor"); toast("Servidor actualizado."); }
+  else { state.data.servidoresSolicitudes.push({id:uid("SRV"),...payload,bitacora:[]}); logBitacora(state.data.servidoresSolicitudes.at(-1),`Registro del servidor ${tipo.toLowerCase()}`); toast("Servidor registrado."); }
   navigate("servidores");
+}
+
+/* ================= Bitácora genérica (todos los módulos) ================= */
+const BITACORA_TITULOS = {
+  servidoresSolicitudes:["Bitácora del servidor",r=>servidorLabel(r)],
+  vpns:["Bitácora de la solicitud de VPN",r=>r.nombre],
+  dominios:["Bitácora del dominio/subdominio",r=>r.nombre],
+  basesDatos:["Bitácora de la base de datos",r=>r.nombre],
+  rrd:["Bitácora del respaldo (RRD)",r=>r.nombre],
+  sitiosWeb:["Bitácora del sitio web",r=>r.nombre],
+  actasSeguridad:["Bitácora del protocolo",r=>r.oficio],
+  incidentes:["Bitácora del incidente",r=>r.folio]
+};
+function logBitacora(reg,movimiento,obs=""){
+  if(!reg) return;
+  reg.bitacora = reg.bitacora||[];
+  reg.bitacora.push({fecha:todayStr(),hora:nowTime(),usuario:currentRole().label==="Administrador"?"Administrador":currentRole().label,movimiento,obs});
+}
+function abrirBitacora(coleccion,id){
+  const reg = findIn(state.data[coleccion],id);
+  if(!reg) return;
+  reg.bitacora = reg.bitacora||[];
+  const [titulo,sub] = BITACORA_TITULOS[coleccion]||["Bitácora",()=>""];
+  const filas = [...reg.bitacora].reverse();
+  openModal({title:titulo, subtitle:sub(reg), size:"large", confirm:"Cerrar",
+    body:`<div style="display:flex;gap:10px;margin-bottom:14px"><input id="fBitNota" placeholder="Agregar observación a la bitácora" style="flex:1"><button class="button primary" onclick="agregarBitacora('${coleccion}','${id}')">${icon("plus")} Agregar</button></div>
+      <div class="bitacora-box"><table><thead><tr><th>Fecha</th><th>Hora</th><th>Usuario</th><th>Movimiento</th><th>Observaciones</th></tr></thead>
+      <tbody>${filas.length?filas.map(b=>`<tr><td>${b.fecha}</td><td>${b.hora}</td><td>${b.usuario}</td><td>${b.movimiento}</td><td>${b.obs||"-"}</td></tr>`).join(""):`<tr><td colspan="5" class="empty-state">Sin movimientos registrados.</td></tr>`}</tbody></table></div>`,
+    onConfirm:closeModal});
+  $("#fBitNota").onkeydown = e=>{ if(e.key==="Enter") agregarBitacora(coleccion,id); };
+}
+function agregarBitacora(coleccion,id){
+  const reg = findIn(state.data[coleccion],id);
+  const nota = $("#fBitNota").value.trim();
+  if(!nota){ toast("Escribe una observación antes de agregar.","warning"); return; }
+  logBitacora(reg,"Observación manual",nota);
+  abrirBitacora(coleccion,id);
+  toast("Observación agregada a la bitácora.");
 }
 
 /* ================= Servicios > RRD (Respaldo de Bases de Datos) ================= */
@@ -3111,6 +3368,7 @@ function renderRRD(){
         <td><div class="actions-cell">
           ${actionBtn("eye","Ver detalle",`state.editing.rrdId='${r.id}';navigate('rrd-form')`)}
           ${actionBtn("users","Cambiar contacto",`cambiarContactoRRD('${r.id}')`)}
+          ${actionBtn("clock","Bitácora",`abrirBitacora('rrd','${r.id}')`)}
           ${actionBtn("trash","Eliminar",`eliminarRRD('${r.id}')`,"danger")}
         </div></td></tr>`).join(""):`<tr><td colspan="7" class="empty-state">No hay solicitudes de respaldo registradas.</td></tr>`}</tbody>
     </table></div>
@@ -3170,8 +3428,8 @@ function guardarRRD(editId){
   if(!ok) return;
   const sol = findIn(state.data.solicitantes, state.editing.selectedSolicitanteId);
   const payload = {dependencia:sol.dependencia, solicitanteId:sol.id, solicitante:nombreCompleto(sol), nombre:$("#fRrdNombre").value||"Base de datos sin nombre", oficioSolicitud:$("#fRrdOfSol").value, oficioRespuesta:$("#fRrdOfResp").value, fecha:$("#fRrdFecha").value||todayStr(), area:$("#fRrdArea").value};
-  if(editId){ Object.assign(findIn(state.data.rrd,editId),payload); toast("Registro actualizado."); }
-  else { state.data.rrd.push({id:uid("RRD"),...payload,contactos:[],respaldos:[],bitacora:[]}); toast("Respaldo de BD registrado."); }
+  if(editId){ const r=findIn(state.data.rrd,editId); Object.assign(r,payload); logBitacora(r,"Actualización del registro"); toast("Registro actualizado."); }
+  else { const r={id:uid("RRD"),...payload,contactos:[],respaldos:[],bitacora:[]}; state.data.rrd.push(r); logBitacora(r,"Registro de respaldo de BD"); toast("Respaldo de BD registrado."); }
   navigate("rrd");
 }
 /* ================= Servicios > Protocolo de Seguridad (Acta) ================= */
@@ -3186,8 +3444,8 @@ function renderActasSeguridad(){
   const term = state.search.actas||"";
   const rows = state.data.actasSeguridad.filter(a=>matchesSearch(a,term));
   content.innerHTML = `
-  ${breadcrumb([{label:"Servicios"},{label:"Protocolo de Seguridad"}])}
-  <div class="page-header"><div><h1>Protocolo de Evaluación de Seguridad</h1><p>Actas de evaluación del estado de seguridad previas a la publicación de servicios.</p></div>
+  ${breadcrumb([{label:"Servicios"},{label:"Protocolos de Seguridad"}])}
+  <div class="page-header"><div><h1>Protocolos de Seguridad</h1><p>Actas de evaluación del estado de seguridad previas a la publicación de servicios.</p></div>
     <div class="page-actions"><button class="button primary" onclick="state.editing.actaId=null;navigate('actas-seguridad-form')">${icon("plus")} Registrar Protocolo</button></div>
   </div>
   <article class="card table-card">
@@ -3200,9 +3458,9 @@ function renderActasSeguridad(){
     <div class="datatable-toolbar"><div class="entries-control">Mostrar <select><option>10</option></select> registros</div>
       <div class="datatable-actions">${searchBox("actasSearch","Buscar registros",term)}</div></div>
     <div class="table-wrap"><table>
-      <thead><tr><th>Oficio / GLPI</th><th>Secretaría</th><th>URL / Aplicativo</th><th>Fecha</th><th>Resultado</th><th>Estatus</th><th>Firmantes</th><th>Evidencias</th><th>Acciones</th></tr></thead>
+      <thead><tr><th>Oficio / GLPI</th><th>Servidor</th><th>Secretaría</th><th>URL / Aplicativo</th><th>Fecha</th><th>Resultado</th><th>Estatus</th><th>Firmantes</th><th>Evidencias</th><th>Acciones</th></tr></thead>
       <tbody>${rows.length?rows.map(a=>{ const totalEv=totalEvidencias(a); return `<tr>
-        <td><strong>${a.oficio}</strong></td><td>${a.secretaria}</td><td>${a.url}</td><td>${a.fecha}</td>
+        <td><strong>${a.oficio}</strong></td><td>${servidorCelda(a.servidorId)}</td><td>${a.secretaria}</td><td>${a.url}</td><td>${a.fecha}</td>
         <td><span class="acta-result ${resultadoClass(a.resultado)}">${a.resultado}</span></td><td>${badgeEstatus(a.estatus)}</td>
         <td>${a.firmantes.length}</td>
         <td class="checkbox-cell"><button type="button" class="action-icon ${totalEv?'':'neutral'}" title="Ver evidencias" onclick="abrirEvidencias('acta','${a.id}')">${icon("file-text")}${totalEv?`<span class="evidence-count">${totalEv}</span>`:""}</button></td>
@@ -3211,9 +3469,9 @@ function renderActasSeguridad(){
           ${actionBtn("edit","Editar",`state.editing.actaId='${a.id}';navigate('actas-seguridad-form')`,"warning")}
           ${actionBtn("upload","Subir evidencias",`abrirEvidencias('acta','${a.id}')`,"success")}
           ${actionBtn("print","Imprimir",`state.editing.actaId='${a.id}';navigate('actas-seguridad-print')`,"success")}
-          ${actionBtn("clock","Bitácora",`abrirBitacoraActa('${a.id}')`)}
+          ${actionBtn("clock","Bitácora",`abrirBitacora('actasSeguridad','${a.id}')`)}
           ${actionBtn("trash","Eliminar",`eliminarActa('${a.id}')`,"danger")}
-        </div></td></tr>`;}).join(""):`<tr><td colspan="9" class="empty-state">No hay protocolos de seguridad registrados.</td></tr>`}</tbody>
+        </div></td></tr>`;}).join(""):`<tr><td colspan="10" class="empty-state">No hay protocolos de seguridad registrados.</td></tr>`}</tbody>
     </table></div>
     ${paginationFoot(rows.length,"protocolos")}
   </article>`;
@@ -3223,6 +3481,7 @@ function verActa(id){
   const a = findIn(state.data.actasSeguridad,id);
   openModal({title:a.oficio, subtitle:a.secretaria, size:"large", confirm:"Imprimir", confirmClass:"secondary",
     body:`<div class="detail-grid cols-4">
+      <div style="grid-column:1/-1"><span>Servidor</span><strong>${a.servidorId?servidorLabel(findIn(state.data.servidoresSolicitudes,a.servidorId)):"Sin servidor ligado"}</strong></div>
       <div><span>Fecha de emisión</span><strong>${a.fecha}</strong></div>
       <div><span>Resultado</span><strong>${a.resultado}</strong></div>
       <div><span>Contacto</span><strong>${a.contacto}</strong></div>
@@ -3367,11 +3626,13 @@ function guardarNuevoEscaneo(){
 
 function renderActaForm(editId){
   const a = editId?findIn(state.data.actasSeguridad,editId):null;
+  state.editing.selectedSolicitanteId = a ? a.solicitanteId : (state.editing.presetSolicitanteId||null);
+  state.editing.presetSolicitanteId = null;
   const deptosDisponibles = state.data.departamentosCatalogo.filter(d=>d.servicios.some(s=>s.modulo==="actas-seguridad"&&s.generaDocumentos));
   state.editing.deptoActaId = a?.departamentoId || deptosDisponibles[0]?.id || null;
   state.editing.ipWanDraft = a ? (Array.isArray(a.ipWan)?[...a.ipWan]:(a.ipWan?[a.ipWan]:[])) : [];
   content.innerHTML = `
-  ${breadcrumb([{label:"Servicios"},{label:"Protocolo de Seguridad",view:"actas-seguridad"},{label:editId?"Editar Protocolo":"Registro de Protocolo"}])}
+  ${breadcrumb([{label:"Servicios"},{label:"Protocolos de Seguridad",view:"actas-seguridad"},{label:editId?"Editar Protocolo":"Registro de Protocolo"}])}
   <div class="page-header"><div><h1>${editId?"Editar":"Registro de"} Protocolo de Evaluación de Seguridad</h1><p>Evaluación del estado de seguridad previa a la publicación de un servicio.</p>${solicitanteContextHeader()}</div>
     <div class="page-actions">${badgeEstatus(a?.estatus||"Registrado")}</div></div>
   ${!editId?draftBanner("actas-seguridad-form"):""}
@@ -3379,12 +3640,12 @@ function renderActaForm(editId){
     <h2 style="font-size:15px;margin:0 0 12px">Solicitante</h2>
     ${solicitanteSelectorBlock("fActa")}
     <p style="color:var(--muted);font-size:12px;margin:8px 0 0">La Secretaría, Subsecretaría y Dirección General se toman automáticamente de los datos del solicitante seleccionado.</p>
+    ${servicioRelacionadoBlock("fActa",a?.dominioId,a?.servidorId)}
     <h2 style="font-size:15px;margin:22px 0 12px">Datos Generales</h2>
     <div class="form-grid">
       ${fieldInput("Fecha de emisión","fActaFecha",a?.fecha,"date")}
       ${fieldInput("Oficio / GLPI","fActaOficio",a?.oficio)}
     </div>
-    ${servicioRelacionadoBlock("fActa",a?.dominioId,a?.servidorId)}
     <h2 style="font-size:15px;margin:22px 0 12px">Datos Técnicos</h2>
     <div class="form-grid">
       <div class="field"><label for="fActaIpLan">IP LAN</label><input id="fActaIpLan" type="text" placeholder="000.000.000.000" data-rule="ip" value="${a?.ipLan??""}"></div>
@@ -3407,7 +3668,7 @@ function renderActaForm(editId){
     </div>
     ${editId?`<div class="inline-note">La evidencia de los escaneos de este protocolo ahora se administra desde la acción "Subir evidencias" en la lista de protocolos, ya que una misma solicitud puede tener varios escaneos a lo largo del tiempo.</div>`:`<div class="inline-note">Una vez guardado el protocolo, podrás subir la evidencia de cada escaneo desde la acción "Subir evidencias" en la lista de protocolos.</div>`}
     <h2 style="font-size:15px;margin:26px 0 4px">${icon("signature")} Firmantes del acta</h2>
-    <p style="color:var(--muted);font-size:12px;margin:0 0 14px">Los firmantes se configuran una sola vez en Catálogos → Departamentos, para el servicio "Protocolo de Seguridad". Aquí solo eliges qué departamento firma este documento.</p>
+    <p style="color:var(--muted);font-size:12px;margin:0 0 14px">Los firmantes se configuran una sola vez en Catálogos → Departamentos, para el servicio "Protocolos de Seguridad". Aquí solo eliges qué departamento firma este documento.</p>
     ${deptosDisponibles.length ? `
       <div class="form-grid">
         <div class="field full"><label>Departamento responsable</label>
@@ -3418,7 +3679,7 @@ function renderActaForm(editId){
       </div>
       <div id="firmantesPreviewActa">${renderFirmantesPreviewActa()}</div>
     ` : `
-      <div class="inline-note">Ningún departamento tiene configurados firmantes para "Protocolo de Seguridad". Ve a <a href="#" onclick="navigate('cat-departamentos');return false">Catálogos → Departamentos</a> y marca ese servicio con "¿Genera documentos? Sí" para capturarlos ahí.</div>
+      <div class="inline-note">Ningún departamento tiene configurados firmantes para "Protocolos de Seguridad". Ve a <a href="#" onclick="navigate('cat-departamentos');return false">Catálogos → Departamentos</a> y marca ese servicio con "¿Genera documentos? Sí" para capturarlos ahí.</div>
     `}
   </article>
   <div class="page-actions" style="margin-top:18px;justify-content:flex-end">
@@ -3440,6 +3701,7 @@ function renderFirmantesPreviewActa(){
 function refreshFirmantesPreviewActa(){ $("#firmantesPreviewActa").innerHTML = renderFirmantesPreviewActa(); }
 function guardarActa(editId){
   if(!state.editing.selectedSolicitanteId){ toast("Selecciona un solicitante para esta solicitud.","error"); return; }
+  if(!validarServidorRelacionado("fActa")) return;
   const ok = validateFields([
     {id:"fActaOficio",label:"Oficio / GLPI",required:true},
     {id:"fActaUrl",label:"URL",type:"url",required:true},
@@ -3479,7 +3741,7 @@ function renderActaPrint(id){
     </div>`).join("");
   content.innerHTML = `
   <div class="print-toolbar no-print">
-    ${breadcrumb([{label:"Servicios"},{label:"Protocolo de Seguridad",view:"actas-seguridad"},{label:"Vista previa"}])}
+    ${breadcrumb([{label:"Servicios"},{label:"Protocolos de Seguridad",view:"actas-seguridad"},{label:"Vista previa"}])}
     <div class="page-actions">
       <button class="button ghost" onclick="navigate('actas-seguridad')">&raquo; Regresar</button>
       <button class="button primary" onclick="window.print()">${icon("print")} Imprimir / Descargar PDF</button>
@@ -3844,7 +4106,7 @@ function renderDepartamentoForm(editId){
       ${fieldInputPair("Teléfono","fDeptoTitularTel",dep?.titular?.telefono,"Extensión","fDeptoTitularExt",dep?.titular?.ext,"2fr 1fr",["phone","numeric"])}
     </div>
     <h2 style="font-size:15px;margin:22px 0 4px">Servicios que presta este Departamento</h2>
-    <p style="color:var(--muted);font-size:12px;margin:0 0 14px">Marca los módulos que administra. Si un servicio genera documentos oficiales (como el Protocolo de Seguridad), podrás capturar quiénes lo firman.</p>
+    <p style="color:var(--muted);font-size:12px;margin:0 0 14px">Marca los módulos que administra. Si un servicio genera documentos oficiales (como los Protocolos de Seguridad), podrás capturar quiénes lo firman.</p>
     ${renderServiciosDepartamentoSection()}
   </article>
   <div class="page-actions" style="margin-top:18px;justify-content:flex-end">
@@ -4200,9 +4462,9 @@ function renderIncidentesSeguridad(){
     <div class="datatable-toolbar"><div class="entries-control">Mostrar <select><option>10</option></select> registros</div>
       <div class="datatable-actions">${searchBox("incidentesSearch","Buscar registros",term)}</div></div>
     <div class="table-wrap"><table>
-      <thead><tr><th>Folio</th><th>Activo Afectado</th><th>Tipo de Incidente</th><th>Fecha</th><th>Impacto</th><th>Estatus</th><th>Evidencias</th><th>Acciones</th></tr></thead>
+      <thead><tr><th>Folio</th><th>Servidor</th><th>Activo Afectado</th><th>Tipo de Incidente</th><th>Fecha</th><th>Impacto</th><th>Estatus</th><th>Evidencias</th><th>Acciones</th></tr></thead>
       <tbody>${rows.length?rows.map(i=>{ const act=findIn(state.data.activos,i.activoId); const totalEv=totalEvidencias(i); return `<tr>
-        <td><strong>${i.folio}</strong></td><td>${act?act.nombre:"—"}</td><td>${i.tipoIncidente}</td><td>${i.fechaDeteccion}</td>
+        <td><strong>${i.folio}</strong></td><td>${servidorCelda(i.servidorId)}</td><td>${act?act.nombre:"—"}</td><td>${i.tipoIncidente}</td><td>${i.fechaDeteccion}</td>
         <td>${act?`<span class="impact-badge ${impactoClass(act.impacto)}">${act.impacto}</span>`:"—"}</td>
         <td>${badgeEstatus(i.estatus)}</td>
         <td class="checkbox-cell"><button type="button" class="action-icon ${totalEv?'':'neutral'}" title="Ver evidencias" onclick="abrirEvidencias('incidente','${i.id}')">${icon("file-text")}${totalEv?`<span class="evidence-count">${totalEv}</span>`:""}</button></td>
@@ -4210,9 +4472,9 @@ function renderIncidentesSeguridad(){
           ${actionBtn("eye","Ver detalle",`verIncidente('${i.id}')`)}
           ${actionBtn("edit","Editar",`state.editing.incidenteId='${i.id}';navigate('incidentes-seguridad-form')`,"warning")}
           ${actionBtn("upload","Subir evidencias",`abrirEvidencias('incidente','${i.id}')`,"success")}
-          ${actionBtn("clock","Bitácora",`abrirBitacoraIncidente('${i.id}')`)}
+          ${actionBtn("clock","Bitácora",`abrirBitacora('incidentes','${i.id}')`)}
           ${actionBtn("trash","Eliminar",`eliminarIncidente('${i.id}')`,"danger")}
-        </div></td></tr>`;}).join(""):`<tr><td colspan="8" class="empty-state">No hay incidentes de seguridad registrados.</td></tr>`}</tbody>
+        </div></td></tr>`;}).join(""):`<tr><td colspan="9" class="empty-state">No hay incidentes de seguridad registrados.</td></tr>`}</tbody>
     </table></div>
     ${paginationFoot(rows.length,"incidentes")}
   </article>`;
@@ -4223,6 +4485,7 @@ function verIncidente(id){
   const act = findIn(state.data.activos,i.activoId);
   openModal({title:i.folio, subtitle:i.tipoIncidente, size:"large", confirm:"Cerrar",
     body:`<div class="detail-grid">
+      <div style="grid-column:1/-1"><span>Servidor</span><strong>${i.servidorId?servidorLabel(findIn(state.data.servidoresSolicitudes,i.servidorId)):"Sin servidor ligado"}</strong></div>
       <div><span>Fecha de detección</span><strong>${i.fechaDeteccion}</strong></div>
       <div><span>Estatus</span><strong>${i.estatus}</strong></div>
       <div><span>Activo afectado</span><strong>${act?act.nombre:"—"}</strong></div>
@@ -4263,6 +4526,7 @@ function renderIncidenteForm(editId){
   <article class="card">
     <h2 style="font-size:15px;margin:0 0 12px">Solicitante que reporta</h2>
     ${solicitanteSelectorBlock("fInc")}
+    ${servicioRelacionadoBlock("fInc",inc?.dominioId,inc?.servidorId)}
     <h2 style="font-size:15px;margin:22px 0 12px">Datos del Incidente</h2>
     <div class="form-grid">
       ${fieldInput("Folio","fIncFolio",inc?.folio||("INC-2026-"+String(state.data.incidentes.length+1).padStart(3,"0")))}
@@ -4271,7 +4535,6 @@ function renderIncidenteForm(editId){
       ${fieldSelect("Estatus","fIncEstatus",["Abierto","En análisis","Contenido","Erradicado","Resuelto","Cerrado"],inc?.estatus||"Abierto")}
       ${fieldTextarea("Descripción del incidente","fIncDescripcion",inc?.descripcion)}
     </div>
-    ${servicioRelacionadoBlock("fInc",inc?.dominioId,inc?.servidorId)}
     <h2 style="font-size:15px;margin:22px 0 12px">Activo Afectado</h2>
     ${state.data.activos.length?`
       <div class="form-grid">
@@ -4308,6 +4571,7 @@ function renderActivoPreviewIncidente(){
 function refreshActivoPreviewIncidente(){ $("#activoPreviewIncidente").innerHTML = renderActivoPreviewIncidente(); }
 function guardarIncidente(editId){
   if(!state.editing.selectedSolicitanteId){ toast("Selecciona un solicitante que reporte este incidente.","error"); return; }
+  if(!validarServidorRelacionado("fInc")) return;
   const ok = validateFields([
     {id:"fIncFolio",label:"Folio",required:true},
     {id:"fIncFecha",label:"Fecha de detección",required:true},
@@ -4501,6 +4765,185 @@ function pintarReporte(tipo){
 
 /* ================= Arranque de la aplicación ================= */
 renderNavigation();
+
+/* ================= Tablas estilo Frest: selección, menú ⋮ y exportar ================= */
+function tableDataColumns(table){
+  const ths=[...table.querySelectorAll("thead tr:first-child th")];
+  return ths.map((th,i)=>({i,label:th.textContent.trim()})).filter(c=>{
+    const th=ths[c.i];
+    if(th.classList.contains("select-col")||th.querySelector("input.select-all")) return false;
+    if(/^acciones$/i.test(c.label)) return false;
+    return c.label!=="";
+  });
+}
+function selectedRowsOf(table){
+  const rows=[...table.querySelectorAll("tbody tr")].filter(tr=>tr.querySelector("input.row-check"));
+  const sel=rows.filter(tr=>tr.querySelector("input.row-check").checked);
+  return {all:rows,sel};
+}
+function tableExportData(table){
+  const cols=tableDataColumns(table);
+  const {all,sel}=selectedRowsOf(table);
+  const use=sel.length?sel:all;
+  const rows=use.map(tr=>{ const tds=[...tr.children]; return cols.map(c=>(tds[c.i]?.innerText??tds[c.i]?.textContent??"").replace(/\s+/g," ").trim()); });
+  return {headers:cols.map(c=>c.label),rows,scope:sel.length?"sel":"all"};
+}
+function tableExportName(){
+  const h=$("#mainContent .page-header h1")?.textContent||$("#mainContent h2")?.textContent||"tabla";
+  return h.trim().toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")+"-"+todayStr().replace(/\//g,"-");
+}
+function exportarTabla(tableId,formato){
+  closeRowMenu();
+  const table=document.getElementById(tableId); if(!table) return;
+  const {headers,rows,scope}=tableExportData(table);
+  if(!rows.length){ toast("No hay registros para exportar.","error"); return; }
+  const name=tableExportName();
+  const desc=scope==="sel"?`${rows.length} registro(s) seleccionado(s)`:`${rows.length} registro(s)`;
+  const esc=v=>String(v??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  const htmlTable=`<table border="1" cellspacing="0" cellpadding="6" style="border-collapse:collapse;font-family:Arial;font-size:12px"><thead><tr>${headers.map(h=>`<th style="background:#AB1738;color:#fff">${esc(h)}</th>`).join("")}</tr></thead><tbody>${rows.map(r=>`<tr>${r.map(v=>`<td>${esc(v)}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
+  if(formato==="csv"){ exportTable(name,headers,rows); toast(`Exportado a CSV: ${desc}.`); }
+  else if(formato==="excel"){
+    downloadFile(`${name}.xls`,"﻿"+`<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel"><head><meta charset="utf-8"></head><body>${htmlTable}</body></html>`,"application/vnd.ms-excel");
+    toast(`Exportado a Excel: ${desc}.`);
+  }
+  else if(formato==="print"){
+    const w=window.open("","_blank");
+    if(!w){ toast("Permite ventanas emergentes para imprimir.","error"); return; }
+    const titulo=esc($("#mainContent .page-header h1")?.textContent||"Registros");
+    w.document.write(`<html><head><title>${titulo}</title><meta charset="utf-8"></head><body style="font-family:Arial;padding:20px"><h2 style="color:#4E0B15">${titulo}</h2><p style="font-size:12px;color:#555">Servicios SIID · ${todayStr()} · ${desc}</p>${htmlTable}</body></html>`);
+    w.document.close(); w.focus(); w.print();
+  }
+  else if(formato==="copy"){
+    const tsv=[headers,...rows].map(r=>r.join("\t")).join("\n");
+    (navigator.clipboard?.writeText(tsv)||Promise.reject()).then(()=>toast(`Copiado al portapapeles: ${desc}.`)).catch(()=>toast("No se pudo copiar al portapapeles.","error"));
+  }
+}
+let _rowMenuAnchor=null;
+function closeRowMenu(){
+  $("#rowMenu")?.remove();
+  if(_rowMenuAnchor) _rowMenuAnchor.classList.remove("open");
+  _rowMenuAnchor=null;
+}
+function openFloatingMenu(anchor,html,alignRight=true){
+  if(_rowMenuAnchor===anchor){ closeRowMenu(); return; }
+  closeRowMenu();
+  const menu=document.createElement("div");
+  menu.id="rowMenu"; menu.className="row-menu"; menu.setAttribute("role","menu");
+  menu.innerHTML=html;
+  document.body.append(menu);
+  const r=anchor.getBoundingClientRect();
+  const mw=menu.offsetWidth||200, mh=menu.offsetHeight||160;
+  let left=alignRight?r.right-mw:r.left; if(left<8) left=8;
+  if(left+mw>window.innerWidth-8) left=window.innerWidth-mw-8;
+  let top=r.bottom+6; if(top+mh>window.innerHeight-8) top=Math.max(8,r.top-mh-6);
+  menu.style.left=left+"px"; menu.style.top=top+"px";
+  anchor.classList.add("open"); _rowMenuAnchor=anchor;
+}
+function openRowMenu(btn){
+  const items=JSON.parse(btn.dataset.items||"[]");
+  const html=items.map(it=>it.sep?"<hr>":`<button type="button" role="menuitem" class="${it.cls==="danger"?"danger":""}" data-act="${encodeURIComponent(it.onclick)}">${icon(it.icon)}<span>${it.title}</span></button>`).join("");
+  openFloatingMenu(btn,html);
+  $$("#rowMenu button[data-act]").forEach(b=>b.onclick=()=>{ const code=decodeURIComponent(b.dataset.act); closeRowMenu(); new Function(code)(); });
+}
+function openExportMenu(btn){
+  const t=btn.dataset.table;
+  const table=document.getElementById(t);
+  const n=table?selectedRowsOf(table).sel.length:0;
+  const html=`<div class="row-menu-title">${n?`Exportar ${n} seleccionado(s)`:"Exportar todos los registros"}</div>
+    <button type="button" data-f="csv">${icon("file-text")}<span>CSV</span></button>
+    <button type="button" data-f="excel">${icon("file-sheet")}<span>Excel</span></button>
+    <button type="button" data-f="print">${icon("print")}<span>Imprimir / PDF</span></button>
+    <button type="button" data-f="copy">${icon("copy")}<span>Copiar</span></button>`;
+  openFloatingMenu(btn,html);
+  $$("#rowMenu button[data-f]").forEach(b=>b.onclick=()=>exportarTabla(t,b.dataset.f));
+}
+document.addEventListener("click",e=>{
+  if(!_rowMenuAnchor) return;
+  if(e.target.closest("#rowMenu")||e.target.closest(".ra-more")||e.target.closest(".export-btn")) return;
+  closeRowMenu();
+});
+window.addEventListener("scroll",()=>closeRowMenu(),true);
+window.addEventListener("resize",()=>closeRowMenu());
+document.addEventListener("keydown",e=>{ if(e.key==="Escape") closeRowMenu(); });
+
+function updateExportCount(table){
+  const btn=document.querySelector(`.export-btn[data-table="${table.id}"]`);
+  const {all,sel}=selectedRowsOf(table);
+  if(btn){ const pill=btn.querySelector(".count-pill"); if(sel.length){ if(pill) pill.textContent=sel.length; else btn.insertAdjacentHTML("beforeend",`<span class="count-pill">${sel.length}</span>`);} else pill?.remove(); }
+  const all_=table.querySelector("input.select-all");
+  if(all_){ all_.checked=all.length>0&&sel.length===all.length; all_.indeterminate=sel.length>0&&sel.length<all.length; }
+  all.forEach(tr=>tr.classList.toggle("row-selected",tr.querySelector("input.row-check").checked));
+}
+let _tblSeq=0;
+function enhanceTable(table){
+  if(table.dataset.enh) return;
+  table.dataset.enh="1";
+  if(!table.id) table.id="tbl"+(++_tblSeq);
+  const headRow=table.querySelector("thead tr"); if(!headRow) return;
+  const firstTh=headRow.children[0];
+  const bodyRows=[...table.querySelectorAll("tbody tr")];
+  const hasCheckCol = firstTh && (firstTh.querySelector('input[type="checkbox"]') || (firstTh.textContent.trim()==="" && bodyRows.some(tr=>tr.children[0]?.querySelector?.('input[type="checkbox"]'))));
+  if(hasCheckCol){
+    firstTh.classList.add("select-col");
+    firstTh.innerHTML=`<input type="checkbox" class="select-all" aria-label="Seleccionar todos">`;
+    bodyRows.forEach(tr=>{ const cb=tr.children[0]?.querySelector?.('input[type="checkbox"]'); if(cb){ cb.classList.add("row-check"); cb.setAttribute("aria-label","Seleccionar registro"); tr.children[0].classList.add("select-col"); } });
+  } else {
+    headRow.insertAdjacentHTML("afterbegin",`<th class="select-col"><input type="checkbox" class="select-all" aria-label="Seleccionar todos"></th>`);
+    bodyRows.forEach(tr=>{
+      const only=tr.children.length===1&&tr.children[0].hasAttribute("colspan");
+      if(only){ const td=tr.children[0]; td.setAttribute("colspan",(+td.getAttribute("colspan")||1)+1); }
+      else tr.insertAdjacentHTML("afterbegin",`<td class="select-col"><input type="checkbox" class="row-check" aria-label="Seleccionar registro"></td>`);
+    });
+  }
+  table.addEventListener("change",e=>{
+    if(e.target.classList.contains("select-all")){ selectedRowsOf(table).all.forEach(tr=>tr.querySelector("input.row-check").checked=e.target.checked); }
+    if(e.target.classList.contains("select-all")||e.target.classList.contains("row-check")) updateExportCount(table);
+  });
+  // Acciones: ⋮ (menú) + editar visible
+  const accIdx=[...headRow.children].findIndex(th=>/^acciones$/i.test(th.textContent.trim()));
+  const cells=[...table.querySelectorAll(".actions-cell")];
+  if(accIdx>=0) [...table.querySelectorAll("tbody tr")].forEach(tr=>{ const td=tr.children[accIdx]; if(td&&!td.querySelector(".actions-cell")&&td.querySelector("button.action-icon")) cells.push(td); });
+  cells.forEach(cell=>{
+    const btns=[...cell.querySelectorAll("button")];
+    if(!btns.length) return;
+    const iconOf=b=>(b.querySelector("use")?.getAttribute("href")||"").replace("#i-","");
+    const editBtn=btns.find(b=>/^editar/i.test(b.title||"")||(iconOf(b)==="edit"&&!/actualizar/i.test(b.title||"")));
+    const others=btns.filter(b=>b!==editBtn);
+    const danger=others.filter(b=>b.classList.contains("danger"));
+    const normal=others.filter(b=>!b.classList.contains("danger"));
+    const items=[...normal,...(danger.length&&normal.length?[null]:[]),...danger].map(b=>b?{icon:iconOf(b)||"eye",title:b.title||b.textContent.trim(),onclick:b.getAttribute("onclick")||"",cls:b.classList.contains("danger")?"danger":""}:{sep:true});
+    let html=`<div class="row-actions">`;
+    if(items.length) html+=`<button type="button" class="ra-btn ra-more" title="Más acciones" aria-haspopup="menu" data-items="${JSON.stringify(items).replace(/&/g,"&amp;").replace(/"/g,"&quot;")}" onclick="openRowMenu(this)">${icon("more-vertical")}</button>`;
+    if(editBtn) html+=`<button type="button" class="ra-btn edit" title="${editBtn.title}" onclick="${(editBtn.getAttribute("onclick")||"").replace(/"/g,"&quot;")}">${icon("edit")}</button>`;
+    html+=`</div>`;
+    if(cell.tagName==="TD") cell.innerHTML=html; else cell.outerHTML=html;
+  });
+  // Botón Exportar
+  const card=table.closest(".card");
+  const header=$("#mainContent .page-header .page-actions");
+  const pageHasExport=header&&[...header.querySelectorAll("button")].some(b=>/exportar/i.test(b.textContent));
+  const tablesInPage=$$("#mainContent table[data-enh]").length;
+  const exportHtml=`<div class="export-wrap"><button type="button" class="button export-btn" data-table="${table.id}" aria-haspopup="menu" onclick="openExportMenu(this)">${icon("upload")} Exportar ${icon("chevron-down")}</button></div>`;
+  if(header&&!pageHasExport&&tablesInPage===1&&!header.querySelector(".export-btn")){ header.insertAdjacentHTML("afterbegin",exportHtml); }
+  else if(card){
+    const target=card.querySelector(".datatable-actions")||card.querySelector(".card-title-row");
+    if(target&&!target.querySelector(".export-btn")) target.insertAdjacentHTML(target.classList.contains("datatable-actions")?"afterbegin":"beforeend",exportHtml);
+    else if(!target){
+      const wrap=table.closest(".table-wrap")||table;
+      wrap.insertAdjacentHTML("beforebegin",`<div class="table-export-bar">${exportHtml}</div>`);
+    }
+  }
+}
+function enhanceTables(){
+  const isForm=/-form$|-print$/.test(state.view||"");
+  $$("#mainContent .card table").forEach(t=>{
+    if(t.closest(".modal")) return;
+    const inTableCard=!!t.closest(".table-card");
+    const hasAcciones=[...t.querySelectorAll("thead th")].some(th=>/^acciones$/i.test(th.textContent.trim()));
+    if(inTableCard || (hasAcciones && !isForm)) enhanceTable(t);
+  });
+}
+new MutationObserver(()=>{ closeRowMenu(); enhanceTables(); }).observe(content,{childList:true,subtree:true});
 </script>
 </body>
 </html>
