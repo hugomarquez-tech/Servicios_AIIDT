@@ -1033,6 +1033,23 @@ button.dx-tile:hover{border-color:var(--brand)}
 @media (max-width:1250px){.dx-tiles{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:1000px){.dx-row{grid-template-columns:minmax(0,1fr)!important}}
 @media (max-width:640px){.dx-tiles{grid-template-columns:repeat(2,minmax(0,1fr))}.dx-tile.lead{grid-column:1/-1}.dx-filterbar .field{min-width:0;width:100%}.dx-tile-value{font-size:28px}}
+.st-current{display:grid;grid-template-columns:auto auto 1fr;align-items:center;gap:10px;margin-bottom:14px}
+.st-current>span{font-size:12px;font-weight:700;color:var(--muted)}
+.st-current small{color:var(--muted);font-size:12px}
+.st-flow{display:flex;flex-wrap:wrap;gap:6px 16px;align-items:center;padding:10px 12px;background:#FAFBFC;border:1px solid var(--line);border-radius:8px;margin-bottom:16px}
+.st-chip{font-size:11px;font-weight:700;color:#70747C;background:#fff;border:1px solid #DDE0E5;border-radius:12px;padding:3px 9px;position:relative}
+.st-chip:not(:last-child)::after{content:"›";position:absolute;right:-12px;color:#B5B9C0}
+.st-chip.final{border-style:dashed}
+.st-chip.current{background:var(--brand);border-color:var(--brand);color:#fff}
+.st-label{font-size:12.5px;font-weight:700;margin:0 0 8px}
+.st-options{display:grid;gap:8px}
+.st-option{display:flex;gap:10px;align-items:flex-start;border:1px solid #D5D9E0;border-radius:8px;padding:10px 12px;cursor:pointer}
+.st-option input{margin-top:3px;accent-color:var(--brand)}
+.st-option strong{display:block;font-size:13px}
+.st-option small{display:block;color:var(--muted);font-size:12px;margin-top:2px}
+.st-option:has(input:checked){border-color:var(--brand);background:#FBEFF2}
+.st-auto-note{display:flex;gap:6px;align-items:center;font-size:12px;color:var(--muted);margin:12px 0 0}
+.st-auto-note .icon{width:14px;height:14px}
 </style>
 </head>
 <body>
@@ -1190,14 +1207,17 @@ function breadcrumb(items){
 function actionBtn(iconName,title,onclick,cls="neutral"){
   return `<button class="action-icon ${cls}" title="${title}" onclick="${onclick}">${icon(iconName)}</button>`;
 }
+const ESTATUS_CLASE = {
+  pending:["registrado","registrada","abierto","pendiente","por asignar"],
+  review:["validado","en revisión","en evaluación","en análisis","en aprovisionamiento","autorizada","contenido","turnado","en proceso","notificado","erradicado"],
+  approved:["autorizado","activa","activo","en operación","aprobado","acta firmada","resuelto","cerrado","producción"],
+  warning:["con observaciones","en mantenimiento"],
+  observed:["rechazado","rechazada","no aprobado","revocada","dado de baja","descartado","inactivo","cancelado"]
+};
 function badgeEstatus(status){
-  const value=(status||"").toLowerCase();
-  let cls="neutral";
-  if(["registrado","pendiente","por asignar","abierto"].some(x=>value.includes(x))) cls="pending";
-  if(["revisión","turnado","en proceso","en análisis","contenido"].some(x=>value.includes(x))) cls="review";
-  if(["validado","autorizado","activo","activa","aprobad","erradicado","resuelto"].some(x=>value.includes(x))) cls="approved";
-  if(["notificado"].some(x=>value.includes(x))) cls="review";
-  if(["rechazad","inactivo","cancelad","observad"].some(x=>value.includes(x))) cls="observed";
+  const v=(status||"").toLowerCase().trim();
+  let cls=Object.keys(ESTATUS_CLASE).find(k=>ESTATUS_CLASE[k].includes(v))||"neutral";
+  if(cls==="warning") cls="pending";
   return `<span class="badge ${cls}">${status}</span>`;
 }
 function checkIcon(val){ return val?`<span style="color:var(--green)">${icon("check-circle")}</span>`:`<span style="color:#C7CBD2">${icon("ban")}</span>`; }
@@ -1675,6 +1695,12 @@ function catNames(key){ return state.data.catalogosSimples[key].map(c=>c.nombre)
   if(state.data.actasSeguridad[0] && srv[1]) state.data.actasSeguridad[0].servidorId = srv[1].id;
   if(state.data.actasSeguridad[1] && srv[0]) state.data.actasSeguridad[1].servidorId = srv[0].id;
   inc.forEach((x,i)=>{ if(srv.length) x.servidorId = srv[i%srv.length].id; });
+  // Estatus conforme a los flujos de la Fase 1
+  srv.forEach(x=>{ if(!x.estatus) x.estatus = x.ip ? "En operación" : "En aprovisionamiento"; });
+  state.data.vpns.forEach(x=>{ if(!x.estatus) x.estatus = x.ip ? "Activa" : "Registrada"; });
+  const act0 = state.data.actasSeguridad[0], act1 = state.data.actasSeguridad[1];
+  if(act0){ act0.estatus = "Acta firmada"; }
+  if(act1){ act1.estatus = "Con observaciones"; }
   if(inc[1] && dom[0]) inc[1].dominioId = dom[0].id;
 })();
 /* ================= Cascada organizacional (Secretaría → Subsecretaría → Dir. Gral. → Dir. de Área → Departamento) ================= */
@@ -1797,7 +1823,7 @@ function servicioRelacionadoBlock(prefix,selDominioId,selServidorId){
     <div class="field"><label for="${prefix}Servidor">Servidor Físico/Virtual<span class="required-mark">*</span></label>
       <select id="${prefix}Servidor" onchange="alCambiarServidorRelacionado('${prefix}')">
         <option value="">Selecciona un servidor</option>
-        ${servidores.map(s=>`<option value="${s.id}" ${s.id===selServidorId?"selected":""}>${servidorLabel(s)}</option>`).join("")}
+        ${servidores.filter(s=>s.id===selServidorId||!["Rechazado","Dado de baja"].includes(s.estatus)).map(s=>`<option value="${s.id}" ${s.id===selServidorId?"selected":""}>${servidorLabel(s)}${s.estatus&&s.estatus!=="En operación"?` · ${s.estatus}`:""}</option>`).join("")}
       </select>
     </div>
     <div class="field"><label for="${prefix}Dominio">Dominio / Subdominio relacionado (opcional)</label>
@@ -2273,8 +2299,8 @@ const DX_MODULOS = [
   {key:"dominios", label:"Dominios y Subdominios", color:"var(--dx-s4)", view:"dominios"},
   {key:"vpns", label:"VPN", color:"var(--dx-s5)", view:"vpn"}
 ];
-const INC_ESTATUS = ["Abierto","En análisis","Contenido","Erradicado","Resuelto","Cerrado"];
-const INC_CERRADOS = ["Resuelto","Cerrado"];
+const INC_ESTATUS = ["Abierto","En análisis","Contenido","Erradicado","Resuelto","Cerrado","Descartado"];
+const INC_CERRADOS = ["Resuelto","Cerrado","Descartado"];
 const MESES_CORTOS = ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"];
 function dxFecha(v){
   if(!v) return null;
@@ -2684,13 +2710,13 @@ function solicitudesConsolidadas(){
   const rows = [];
   d.servidoresSolicitudes.forEach(x=>rows.push({id:x.id, col:"servidoresSolicitudes", view:"servidores", tipo:"Servidor "+(x.tipoServidor||"Virtual"),
     registro:x.ip||"IP por asignar", dependencia:x.dependencia||"—", solicitante:x.solicitante||"—", solicitanteId:x.solicitanteId,
-    servidor:x.ip||"—", fecha:x.fecha, estatus:"Registrado", ver:`verServidor('${x.id}')`}));
+    servidor:x.ip||"—", fecha:x.fecha, estatus:x.estatus||"Registrado", ver:`verServidor('${x.id}')`}));
   d.dominios.forEach(x=>rows.push({id:x.id, col:"dominios", view:"dominios", tipo:x.tipo,
     registro:x.nombre, dependencia:x.dependencia||"—", solicitante:x.solicitante||"—", solicitanteId:x.solicitanteId,
     servidor:"—", fecha:x.fecha, estatus:x.estatus||"Registrado", ver:`state.editing.dominioId='${x.id}';navigate('dominios-detalle')`}));
   d.vpns.forEach(x=>{ const s=sol(x.solicitanteId); rows.push({id:x.id, col:"vpns", view:"vpn", tipo:"VPN",
     registro:x.ip?`IP ${x.ip}`:"IP por asignar", dependencia:s?.dependencia||"—", solicitante:x.nombre||"—", solicitanteId:x.solicitanteId,
-    servidor:"—", fecha:x.fecha, estatus:x.ip?"IP asignada":"Registrado", ver:`verVpn('${x.id}')`}); });
+    servidor:"—", fecha:x.fecha, estatus:x.estatus||"Registrada", ver:`verVpn('${x.id}')`}); });
   d.actasSeguridad.forEach(x=>rows.push({id:x.id, col:"actasSeguridad", view:"actas-seguridad", tipo:"Protocolo de Seguridad",
     registro:x.oficio, dependencia:x.secretaria||"—", solicitante:x.contacto||"—", solicitanteId:x.solicitanteId,
     servidor:srv(x.servidorId)?.ip||"—", fecha:x.fecha, estatus:x.estatus||"Registrado", ver:`verActa('${x.id}')`}));
@@ -2882,7 +2908,7 @@ function renderDominios(){
         <td class="checkbox-cell">${d.anexos?icon("file-text"):"-"}</td>
         <td><div class="actions-cell">
           ${actionBtn("eye","Ver detalle",`state.editing.dominioId='${d.id}';navigate('dominios-detalle')`)}
-          ${actionBtn("refresh","Actualizar estatus",`abrirEstatusDominio('${d.id}')`)}
+          ${actionBtn("refresh","Cambiar estatus",`abrirCambiarEstatus('dominios','${d.id}')`)}
           ${actionBtn("users","Turnar",`abrirTurnarDominio('${d.id}')`)}
           ${actionBtn("key","Asignar IP/NAT",`abrirAsignarIpNat('${d.id}')`)}
           ${actionBtn("edit","Editar",`state.editing.dominioTipo='${d.tipo}';state.editing.dominioId='${d.id}';navigate('dominios-form')`,"warning")}
@@ -3174,16 +3200,17 @@ function renderVpn(){
     <div class="datatable-toolbar"><div class="entries-control">Mostrar <select><option>10</option></select> registros</div>
       <div class="datatable-actions">${searchBox("vpnSearch","Buscar registros",term)}</div></div>
     <div class="table-wrap"><table>
-      <thead><tr><th>Nombre completo</th><th>Correo</th><th>Teléfono</th><th>Extensión</th><th>IP</th><th>Observaciones</th><th>Acciones</th></tr></thead>
+      <thead><tr><th>Nombre completo</th><th>Correo</th><th>Teléfono</th><th>Extensión</th><th>IP</th><th>Estatus</th><th>Observaciones</th><th>Acciones</th></tr></thead>
       <tbody>${rows.length?rows.map(v=>`<tr>
-        <td><strong>${v.nombre}</strong></td><td>${v.correo}</td><td>${v.telefono}</td><td>${v.ext}</td><td>${v.ip||"Sin asignar"}</td><td>${v.observaciones||"Sin observaciones"}</td>
+        <td><strong>${v.nombre}</strong></td><td>${v.correo}</td><td>${v.telefono}</td><td>${v.ext}</td><td>${v.ip||"Sin asignar"}</td><td>${badgeEstatus(v.estatus||"Registrada")}</td><td>${v.observaciones||"Sin observaciones"}</td>
         <td><div class="actions-cell">
           ${actionBtn("eye","Ver detalle",`verVpn('${v.id}')`)}
           ${actionBtn("edit","Editar",`editarVpn('${v.id}')`,"warning")}
+          ${actionBtn("refresh","Cambiar estatus",`abrirCambiarEstatus('vpns','${v.id}')`)}
           ${actionBtn("key","Asignar IP",`asignarIpVpn('${v.id}')`)}
           ${actionBtn("clock","Bitácora",`abrirBitacora('vpns','${v.id}')`)}
           ${actionBtn("trash","Eliminar",`eliminarVpn('${v.id}')`,"danger")}
-        </div></td></tr>`).join(""):`<tr><td colspan="7" class="empty-state">No hay solicitudes de VPN.</td></tr>`}</tbody>
+        </div></td></tr>`).join(""):`<tr><td colspan="8" class="empty-state">No hay solicitudes de VPN.</td></tr>`}</tbody>
     </table></div>
     ${paginationFoot(rows.length,"solicitudes de VPN")}
   </article>`;
@@ -3218,7 +3245,7 @@ function guardarVpn(editId){
   const sol = findIn(state.data.solicitantes, state.editing.selectedSolicitanteId);
   const payload={nombre:nombreCompleto(sol),correo:sol.correo,telefono:sol.telefono,solicitanteId:sol.id,ext:$("#fVpnExt").value||sol.ext||"",observaciones:$("#fVpnObs").value,fecha:v?.fecha||todayStr()};
   if(v){ Object.assign(v,payload); logBitacora(v,"Actualización de la solicitud de VPN"); toast("Solicitud de VPN actualizada."); }
-  else { const nv={id:uid("VPN"),...payload,ip:"",bitacora:[]}; state.data.vpns.push(nv); logBitacora(nv,"Registro de solicitud de VPN"); toast("Solicitud de VPN registrada."); }
+  else { const nv={id:uid("VPN"),...payload,ip:"",estatus:"Registrada",bitacora:[]}; state.data.vpns.push(nv); logBitacora(nv,"Registro de solicitud de VPN"); toast("Solicitud de VPN registrada."); }
   navigate("vpn");
 }
 function abrirSolicitudVpn(editId){ state.editing.vpnId=editId||null; navigate("vpn-form"); }
@@ -3227,13 +3254,20 @@ function verVpn(id){
   const v = findIn(state.data.vpns,id);
   openModal({title:v.nombre, confirm:"Cerrar", body:`<div class="detail-grid">
     <div><span>Correo</span><strong>${v.correo}</strong></div><div><span>Teléfono</span><strong>${v.telefono} ext. ${v.ext}</strong></div>
-    <div><span>IP</span><strong>${v.ip||"Sin asignar"}</strong></div><div><span>Observaciones</span><strong>${v.observaciones||"Sin observaciones"}</strong></div>
+    <div><span>IP</span><strong>${v.ip||"Sin asignar"}</strong></div><div><span>Estatus</span><strong>${v.estatus||"Registrada"}</strong></div><div><span>Observaciones</span><strong>${v.observaciones||"Sin observaciones"}</strong></div>
   </div>`, onConfirm:closeModal});
 }
 function asignarIpVpn(id){
   const v = findIn(state.data.vpns,id);
-  openModal({title:"Asignar IP", confirm:"Guardar", body:fieldIp("IP o grupo de IP","fVpnIp",v.ip),
-    onConfirm:()=>{ if(!validateFields([{id:"fVpnIp",label:"IP",type:"ip",required:false}])) return; v.ip=$("#fVpnIp").value; logBitacora(v,v.ip?`IP asignada: ${v.ip}`:"IP retirada"); closeModal(); toast("IP asignada."); renderVpn(); }});
+  const est = v.estatus||"Registrada";
+  if(est==="Registrada"){ toast("Primero autoriza la solicitud (Cambiar estatus → Autorizada) para poder asignar la IP.","error"); return; }
+  if(["Revocada","Rechazada"].includes(est)){ toast(`La solicitud está ${est.toLowerCase()}; no se puede asignar IP.`,"error"); return; }
+  openModal({title:"Asignar IP", subtitle:est==="Autorizada"?"Al guardar, la solicitud pasará automáticamente a Activa.":"Cambio de IP de un acceso activo.", confirm:"Guardar", body:fieldIp("IP o grupo de IP","fVpnIp",v.ip,{required:true}),
+    onConfirm:()=>{
+      if(!validateFields([{id:"fVpnIp",label:"IP",type:"ip",required:true}])) return;
+      v.ip=$("#fVpnIp").value; logBitacora(v,`IP asignada: ${v.ip}`);
+      if(est==="Autorizada") aplicarEstatus("vpns",v,"Activa","",true);
+      closeModal(); toast(est==="Autorizada"?"IP asignada. La VPN quedó Activa.":"IP actualizada."); renderVpn(); }});
 }
 function eliminarVpn(id){
   openModal({title:"Eliminar solicitud de VPN", confirmClass:"danger", confirm:"Eliminar",
@@ -3264,19 +3298,21 @@ function renderServidores(){
     <div class="datatable-toolbar"><div class="entries-control">Mostrar <select><option>10</option></select> registros</div>
       <div class="datatable-actions">${searchBox("servidoresSearch","Buscar registros",term)}</div></div>
     <div class="table-wrap"><table>
-      <thead><tr><th>Tipo</th><th>IP del Servidor</th><th>Dependencia</th><th>Solicitante</th><th>Sistema Operativo</th><th>Antivirus</th><th>Fecha</th><th>Acciones</th></tr></thead>
+      <thead><tr><th>Tipo</th><th>IP del Servidor</th><th>Dependencia</th><th>Solicitante</th><th>Sistema Operativo</th><th>Antivirus</th><th>Estatus</th><th>Fecha</th><th>Acciones</th></tr></thead>
       <tbody>${rows.length?rows.map(s=>`<tr>
         <td><span class="badge ${s.tipoServidor==="Físico"?"review":"approved"}">${s.tipoServidor||"Virtual"}</span></td>
         <td><strong>${s.ip||"Por asignar"}</strong>${s.servidorAlojamiento&&s.tipoServidor!=="Físico"?`<span class="subtext">Host: ${s.servidorAlojamiento}</span>`:""}</td>
         <td>${s.dependencia}</td><td>${s.solicitante}</td><td>${s.so||"-"}</td>
         <td>${s.antivirus==="Sí"?`${checkIcon(true)} <span class="subtext" style="display:inline">${s.antivirusNombre||""}</span>`:checkIcon(false)}</td>
+        <td>${badgeEstatus(s.estatus||"Registrado")}</td>
         <td>${s.fecha}</td>
         <td><div class="actions-cell">
           ${actionBtn("eye","Ver detalle",`verServidor('${s.id}')`)}
+          ${actionBtn("refresh","Cambiar estatus",`abrirCambiarEstatus('servidoresSolicitudes','${s.id}')`)}
           ${actionBtn("edit","Editar",`state.editing.servidorId='${s.id}';navigate('servidores-form')`,"warning")}
           ${actionBtn("clock","Bitácora",`abrirBitacora('servidoresSolicitudes','${s.id}')`)}
           ${actionBtn("trash","Eliminar",`eliminarServidor('${s.id}')`,"danger")}
-        </div></td></tr>`).join(""):`<tr><td colspan="8" class="empty-state">No hay servidores registrados.</td></tr>`}</tbody>
+        </div></td></tr>`).join(""):`<tr><td colspan="9" class="empty-state">No hay servidores registrados.</td></tr>`}</tbody>
     </table></div>
     ${paginationFoot(rows.length,"servidores")}
   </article>`;
@@ -3290,6 +3326,7 @@ function verServidor(id){
   ];
   openModal({title:servidorLabel(s), subtitle:`${s.dependencia} · ${s.solicitante}`, size:"large", confirm:"Cerrar", body:`<div class="detail-grid">
     <div><span>Tipo de Servidor</span><strong>${s.tipoServidor||"Virtual"}</strong></div>
+    <div><span>Estatus</span><strong>${s.estatus||"Registrado"}</strong></div>
     <div><span>IP del Servidor</span><strong>${s.ip||"Por asignar"}</strong></div>
     <div><span>No. de Oficio</span><strong>${s.oficio||"-"}</strong></div>
     <div><span>CPUs / Memoria / Almacenamiento</span><strong>${s.cpu||"-"} CPU · ${s.memoria||"-"} GB · ${s.disco||"-"} GB</strong></div>
@@ -3386,8 +3423,98 @@ function guardarServidor(editId){
     fecha:prev?.fecha||todayStr(), anexos:prev?.anexos||0
   };
   if(prev){ Object.assign(prev,payload); logBitacora(prev,"Actualización de datos del servidor"); toast("Servidor actualizado."); }
-  else { state.data.servidoresSolicitudes.push({id:uid("SRV"),...payload,bitacora:[]}); logBitacora(state.data.servidoresSolicitudes.at(-1),`Registro del servidor ${tipo.toLowerCase()}`); toast("Servidor registrado."); }
+  else { state.data.servidoresSolicitudes.push({id:uid("SRV"),...payload,estatus:"Registrado",bitacora:[]}); logBitacora(state.data.servidoresSolicitudes.at(-1),`Registro del servidor ${tipo.toLowerCase()}`); toast("Servidor registrado."); }
   navigate("servidores");
+}
+
+
+/* ================= Estatus por módulo: flujo, transiciones válidas y acción "Cambiar estatus" =================
+   Cada estado define a cuáles puede pasar (next), cuándo se da (cuando) y si pide motivo.
+   Los estados marcados "auto" los pone el propio sistema al ocurrir un evento (asignar IP, subir evidencias). */
+const FLUJOS_ESTATUS = {
+  vpns:{ nombre:"Solicitud de VPN", render:()=>renderVpn(), orden:["Registrada","Autorizada","Activa","Revocada","Rechazada"], estados:{
+    "Registrada":{cuando:"Al guardar la solicitud de VPN.", next:["Autorizada","Rechazada"]},
+    "Autorizada":{cuando:"El responsable aprueba el acceso; ya se le puede asignar IP.", next:["Rechazada"]},
+    "Activa":{cuando:"Automático al asignar la IP o grupo de IP: el acceso queda operando.", next:["Revocada"], auto:true},
+    "Revocada":{cuando:"Se retira el acceso (baja del servidor público, término del proyecto, etc.).", next:["Autorizada"], motivo:true, final:true},
+    "Rechazada":{cuando:"La solicitud no procede.", next:[], motivo:true, final:true}
+  }},
+  dominios:{ nombre:"Dominio / Subdominio", render:()=>renderDominios(), orden:["Registrado","Validado","Autorizado","Notificado","Rechazado","Dado de baja"], estados:{
+    "Registrado":{cuando:"Al capturar la solicitud recibida por oficio.", next:["Validado","Rechazado"]},
+    "Validado":{cuando:"Se revisó que el nombre esté disponible y los datos del oficio sean correctos.", next:["Autorizado","Rechazado"]},
+    "Autorizado":{cuando:"El titular del área aprueba la publicación.", next:["Notificado","Rechazado"]},
+    "Notificado":{cuando:"Ya tiene IP y se notificó a la dependencia (oficio de respuesta).", next:["Dado de baja"], requiere:r=>r.ip?"":"Para notificar, primero asigna la IP (acción \"Asignar IP/NAT\")."},
+    "Rechazado":{cuando:"La solicitud no procede.", next:[], motivo:true, final:true},
+    "Dado de baja":{cuando:"El dominio/subdominio se retira de operación.", next:[], motivo:true, final:true}
+  }},
+  servidoresSolicitudes:{ nombre:"Servidor", render:()=>renderServidores(), orden:["Registrado","En aprovisionamiento","En operación","En mantenimiento","Dado de baja","Rechazado"], estados:{
+    "Registrado":{cuando:"Al capturar la solicitud del servidor.", next:["En aprovisionamiento","Rechazado"]},
+    "En aprovisionamiento":{cuando:"Infraestructura prepara e instala el servidor (recursos, sistema operativo, antivirus).", next:["En operación","Rechazado"]},
+    "En operación":{cuando:"El servidor tiene IP y ya da servicio.", next:["En mantenimiento","Dado de baja"], requiere:r=>r.ip?"":"Para ponerlo en operación, primero captura la IP del servidor (Editar)."},
+    "En mantenimiento":{cuando:"Fuera de servicio temporalmente (parches, migración, falla).", next:["En operación","Dado de baja"], motivo:true},
+    "Dado de baja":{cuando:"El servidor se retira definitivamente.", next:[], motivo:true, final:true},
+    "Rechazado":{cuando:"La solicitud del servidor no procede.", next:[], motivo:true, final:true}
+  }},
+  actasSeguridad:{ nombre:"Protocolo de Seguridad", render:()=>renderActasSeguridad(), orden:["Registrado","En evaluación","Con observaciones","Aprobado","Acta firmada","No aprobado"], estados:{
+    "Registrado":{cuando:"Al capturar la solicitud de evaluación.", next:["En evaluación"]},
+    "En evaluación":{cuando:"Automático al subir el primer escaneo con evidencias (o manual al iniciar el análisis).", next:["Con observaciones","Aprobado","No aprobado"]},
+    "Con observaciones":{cuando:"El análisis encontró hallazgos que la dependencia debe corregir.", next:["En evaluación","No aprobado"], motivo:true, resultado:"Con observaciones"},
+    "Aprobado":{cuando:"El análisis no tiene hallazgos que impidan la publicación.", next:["Acta firmada"], resultado:"Aprobado"},
+    "Acta firmada":{cuando:"El acta impresa fue firmada por los firmantes del departamento.", next:[], final:true},
+    "No aprobado":{cuando:"El servicio no puede publicarse.", next:["En evaluación"], motivo:true, resultado:"Rechazado", final:true}
+  }},
+  incidentes:{ nombre:"Incidente de Seguridad", render:()=>renderIncidentesSeguridad(), orden:["Abierto","En análisis","Contenido","Erradicado","Resuelto","Cerrado","Descartado"], estados:{
+    "Abierto":{cuando:"Al registrar el incidente.", next:["En análisis","Descartado"]},
+    "En análisis":{cuando:"Se investiga el alcance, la causa y el activo afectado.", next:["Contenido","Descartado"]},
+    "Contenido":{cuando:"Se detuvo la propagación o el daño (aislamiento, bloqueo).", next:["Erradicado","En análisis"]},
+    "Erradicado":{cuando:"Se eliminó la causa raíz (malware, cuenta comprometida, vulnerabilidad).", next:["Resuelto"]},
+    "Resuelto":{cuando:"El servicio se recuperó y opera con normalidad.", next:["Cerrado","En análisis"]},
+    "Cerrado":{cuando:"Revisión final concluida y lecciones aprendidas documentadas.", next:["En análisis"], motivo:true, final:true},
+    "Descartado":{cuando:"No era un incidente real (falso positivo).", next:[], motivo:true, final:true}
+  }}
+};
+const REAPERTURA = {incidentes:["Cerrado","Resuelto"], actasSeguridad:["No aprobado","Con observaciones"], vpns:["Revocada"]};
+function estatusActual(col,reg){ return reg.estatus || FLUJOS_ESTATUS[col].orden[0]; }
+function aplicarEstatus(col,reg,nuevo,obs="",auto=false){
+  const prev = estatusActual(col,reg);
+  reg.estatus = nuevo;
+  const def = FLUJOS_ESTATUS[col].estados[nuevo];
+  if(def?.resultado) reg.resultado = def.resultado;
+  logBitacora(reg, `${auto?"Cambio automático de estatus":"Cambio de estatus"}: ${prev} → ${nuevo}`, obs);
+}
+function flujoChips(col,actual){
+  const f=FLUJOS_ESTATUS[col];
+  return `<div class="st-flow">${f.orden.map(e=>`<span class="st-chip ${e===actual?"current":""} ${f.estados[e].final?"final":""}">${e}</span>`).join("")}</div>`;
+}
+function abrirCambiarEstatus(col,id){
+  const f=FLUJOS_ESTATUS[col]; const reg=findIn(state.data[col],id); if(!reg) return;
+  const actual=estatusActual(col,reg);
+  const def=f.estados[actual]||{next:[]};
+  const opciones=def.next.filter(n=>!f.estados[n].auto);
+  const autoSig=def.next.filter(n=>f.estados[n].auto);
+  const titulo=(BITACORA_TITULOS[col]?.[1]||(()=>""))(reg);
+  const body = `
+    <div class="st-current"><span>Estatus actual</span>${badgeEstatus(actual)}<small>${def.cuando||""}</small></div>
+    ${flujoChips(col,actual)}
+    ${opciones.length?`<p class="st-label">Cambiar a:</p><div class="st-options">${opciones.map((n,i)=>`<label class="st-option"><input type="radio" name="stNuevo" value="${n}" ${i===0?"checked":""}><span><strong>${n}${REAPERTURA[col]?.includes(actual)&&f.orden.indexOf(n)<f.orden.indexOf(actual)?" (reapertura)":""}</strong><small>${f.estados[n].cuando}</small></span></label>`).join("")}</div>
+      <div class="field" style="margin-top:14px"><label for="stObs">Observación <span id="stObsReq" class="required-mark" hidden>*</span></label><textarea id="stObs" rows="3" placeholder="Motivo o comentario del cambio"></textarea></div>`
+    : `<div class="inline-note" style="margin:10px 0 0">${autoSig.length?`El siguiente estatus (<strong>${autoSig.join(", ")}</strong>) lo asigna el sistema automáticamente: ${f.estados[autoSig[0]].cuando}`:"Este es un estatus final: ya no admite más cambios."}</div>`}
+    ${autoSig.length&&opciones.length?`<p class="st-auto-note">${icon("refresh")} <strong>${autoSig.join(", ")}</strong> se asigna automáticamente: ${f.estados[autoSig[0]].cuando}</p>`:""}`;
+  openModal({title:"Cambiar estatus", subtitle:`${f.nombre} · ${titulo}`, size:"large", confirm:opciones.length?"Cambiar estatus":"Cerrar", body,
+    onConfirm:()=>{
+      if(!opciones.length){ closeModal(); return; }
+      const nuevo=$('input[name="stNuevo"]:checked')?.value; if(!nuevo) return;
+      const nd=f.estados[nuevo]; const obs=$("#stObs").value.trim();
+      const bloqueo = nd.requiere?nd.requiere(reg):"";
+      if(bloqueo){ toast(bloqueo,"error"); return; }
+      const esReapertura = REAPERTURA[col]?.includes(actual) && f.orden.indexOf(nuevo)<f.orden.indexOf(actual);
+      if((nd.motivo||esReapertura) && !obs){ markFieldError($("#stObs"),"Escribe el motivo de este cambio."); toast("Este cambio requiere una observación.","error"); return; }
+      aplicarEstatus(col,reg,nuevo,obs);
+      closeModal(); toast(`Estatus actualizado: ${actual} → ${nuevo}.`);
+      (renderers[state.view]||f.render)();
+    }});
+  const sync=()=>{ const n=$('input[name="stNuevo"]:checked')?.value; const req=$("#stObsReq"); if(req&&n){ const esRe=REAPERTURA[col]?.includes(actual)&&f.orden.indexOf(n)<f.orden.indexOf(actual); req.hidden=!(f.estados[n].motivo||esRe); } };
+  $$('input[name="stNuevo"]').forEach(r=>r.onchange=sync); sync();
 }
 
 /* ================= Bitácora genérica (todos los módulos) ================= */
@@ -3540,6 +3667,7 @@ function renderActasSeguridad(){
         <td><div class="actions-cell">
           ${actionBtn("eye","Ver detalle",`verActa('${a.id}')`)}
           ${actionBtn("edit","Editar",`state.editing.actaId='${a.id}';navigate('actas-seguridad-form')`,"warning")}
+          ${actionBtn("refresh","Cambiar estatus",`abrirCambiarEstatus('actasSeguridad','${a.id}')`)}
           ${actionBtn("upload","Subir evidencias",`abrirEvidencias('acta','${a.id}')`,"success")}
           ${actionBtn("print","Imprimir",`state.editing.actaId='${a.id}';navigate('actas-seguridad-print')`,"success")}
           ${actionBtn("clock","Bitácora",`abrirBitacora('actasSeguridad','${a.id}')`)}
@@ -3691,6 +3819,7 @@ function guardarNuevoEscaneo(){
   entidad.escaneos = entidad.escaneos || [];
   entidad.escaneos.push({id:uid("SCAN"), fecha, hora:nowTime(), evidencias:[...draft.evidencias]});
   entidad.bitacora.push({fecha:todayStr(),hora:nowTime(),usuario:"Administrador",movimiento:"Nuevo escaneo con evidencia registrado",obs:`${draft.evidencias.length} archivo(s)`});
+  if(entidad.oficio!==undefined && (entidad.estatus||"Registrado")==="Registrado" && state.data.actasSeguridad.includes(entidad)) aplicarEstatus("actasSeguridad",entidad,"En evaluación","Primer escaneo con evidencias",true);
   toast("Escaneo registrado con su evidencia.");
   state.editing.nuevoEscaneoDraft = {evidencias:[]};
   renderEvidenciasModal();
@@ -4536,6 +4665,7 @@ function renderIncidentesSeguridad(){
         <td><div class="actions-cell">
           ${actionBtn("eye","Ver detalle",`verIncidente('${i.id}')`)}
           ${actionBtn("edit","Editar",`state.editing.incidenteId='${i.id}';navigate('incidentes-seguridad-form')`,"warning")}
+          ${actionBtn("refresh","Cambiar estatus",`abrirCambiarEstatus('incidentes','${i.id}')`)}
           ${actionBtn("upload","Subir evidencias",`abrirEvidencias('incidente','${i.id}')`,"success")}
           ${actionBtn("clock","Bitácora",`abrirBitacora('incidentes','${i.id}')`)}
           ${actionBtn("trash","Eliminar",`eliminarIncidente('${i.id}')`,"danger")}
@@ -4597,7 +4727,7 @@ function renderIncidenteForm(editId){
       ${fieldInput("Folio","fIncFolio",inc?.folio||("INC-2026-"+String(state.data.incidentes.length+1).padStart(3,"0")))}
       ${fieldInput("Fecha de detección","fIncFecha",inc?.fechaDeteccion,"date")}
       ${fieldSelect("Tipo de Incidente","fIncTipo",catNames("cat-tipo-incidente"),inc?.tipoIncidente)}
-      ${fieldSelect("Estatus","fIncEstatus",["Abierto","En análisis","Contenido","Erradicado","Resuelto","Cerrado"],inc?.estatus||"Abierto")}
+      ${fieldInput(inc?"Estatus (se cambia con la acción Cambiar estatus)":"Estatus inicial","fIncEstatus",inc?.estatus||"Abierto","text","disabled")}
       ${fieldTextarea("Descripción del incidente","fIncDescripcion",inc?.descripcion)}
     </div>
     <h2 style="font-size:15px;margin:22px 0 12px">Activo Afectado</h2>
@@ -4645,7 +4775,7 @@ function guardarIncidente(editId){
   if(!ok) return;
   const payload = {
     folio:$("#fIncFolio").value, fechaDeteccion:$("#fIncFecha").value, tipoIncidente:$("#fIncTipo").value,
-    estatus:$("#fIncEstatus").value, descripcion:$("#fIncDescripcion").value,
+    estatus:(editId?findIn(state.data.incidentes,editId)?.estatus:null)||"Abierto", descripcion:$("#fIncDescripcion").value,
     dominioId:$("#fIncDominio").value||null, servidorId:$("#fIncServidor").value||null,
     activoId:state.editing.activoIncidenteId||"", solicitanteId:state.editing.selectedSolicitanteId
   };
