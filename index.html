@@ -1450,13 +1450,7 @@ const state = {
       {id:uid("SOL"),curp:"HEML881125HTLRRS03",numEmpleado:"11045",nombre:"Miguel",apPaterno:"Hernández",apMaterno:"López",puesto:"Enlace de Tecnología",telefono:"8343456789",ext:"1420",correo:"miguel.hernandez@tam.gob.mx",dependencia:"Secretaría de Administración",secretaria:"Secretaría de Administración",subsecretaria:"Subsecretaría de Recursos Materiales",direccionGeneral:"Dirección General de Adquisiciones",direccionArea:"Dirección de Área de Compras",departamento:"Departamento de Licitaciones",municipio:"Victoria",area:"Departamento de Licitaciones"}
     ],
     historial:{},
-    solicitudes:[
-      {id:uid("REQ"),dependencia:"Secretaría de Educación",area:"Prestaciones",solicitante:"Laura González Ramírez",tipo:"Dominio",fecha:"04/04/2026",estatus:"Validado"},
-      {id:uid("REQ"),dependencia:"Secretaría de Finanzas",area:"Dirección de Sistemas",solicitante:"Juan Pérez Pérez",tipo:"Base de Datos",fecha:"09/06/2026",estatus:"Autorizado"},
-      {id:uid("REQ"),dependencia:"Secretaría de Administración",area:"Informática",solicitante:"Miguel Hernández López",tipo:"Sitio Web",fecha:"16/06/2026",estatus:"Notificado"},
-      {id:uid("REQ"),dependencia:"Secretaría de Seguridad Pública",area:"Tecnología",solicitante:"Ana Torres Salinas",tipo:"VPN",fecha:"22/06/2026",estatus:"Registrado"},
-      {id:uid("REQ"),dependencia:"Secretaría de Obras Públicas",area:"Infraestructura",solicitante:"Ricardo Salas Peña",tipo:"Servidor",fecha:"01/07/2026",estatus:"Autorizado"}
-    ],
+    solicitudes:[], // ya no se usa: la bandeja de Solicitudes se arma con los módulos
     sitiosWeb:[
       {id:uid("SW"),nombre:"Sitio Oficial del Gobierno del Estado de Tamaulipas",url:"www.tamaulipas.gob.mx",estatus:"Activo",enlace:"Usuario 1",correo:"usuario1@tam.gob.mx",telefono:"8341234567",fecha:"20/09/2025",wordpress:"5.2",tema:"GobTam 2026",servidor:"Multisite",bitacora:[{fecha:"20/09/2025",hora:"10:00",usuario:"Administrador",movimiento:"Registro",obs:"Alta de sitio"}]},
       {id:uid("SW"),nombre:"Portal de Transparencia",url:"transparencia.tamaulipas.gob.mx",estatus:"Activo",enlace:"Usuario 2",correo:"transparencia@tam.gob.mx",telefono:"8342223344",fecha:"12/03/2026",wordpress:"4.0",tema:"Transparencia",servidor:"Servidor dedicado",bitacora:[]},
@@ -2659,13 +2653,11 @@ function guardarSolicitante(editId){
 function renderHistorial(solicitanteId){
   const s = findIn(state.data.solicitantes,solicitanteId);
   if(!s){ navigate("solicitantes"); return; }
-  const rowsReales = getHistorialForSolicitante(solicitanteId);
-  const rowsDemo = state.data.solicitudes.filter(r=>r.solicitante.includes(s.nombre)||r.solicitante.includes(s.apPaterno)).map(r=>({tipo:r.tipo,fecha:r.fecha,estatus:r.estatus,area:r.dependencia,view:null}));
-  const rows = [...rowsReales, ...rowsDemo];
+  const rows = solicitudesConsolidadas().filter(r=>r.solicitanteId===solicitanteId).map(r=>({tipo:r.tipo,fecha:r.fecha,estatus:r.estatus,area:r.registro,view:r.view,ver:r.ver}));
   content.innerHTML = `
   ${breadcrumb([{label:"Lista de Solicitantes",view:"solicitantes"},{label:"Ver detalle"}])}
   <div class="page-header"><div><h1>Historial de solicitudes</h1><p>Todas las solicitudes presentadas por este solicitante en cualquier módulo.</p></div>
-    <div class="page-actions"><button class="button secondary" onclick="exportTable('historial-${s.nombre}',['Tipo de Solicitud','Fecha','Estatus','Área responsable'],${JSON.stringify(rows.map(r=>[r.tipo,r.fecha,r.estatus,r.area]))})">${icon("download")} Exportar a Excel</button></div>
+    <div class="page-actions"><button class="button secondary" onclick="exportTable('historial-${s.nombre}',['Tipo de Solicitud','Fecha','Estatus','Registro'],${JSON.stringify(rows.map(r=>[r.tipo,r.fecha,r.estatus,r.area]))})">${icon("download")} Exportar a Excel</button></div>
   </div>
   <article class="card">
     <div class="detail-grid cols-4">
@@ -2675,67 +2667,65 @@ function renderHistorial(solicitanteId){
       <div><span>Teléfono</span><strong>${s.telefono}</strong></div>
     </div>
     <div class="table-wrap"><table>
-      <thead><tr><th>Tipo de Solicitud</th><th>Fecha de Solicitud</th><th>Estatus</th><th>Área responsable</th><th>Acciones</th></tr></thead>
+      <thead><tr><th>Tipo de Solicitud</th><th>Fecha de Solicitud</th><th>Estatus</th><th>Registro</th><th>Acciones</th></tr></thead>
       <tbody>${rows.length?rows.map(r=>`<tr><td>${r.tipo}</td><td>${r.fecha}</td><td>${badgeEstatus(r.estatus)}</td><td>${r.area}</td>
-        <td>${r.view?actionBtn("eye","Ver módulo",`navigate('${r.view}')`):actionBtn("eye","Ver",`toast('Solicitud histórica de referencia')`)}</td></tr>`).join(""):`<tr><td colspan="5" class="empty-state">Sin solicitudes registradas para este solicitante.</td></tr>`}</tbody>
+        <td><div class="actions-cell">${actionBtn("eye","Ver detalle",r.ver)}${actionBtn("link","Ir al módulo",`navigate('${r.view}')`)}</div></td></tr>`).join(""):`<tr><td colspan="5" class="empty-state">Sin solicitudes registradas para este solicitante.</td></tr>`}</tbody>
     </table></div>
   </article>
   <div class="page-actions" style="margin-top:18px"><button class="button ghost" onclick="navigate('solicitantes')">&raquo; Regresar</button></div>`;
 }
-/* ================= Solicitudes registradas ================= */
+/* ================= Solicitudes: bandeja consolidada de los módulos de la Fase 1 =================
+   No tiene datos propios: se arma en vivo con los registros de cada módulo, así que todo lo que
+   se registra en VPN, Dominios, Servidores, Protocolos o Incidentes aparece aquí automáticamente. */
+function solicitudesConsolidadas(){
+  const d = state.data;
+  const sol = id=>findIn(d.solicitantes,id);
+  const srv = id=>findIn(d.servidoresSolicitudes,id);
+  const rows = [];
+  d.servidoresSolicitudes.forEach(x=>rows.push({id:x.id, col:"servidoresSolicitudes", view:"servidores", tipo:"Servidor "+(x.tipoServidor||"Virtual"),
+    registro:x.ip||"IP por asignar", dependencia:x.dependencia||"—", solicitante:x.solicitante||"—", solicitanteId:x.solicitanteId,
+    servidor:x.ip||"—", fecha:x.fecha, estatus:"Registrado", ver:`verServidor('${x.id}')`}));
+  d.dominios.forEach(x=>rows.push({id:x.id, col:"dominios", view:"dominios", tipo:x.tipo,
+    registro:x.nombre, dependencia:x.dependencia||"—", solicitante:x.solicitante||"—", solicitanteId:x.solicitanteId,
+    servidor:"—", fecha:x.fecha, estatus:x.estatus||"Registrado", ver:`state.editing.dominioId='${x.id}';navigate('dominios-detalle')`}));
+  d.vpns.forEach(x=>{ const s=sol(x.solicitanteId); rows.push({id:x.id, col:"vpns", view:"vpn", tipo:"VPN",
+    registro:x.ip?`IP ${x.ip}`:"IP por asignar", dependencia:s?.dependencia||"—", solicitante:x.nombre||"—", solicitanteId:x.solicitanteId,
+    servidor:"—", fecha:x.fecha, estatus:x.ip?"IP asignada":"Registrado", ver:`verVpn('${x.id}')`}); });
+  d.actasSeguridad.forEach(x=>rows.push({id:x.id, col:"actasSeguridad", view:"actas-seguridad", tipo:"Protocolo de Seguridad",
+    registro:x.oficio, dependencia:x.secretaria||"—", solicitante:x.contacto||"—", solicitanteId:x.solicitanteId,
+    servidor:srv(x.servidorId)?.ip||"—", fecha:x.fecha, estatus:x.estatus||"Registrado", ver:`verActa('${x.id}')`}));
+  d.incidentes.forEach(x=>{ const s=sol(x.solicitanteId); rows.push({id:x.id, col:"incidentes", view:"incidentes-seguridad", tipo:"Incidente de Seguridad",
+    registro:x.folio, dependencia:s?.dependencia||srv(x.servidorId)?.dependencia||"—", solicitante:s?nombreCompleto(s):"—", solicitanteId:x.solicitanteId,
+    servidor:srv(x.servidorId)?.ip||"—", fecha:x.fechaDeteccion, estatus:x.estatus||"Abierto", ver:`verIncidente('${x.id}')`}); });
+  const fechaKey = r=>{ const f=dxFecha(r.fecha); return f?f.getTime():0; };
+  const role = currentRole();
+  return rows.filter(r=>!role.allowedViews||role.allowedViews.includes(r.view)).sort((a,b)=>fechaKey(b)-fechaKey(a));
+}
 function renderSolicitudes(){
-  const f = state.filters.solicitudes||{dep:"Todos",tipo:"Todos"};
   const term = state.search.solicitudes||"";
-  let rows = state.data.solicitudes.filter(r=>matchesSearch(r,term));
-  if(f.dep&&f.dep!=="Todos") rows = rows.filter(r=>r.dependencia===f.dep);
-  if(f.tipo&&f.tipo!=="Todos") rows = rows.filter(r=>r.tipo===f.tipo);
-  const tipos = ["Dominio","Sitio Web","Base de Datos","VPN","Servidor"];
+  const todas = solicitudesConsolidadas();
+  const rows = todas.filter(r=>matchesSearch(r,term));
   content.innerHTML = `
-  ${breadcrumb([{label:"Inicio",view:"dashboard"},{label:"Lista de Solicitudes Registradas"}])}
-  <div class="page-header"><div><h1>Lista de Solicitudes Registradas</h1><p>Consulta general de todas las solicitudes de servicios de tecnología.</p></div></div>
+  ${breadcrumb([{label:"Inicio",view:"dashboard"},{label:"Solicitudes"}])}
+  <div class="page-header"><div><h1>Solicitudes</h1><p>Bandeja consolidada: reúne en vivo lo registrado en VPN, Dominios y Subdominios, Servidores, Protocolos e Incidentes de Seguridad. Para editar un registro, ábrelo en su módulo.</p></div>
+    <div class="page-actions"><button class="button primary" onclick="abrirNuevaSolicitud()">${icon("plus")} Nueva solicitud</button></div>
+  </div>
   <article class="card table-card">
     <div class="datatable-toolbar"><div class="entries-control">Mostrar <select><option>10</option><option>25</option></select> registros</div>
       <div class="datatable-actions">${searchBox("solicitudesSearch","Buscar registros",term)}</div></div>
     <div class="table-wrap"><table>
-      <thead><tr><th>Dependencia</th><th>Área</th><th>Nombre de Solicitante</th><th>Tipo de solicitud</th><th>Fecha Solicitud</th><th>Estatus</th><th>Acciones</th></tr></thead>
+      <thead><tr><th>Tipo de solicitud</th><th>Registro</th><th>Dependencia</th><th>Solicitante</th><th>Servidor</th><th>Fecha</th><th>Estatus</th><th>Acciones</th></tr></thead>
       <tbody>${rows.length?rows.map(r=>`<tr>
-        <td>${r.dependencia}</td><td>${r.area}</td><td>${r.solicitante}</td><td>${r.tipo}</td><td>${r.fecha}</td><td>${badgeEstatus(r.estatus)}</td>
+        <td>${r.tipo}</td><td><strong>${r.registro}</strong></td><td>${r.dependencia}</td><td>${r.solicitante}</td><td>${r.servidor}</td><td>${r.fecha}</td><td>${badgeEstatus(r.estatus)}</td>
         <td><div class="actions-cell">
-          ${actionBtn("eye","Ver detalle",`verSolicitudRegistrada('${r.id}')`)}
-          ${actionBtn("edit","Editar",`editarSolicitudRegistrada('${r.id}')`,"warning")}
-          ${actionBtn("trash","Eliminar",`eliminarSolicitudRegistrada('${r.id}')`,"danger")}
-        </div></td></tr>`).join(""):`<tr><td colspan="7" class="empty-state">No hay solicitudes con estos criterios.</td></tr>`}</tbody>
+          ${actionBtn("eye","Ver detalle",r.ver)}
+          ${actionBtn("link","Ir al módulo",`navigate('${r.view}')`)}
+          ${actionBtn("clock","Bitácora",`abrirBitacora('${r.col}','${r.id}')`)}
+        </div></td></tr>`).join(""):`<tr><td colspan="8" class="empty-state">${todas.length?"No hay solicitudes que coincidan con la búsqueda.":"Aún no hay solicitudes registradas en los módulos."}</td></tr>`}</tbody>
     </table></div>
     ${paginationFoot(rows.length,"solicitudes")}
   </article>`;
   $("#solicitudesSearch").oninput = e=>{ state.search.solicitudes=e.target.value; renderSolicitudes(); };
-}
-function filtrarSolicitudes(){
-  state.filters.solicitudes = {dep:$("#fSolDep").value, tipo:$("#fSolTipo").value};
-  renderSolicitudes();
-}
-function verSolicitudRegistrada(id){
-  const r = findIn(state.data.solicitudes,id);
-  openModal({title:"Detalle de la solicitud", subtitle:r.tipo, confirm:"Cerrar",
-    body:`<div class="detail-grid">
-      <div><span>Dependencia</span><strong>${r.dependencia}</strong></div>
-      <div><span>Área</span><strong>${r.area}</strong></div>
-      <div><span>Solicitante</span><strong>${r.solicitante}</strong></div>
-      <div><span>Tipo de solicitud</span><strong>${r.tipo}</strong></div>
-      <div><span>Fecha</span><strong>${r.fecha}</strong></div>
-      <div><span>Estatus</span><strong>${r.estatus}</strong></div>
-    </div>`, onConfirm:closeModal});
-}
-function editarSolicitudRegistrada(id){
-  const r = findIn(state.data.solicitudes,id);
-  openModal({title:"Editar estatus de la solicitud", confirm:"Guardar",
-    body:`${fieldSelect("Estatus","fEstatusSol",["Registrado","Validado","Autorizado","Notificado","Rechazado"],r.estatus)}`,
-    onConfirm:()=>{ r.estatus=$("#fEstatusSol").value; closeModal(); toast("Estatus actualizado."); renderSolicitudes(); }});
-}
-function eliminarSolicitudRegistrada(id){
-  openModal({title:"Eliminar solicitud", confirmClass:"danger", confirm:"Eliminar",
-    body:`<p>¿Deseas eliminar esta solicitud del listado?</p>`,
-    onConfirm:()=>{ removeIn(state.data.solicitudes,id); closeModal(); toast("Solicitud eliminada."); renderSolicitudes(); }});
 }
 /* ================= Servicios > Sitios Web ================= */
 function renderSitiosWeb(){
