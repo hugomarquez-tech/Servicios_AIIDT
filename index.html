@@ -681,7 +681,7 @@ tbody tr:hover{background:#FCF8F9}
 .report-preview-meta{display:flex;flex-wrap:wrap;gap:24px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:16px 20px;margin-bottom:18px}
 .report-preview-meta span{font-size:12px;color:var(--muted);display:block}
 .report-preview-meta strong{display:block;font-size:14px;margin-top:3px}
-.login-copy h1.aiidt{font-size:40px}
+.login-copy h1.siid{font-size:40px}
 .filters-bar{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 20px;border-bottom:1px solid var(--line);flex-wrap:wrap}
 .filters-toggle{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:#fff;color:var(--ink);font-weight:700;font-size:12.5px;padding:9px 15px;border-radius:7px;font-family:inherit}
 .filters-toggle:hover{border-color:var(--brand);color:var(--brand)}
@@ -911,6 +911,15 @@ tr.row-selected td{background:#FBF3F5}
 .nav-subitem.phase-off .phase-tag .icon{width:10px;height:10px;display:inline-block}
 .nav-subitem.phase-off:hover{color:#8B8F98;background:#F6F7F8}
 @media (min-width:900px){.page-header>.page-actions{flex-shrink:0;flex-wrap:nowrap}}
+tr.filtered-out{display:none}
+.col-filters .filters-grid{grid-template-columns:repeat(auto-fill,minmax(190px,1fr))}
+.col-filters .filters-actions{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:14px;flex-wrap:wrap}
+.col-filters .filters-result{font-size:12px;color:var(--muted)}
+.col-filters .date-field{grid-column:span 2}
+@media (max-width:640px){.col-filters .date-field{grid-column:auto}}
+.col-filters .date-pair{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.col-filters .date-pair input{min-width:0;padding-left:8px;padding-right:6px;font-size:12px}
+tr.no-match-row td{text-align:center;color:var(--muted);padding:22px}
 .phase-off-card{text-align:center;padding:48px 24px}
 .phase-off-card .phase-icon{width:64px;height:64px;border-radius:50%;background:#F1F2F4;display:grid;place-items:center;margin:0 auto 16px;color:#8B8F98}
 .phase-off-card .phase-icon .icon{width:28px;height:28px}
@@ -954,6 +963,7 @@ tr.row-selected td{background:#FBF3F5}
   <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-2.8 2.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6v.2h-4V21a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1L4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9A1.7 1.7 0 0 0 3 14H2.8v-4H3a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9L4.2 7 7 4.2l.1.1A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-1.6v-.2h4V3a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1L19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1h.2v4H21a1.7 1.7 0 0 0-1.6 1Z"/></symbol>
   <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 14h10l1-14M10 11v6M14 11v6"/></symbol>
   <symbol id="i-ban" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m6 6 12 12"/></symbol>
+  <symbol id="i-filter" viewBox="0 0 24 24"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></symbol>
   <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
   <symbol id="i-more-vertical" viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.6" fill="currentColor"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/><circle cx="12" cy="19" r="1.6" fill="currentColor"/></symbol>
   <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></symbol>
@@ -976,7 +986,7 @@ tr.row-selected td{background:#FBF3F5}
   <div class="login-panel">
     <div class="login-copy">
       <p class="login-kicker">Agencia de Innovación e Inteligencia Digital de Tamaulipas</p>
-      <h1 class="aiidt">Hola,<br><strong>Bienvenido</strong></h1>
+      <h1 class="siid">Hola,<br><strong>Bienvenido</strong></h1>
       <p>Te encuentras en la plataforma de <strong>Servicios SIID</strong>, el sistema de gestión de servicios de tecnología (sitios web, dominios, bases de datos, servidores, VPN e inventarios). Ingresa tus credenciales institucionales para continuar.</p>
       <p class="help-copy">Si necesitas ayuda para ingresar, contacta al equipo de Soporte TI de SIID.</p>
     </div>
@@ -985,7 +995,7 @@ tr.row-selected td{background:#FBF3F5}
       <input id="loginEmail" type="email" value="administrador@tamaulipas.gob.mx" autocomplete="username">
       <label for="loginPassword">Contraseña</label>
       <div class="password-wrap">
-        <input id="loginPassword" type="password" value="Aiidt2026" autocomplete="current-password">
+        <input id="loginPassword" type="password" value="Siid2026" autocomplete="current-password">
         <button class="icon-button" id="togglePassword" type="button" aria-label="Mostrar contraseña"><svg class="icon"><use href="#i-eye"/></svg></button>
       </div>
       <p class="form-error" id="loginError" hidden>Ingresa usuario y contraseña.</p>
@@ -1737,7 +1747,7 @@ function quitarIpWan(idx){
 
 /* ================= Borradores (autoguardado local para no perder el avance) ================= */
 const DRAFT_FORMS = ["actas-seguridad-form","incidentes-seguridad-form"];
-function draftKey(view){ return "aiidt_borrador_"+view; }
+function draftKey(view){ return "siid_borrador_"+view; }
 function currentEditingIdForDraft(view){
   return view==="actas-seguridad-form" ? state.editing.actaId : state.editing.incidenteId;
 }
@@ -2106,7 +2116,7 @@ $("#logoutButton").onclick = ()=>openModal({
 });
 $("#helpButton").onclick = ()=>openModal({
   title:"Centro de ayuda", subtitle:"Soporte para el sistema Servicios SIID", confirm:"Cerrar",
-  body:`<div class="alert-list"><span>Guía de registro de solicitantes y solicitudes</span><span>Manual de gestión de dominios, sitios web y bases de datos</span><span>Soporte técnico: soporte.aiidt@tamaulipas.gob.mx</span></div>`,
+  body:`<div class="alert-list"><span>Guía de registro de solicitantes y solicitudes</span><span>Manual de gestión de dominios, sitios web y bases de datos</span><span>Soporte técnico: soporte.siid@tamaulipas.gob.mx</span></div>`,
   onConfirm:closeModal
 });
 $("#notificationsButton").onclick = ()=>openModal({
@@ -2581,12 +2591,6 @@ function renderSolicitudes(){
   ${breadcrumb([{label:"Inicio",view:"dashboard"},{label:"Lista de Solicitudes Registradas"}])}
   <div class="page-header"><div><h1>Lista de Solicitudes Registradas</h1><p>Consulta general de todas las solicitudes de servicios de tecnología.</p></div></div>
   <article class="card table-card">
-    ${filtersBlock("filtersSolicitudes",`
-      ${fieldSelect("Dependencia","fSolDep",["Todos",...depNames()],f.dep)}
-      ${fieldSelect("Tipo de Solicitud","fSolTipo",["Todos",...tipos],f.tipo)}
-      ${fieldInput("Desde Fecha Solicitud","fSolDesde","","date")}
-      ${fieldInput("Hasta Fecha Solicitud","fSolHasta","","date")}
-    `,{onSearch:"filtrarSolicitudes()"})}
     <div class="datatable-toolbar"><div class="entries-control">Mostrar <select><option>10</option><option>25</option></select> registros</div>
       <div class="datatable-actions">${searchBox("solicitudesSearch","Buscar registros",term)}</div></div>
     <div class="table-wrap"><table>
@@ -2640,11 +2644,6 @@ function renderSitiosWeb(){
     <div class="page-actions"><button class="button primary" onclick="state.editing.sitioId=null;navigate('sitios-web-form')">${icon("plus")} Solicitar Sitio Web</button></div>
   </div>
   <article class="card table-card">
-    ${filtersBlock("filtersSitios",`
-      ${fieldSelect("Estatus","fSwEstatus",["Todos","Activo","Inactivo"])}
-      ${fieldInput("Desde Fecha Solicitud","fSwDesde","","date")}
-      ${fieldInput("Hasta Fecha Solicitud","fSwHasta","","date")}
-    `)}
     <div class="datatable-toolbar">
       <div class="entries-control">Mostrar <select><option>10</option></select> registros</div>
       <div class="bulk-actions-select"><label for="fSwLote">Acciones en lote</label><select id="fSwLote"><option>Seleccione</option><option>Cambiar estatus</option><option>Act. Versión de WordPress</option></select></div>
@@ -2772,7 +2771,7 @@ function renderDominios(){
   if(f.estatus!=="Todos") rows = rows.filter(d=>d.estatus===f.estatus);
   if(f.tipo!=="Todos") rows = rows.filter(d=>d.tipo===f.tipo);
   content.innerHTML = `
-  ${breadcrumb([{label:"Servicios"},{label:"Solicitudes Dominio y Subdominio"}])}
+  ${breadcrumb([{label:"Servicios"},{label:"Dominios y Subdominios"}])}
   <div class="page-header"><div><h1>Dominios y Subdominios</h1><p>Registra las solicitudes (comúnmente por oficio) de subdominios. Agrega un Dominio solo la primera vez, para que aparezca como dominio base al agregar subdominios.</p></div>
     <div class="page-actions">
       <button class="button secondary" onclick="state.editing.dominioTipo='Dominio';state.editing.dominioId=null;navigate('dominios-form')">${icon("globe")} Agregar Dominio</button>
@@ -2780,19 +2779,12 @@ function renderDominios(){
     </div>
   </div>
   <article class="card table-card">
-    ${filtersBlock("filtersDominios",`
-      ${fieldSelect("Dependencia","fDomDep",["Todos",...depNames()],f.dep)}
-      ${fieldSelect("Estatus","fDomEst",["Todos","Registrado","Validado","Autorizado","Notificado"],f.estatus)}
-      ${fieldSelect("Tipo","fDomTipo",["Todos","Dominio","Subdominio"],f.tipo)}
-      ${fieldInput("Desde Fecha Solicitud","fDomDesde","","date")}
-      ${fieldInput("Hasta Fecha Solicitud","fDomHasta","","date")}
-    `,{onSearch:"filtrarDominios()"})}
     <div class="datatable-toolbar"><div class="entries-control">Mostrar <select><option>10</option></select> registros</div>
       <div class="datatable-actions">${searchBox("dominiosSearch","Buscar registros",term)}</div></div>
     <div class="table-wrap"><table>
-      <thead><tr><th>Dependencia</th><th>Dominio y/o Subdominio</th><th>Solicitante</th><th>Estatus</th><th>Fecha Solicitud</th><th>IP</th><th>NAT</th><th>SCAN</th><th>Anexos</th><th>Acciones</th></tr></thead>
+      <thead><tr><th>Tipo</th><th>Dominio y/o Subdominio</th><th>Dependencia</th><th>Solicitante</th><th>Estatus</th><th>Fecha Solicitud</th><th>IP</th><th>NAT</th><th>SCAN</th><th>Anexos</th><th>Acciones</th></tr></thead>
       <tbody>${rows.length?rows.map(d=>`<tr>
-        <td>${d.dependencia}</td><td><strong>${d.nombre}</strong><span class="subtext">${d.tipo}</span></td><td>${d.solicitante}</td><td>${badgeEstatus(d.estatus)}</td><td>${d.fecha}</td>
+        <td><span class="badge ${d.tipo==="Dominio"?"review":"neutral"}">${d.tipo}</span></td><td><strong>${d.nombre}</strong></td><td>${d.dependencia}</td><td>${d.solicitante}</td><td>${badgeEstatus(d.estatus)}</td><td>${d.fecha}</td>
         <td class="checkbox-cell">${checkIcon(!!d.ip)}</td><td class="checkbox-cell">${checkIcon(!!d.nat)}</td><td class="checkbox-cell">${checkIcon(!!d.scan)}</td>
         <td class="checkbox-cell">${d.anexos?icon("file-text"):"-"}</td>
         <td><div class="actions-cell">
@@ -2803,7 +2795,7 @@ function renderDominios(){
           ${actionBtn("edit","Editar",`state.editing.dominioTipo='${d.tipo}';state.editing.dominioId='${d.id}';navigate('dominios-form')`,"warning")}
           ${actionBtn("clock","Bitácora",`abrirBitacora('dominios','${d.id}')`)}
           ${actionBtn("trash","Eliminar",`eliminarDominio('${d.id}')`,"danger")}
-        </div></td></tr>`).join(""):`<tr><td colspan="10" class="empty-state">No hay solicitudes de dominio con estos criterios.</td></tr>`}</tbody>
+        </div></td></tr>`).join(""):`<tr><td colspan="11" class="empty-state">No hay dominios ni subdominios registrados.</td></tr>`}</tbody>
     </table></div>
     ${paginationFoot(rows.length,"solicitudes")}
   </article>`;
@@ -2926,7 +2918,7 @@ function renderDominioDetalle(id){
   const d = findIn(state.data.dominios,id);
   if(!d){ navigate("dominios"); return; }
   content.innerHTML = `
-  ${breadcrumb([{label:"Servicios"},{label:"Solicitudes de Dominio y Subdominio",view:"dominios"},{label:"Ver detalle"}])}
+  ${breadcrumb([{label:"Servicios"},{label:"Dominios y Subdominios",view:"dominios"},{label:"Ver detalle"}])}
   <div class="page-header"><div><h1>${d.nombre}</h1><p>${d.tipo} · ${d.dependencia}</p></div>
     <div class="page-actions"><button class="button secondary" onclick="exportTable('detalle-${d.nombre}',['Campo','Valor'],[['Dependencia',d.dependencia],['Solicitante',d.solicitante],['Estatus',d.estatus],['IP',d.ip],['NAT',d.nat]])">${icon("download")} Exportar</button></div>
   </div>
@@ -2966,12 +2958,6 @@ function renderBasesDatos(){
     <div class="page-actions"><button class="button primary" onclick="state.editing.bdId=null;navigate('crear-bd-form')">${icon("plus")} Solicitar Base de Datos</button></div>
   </div>
   <article class="card table-card">
-    ${filtersBlock("filtersBd",`
-      ${fieldSelect("Dependencia","fBdDep",["Todos",...depNames()])}
-      ${fieldSelect("Estatus","fBdEst",["Todos","Registrado","Validado","Autorizado","Notificado"])}
-      ${fieldInput("Desde Fecha Solicitud","fBdDesde","","date")}
-      ${fieldInput("Hasta Fecha Solicitud","fBdHasta","","date")}
-    `)}
     <div class="datatable-toolbar"><div class="entries-control">Mostrar <select><option>10</option></select> registros</div>
       <div class="datatable-actions">${searchBox("bdSearch","Buscar registros",term)}</div></div>
     <div class="table-wrap"><table>
@@ -3449,12 +3435,6 @@ function renderActasSeguridad(){
     <div class="page-actions"><button class="button primary" onclick="state.editing.actaId=null;navigate('actas-seguridad-form')">${icon("plus")} Registrar Protocolo</button></div>
   </div>
   <article class="card table-card">
-    ${filtersBlock("filtersActas",`
-      ${fieldSelect("Dependencia","fActaDep",["Todos",...depNames()])}
-      ${fieldSelect("Resultado","fActaResultado",["Todos","Aprobado","Con observaciones","Rechazado"])}
-      ${fieldInput("Desde Fecha","fActaDesde","","date")}
-      ${fieldInput("Hasta Fecha","fActaHasta","","date")}
-    `)}
     <div class="datatable-toolbar"><div class="entries-control">Mostrar <select><option>10</option></select> registros</div>
       <div class="datatable-actions">${searchBox("actasSearch","Buscar registros",term)}</div></div>
     <div class="table-wrap"><table>
@@ -3790,10 +3770,6 @@ function renderInvSoftware(){
     <div class="page-actions"><button class="button primary" onclick="state.editing.softwareId=null;navigate('inv-software-form')">${icon("plus")} Registrar Software</button></div>
   </div>
   <article class="card table-card">
-    ${filtersBlock("filtersSwInv",`
-      ${fieldSelect("Dependencia","fSwiDep",["Todos",...depNames()])}
-      ${fieldSelect("Cobertura","fSwiCob",["Seleccione","Municipal","Estatal","Solo en la Dependencia"])}
-    `)}
     <div class="datatable-toolbar"><div class="entries-control">Mostrar <select><option>10</option></select> registros</div>
       <div class="datatable-actions">${searchBox("swinvSearch","Buscar registros",term)}</div></div>
     <div class="table-wrap"><table>
@@ -3872,10 +3848,6 @@ function renderInvHardware(){
     <div class="page-actions"><button class="button primary" onclick="navigate('inv-hardware-form')">${icon("plus")} Registrar Hardware</button></div>
   </div>
   <article class="card table-card">
-    ${filtersBlock("filtersHwInv",`
-      ${fieldSelect("Categoría","fHwCat",["Todos",...state.data.categorias.map(c=>c.nombre)])}
-      ${fieldSelect("Subcategoría","fHwSub",["Todos"])}
-    `)}
     <div class="datatable-toolbar"><div class="entries-control">Mostrar <select><option>10</option></select> registros</div>
       <div class="datatable-actions">${searchBox("hwinvSearch","Buscar registros",term)}</div></div>
     <div class="table-wrap"><table>
@@ -4777,7 +4749,7 @@ function tableDataColumns(table){
   });
 }
 function selectedRowsOf(table){
-  const rows=[...table.querySelectorAll("tbody tr")].filter(tr=>tr.querySelector("input.row-check"));
+  const rows=[...table.querySelectorAll("tbody tr")].filter(tr=>tr.querySelector("input.row-check")&&!tr.classList.contains("filtered-out"));
   const sel=rows.filter(tr=>tr.querySelector("input.row-check").checked);
   return {all:rows,sel};
 }
@@ -4934,7 +4906,95 @@ function enhanceTable(table){
     }
   }
 }
+
+/* ================= Filtros por columna (plegables) en todas las tablas ================= */
+const CATEGORICAS_RE = /estatus|^tipo|dependencia|secretar|resultado|impacto|antivirus|sistema operativo|categor|área|^area|alojamiento|motor|plataforma|nivel|criticidad|usuario|firmantes|clasificaci|responsable|titular|medio|calidad|perfil|rol/i;
+const OMITIR_FILTRO_RE = /^(evidencias|anexos|ip|nat|scan|escaneo|progreso|acciones)$/i;
+function cellText(td){
+  if(!td) return "";
+  const parts=[]; const walk=n=>{ if(n.nodeType===3){ const t=n.textContent.trim(); if(t) parts.push(t); } else if(n.nodeType===1 && !(n.tagName==="svg"||n.tagName==="BUTTON"&&n.classList.contains("ra-btn"))) n.childNodes.forEach(walk); };
+  walk(td); return parts.join(" ").replace(/\s+/g," ").trim();
+}
+const toISO = v=>{ const m=/^(\d{2})\/(\d{2})\/(\d{4})$/.exec(v||""); return m?`${m[3]}-${m[2]}-${m[1]}`:""; };
+function colFilterKey(table){ const all=$$("#mainContent table[data-enh]"); return (state.view||"")+"#"+all.indexOf(table); }
+function buildColumnFilters(table){
+  if(state.view==="dashboard") return;
+  const card=table.closest(".card"); if(!card||card.querySelector(".col-filters")) return;
+  const ths=[...table.querySelectorAll("thead tr:first-child th")];
+  const rows=[...table.querySelectorAll("tbody tr")].filter(tr=>tr.querySelector("input.row-check"));
+  const fields=[];
+  ths.forEach((th,i)=>{
+    const label=th.textContent.trim();
+    if(!label||th.classList.contains("select-col")||OMITIR_FILTRO_RE.test(label)) return;
+    const vals=rows.map(tr=>cellText(tr.children[i])).filter(Boolean);
+    if(rows.length && !vals.length) return;
+    const isDate = vals.length && vals.every(v=>/^\d{2}\/\d{2}\/\d{4}$/.test(v));
+    const distinct=[...new Set(vals)].sort((a,b)=>a.localeCompare(b,"es"));
+    const id=`cf_${table.id}_${i}`;
+    if(isDate) fields.push({i,type:"date",html:`<div class="field date-field"><label>${label} (desde – hasta)</label><div class="date-pair"><input type="date" id="${id}_d" data-col="${i}" data-kind="desde" title="${label} desde" aria-label="${label} desde"><input type="date" id="${id}_h" data-col="${i}" data-kind="hasta" title="${label} hasta" aria-label="${label} hasta"></div></div>`});
+    else if(CATEGORICAS_RE.test(label) && distinct.length<=15) fields.push({i,type:"select",html:`<div class="field"><label for="${id}">${label}</label><select id="${id}" data-col="${i}" data-kind="igual"><option value="">Todos</option>${distinct.map(v=>`<option value="${v.replace(/"/g,"&quot;")}">${v}</option>`).join("")}</select></div>`});
+    else fields.push({i,type:"text",html:`<div class="field"><label for="${id}">${label}</label><input id="${id}" data-col="${i}" data-kind="contiene" placeholder="Contiene…"></div>`});
+  });
+  if(!fields.length) return;
+  const panelId="cfp_"+table.id;
+  const html=`<div class="col-filters">
+    <div class="filters-bar">
+      <button type="button" class="filters-toggle" data-filters-toggle="${panelId}" aria-expanded="false">${icon("filter")}<span>Filtros</span><span class="active-count" hidden>0</span>${icon("chevron-down","icon chevron")}</button>
+    </div>
+    <div class="filters-collapse" id="${panelId}" hidden>
+      <div class="filters-grid">${fields.map(f=>f.html).join("")}</div>
+      <div class="filters-actions"><span class="filters-result"></span><button type="button" class="button ghost" data-clear-filters>${icon("refresh")} Limpiar filtros</button></div>
+    </div></div>`;
+  const anchor=card.querySelector(".datatable-toolbar")||card.querySelector(".table-export-bar")||table.closest(".table-wrap")||table;
+  anchor.insertAdjacentHTML("beforebegin",html);
+  const box=card.querySelector(".col-filters");
+  const key=colFilterKey(table);
+  state.colFilters=state.colFilters||{}; state.colFiltersOpen=state.colFiltersOpen||{};
+  const saved=state.colFilters[key]||{};
+  box.querySelectorAll("[data-col]").forEach(el=>{ const k=el.dataset.col+"|"+el.dataset.kind; if(saved[k]!=null) el.value=saved[k]; });
+  if(state.colFiltersOpen[key]){ const panel=box.querySelector(".filters-collapse"); panel.removeAttribute("hidden"); const t=box.querySelector(".filters-toggle"); t.classList.add("open"); t.setAttribute("aria-expanded","true"); }
+  const run=()=>applyColumnFilters(table,box);
+  box.addEventListener("input",run); box.addEventListener("change",run);
+  box.querySelector("[data-clear-filters]").onclick=()=>{ box.querySelectorAll("[data-col]").forEach(el=>el.value=""); run(); };
+  box.querySelector(".filters-toggle").addEventListener("click",()=>{ setTimeout(()=>{ state.colFiltersOpen[key]=!box.querySelector(".filters-collapse").hasAttribute("hidden"); },0); });
+  const pag=card.querySelector(".pagination > span"); if(pag&&!pag.dataset.orig) pag.dataset.orig=pag.textContent;
+  run();
+}
+function applyColumnFilters(table,box){
+  const conds=[...box.querySelectorAll("[data-col]")].filter(el=>el.value!=="").map(el=>({col:+el.dataset.col,kind:el.dataset.kind,val:el.value}));
+  const key=colFilterKey(table);
+  state.colFilters[key]=Object.fromEntries([...box.querySelectorAll("[data-col]")].map(el=>[el.dataset.col+"|"+el.dataset.kind,el.value]));
+  const rows=[...table.querySelectorAll("tbody tr")].filter(tr=>tr.querySelector("input.row-check"));
+  let visible=0;
+  rows.forEach(tr=>{
+    const okRow=conds.every(c=>{
+      const txt=cellText(tr.children[c.col]);
+      if(c.kind==="igual") return txt===c.val;
+      if(c.kind==="contiene") return txt.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").includes(c.val.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").trim());
+      const iso=toISO(txt); if(!iso) return false;
+      return c.kind==="desde" ? iso>=c.val : iso<=c.val;
+    });
+    tr.classList.toggle("filtered-out",!okRow);
+    if(!okRow){ const cb=tr.querySelector("input.row-check"); if(cb.checked){ cb.checked=false; } }
+    else visible++;
+  });
+  table.querySelector("tr.no-match-row")?.remove();
+  if(rows.length && !visible){
+    const cols=table.querySelector("thead tr").children.length;
+    table.querySelector("tbody").insertAdjacentHTML("beforeend",`<tr class="no-match-row"><td colspan="${cols}">No hay registros que coincidan con los filtros.</td></tr>`);
+  }
+  const activos=new Set(conds.map(c=>c.col)).size;
+  const cnt=box.querySelector(".active-count"); cnt.hidden=!activos; cnt.textContent=activos;
+  box.querySelector(".filters-result").textContent = activos ? `${visible} de ${rows.length} registro(s) coinciden` : `${rows.length} registro(s)`;
+  const card=table.closest(".card"); const pag=card?.querySelector(".pagination > span");
+  if(pag){ pag.textContent = activos ? `Mostrando ${visible} de ${rows.length} registros (filtrados)` : (pag.dataset.orig||pag.textContent); }
+  updateExportCount(table);
+}
 function enhanceTables(){
+  enhanceTablesInner();
+  $$("#mainContent table[data-enh]").forEach(t=>{ if(!t.dataset.cf){ t.dataset.cf="1"; buildColumnFilters(t); } });
+}
+function enhanceTablesInner(){
   const isForm=/-form$|-print$/.test(state.view||"");
   $$("#mainContent .card table").forEach(t=>{
     if(t.closest(".modal")) return;
