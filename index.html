@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Servicios SIID - Sistema de Gestión de Servicios de Tecnología</title>
+  <title>SIGEST · Sistema de Gestión de Servicios Tecnológicos de la SIID</title>
   <style>
 :root{--wine:#980b2f;--wine-dark:#780725;
   --brand:#AB1738;
@@ -659,7 +659,7 @@ tbody tr:hover{background:#FCF8F9}
   .agent-availability{border-left:0;padding-left:0}
 }
 
-/* ===== Extensiones de estilo propias de Servicios SIID ===== */
+/* ===== Extensiones de estilo propias de SIGEST ===== */
 .stat-card.gold .stat-icon{background:#FAF0DB;color:var(--gold)}
 .chart-card{padding:22px}
 .bars-chart{display:flex;align-items:flex-end;gap:22px;height:230px;margin-top:14px;border-bottom:1px solid var(--line);padding-bottom:2px;overflow-x:auto}
@@ -698,7 +698,7 @@ tbody tr:hover{background:#FCF8F9}
 .report-preview-meta{display:flex;flex-wrap:wrap;gap:24px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:16px 20px;margin-bottom:18px}
 .report-preview-meta span{font-size:12px;color:var(--muted);display:block}
 .report-preview-meta strong{display:block;font-size:14px;margin-top:3px}
-.login-copy h1.siid{font-size:40px}
+.login-copy h1.sigest{font-size:40px}
 .filters-bar{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 20px;border-bottom:1px solid var(--line);flex-wrap:wrap}
 .filters-toggle{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:#fff;color:var(--ink);font-weight:700;font-size:12.5px;padding:9px 15px;border-radius:7px;font-family:inherit}
 .filters-toggle:hover{border-color:var(--brand);color:var(--brand)}
@@ -1109,8 +1109,8 @@ button.dx-tile:hover{border-color:var(--brand)}
   <div class="login-panel">
     <div class="login-copy">
       <p class="login-kicker">Secretaría de Innovación e Inteligencia Digital</p>
-      <h1 class="siid">Hola,<br><strong>Bienvenido</strong></h1>
-      <p>Te encuentras en la plataforma de <strong>Servicios SIID</strong>, el sistema de gestión de servicios de tecnología (sitios web, dominios, bases de datos, servidores, VPN e inventarios). Ingresa tus credenciales institucionales para continuar.</p>
+      <h1 class="sigest">Hola,<br><strong>Bienvenido</strong></h1>
+      <p>Te encuentras en <strong>SIGEST</strong>, el Sistema de Gestión de Servicios Tecnológicos de la SIID (servidores, dominios y subdominios, VPN, protocolos e incidentes de seguridad). Ingresa tus credenciales institucionales para continuar.</p>
       <p class="help-copy">Si necesitas ayuda para ingresar, contacta al equipo de Soporte TI de SIID.</p>
     </div>
     <form class="login-form" id="loginForm">
@@ -1118,23 +1118,23 @@ button.dx-tile:hover{border-color:var(--brand)}
       <input id="loginEmail" type="email" value="administrador@tamaulipas.gob.mx" autocomplete="username">
       <label for="loginPassword">Contraseña</label>
       <div class="password-wrap">
-        <input id="loginPassword" type="password" value="Siid2026" autocomplete="current-password">
+        <input id="loginPassword" type="password" value="Sigest2026" autocomplete="current-password">
         <button class="icon-button" id="togglePassword" type="button" aria-label="Mostrar contraseña"><svg class="icon"><use href="#i-eye"/></svg></button>
       </div>
       <p class="form-error" id="loginError" hidden>Ingresa usuario y contraseña.</p>
       <button class="button primary wide" type="submit">Ingresar</button>
     </form>
-    <div class="login-footer"><span class="gov-logo-img" style="width:150px;height:45px;border:1px solid var(--line)" role="img" aria-label="Tamaulipas · Gobierno del Estado"></span><div><strong>Gobierno del Estado de Tamaulipas</strong><small>Acceso institucional seguro · Servicios SIID</small></div></div>
+    <div class="login-footer"><span class="gov-logo-img" style="width:150px;height:45px;border:1px solid var(--line)" role="img" aria-label="Tamaulipas · Gobierno del Estado"></span><div><strong>Gobierno del Estado de Tamaulipas</strong><small>Acceso institucional seguro · SIGEST</small></div></div>
   </div>
   <div class="login-visual" style="background:linear-gradient(160deg,var(--brand) 0%,var(--brand-dark) 100%)">
-    <div class="login-visual-overlay"><span>SIID</span><strong>Gestión de servicios de tecnología</strong><small>Sitios web, dominios, bases de datos, servidores, VPN e inventarios en un solo lugar.</small></div>
+    <div class="login-visual-overlay"><span>SIGEST</span><strong>Sistema de Gestión de Servicios Tecnológicos de la SIID</strong><small>Servidores, dominios, VPN, protocolos e incidentes de seguridad en un solo lugar.</small></div>
   </div>
 </section>
 <div class="app-shell" id="appShell" hidden>
   <header class="topbar system-header">
     <button class="mobile-menu" id="mobileMenu" aria-label="Abrir menú"><svg class="icon"><use href="#i-menu"/></svg></button>
     <a href="#" class="government-logo" onclick="navigate('dashboard');return false" role="img" aria-label="Tamaulipas · Gobierno del Estado. Ir al inicio"></a>
-    <div class="system-name"><strong>Servicios SIID</strong><span>Agencia de Innovación e Inteligencia<br>Digital de Tamaulipas</span></div>
+    <div class="system-name"><strong>SIGEST</strong><span>Sistema de Gestión de Servicios<br>Tecnológicos de la SIID</span></div>
     <div class="header-context">
       <div class="hc-item hc-area"><svg class="icon"><use href="#i-pin"/></svg><div><strong id="panelTitle">Panel Administrativo</strong><small>Servicios de Tecnología</small></div></div>
       <button type="button" class="hc-item" id="profileButton" title="Cambiar perfil"><svg class="icon"><use href="#i-user"/></svg><div><strong id="profileName">Administrador</strong><small id="profileRole">Administrador general</small></div><svg class="icon hc-caret"><use href="#i-chevron-down"/></svg><b id="profileInitials" class="profile-initials">AD</b></button>
@@ -1150,7 +1150,7 @@ button.dx-tile:hover{border-color:var(--brand)}
     <button class="nav-item danger" id="logoutButton"><span><svg class="icon"><use href="#i-log-out"/></svg></span>Cerrar sesión</button>
   </aside>
   <main class="main-content" id="mainContent" tabindex="-1"></main>
-  <footer class="app-footer system-footer"><span>Servicios SIID <b>|</b> Agencia de Innovación e Inteligencia Digital de Tamaulipas <b>|</b> Gobierno del Estado de Tamaulipas</span></footer>
+  <footer class="app-footer system-footer"><span>SIGEST <b>|</b> Secretaría de Innovación e Inteligencia Digital <b>|</b> Gobierno del Estado de Tamaulipas</span></footer>
 </div>
 <div id="modalRoot"></div>
 <div id="toastRoot" class="toast-root" aria-live="polite"></div>
@@ -1480,7 +1480,7 @@ const state = {
       {id:uid("DOM"),dependencia:"Secretaría de Educación",tipo:"Dominio",nombre:"educacion.tamaulipas.gob.mx",solicitante:"Laura González Ramírez",estatus:"Validado",fecha:"04/04/2026",ip:"172.16.10.20",nat:"200.23.45.10",scan:true,anexos:1,bitacora:[]},
       {id:uid("DOM"),dependencia:"Secretaría de Administración",tipo:"Subdominio",nombre:"tramites.tamaulipas.gob.mx",solicitante:"Miguel Hernández López",estatus:"Notificado",fecha:"12/06/2026",ip:"",nat:"",scan:false,anexos:0,bitacora:[]},
       {id:uid("DOM"),dependencia:"Secretaría de Salud",tipo:"Dominio",nombre:"salud.tamaulipas.gob.mx",solicitante:"Ana Torres Salinas",estatus:"Registrado",fecha:"29/06/2026",ip:"",nat:"",scan:false,anexos:1,bitacora:[]},
-      {id:uid("DOM"),dependencia:"Agencia de Innovación e Inteligencia Digital de Tamaulipas",tipo:"Dominio",nombre:"tamaulipas.gob.mx",solicitante:"Juan Pérez Pérez",estatus:"Validado",fecha:"15/01/2026",ip:"200.23.45.1",nat:"",scan:true,anexos:0,bitacora:[{fecha:"15/01/2026",hora:"09:00",usuario:"Administrador",movimiento:"Registro del dominio institucional",obs:""}]}
+      {id:uid("DOM"),dependencia:"Secretaría de Innovación e Inteligencia Digital",tipo:"Dominio",nombre:"tamaulipas.gob.mx",solicitante:"Juan Pérez Pérez",estatus:"Validado",fecha:"15/01/2026",ip:"200.23.45.1",nat:"",scan:true,anexos:0,bitacora:[{fecha:"15/01/2026",hora:"09:00",usuario:"Administrador",movimiento:"Registro del dominio institucional",obs:""}]}
     ],
     basesDatos:[
       {id:uid("BD"),dependencia:"Secretaría de Finanzas",nombre:"Base de Datos Nómina",estatus:"Autorizado",servidor:"Afelio",fecha:"09/06/2026",ip:"10.10.1.20",nat:"200.23.45.11",scan:true,anexos:1,motor:"MySQL",bitacora:[]},
@@ -1875,7 +1875,7 @@ function quitarIpWan(idx){
 
 /* ================= Borradores (autoguardado local para no perder el avance) ================= */
 const DRAFT_FORMS = ["actas-seguridad-form","incidentes-seguridad-form"];
-function draftKey(view){ return "siid_borrador_"+view; }
+function draftKey(view){ return "sigest_borrador_"+view; }
 function currentEditingIdForDraft(view){
   return view==="actas-seguridad-form" ? state.editing.actaId : state.editing.incidenteId;
 }
@@ -2239,11 +2239,11 @@ $("#mobileMenu").onclick = ()=>{ $("#sidebar").classList.toggle("open"); };
 $("#logoutButton").onclick = ()=>openModal({
   title:"Cerrar sesión", subtitle:"Tu avance guardado permanecerá disponible.",
   confirm:"Cerrar sesión", confirmClass:"danger",
-  body:`<p>¿Deseas salir del espacio de trabajo de Servicios SIID?</p>`,
+  body:`<p>¿Deseas salir de SIGEST?</p>`,
   onConfirm:()=>{ closeModal(); $("#appShell").hidden=true; $("#loginView").hidden=false; }
 });
 $("#helpButton").onclick = ()=>openModal({
-  title:"Centro de ayuda", subtitle:"Soporte para el sistema Servicios SIID", confirm:"Cerrar",
+  title:"Centro de ayuda", subtitle:"Soporte para SIGEST", confirm:"Cerrar",
   body:`<div class="alert-list"><span>Guía de registro de solicitantes y solicitudes</span><span>Manual de gestión de dominios, sitios web y bases de datos</span><span>Soporte técnico: soporte.siid@tamaulipas.gob.mx</span></div>`,
   onConfirm:closeModal
 });
@@ -3952,7 +3952,7 @@ function renderActaPrint(id){
   <div class="print-sheet">
     <div class="acta-brand">
       <span class="gov-logo-img" style="width:150px;height:45px;flex-shrink:0" role="img" aria-label="Tamaulipas · Gobierno del Estado"></span>
-      <div><strong>Gobierno del Estado de Tamaulipas</strong><small>Agencia de Innovación e Inteligencia Digital de Tamaulipas</small></div>
+      <div><strong>Gobierno del Estado de Tamaulipas</strong><small>Secretaría de Innovación e Inteligencia Digital</small></div>
     </div>
     <h1>Protocolo de Evaluación del Estado de Seguridad<br>para Publicación de Servicios Gubernamentales</h1>
 
@@ -3979,7 +3979,7 @@ function renderActaPrint(id){
     </table>
 
     <div class="signature-row">${firmantesHtml}</div>
-    <p class="acta-footnote">Documento generado por Servicios SIID · ${todayStr()} · Folio ${a.id}</p>
+    <p class="acta-footnote">Documento generado por SIGEST · ${todayStr()} · Folio ${a.id}</p>
   </div>`;
 }
 /* ================= Inventarios > Software ================= */
@@ -4827,7 +4827,7 @@ function renderUsuarios(){
   const rows = state.data.usuarios.filter(u=>matchesSearch(u,term));
   content.innerHTML = `
   ${breadcrumb([{label:"Administrador"},{label:"Usuarios"}])}
-  <div class="page-header"><div><h1>Usuarios</h1><p>Cuentas con acceso al sistema Servicios SIID.</p></div>
+  <div class="page-header"><div><h1>Usuarios</h1><p>Cuentas con acceso a SIGEST.</p></div>
     <div class="page-actions">
       <button class="button secondary" onclick="toast('Sincronizando usuarios con el Directorio Activo…')">${icon("refresh")} Sincronizar con Directorio Activo</button>
       <button class="button primary" onclick="abrirUsuario()">${icon("plus")} Nuevo Usuario</button>
@@ -5005,7 +5005,7 @@ function exportarTabla(tableId,formato){
     const w=window.open("","_blank");
     if(!w){ toast("Permite ventanas emergentes para imprimir.","error"); return; }
     const titulo=esc($("#mainContent .page-header h1")?.textContent||"Registros");
-    w.document.write(`<html><head><title>${titulo}</title><meta charset="utf-8"></head><body style="font-family:Arial;padding:20px"><h2 style="color:#4E0B15">${titulo}</h2><p style="font-size:12px;color:#555">Servicios SIID · ${todayStr()} · ${desc}</p>${htmlTable}</body></html>`);
+    w.document.write(`<html><head><title>${titulo}</title><meta charset="utf-8"></head><body style="font-family:Arial;padding:20px"><h2 style="color:#4E0B15">${titulo}</h2><p style="font-size:12px;color:#555">SIGEST · ${todayStr()} · ${desc}</p>${htmlTable}</body></html>`);
     w.document.close(); w.focus(); w.print();
   }
   else if(formato==="copy"){
