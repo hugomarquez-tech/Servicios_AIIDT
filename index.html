@@ -2909,7 +2909,6 @@ function renderDominios(){
         <td><div class="actions-cell">
           ${actionBtn("eye","Ver detalle",`state.editing.dominioId='${d.id}';navigate('dominios-detalle')`)}
           ${actionBtn("refresh","Cambiar estatus",`abrirCambiarEstatus('dominios','${d.id}')`)}
-          ${actionBtn("users","Turnar",`abrirTurnarDominio('${d.id}')`)}
           ${actionBtn("key","Asignar IP/NAT",`abrirAsignarIpNat('${d.id}')`)}
           ${actionBtn("edit","Editar",`state.editing.dominioTipo='${d.tipo}';state.editing.dominioId='${d.id}';navigate('dominios-form')`,"warning")}
           ${actionBtn("clock","Bitácora",`abrirBitacora('dominios','${d.id}')`)}
@@ -2929,14 +2928,6 @@ function abrirEstatusDominio(id){
   openModal({title:"Actualizar estatus", confirm:"Actualizar",
     body:fieldSelect("Estatus","fEstDom",["Registrado","Validado","Autorizado","Notificado"],d.estatus),
     onConfirm:()=>{ d.estatus=$("#fEstDom").value; d.bitacora.push({fecha:todayStr(),hora:nowTime(),usuario:"Administrador",movimiento:"Cambio de estatus a "+d.estatus,obs:""}); closeModal(); toast("Estatus actualizado."); renderDominios(); }});
-}
-function abrirTurnarDominio(id){
-  const d = findIn(state.data.dominios,id);
-  openModal({title:"Turnar solicitud", confirm:"Turnar",
-    body:`${fieldSelect("Turnar para","fTurnarPara",["Asignar IP","Asignar NAT","Notificar"])}
-      ${fieldSelect("Turnar a","fTurnarA",["Base de Datos","Infraestructura","Seguridad Informática"])}
-      ${fieldTextarea("Observaciones","fTurnarObs")}`,
-    onConfirm:()=>{ d.bitacora.push({fecha:todayStr(),hora:nowTime(),usuario:"Administrador",movimiento:`Turnado a ${$("#fTurnarA").value} para ${$("#fTurnarPara").value}`,obs:$("#fTurnarObs").value}); closeModal(); toast("Solicitud turnada."); renderDominios(); }});
 }
 function abrirAsignarIpNat(id){
   const d = findIn(state.data.dominios,id);
