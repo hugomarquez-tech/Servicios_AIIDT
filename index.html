@@ -1729,6 +1729,10 @@ function catNames(key){ return state.data.catalogosSimples[key].map(c=>c.nombre)
   if(state.data.actasSeguridad[0] && srv[1]) state.data.actasSeguridad[0].servidorId = srv[1].id;
   if(state.data.actasSeguridad[1] && srv[0]) state.data.actasSeguridad[1].servidorId = srv[0].id;
   inc.forEach((x,i)=>{ if(srv.length) x.servidorId = srv[i%srv.length].id; });
+  // Las VPN de ejemplo pertenecen a solicitantes del directorio (así muestran su dependencia)
+  state.data.vpns.forEach((v,i)=>{ const so=s[i]; if(so&&!v.solicitanteId){ v.solicitanteId=so.id; v.nombre=nombreCompleto(so); v.correo=so.correo; v.telefono=so.telefono; v.ext=so.ext||v.ext; } });
+  // Fecha de registro de los solicitantes de ejemplo
+  ["10/03/2026","15/03/2026","02/04/2026"].forEach((f,i)=>{ if(s[i]&&!s[i].fechaRegistro) s[i].fechaRegistro=f; });
   // Cada subdominio guarda de qué dominio emana
   state.data.dominios.filter(x=>x.tipo==="Subdominio"&&!x.dominioBaseId).forEach(x=>{ const b=dominioBaseDe(x); if(b) x.dominioBaseId=b.id; });
   // Estatus conforme a los flujos de la Fase 1
@@ -2020,7 +2024,7 @@ function abrirAltaRapidaSolicitante(prefix){
         apMaterno:$("#fNuevoSolApMat").value, puesto:$("#fNuevoSolPuesto").value, telefono:$("#fNuevoSolTel").value, ext:$("#fNuevoSolExt").value,
         correo:$("#fNuevoSolCorreo").value, dependencia:org.secretaria, secretaria:org.secretaria, subsecretaria:org.subsecretaria,
         direccionGeneral:org.direccionGeneral, direccionArea:org.direccionArea, departamento:org.departamento,
-        municipio:$("#fNuevoSolMun").value, area:org.departamento, ubicacionCentroTrabajo:$("#fNuevoSolUbicacion").value};
+        municipio:$("#fNuevoSolMun").value, area:org.departamento, ubicacionCentroTrabajo:$("#fNuevoSolUbicacion").value, fechaRegistro:todayStr()};
       state.data.solicitantes.push(nuevo);
       seleccionarSolicitante(prefix, nuevo.id);
       toast("Solicitante registrado y asignado a la solicitud.");
@@ -2338,6 +2342,7 @@ const DX_MODULOS = [
 const INC_ESTATUS = ["Abierto","En análisis","Contenido","Erradicado","Resuelto","Cerrado","Descartado"];
 const INC_CERRADOS = ["Resuelto","Cerrado","Descartado"];
 const MESES_CORTOS = ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"];
+function fmtFecha(v){ const m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(v||""); return m?`${m[3]}/${m[2]}/${m[1]}`:(v||"—"); }
 function dxFecha(v){
   if(!v) return null;
   let m=/^(\d{2})\/(\d{2})\/(\d{4})$/.exec(v); if(m) return new Date(+m[3],+m[2]-1,+m[1]);
@@ -2591,18 +2596,18 @@ function renderSolicitantes(){
       <div class="datatable-actions">${searchBox("solicitantesSearch","Buscar registros",term)}</div>
     </div>
     <div class="table-wrap"><table>
-      <thead><tr><th>Nombre de Solicitante</th><th>Puesto</th><th>Teléfono</th><th>Correo Electrónico</th><th>Dependencia</th><th>Área o depto</th><th>Acciones</th></tr></thead>
+      <thead><tr><th>Nombre de Solicitante</th><th>Puesto</th><th>Teléfono</th><th>Correo Electrónico</th><th>Dependencia</th><th>Área o depto</th><th>Fecha de registro</th><th>Acciones</th></tr></thead>
       <tbody>${rows.length?rows.map(s=>`<tr>
         <td><strong>${s.nombre} ${s.apPaterno} ${s.apMaterno}</strong><span class="subtext">${s.curp}</span></td>
         <td>${s.puesto}</td><td>${s.telefono}${s.ext?" ext. "+s.ext:""}</td><td>${s.correo}</td>
-        <td>${s.dependencia}</td><td>${s.area}</td>
+        <td>${s.dependencia}</td><td>${s.area}</td><td>${fmtFecha(s.fechaRegistro)}</td>
         <td><div class="actions-cell">
           ${actionBtn("eye","Ver datos",`verSolicitante('${s.id}')`)}
           ${actionBtn("clock","Ver historial",`navigate('historial');state.editing.solicitanteId='${s.id}'`)}
           ${actionBtn("edit","Editar",`navigate('solicitantes-form');state.editing.solicitanteId='${s.id}'`,"warning")}
           ${actionBtn("trash","Eliminar",`eliminarSolicitante('${s.id}')`,"danger")}
           ${actionBtn("plus","Nueva solicitud",`abrirNuevaSolicitud('${s.id}')`,"success")}
-        </div></td></tr>`).join(""):`<tr><td colspan="7" class="empty-state">No hay solicitantes registrados con estos criterios.</td></tr>`}</tbody>
+        </div></td></tr>`).join(""):`<tr><td colspan="8" class="empty-state">No hay solicitantes registrados con estos criterios.</td></tr>`}</tbody>
     </table></div>
     ${paginationFoot(rows.length,"solicitantes")}
   </article>`;
@@ -2708,7 +2713,7 @@ function guardarSolicitante(editId){
     municipio:$("#fMun").value, area:org.departamento, ubicacionCentroTrabajo:$("#fUbicacion").value
   };
   if(editId){ Object.assign(findIn(state.data.solicitantes,editId),payload); toast("Solicitante actualizado."); }
-  else { state.data.solicitantes.push({id:uid("SOL"),...payload}); toast("Solicitante registrado."); }
+  else { state.data.solicitantes.push({id:uid("SOL"),...payload,fechaRegistro:todayStr()}); toast("Solicitante registrado."); }
   navigate("solicitantes");
 }
 
@@ -2730,7 +2735,7 @@ function renderHistorial(solicitanteId){
     </div>
     <div class="table-wrap"><table>
       <thead><tr><th>Tipo de Solicitud</th><th>Fecha de Solicitud</th><th>Estatus</th><th>Registro</th><th>Acciones</th></tr></thead>
-      <tbody>${rows.length?rows.map(r=>`<tr><td>${r.tipo}</td><td>${r.fecha}</td><td>${badgeEstatus(r.estatus)}</td><td>${r.area}</td>
+      <tbody>${rows.length?rows.map(r=>`<tr><td>${r.tipo}</td><td>${fmtFecha(r.fecha)}</td><td>${badgeEstatus(r.estatus)}</td><td>${r.area}</td>
         <td><div class="actions-cell">${actionBtn("eye","Ver detalle",r.ver)}${actionBtn("link","Ir al módulo",`navigate('${r.view}')`)}</div></td></tr>`).join(""):`<tr><td colspan="5" class="empty-state">Sin solicitudes registradas para este solicitante.</td></tr>`}</tbody>
     </table></div>
   </article>
@@ -2778,7 +2783,7 @@ function renderSolicitudes(){
     <div class="table-wrap"><table>
       <thead><tr><th>Tipo de solicitud</th><th>Registro</th><th>Dependencia</th><th>Solicitante</th><th>Servidor</th><th>Fecha</th><th>Estatus</th><th>Acciones</th></tr></thead>
       <tbody>${rows.length?rows.map(r=>`<tr>
-        <td>${r.tipo}</td><td><strong>${r.registro}</strong></td><td>${r.dependencia}</td><td>${r.solicitante}</td><td>${r.servidor}</td><td>${r.fecha}</td><td>${badgeEstatus(r.estatus)}</td>
+        <td>${r.tipo}</td><td><strong>${r.registro}</strong></td><td>${r.dependencia}</td><td>${r.solicitante}</td><td>${r.servidor}</td><td>${fmtFecha(r.fecha)}</td><td>${badgeEstatus(r.estatus)}</td>
         <td><div class="actions-cell">
           ${actionBtn("eye","Ver detalle",r.ver)}
           ${actionBtn("link","Ir al módulo",`navigate('${r.view}')`)}
@@ -3354,9 +3359,9 @@ function renderVpn(){
     <div class="datatable-toolbar"><div class="entries-control">Mostrar <select><option>10</option></select> registros</div>
       <div class="datatable-actions">${searchBox("vpnSearch","Buscar registros",term)}</div></div>
     <div class="table-wrap"><table>
-      <thead><tr><th>Nombre completo</th><th>Correo</th><th>Teléfono</th><th>Extensión</th><th>IP</th><th>Estatus</th><th>Observaciones</th><th>Acciones</th></tr></thead>
+      <thead><tr><th>Nombre completo</th><th>Dependencia</th><th>Correo</th><th>Teléfono</th><th>Extensión</th><th>IP</th><th>Estatus</th><th>Fecha de registro</th><th>Observaciones</th><th>Acciones</th></tr></thead>
       <tbody>${rows.length?rows.map(v=>`<tr>
-        <td><strong>${v.nombre}</strong></td><td>${v.correo}</td><td>${v.telefono}</td><td>${v.ext}</td><td>${v.ip||"Sin asignar"}</td><td>${badgeEstatus(v.estatus||"Registrada")}</td><td>${v.observaciones||"Sin observaciones"}</td>
+        <td><strong>${v.nombre}</strong></td><td>${findIn(state.data.solicitantes,v.solicitanteId)?.dependencia||"—"}</td><td>${v.correo}</td><td>${v.telefono}</td><td>${v.ext}</td><td>${v.ip||"Sin asignar"}</td><td>${badgeEstatus(v.estatus||"Registrada")}</td><td>${fmtFecha(v.fecha)}</td><td>${v.observaciones||"Sin observaciones"}</td>
         <td><div class="actions-cell">
           ${actionBtn("eye","Ver detalle",`verVpn('${v.id}')`)}
           ${actionBtn("edit","Editar",`editarVpn('${v.id}')`,"warning")}
@@ -3364,7 +3369,7 @@ function renderVpn(){
           ${actionBtn("key","Asignar IP",`asignarIpVpn('${v.id}')`)}
           ${actionBtn("clock","Bitácora",`abrirBitacora('vpns','${v.id}')`)}
           ${actionBtn("trash","Eliminar",`eliminarVpn('${v.id}')`,"danger")}
-        </div></td></tr>`).join(""):`<tr><td colspan="8" class="empty-state">No hay solicitudes de VPN.</td></tr>`}</tbody>
+        </div></td></tr>`).join(""):`<tr><td colspan="10" class="empty-state">No hay solicitudes de VPN.</td></tr>`}</tbody>
     </table></div>
     ${paginationFoot(rows.length,"solicitudes de VPN")}
   </article>`;
@@ -3452,7 +3457,7 @@ function renderServidores(){
     <div class="datatable-toolbar"><div class="entries-control">Mostrar <select><option>10</option></select> registros</div>
       <div class="datatable-actions">${searchBox("servidoresSearch","Buscar registros",term)}</div></div>
     <div class="table-wrap"><table>
-      <thead><tr><th>Tipo</th><th>IP del Servidor</th><th>Dependencia</th><th>Solicitante</th><th>Sistema Operativo</th><th>Antivirus</th><th>Estatus</th><th>Fecha</th><th>Acciones</th></tr></thead>
+      <thead><tr><th>Tipo</th><th>IP del Servidor</th><th>Dependencia</th><th>Solicitante</th><th>Sistema Operativo</th><th>Antivirus</th><th>Estatus</th><th>Fecha de registro</th><th>Acciones</th></tr></thead>
       <tbody>${rows.length?rows.map(s=>`<tr>
         <td><span class="badge ${s.tipoServidor==="Físico"?"review":"approved"}">${s.tipoServidor||"Virtual"}</span></td>
         <td><strong>${s.ip||"Por asignar"}</strong>${s.servidorAlojamiento&&s.tipoServidor!=="Físico"?`<span class="subtext">Host: ${s.servidorAlojamiento}</span>`:""}</td>
@@ -3812,9 +3817,9 @@ function renderActasSeguridad(){
     <div class="datatable-toolbar"><div class="entries-control">Mostrar <select><option>10</option></select> registros</div>
       <div class="datatable-actions">${searchBox("actasSearch","Buscar registros",term)}</div></div>
     <div class="table-wrap"><table>
-      <thead><tr><th>Oficio / GLPI</th><th>Servidor</th><th>Secretaría</th><th>URL / Aplicativo</th><th>Fecha</th><th>Resultado</th><th>Estatus</th><th>Firmantes</th><th>Evidencias</th><th>Acciones</th></tr></thead>
+      <thead><tr><th>Oficio / GLPI</th><th>Servidor</th><th>Secretaría</th><th>URL / Aplicativo</th><th>Fecha de emisión</th><th>Resultado</th><th>Estatus</th><th>Firmantes</th><th>Evidencias</th><th>Acciones</th></tr></thead>
       <tbody>${rows.length?rows.map(a=>{ const totalEv=totalEvidencias(a); return `<tr>
-        <td><strong>${a.oficio}</strong></td><td>${servidorCelda(a.servidorId)}</td><td>${a.secretaria}</td><td>${a.url}</td><td>${a.fecha}</td>
+        <td><strong>${a.oficio}</strong></td><td>${servidorCelda(a.servidorId)}</td><td>${a.secretaria}</td><td>${a.url}</td><td>${fmtFecha(a.fecha)}</td>
         <td><span class="acta-result ${resultadoClass(a.resultado)}">${a.resultado}</span></td><td>${badgeEstatus(a.estatus)}</td>
         <td>${a.firmantes.length}</td>
         <td class="checkbox-cell"><button type="button" class="action-icon ${totalEv?'':'neutral'}" title="Ver evidencias" onclick="abrirEvidencias('acta','${a.id}')">${icon("file-text")}${totalEv?`<span class="evidence-count">${totalEv}</span>`:""}</button></td>
@@ -4810,9 +4815,9 @@ function renderIncidentesSeguridad(){
     <div class="datatable-toolbar"><div class="entries-control">Mostrar <select><option>10</option></select> registros</div>
       <div class="datatable-actions">${searchBox("incidentesSearch","Buscar registros",term)}</div></div>
     <div class="table-wrap"><table>
-      <thead><tr><th>Folio</th><th>Servidor</th><th>Activo Afectado</th><th>Tipo de Incidente</th><th>Fecha</th><th>Impacto</th><th>Estatus</th><th>Evidencias</th><th>Acciones</th></tr></thead>
+      <thead><tr><th>Folio</th><th>Servidor</th><th>Activo Afectado</th><th>Tipo de Incidente</th><th>Fecha de detección</th><th>Impacto</th><th>Estatus</th><th>Evidencias</th><th>Acciones</th></tr></thead>
       <tbody>${rows.length?rows.map(i=>{ const act=findIn(state.data.activos,i.activoId); const totalEv=totalEvidencias(i); return `<tr>
-        <td><strong>${i.folio}</strong></td><td>${servidorCelda(i.servidorId)}</td><td>${act?act.nombre:"—"}</td><td>${i.tipoIncidente}</td><td>${i.fechaDeteccion}</td>
+        <td><strong>${i.folio}</strong></td><td>${servidorCelda(i.servidorId)}</td><td>${act?act.nombre:"—"}</td><td>${i.tipoIncidente}</td><td>${fmtFecha(i.fechaDeteccion)}</td>
         <td>${act?`<span class="impact-badge ${impactoClass(act.impacto)}">${act.impacto}</span>`:"—"}</td>
         <td>${badgeEstatus(i.estatus)}</td>
         <td class="checkbox-cell"><button type="button" class="action-icon ${totalEv?'':'neutral'}" title="Ver evidencias" onclick="abrirEvidencias('incidente','${i.id}')">${icon("file-text")}${totalEv?`<span class="evidence-count">${totalEv}</span>`:""}</button></td>
@@ -5289,6 +5294,7 @@ function enhanceTable(table){
 }
 
 /* ================= Filtros por columna (plegables) en todas las tablas ================= */
+// (heurística anterior, ya no se usa)
 const CATEGORICAS_RE = /estatus|^tipo|dependencia|secretar|resultado|impacto|antivirus|sistema operativo|categor|área|^area|alojamiento|motor|plataforma|nivel|criticidad|usuario|firmantes|clasificaci|responsable|titular|medio|calidad|perfil|rol/i;
 const OMITIR_FILTRO_RE = /^(evidencias|anexos|ip|nat|scan|escaneo|progreso|acciones)$/i;
 function cellText(td){
@@ -5296,25 +5302,46 @@ function cellText(td){
   const parts=[]; const walk=n=>{ if(n.nodeType===3){ const t=n.textContent.trim(); if(t) parts.push(t); } else if(n.nodeType===1 && !(n.tagName==="svg"||n.tagName==="BUTTON"&&n.classList.contains("ra-btn"))) n.childNodes.forEach(walk); };
   walk(td); return parts.join(" ").replace(/\s+/g," ").trim();
 }
-const toISO = v=>{ const m=/^(\d{2})\/(\d{2})\/(\d{4})$/.exec(v||""); return m?`${m[3]}-${m[2]}-${m[1]}`:""; };
+const toISO = v=>{ v=(v||"").trim(); let m=/^(\d{2})\/(\d{2})\/(\d{4})$/.exec(v); if(m) return `${m[3]}-${m[2]}-${m[1]}`; m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(v); return m?v:""; };
 function colFilterKey(table){ const all=$$("#mainContent table[data-enh]"); return (state.view||"")+"#"+all.indexOf(table); }
+/* Filtros por vista: solo columnas útiles para filtrar (catálogos, estatus y fechas).
+   Los datos personales o de texto libre (nombre, correo, teléfono, observaciones) se buscan con la caja "Buscar". */
+const FILTROS_VISTA = {
+  "solicitantes":[{col:"Dependencia"},{col:"Área o depto"},{col:"Fecha de registro",tipo:"fecha"}],
+  "historial":[{col:"Tipo de Solicitud"},{col:"Estatus"},{col:"Fecha de Solicitud",tipo:"fecha"}],
+  "solicitudes":[{col:"Tipo de solicitud"},{col:"Dependencia"},{col:"Estatus"},{col:"Fecha",tipo:"fecha"}],
+  "vpn":[{col:"Dependencia"},{col:"Estatus"},{col:"IP",tipo:"presencia",con:"Con IP asignada",sin:"Sin IP"},{col:"Fecha de registro",tipo:"fecha"}],
+  "servidores":[{col:"Tipo"},{col:"Dependencia"},{col:"Sistema Operativo"},{col:"Antivirus",tipo:"presencia",con:"Con antivirus",sin:"Sin antivirus"},{col:"Estatus"},{col:"Fecha de registro",tipo:"fecha"}],
+  "actas-seguridad":[{col:"Servidor"},{col:"Secretaría"},{col:"Resultado"},{col:"Estatus"},{col:"Fecha de emisión",tipo:"fecha"}],
+  "incidentes-seguridad":[{col:"Servidor"},{col:"Tipo de Incidente"},{col:"Impacto"},{col:"Estatus"},{col:"Fecha de detección",tipo:"fecha"}],
+  "inv-software":[{col:"Dependencia"},{col:"Estatus"},{col:"Responsable"}],
+  "inv-hardware":[{col:"Categoría"},{col:"Subcategoría"}],
+  "cat-productos":[{col:"Categoría"},{col:"Dependencia"},{col:"Área"}],
+  "cat-componentes":[{col:"Categoría"},{col:"Subcategoría"}],
+  "cat-activos":[{col:"Responsable Dueño"},{col:"Tipo"},{col:"Impacto"},{col:"Clasificación"}],
+  "usuarios":[{col:"Tipo"}]
+};
+const VACIO_RE = /^(|—|-|sin asignar|por asignar|sin ip|ninguno|n\/a)$/i;
 function buildColumnFilters(table){
-  if(state.view==="dashboard") return;
+  const conf = FILTROS_VISTA[state.view];
+  if(!conf) return;
   const card=table.closest(".card"); if(!card||card.querySelector(".col-filters")) return;
   const ths=[...table.querySelectorAll("thead tr:first-child th")];
   const rows=[...table.querySelectorAll("tbody tr")].filter(tr=>tr.querySelector("input.row-check"));
   const fields=[];
-  ths.forEach((th,i)=>{
-    const label=th.textContent.trim();
-    if(!label||th.classList.contains("select-col")||OMITIR_FILTRO_RE.test(label)) return;
-    const vals=rows.map(tr=>cellText(tr.children[i])).filter(Boolean);
-    if(rows.length && !vals.length) return;
-    const isDate = vals.length && vals.every(v=>/^\d{2}\/\d{2}\/\d{4}$/.test(v));
-    const distinct=[...new Set(vals)].sort((a,b)=>a.localeCompare(b,"es"));
+  conf.forEach(cf=>{
+    const i=ths.findIndex(th=>th.textContent.trim().toLowerCase()===cf.col.toLowerCase());
+    if(i<0) return;
+    const label=ths[i].textContent.trim();
     const id=`cf_${table.id}_${i}`;
-    if(isDate) fields.push({i,type:"date",html:`<div class="field date-field"><label>${label} (desde – hasta)</label><div class="date-pair"><input type="date" id="${id}_d" data-col="${i}" data-kind="desde" title="${label} desde" aria-label="${label} desde"><input type="date" id="${id}_h" data-col="${i}" data-kind="hasta" title="${label} hasta" aria-label="${label} hasta"></div></div>`});
-    else if(CATEGORICAS_RE.test(label) && distinct.length<=15) fields.push({i,type:"select",html:`<div class="field"><label for="${id}">${label}</label><select id="${id}" data-col="${i}" data-kind="igual"><option value="">Todos</option>${distinct.map(v=>`<option value="${v.replace(/"/g,"&quot;")}">${v}</option>`).join("")}</select></div>`});
-    else fields.push({i,type:"text",html:`<div class="field"><label for="${id}">${label}</label><input id="${id}" data-col="${i}" data-kind="contiene" placeholder="Contiene…"></div>`});
+    if(cf.tipo==="fecha"){
+      fields.push(`<div class="field date-field"><label>${label} (desde – hasta)</label><div class="date-pair"><input type="date" id="${id}_d" data-col="${i}" data-kind="desde" aria-label="${label} desde"><input type="date" id="${id}_h" data-col="${i}" data-kind="hasta" aria-label="${label} hasta"></div></div>`);
+    } else if(cf.tipo==="presencia"){
+      fields.push(`<div class="field"><label for="${id}">${label}</label><select id="${id}" data-col="${i}" data-kind="presencia"><option value="">Todos</option><option value="con">${cf.con}</option><option value="sin">${cf.sin}</option></select></div>`);
+    } else {
+      const distinct=[...new Set(rows.map(tr=>cellText(tr.children[i])).filter(v=>v&&!VACIO_RE.test(v)))].sort((a,b)=>a.localeCompare(b,"es"));
+      fields.push(`<div class="field"><label for="${id}">${label}</label><select id="${id}" data-col="${i}" data-kind="igual"><option value="">Todos</option>${distinct.map(v=>`<option value="${v.replace(/"/g,"&quot;")}">${v}</option>`).join("")}</select></div>`);
+    }
   });
   if(!fields.length) return;
   const panelId="cfp_"+table.id;
@@ -5323,7 +5350,7 @@ function buildColumnFilters(table){
       <button type="button" class="filters-toggle" data-filters-toggle="${panelId}" aria-expanded="false">${icon("filter")}<span>Filtros</span><span class="active-count" hidden>0</span>${icon("chevron-down","icon chevron")}</button>
     </div>
     <div class="filters-collapse" id="${panelId}" hidden>
-      <div class="filters-grid">${fields.map(f=>f.html).join("")}</div>
+      <div class="filters-grid">${fields.join("")}</div>
       <div class="filters-actions"><span class="filters-result"></span><button type="button" class="button ghost" data-clear-filters>${icon("refresh")} Limpiar filtros</button></div>
     </div></div>`;
   const anchor=card.querySelector(".datatable-toolbar")||card.querySelector(".table-export-bar")||table.closest(".table-wrap")||table;
@@ -5351,6 +5378,7 @@ function applyColumnFilters(table,box){
     const okRow=conds.every(c=>{
       const txt=cellText(tr.children[c.col]);
       if(c.kind==="igual") return txt===c.val;
+      if(c.kind==="presencia"){ const vacio=VACIO_RE.test(txt); return c.val==="con"?!vacio:vacio; }
       if(c.kind==="contiene") return txt.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").includes(c.val.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").trim());
       const iso=toISO(txt); if(!iso) return false;
       return c.kind==="desde" ? iso>=c.val : iso<=c.val;
