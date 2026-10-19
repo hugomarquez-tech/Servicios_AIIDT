@@ -1050,6 +1050,37 @@ button.dx-tile:hover{border-color:var(--brand)}
 .st-option:has(input:checked){border-color:var(--brand);background:#FBEFF2}
 .st-auto-note{display:flex;gap:6px;align-items:center;font-size:12px;color:var(--muted);margin:12px 0 0}
 .st-auto-note .icon{width:14px;height:14px}
+/* ===== Dominios con subdominios anidados ===== */
+.dn-table{width:100%;border-collapse:collapse;font-size:13px}
+.dn-table>thead th{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:#8B8F98;text-align:left;padding:12px;border-bottom:1px solid var(--line);white-space:nowrap}
+.dn-table>tbody>tr.dn-dom>td{padding:13px 12px;border-bottom:1px solid #ECEEF1;vertical-align:middle}
+.dn-table>tbody>tr.dn-dom.open>td{background:#FCF4F6;border-bottom-color:#F3DCE2}
+.dn-sel{width:36px;text-align:center}
+.dn-sel input{width:16px;height:16px;accent-color:var(--brand);cursor:pointer}
+.dn-toggle{width:28px;height:28px;border:1px solid #DDE0E5;border-radius:6px;background:#fff;display:grid;place-items:center;color:#5A5F69;padding:0;cursor:pointer}
+.dn-toggle .icon{width:15px;height:15px;transform:rotate(-90deg);transition:transform .15s}
+tr.open .dn-toggle{background:var(--brand);border-color:var(--brand);color:#fff}
+tr.open .dn-toggle .icon{transform:none}
+.dn-dom-name{display:flex;align-items:center;gap:8px;font-size:14px}
+.dn-dom-name .icon{width:17px;height:17px;color:var(--brand);flex:none}
+.dn-count{display:inline-flex;align-items:center;font-weight:700;font-size:12px;background:#EEF0F3;color:#4B5058;border:0;border-radius:12px;padding:4px 10px;cursor:pointer;white-space:nowrap;font-family:inherit}
+tr.open .dn-count{background:var(--brand);color:#fff}
+.dn-nest>td{padding:0 12px 16px 56px!important;background:#FCF4F6;border-bottom:1px solid #F3DCE2}
+.dn-box{background:#fff;border:1px solid #EBD4DA;border-left:3px solid var(--brand);border-radius:8px;overflow:hidden}
+.dn-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid #F0F1F4}
+.dn-head strong{font-size:12.5px}.dn-head span{font-size:12px;color:var(--muted)}
+.dn-subtable{width:100%;border-collapse:collapse;font-size:12.5px}
+.dn-subtable th{font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;color:#8B8F98;text-align:left;padding:8px 12px;background:#FAFBFC;border-bottom:1px solid #EFF1F4;white-space:nowrap}
+.dn-subtable td{padding:9px 12px;border-bottom:1px solid #F2F3F5;vertical-align:middle}
+.dn-subtable tr:last-child td{border-bottom:0}
+.dn-sub-name{display:flex;align-items:center;gap:7px}.dn-sub-name .icon{width:14px;height:14px;color:#9A9EA7;flex:none}
+.dn-empty{margin:0;padding:14px;font-size:12.5px;color:var(--muted)}
+.dn-add-sub{display:flex;align-items:center;gap:8px;width:100%;border:0;border-top:1px dashed #E3C7CF;background:#FFFAFB;color:var(--brand);font:inherit;font-weight:700;font-size:12.5px;padding:11px 14px;text-align:left;cursor:pointer}
+.dn-add-sub:hover{background:#FBEFF2}
+.dn-add-sub .icon{width:16px;height:16px}
+.dn-base-fija{display:flex;align-items:center;gap:10px;min-height:42px;padding:0 14px;border:1px solid #EBD4DA;border-radius:7px;background:#FCF4F6}
+.dn-base-fija .icon{width:17px;height:17px;color:var(--brand)}
+.dn-base-fija span{margin-left:auto;font-size:11px;color:var(--muted)}
 </style>
 </head>
 <body>
@@ -1477,10 +1508,13 @@ const state = {
       {id:uid("SW"),nombre:"Micrositio Educación a Distancia",url:"educacion.tamaulipas.gob.mx",estatus:"Inactivo",enlace:"Usuario 3",correo:"educacion@tam.gob.mx",telefono:"8345556677",fecha:"02/01/2026",wordpress:"4.9",tema:"Educa Tam",servidor:"Otro",bitacora:[]}
     ],
     dominios:[
-      {id:uid("DOM"),dependencia:"Secretaría de Educación",tipo:"Dominio",nombre:"educacion.tamaulipas.gob.mx",solicitante:"Laura González Ramírez",estatus:"Validado",fecha:"04/04/2026",ip:"172.16.10.20",nat:"200.23.45.10",scan:true,anexos:1,bitacora:[]},
+      {id:uid("DOM"),dependencia:"Secretaría de Educación",tipo:"Subdominio",nombre:"educacion.tamaulipas.gob.mx",solicitante:"Laura González Ramírez",estatus:"Validado",fecha:"04/04/2026",ip:"172.16.10.20",nat:"200.23.45.10",scan:true,anexos:1,bitacora:[]},
       {id:uid("DOM"),dependencia:"Secretaría de Administración",tipo:"Subdominio",nombre:"tramites.tamaulipas.gob.mx",solicitante:"Miguel Hernández López",estatus:"Notificado",fecha:"12/06/2026",ip:"",nat:"",scan:false,anexos:0,bitacora:[]},
-      {id:uid("DOM"),dependencia:"Secretaría de Salud",tipo:"Dominio",nombre:"salud.tamaulipas.gob.mx",solicitante:"Ana Torres Salinas",estatus:"Registrado",fecha:"29/06/2026",ip:"",nat:"",scan:false,anexos:1,bitacora:[]},
-      {id:uid("DOM"),dependencia:"Secretaría de Innovación e Inteligencia Digital",tipo:"Dominio",nombre:"tamaulipas.gob.mx",solicitante:"Juan Pérez Pérez",estatus:"Validado",fecha:"15/01/2026",ip:"200.23.45.1",nat:"",scan:true,anexos:0,bitacora:[{fecha:"15/01/2026",hora:"09:00",usuario:"Administrador",movimiento:"Registro del dominio institucional",obs:""}]}
+      {id:uid("DOM"),dependencia:"Secretaría de Salud",tipo:"Subdominio",nombre:"salud.tamaulipas.gob.mx",solicitante:"Ana Torres Salinas",estatus:"Registrado",fecha:"29/06/2026",ip:"",nat:"",scan:false,anexos:1,bitacora:[]},
+      {id:uid("DOM"),dependencia:"Secretaría de Innovación e Inteligencia Digital",tipo:"Dominio",nombre:"tamaulipas.gob.mx",solicitante:"Juan Pérez Pérez",estatus:"Validado",fecha:"15/01/2026",ip:"200.23.45.1",nat:"",scan:true,anexos:0,bitacora:[{fecha:"15/01/2026",hora:"09:00",usuario:"Administrador",movimiento:"Registro del dominio institucional",obs:""}]},
+      {id:uid("DOM"),dependencia:"Secretaría de Innovación e Inteligencia Digital",tipo:"Dominio",nombre:"tam.gob.mx",solicitante:"Juan Pérez Pérez",estatus:"Notificado",fecha:"20/01/2026",ip:"200.23.45.2",nat:"",scan:true,anexos:0,bitacora:[{fecha:"20/01/2026",hora:"09:30",usuario:"Administrador",movimiento:"Registro del dominio institucional",obs:""}]},
+      {id:uid("DOM"),dependencia:"Secretaría de Finanzas",tipo:"Subdominio",nombre:"pagos.tam.gob.mx",solicitante:"Juan Pérez Pérez",estatus:"Autorizado",fecha:"03/09/2026",ip:"10.10.30.8",nat:"",scan:false,anexos:0,bitacora:[{fecha:"03/09/2026",hora:"11:15",usuario:"Administrador",movimiento:"Registro de subdominio",obs:""}]},
+      {id:uid("DOM"),dependencia:"Secretaría de Turismo",tipo:"Dominio",nombre:"turismotamaulipas.com",solicitante:"Laura González Ramírez",estatus:"Registrado",fecha:"02/10/2026",ip:"",nat:"",scan:false,anexos:0,bitacora:[{fecha:"02/10/2026",hora:"10:00",usuario:"Administrador",movimiento:"Registro de dominio",obs:""}]}
     ],
     basesDatos:[
       {id:uid("BD"),dependencia:"Secretaría de Finanzas",nombre:"Base de Datos Nómina",estatus:"Autorizado",servidor:"Afelio",fecha:"09/06/2026",ip:"10.10.1.20",nat:"200.23.45.11",scan:true,anexos:1,motor:"MySQL",bitacora:[]},
@@ -1695,6 +1729,8 @@ function catNames(key){ return state.data.catalogosSimples[key].map(c=>c.nombre)
   if(state.data.actasSeguridad[0] && srv[1]) state.data.actasSeguridad[0].servidorId = srv[1].id;
   if(state.data.actasSeguridad[1] && srv[0]) state.data.actasSeguridad[1].servidorId = srv[0].id;
   inc.forEach((x,i)=>{ if(srv.length) x.servidorId = srv[i%srv.length].id; });
+  // Cada subdominio guarda de qué dominio emana
+  state.data.dominios.filter(x=>x.tipo==="Subdominio"&&!x.dominioBaseId).forEach(x=>{ const b=dominioBaseDe(x); if(b) x.dominioBaseId=b.id; });
   // Estatus conforme a los flujos de la Fase 1
   srv.forEach(x=>{ if(!x.estatus) x.estatus = x.ip ? "En operación" : "En aprovisionamiento"; });
   state.data.vpns.forEach(x=>{ if(!x.estatus) x.estatus = x.ip ? "Activa" : "Registrada"; });
@@ -2607,7 +2643,7 @@ function abrirNuevaSolicitud(solicitanteId){
       const tipo = $("#tipoNuevaSolicitud").value;
       closeModal();
       state.editing.presetSolicitanteId = solicitanteId;
-      if(tipo==="Dominio"||tipo==="SubDominio"){ state.editing.dominioTipo = tipo==="Dominio"?"Dominio":"Subdominio"; state.editing.dominioId=null; navigate("dominios-form"); }
+      if(tipo==="Dominio"||tipo==="SubDominio"){ state.editing.dominioTipo = tipo==="Dominio"?"Dominio":"Subdominio"; state.editing.dominioId=null; state.editing.dominioBaseId=null; navigate("dominios-form"); }
       else if(tipo==="Sitio Web"){ state.editing.sitioId=null; navigate("sitios-web-form"); }
       else if(tipo==="Crear BD"){ state.editing.bdId=null; navigate("crear-bd-form"); }
       else if(tipo==="RRD"){ state.editing.rrdId=null; navigate("rrd-form"); }
@@ -2882,42 +2918,153 @@ function agregarBitacoraSitio(id){
   renderSitioWebBitacora(id);
 }
 /* ================= Servicios > Dominios y Subdominios ================= */
+/* ---- Dominios con subdominios anidados ---- */
+function dominioBaseDe(sub){
+  if(sub.dominioBaseId){ const b=findIn(state.data.dominios,sub.dominioBaseId); if(b) return b; }
+  return state.data.dominios.filter(d=>d.tipo==="Dominio" && sub.nombre.endsWith("."+d.nombre.replace(/^www\./,""))).sort((a,b)=>b.nombre.length-a.nombre.length)[0]||null;
+}
+function subdominiosDe(dom){ return state.data.dominios.filter(x=>x.tipo==="Subdominio" && (x.dominioBaseId===dom.id || (!x.dominioBaseId && dominioBaseDe(x)?.id===dom.id))); }
+function rowActionsHtml(items,editOnclick){
+  const enc=JSON.stringify(items).replace(/&/g,"&amp;").replace(/"/g,"&quot;");
+  return `<div class="row-actions"><button type="button" class="ra-btn ra-more" title="Más acciones" aria-haspopup="menu" data-items="${enc}" onclick="openRowMenu(this)">${icon("more-vertical")}</button>${editOnclick?`<button type="button" class="ra-btn edit" title="Editar" onclick="${editOnclick.replace(/"/g,"&quot;")}">${icon("edit")}</button>`:""}</div>`;
+}
+function accionesDominio(d){
+  const base=[{icon:"eye",title:"Ver detalle",onclick:`state.editing.dominioId='${d.id}';navigate('dominios-detalle')`},
+    {icon:"refresh",title:"Cambiar estatus",onclick:`abrirCambiarEstatus('dominios','${d.id}')`},
+    {icon:"key",title:"Asignar IP/NAT",onclick:`abrirAsignarIpNat('${d.id}')`},
+    {icon:"clock",title:"Bitácora",onclick:`abrirBitacora('dominios','${d.id}')`},
+    {sep:true},
+    {icon:"trash",title:"Eliminar",onclick:`eliminarDominio('${d.id}')`,cls:"danger"}];
+  if(d.tipo==="Dominio") base.unshift({icon:"plus",title:"Agregar subdominio",onclick:`agregarSubdominio('${d.id}')`},{sep:true});
+  return rowActionsHtml(base,`state.editing.dominioTipo='${d.tipo}';state.editing.dominioId='${d.id}';navigate('dominios-form')`);
+}
+function agregarSubdominio(domId){
+  const dom=findIn(state.data.dominios,domId);
+  if(dom && ["Rechazado","Dado de baja"].includes(dom.estatus)){ toast(`El dominio ${dom.nombre} está ${dom.estatus.toLowerCase()}; no admite nuevos subdominios.`,"error"); return; }
+  state.editing.dominioTipo="Subdominio"; state.editing.dominioId=null; state.editing.dominioBaseId=domId; navigate("dominios-form");
+}
+function domCoincide(d,term,f){
+  if(term && !matchesSearch(d,term)) return false;
+  if(f.dep && d.dependencia!==f.dep) return false;
+  if(f.est && (d.estatus||"Registrado")!==f.est) return false;
+  if(f.ip==="con" && !d.ip) return false;
+  if(f.ip==="sin" && d.ip) return false;
+  const fe=dxFecha(d.fecha);
+  if(f.desde && (!fe || fe < dxFecha(f.desde))) return false;
+  if(f.hasta && (!fe || fe > dxFecha(f.hasta))) return false;
+  return true;
+}
 function renderDominios(){
+  state.editing.dominioBaseId = null;
   const term = state.search.dominios||"";
-  const f = state.filters.dominios||{dep:"Todos",estatus:"Todos",tipo:"Todos"};
-  let rows = state.data.dominios.filter(d=>matchesSearch(d,term));
-  if(f.dep!=="Todos") rows = rows.filter(d=>d.dependencia===f.dep);
-  if(f.estatus!=="Todos") rows = rows.filter(d=>d.estatus===f.estatus);
-  if(f.tipo!=="Todos") rows = rows.filter(d=>d.tipo===f.tipo);
+  const f = state.domFiltros = state.domFiltros||{dep:"",est:"",ip:"",desde:"",hasta:""};
+  state.domOpen = state.domOpen||{};
+  state.domSel = state.domSel||new Set();
+  const filtrando = !!(term||f.dep||f.est||f.ip||f.desde||f.hasta);
+  const all = state.data.dominios;
+  const doms = all.filter(d=>d.tipo==="Dominio").sort((a,b)=>a.nombre.localeCompare(b.nombre));
+  const huerfanos = all.filter(x=>x.tipo==="Subdominio" && !dominioBaseDe(x));
+  const grupos = doms.map(d=>({dom:d, subs:subdominiosDe(d)}));
+  if(huerfanos.length) grupos.push({dom:null, subs:huerfanos});
+  const vis = grupos.map(g=>{
+    const domOk = g.dom ? domCoincide(g.dom,term,f) : false;
+    const subsOk = g.subs.filter(x=>domCoincide(x,term,f));
+    // Si el dominio coincide por sí mismo, se muestran todos sus subdominios; si no, solo los que coinciden.
+    const subsVis = filtrando ? (domOk && !(f.dep||f.est||f.ip||f.desde||f.hasta) ? g.subs : subsOk) : g.subs;
+    const mostrar = !filtrando || domOk || subsOk.length>0;
+    const abierto = g.dom ? (filtrando ? subsOk.length>0 : !!state.domOpen[g.dom.id]) : true;
+    return {...g, subsVis, mostrar, abierto};
+  }).filter(g=>g.mostrar);
+  const nDom = vis.filter(g=>g.dom).length, nSub = vis.reduce((a,g)=>a+g.subsVis.length,0);
+  const opciones = (arr)=>[...new Set(arr.filter(Boolean))].sort((a,b)=>a.localeCompare(b,"es"));
+  const deps = opciones(all.map(d=>d.dependencia));
+  const ests = FLUJOS_ESTATUS.dominios.orden.filter(e=>all.some(d=>(d.estatus||"Registrado")===e));
+  const activos = ["dep","est","ip"].filter(k=>f[k]).length + ((f.desde||f.hasta)?1:0);
+  const chk = (id)=>`<input type="checkbox" class="dom-check" data-id="${id}" ${state.domSel.has(id)?"checked":""} aria-label="Seleccionar registro">`;
+  const ipCell = d=>d.ip?d.ip:`<span class="subtext" style="margin:0">Sin IP</span>`;
+  const subTabla = g=>`<div class="dn-box">
+      <div class="dn-head"><strong>${g.dom?`Subdominios de ${g.dom.nombre}`:"Subdominios sin dominio base"}</strong><span>${g.subsVis.length} registro(s)${g.subsVis.filter(x=>!x.ip).length?` · ${g.subsVis.filter(x=>!x.ip).length} sin IP`:""}</span></div>
+      ${g.subsVis.length?`<table class="dn-subtable" data-enh="1" data-cf="1"><thead><tr><th class="dn-sel"></th><th>Subdominio</th><th>Dependencia</th><th>Solicitante</th><th>IP</th><th>Estatus</th><th>Fecha</th><th>Acciones</th></tr></thead>
+        <tbody>${g.subsVis.map(x=>`<tr><td class="dn-sel">${chk(x.id)}</td><td><span class="dn-sub-name">${icon("link")}<strong>${x.nombre}</strong></span></td><td>${x.dependencia}</td><td>${x.solicitante||"—"}</td><td>${ipCell(x)}</td><td>${badgeEstatus(x.estatus||"Registrado")}</td><td>${x.fecha}</td><td>${accionesDominio(x)}</td></tr>`).join("")}</tbody></table>`
+        :`<p class="dn-empty">${g.dom?"Este dominio aún no tiene subdominios.":""}</p>`}
+      ${g.dom && !["Rechazado","Dado de baja"].includes(g.dom.estatus)?`<button type="button" class="dn-add-sub" onclick="agregarSubdominio('${g.dom.id}')">${icon("plus")} Agregar subdominio a ${g.dom.nombre}</button>`:""}
+    </div>`;
+  const filas = vis.map(g=>{
+    if(!g.dom) return `<tr class="dn-dom open"><td></td><td></td><td colspan="7"><strong>Sin dominio base</strong> <span class="subtext" style="display:inline">Subdominios cuyo dominio no está registrado.</span></td></tr><tr class="dn-nest"><td colspan="9">${subTabla(g)}</td></tr>`;
+    const d=g.dom, total=g.subs.length;
+    return `<tr class="dn-dom ${g.abierto?"open":""}">
+        <td><button type="button" class="dn-toggle" onclick="toggleDominio('${d.id}')" aria-expanded="${g.abierto}" title="${g.abierto?"Ocultar":"Ver"} subdominios">${icon("chevron-down")}</button></td>
+        <td class="dn-sel">${chk(d.id)}</td>
+        <td><span class="dn-dom-name">${icon("globe")}<strong>${d.nombre}</strong></span></td>
+        <td>${d.dependencia}</td>
+        <td><button type="button" class="dn-count" onclick="toggleDominio('${d.id}')">${total} subdominio${total===1?"":"s"}</button></td>
+        <td>${ipCell(d)}</td><td>${badgeEstatus(d.estatus||"Registrado")}</td><td>${d.fecha}</td>
+        <td>${accionesDominio(d)}</td></tr>
+      ${g.abierto?`<tr class="dn-nest"><td colspan="9">${subTabla(g)}</td></tr>`:""}`;
+  }).join("");
   content.innerHTML = `
   ${breadcrumb([{label:"Servicios"},{label:"Dominios y Subdominios"}])}
-  <div class="page-header"><div><h1>Dominios y Subdominios</h1><p>Registra las solicitudes (comúnmente por oficio) de subdominios. Agrega un Dominio solo la primera vez, para que aparezca como dominio base al agregar subdominios.</p></div>
+  <div class="page-header"><div><h1>Dominios y Subdominios</h1><p>Cada dominio agrupa sus subdominios. Despliega un dominio para ver o agregar sus subdominios.</p></div>
     <div class="page-actions">
-      <button class="button secondary" onclick="state.editing.dominioTipo='Dominio';state.editing.dominioId=null;navigate('dominios-form')">${icon("globe")} Agregar Dominio</button>
-      <button class="button primary" onclick="state.editing.dominioTipo='Subdominio';state.editing.dominioId=null;navigate('dominios-form')">${icon("link")} Agregar Subdominio</button>
+      <div class="export-wrap"><button type="button" class="button export-btn" id="domExportBtn" onclick="openExportDominios(this)">${icon("upload")} Exportar ${icon("chevron-down")}${state.domSel.size?`<span class="count-pill">${state.domSel.size}</span>`:""}</button></div>
+      <button class="button primary" onclick="state.editing.dominioTipo='Dominio';state.editing.dominioId=null;navigate('dominios-form')">${icon("globe")} Agregar Dominio</button>
     </div>
   </div>
   <article class="card table-card">
+    <div class="col-filters">
+      <div class="filters-bar"><button type="button" class="filters-toggle ${state.domFiltrosOpen?"open":""}" data-filters-toggle="domFiltrosPanel" aria-expanded="${!!state.domFiltrosOpen}" onclick="state.domFiltrosOpen=!state.domFiltrosOpen">${icon("filter")}<span>Filtros</span>${activos?`<span class="active-count">${activos}</span>`:""}${icon("chevron-down","icon chevron")}</button></div>
+      <div class="filters-collapse" id="domFiltrosPanel" ${state.domFiltrosOpen?"":"hidden"}>
+        <div class="filters-grid">
+          <div class="field"><label for="dfDep">Dependencia</label><select id="dfDep" data-k="dep"><option value="">Todas</option>${deps.map(o=>`<option ${o===f.dep?"selected":""}>${o}</option>`).join("")}</select></div>
+          <div class="field"><label for="dfEst">Estatus</label><select id="dfEst" data-k="est"><option value="">Todos</option>${ests.map(o=>`<option ${o===f.est?"selected":""}>${o}</option>`).join("")}</select></div>
+          <div class="field"><label for="dfIp">IP</label><select id="dfIp" data-k="ip"><option value="">Todos</option><option value="con" ${f.ip==="con"?"selected":""}>Con IP</option><option value="sin" ${f.ip==="sin"?"selected":""}>Sin IP</option></select></div>
+          <div class="field date-field"><label>Fecha (desde – hasta)</label><div class="date-pair"><input type="date" id="dfDesde" data-k="desde" value="${f.desde}" aria-label="Fecha desde"><input type="date" id="dfHasta" data-k="hasta" value="${f.hasta}" aria-label="Fecha hasta"></div></div>
+        </div>
+        <div class="filters-actions"><span class="filters-result">${filtrando?`${nDom} dominio(s) y ${nSub} subdominio(s) coinciden`:"Los filtros aplican a dominios y subdominios."}</span><button type="button" class="button ghost" onclick="state.domFiltros=null;renderDominios()">${icon("refresh")} Limpiar filtros</button></div>
+      </div>
+    </div>
     <div class="datatable-toolbar"><div class="entries-control">Mostrar <select><option>10</option></select> registros</div>
-      <div class="datatable-actions">${searchBox("dominiosSearch","Buscar registros",term)}</div></div>
-    <div class="table-wrap"><table>
-      <thead><tr><th>Tipo</th><th>Dominio y/o Subdominio</th><th>Dependencia</th><th>Solicitante</th><th>Estatus</th><th>Fecha Solicitud</th><th>IP</th><th>NAT</th><th>SCAN</th><th>Anexos</th><th>Acciones</th></tr></thead>
-      <tbody>${rows.length?rows.map(d=>`<tr>
-        <td><span class="badge ${d.tipo==="Dominio"?"review":"neutral"}">${d.tipo}</span></td><td><strong>${d.nombre}</strong></td><td>${d.dependencia}</td><td>${d.solicitante}</td><td>${badgeEstatus(d.estatus)}</td><td>${d.fecha}</td>
-        <td class="checkbox-cell">${checkIcon(!!d.ip)}</td><td class="checkbox-cell">${checkIcon(!!d.nat)}</td><td class="checkbox-cell">${checkIcon(!!d.scan)}</td>
-        <td class="checkbox-cell">${d.anexos?icon("file-text"):"-"}</td>
-        <td><div class="actions-cell">
-          ${actionBtn("eye","Ver detalle",`state.editing.dominioId='${d.id}';navigate('dominios-detalle')`)}
-          ${actionBtn("refresh","Cambiar estatus",`abrirCambiarEstatus('dominios','${d.id}')`)}
-          ${actionBtn("key","Asignar IP/NAT",`abrirAsignarIpNat('${d.id}')`)}
-          ${actionBtn("edit","Editar",`state.editing.dominioTipo='${d.tipo}';state.editing.dominioId='${d.id}';navigate('dominios-form')`,"warning")}
-          ${actionBtn("clock","Bitácora",`abrirBitacora('dominios','${d.id}')`)}
-          ${actionBtn("trash","Eliminar",`eliminarDominio('${d.id}')`,"danger")}
-        </div></td></tr>`).join(""):`<tr><td colspan="11" class="empty-state">No hay dominios ni subdominios registrados.</td></tr>`}</tbody>
+      <div class="datatable-actions">${searchBox("dominiosSearch","Buscar dominio o subdominio",term)}</div></div>
+    <div class="table-wrap"><table class="dn-table" data-enh="1" data-cf="1">
+      <thead><tr><th style="width:44px"></th><th class="dn-sel"><input type="checkbox" id="domSelAll" aria-label="Seleccionar todos"></th><th>Dominio</th><th>Dependencia propietaria</th><th>Subdominios</th><th>IP</th><th>Estatus</th><th>Fecha</th><th>Acciones</th></tr></thead>
+      <tbody>${filas || `<tr><td colspan="9" class="empty-state">${filtrando?"No hay dominios ni subdominios que coincidan.":"Aún no hay dominios registrados. Usa \"Agregar Dominio\" para registrar el primero."}</td></tr>`}</tbody>
     </table></div>
-    ${paginationFoot(rows.length,"solicitudes")}
+    <div class="pagination"><span>Mostrando ${nDom} dominio(s) · ${nSub} subdominio(s)${filtrando?" (filtrados)":""}</span><div class="pagination-buttons"><button disabled>Anterior</button><button class="active">1</button><button disabled>Siguiente</button></div></div>
   </article>`;
-  $("#dominiosSearch").oninput = e=>{ state.search.dominios=e.target.value; renderDominios(); };
+  $("#dominiosSearch").oninput = e=>{ state.search.dominios=e.target.value; renderDominios(); const el=$("#dominiosSearch"); el.focus(); el.setSelectionRange(el.value.length,el.value.length); };
+  $$("#domFiltrosPanel [data-k]").forEach(el=>el.onchange=()=>{ state.domFiltros={...state.domFiltros,[el.dataset.k]:el.value}; state.domFiltrosOpen=true; renderDominios(); });
+  const visibles=$$("#mainContent .dom-check").map(c=>c.dataset.id);
+  const sa=$("#domSelAll"); if(sa){ const n=visibles.filter(id=>state.domSel.has(id)).length; sa.checked=visibles.length>0&&n===visibles.length; sa.indeterminate=n>0&&n<visibles.length;
+    sa.onchange=()=>{ visibles.forEach(id=>sa.checked?state.domSel.add(id):state.domSel.delete(id)); renderDominios(); }; }
+  $$("#mainContent .dom-check").forEach(c=>c.onchange=()=>{ c.checked?state.domSel.add(c.dataset.id):state.domSel.delete(c.dataset.id); renderDominios(); });
+}
+function toggleDominio(id){ state.domOpen=state.domOpen||{}; state.domOpen[id]=!state.domOpen[id]; renderDominios(); }
+function filasExportDominios(){
+  const visibles=new Set($$("#mainContent .dom-check").map(c=>c.dataset.id));
+  const sel=[...state.domSel||[]].filter(id=>findIn(state.data.dominios,id));
+  const usar = sel.length ? sel : null;
+  const rows=[];
+  state.data.dominios.filter(d=>d.tipo==="Dominio").sort((a,b)=>a.nombre.localeCompare(b.nombre)).forEach(d=>{
+    const subs=subdominiosDe(d);
+    const incluyeDom = usar ? usar.includes(d.id) : (visibles.has(d.id) || !visibles.size);
+    if(incluyeDom) rows.push(["Dominio",d.nombre,"—",d.dependencia,d.solicitante||"",d.ip||"",d.estatus||"Registrado",d.fecha,String(subs.length)]);
+    subs.forEach(x=>{
+      const incluye = usar ? usar.includes(x.id) : (filtroActivoDominios() ? visibles.has(x.id) : true);
+      if(incluye) rows.push(["Subdominio",x.nombre,d.nombre,x.dependencia,x.solicitante||"",x.ip||"",x.estatus||"Registrado",x.fecha,""]);
+    });
+  });
+  state.data.dominios.filter(x=>x.tipo==="Subdominio"&&!dominioBaseDe(x)).forEach(x=>{ if(!usar||usar.includes(x.id)) rows.push(["Subdominio",x.nombre,"Sin dominio base",x.dependencia,x.solicitante||"",x.ip||"",x.estatus||"Registrado",x.fecha,""]); });
+  return {headers:["Tipo","Nombre","Dominio base","Dependencia","Solicitante","IP","Estatus","Fecha","Subdominios"],rows,esSeleccion:!!usar};
+}
+function filtroActivoDominios(){ const f=state.domFiltros||{}; return !!(state.search.dominios||f.dep||f.est||f.ip||f.desde||f.hasta); }
+function openExportDominios(btn){
+  const n=(state.domSel||new Set()).size;
+  openFloatingMenu(btn,`<div class="row-menu-title">${n?`Exportar ${n} seleccionado(s)`:(filtroActivoDominios()?"Exportar registros filtrados":"Exportar todos los registros")}</div>
+    <button type="button" data-f="csv">${icon("file-text")}<span>CSV</span></button>
+    <button type="button" data-f="excel">${icon("file-sheet")}<span>Excel</span></button>
+    <button type="button" data-f="print">${icon("print")}<span>Imprimir / PDF</span></button>
+    <button type="button" data-f="copy">${icon("copy")}<span>Copiar</span></button>`);
+  $$("#rowMenu button[data-f]").forEach(b=>b.onclick=()=>{ const {headers,rows,esSeleccion}=filasExportDominios(); exportarFilas(headers,rows,b.dataset.f,esSeleccion); });
 }
 function filtrarDominios(){
   state.filters.dominios = {dep:$("#fDomDep").value, estatus:$("#fDomEst").value, tipo:$("#fDomTipo").value};
@@ -2938,12 +3085,17 @@ function abrirAsignarIpNat(id){
       d.ip=$("#fAsigIp").value; d.nat=$("#fAsigNat").value; d.scan=$("#fAsigScan").value==="si"; d.bitacora.push({fecha:todayStr(),hora:nowTime(),usuario:"Administrador",movimiento:"Asignación de IP/NAT/SCAN",obs:""}); closeModal(); toast("Datos de red actualizados."); renderDominios(); }});
 }
 function eliminarDominio(id){
-  openModal({title:"Eliminar solicitud", confirmClass:"danger", confirm:"Eliminar",
-    body:"<p>¿Deseas eliminar esta solicitud de dominio/subdominio?</p>",
-    onConfirm:()=>{ removeIn(state.data.dominios,id); closeModal(); toast("Solicitud eliminada."); renderDominios(); }});
+  const d=findIn(state.data.dominios,id);
+  if(d.tipo==="Dominio"){
+    const activos=subdominiosDe(d).filter(x=>!["Rechazado","Dado de baja"].includes(x.estatus));
+    if(activos.length){ openModal({title:"No se puede eliminar el dominio", confirm:"Entendido", body:`<p><strong>${d.nombre}</strong> tiene ${activos.length} subdominio(s) activo(s). Para eliminarlo, primero da de baja o elimina sus subdominios.</p>`, onConfirm:closeModal}); return; }
+  }
+  openModal({title:`Eliminar ${d.tipo.toLowerCase()}`, confirmClass:"danger", confirm:"Eliminar",
+    body:`<p>¿Deseas eliminar <strong>${d.nombre}</strong>?</p>`,
+    onConfirm:()=>{ removeIn(state.data.dominios,id); state.domSel?.delete(id); closeModal(); toast(`${d.tipo} eliminado.`); renderDominios(); }});
 }
 function dominiosBase(){
-  return [...new Set(state.data.dominios.filter(d=>d.tipo==="Dominio").map(d=>d.nombre.replace(/^www\./,"")))].sort((a,b)=>a.split(".").length-b.split(".").length||a.localeCompare(b));
+  return [...new Set(state.data.dominios.filter(d=>d.tipo==="Dominio"&&!["Rechazado","Dado de baja"].includes(d.estatus)).map(d=>d.nombre.replace(/^www\./,"")))].sort((a,b)=>a.split(".").length-b.split(".").length||a.localeCompare(b));
 }
 function renderDominioForm(tipo,editId){
   const d = editId?findIn(state.data.dominios,editId):null;
@@ -2952,10 +3104,14 @@ function renderDominioForm(tipo,editId){
   state.editing.presetSolicitanteId = null;
   const bases = dominiosBase();
   let subNombre="", subBase=bases[0]||"";
-  if(d && tipo==="Subdominio"){ const b=bases.filter(x=>d.nombre.endsWith("."+x)).sort((a,b)=>b.length-a.length)[0]; if(b){ subBase=b; subNombre=d.nombre.slice(0,-(b.length+1)); } else subNombre=d.nombre; }
+  // Dominio base fijo: viene del dominio desde el que se dio "Agregar subdominio", o del subdominio que se edita
+  const baseFija = tipo==="Subdominio" ? (d ? dominioBaseDe(d) : (state.editing.dominioBaseId?findIn(state.data.dominios,state.editing.dominioBaseId):null)) : null;
+  if(baseFija) subBase = baseFija.nombre.replace(/^www\./,"");
+  if(d && tipo==="Subdominio"){ const b=baseFija?subBase:bases.filter(x=>d.nombre.endsWith("."+x)).sort((a,b)=>b.length-a.length)[0]; if(b && d.nombre.endsWith("."+b)){ subBase=b; subNombre=d.nombre.slice(0,-(b.length+1)); } else subNombre=d.nombre; }
+  state.editing.dominioBaseFijaId = baseFija?.id||null;
   const p = d?.proyecto||{};
   content.innerHTML = `
-  ${breadcrumb([{label:"Servicios"},{label:"Dominios y Subdominios",view:"dominios"},{label:(editId?"Editar ":"Agregar ")+tipo}])}
+  ${breadcrumb([{label:"Servicios"},{label:"Dominios y Subdominios",view:"dominios"},{label:(editId?"Editar ":"Agregar ")+tipo.toLowerCase()+(baseFija?` de ${baseFija.nombre}`:"")}])}
   <div class="page-header"><div><h1>${editId?"Editar":"Agregar"} ${tipo}</h1><p>${tipo==="Subdominio"?"Captura la solicitud del subdominio recibida por oficio.":"Registra el dominio para que esté disponible como dominio base de nuevos subdominios."}</p>${solicitanteContextHeader()}</div>
     <div class="page-actions">${badgeEstatus(d?.estatus||"Registrado")}</div></div>
   <article class="card">
@@ -2965,7 +3121,8 @@ function renderDominioForm(tipo,editId){
     ${tipo==="Subdominio"&&!bases.length?`<div class="inline-note">Aún no hay dominios registrados. <a href="#" onclick="state.editing.dominioTipo='Dominio';state.editing.dominioId=null;navigate('dominios-form');return false">Agrega primero un Dominio</a> para poder seleccionarlo como dominio base.</div>`:""}
     <div class="form-grid">
       ${tipo==="Subdominio"?`
-        ${fieldSelect("Dominio base","fDomBase",bases,subBase,'onchange="actualizarPreviaSubdominio()"')}
+        ${baseFija?`<div class="field"><label>Dominio base</label><div class="dn-base-fija">${icon("globe")}<strong>${subBase}</strong><span>Fijo · desde el dominio</span></div><input type="hidden" id="fDomBase" value="${subBase}"></div>`
+          :fieldSelect("Dominio base","fDomBase",bases,subBase,'onchange="actualizarPreviaSubdominio()"')}
         ${fieldInput("Nombre del subdominio","fDomSubNombre",subNombre,"text","oninput=actualizarPreviaSubdominio()")}
         ${fieldIp("IP del Subdominio","fDomSubIp",d?.ip)}
         <div class="field"><label>Vista previa</label><div class="inline-note" id="previaSubdominio" style="margin:0">—</div></div>
@@ -3014,7 +3171,11 @@ function guardarDominio(tipo,editId){
     proyecto:{nombre:$("#fDomProyecto").value, tipoServicio:$("#fDomTipoServicio").value, desarrollado:$("#fDomDesarrollado").value,
       usuarioFinal:$("#fDomUsuarioFinal").value, motor:$("#fDomMotor").value, hospedaje:$("#fDomHospedaje").value, descripcion:$("#fDomDescripcion").value}
   };
-  if(tipo==="Subdominio") payload.ip = $("#fDomSubIp").value.trim();
+  if(tipo==="Subdominio"){
+    payload.ip = $("#fDomSubIp").value.trim();
+    const baseNombre=$("#fDomBase").value;
+    payload.dominioBaseId = state.editing.dominioBaseFijaId || state.data.dominios.find(x=>x.tipo==="Dominio"&&x.nombre.replace(/^www\./,"")===baseNombre)?.id || null;
+  }
   if(prev){ Object.assign(prev,payload); logBitacora(prev,`Actualización del ${tipo.toLowerCase()}`); toast(`${tipo} actualizado.`); }
   else {
     const nd = {id:uid("DOM"),estatus:"Registrado",fecha:todayStr(),ip:"",nat:"",scan:false,anexos:0,...payload,bitacora:[]};
@@ -3022,6 +3183,8 @@ function guardarDominio(tipo,editId){
     logBitacora(nd,`Registro de ${tipo.toLowerCase()}`, nd.ip?`IP del subdominio: ${nd.ip}`:"");
     toast(`${tipo} agregado.`);
   }
+  if(tipo==="Subdominio" && payload.dominioBaseId){ state.domOpen=state.domOpen||{}; state.domOpen[payload.dominioBaseId]=true; }
+  state.editing.dominioBaseId=null;
   navigate("dominios");
 }
 function renderDominioDetalle(id){
@@ -3034,8 +3197,8 @@ function renderDominioDetalle(id){
   </div>
   <article class="card">
     <div class="detail-grid cols-4">
-      <div><span>Dominio</span><strong>${d.nombre}</strong></div>
-      <div><span>Subdominio</span><strong>${d.tipo==="Subdominio"?d.nombre:"-"}</strong></div>
+      <div><span>Dominio</span><strong>${d.tipo==="Subdominio"?(dominioBaseDe(d)?.nombre||"Sin dominio base"):d.nombre}</strong></div>
+      <div><span>${d.tipo==="Subdominio"?"Subdominio":"Subdominios"}</span><strong>${d.tipo==="Subdominio"?d.nombre:(subdominiosDe(d).map(x=>x.nombre).join(", ")||"Ninguno")}</strong></div>
       <div><span>IP</span><strong>${d.ip||"Sin asignar"}</strong></div>
       <div><span>NAT</span><strong>${d.nat||"Sin asignar"}</strong></div>
       <div><span>Estatus</span><strong>${d.estatus}</strong></div>
@@ -4982,9 +5145,13 @@ function exportarTabla(tableId,formato){
   closeRowMenu();
   const table=document.getElementById(tableId); if(!table) return;
   const {headers,rows,scope}=tableExportData(table);
+  exportarFilas(headers,rows,formato,scope==="sel");
+}
+function exportarFilas(headers,rows,formato,esSeleccion){
+  closeRowMenu();
   if(!rows.length){ toast("No hay registros para exportar.","error"); return; }
   const name=tableExportName();
-  const desc=scope==="sel"?`${rows.length} registro(s) seleccionado(s)`:`${rows.length} registro(s)`;
+  const desc=esSeleccion?`${rows.length} registro(s) seleccionado(s)`:`${rows.length} registro(s)`;
   const esc=v=>String(v??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
   const htmlTable=`<table border="1" cellspacing="0" cellpadding="6" style="border-collapse:collapse;font-family:Arial;font-size:12px"><thead><tr>${headers.map(h=>`<th style="background:#AB1738;color:#fff">${esc(h)}</th>`).join("")}</tr></thead><tbody>${rows.map(r=>`<tr>${r.map(v=>`<td>${esc(v)}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
   if(formato==="csv"){ exportTable(name,headers,rows); toast(`Exportado a CSV: ${desc}.`); }
