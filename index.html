@@ -1081,6 +1081,26 @@ tr.open .dn-count{background:var(--brand);color:#fff}
 .dn-base-fija{display:flex;align-items:center;gap:10px;min-height:42px;padding:0 14px;border:1px solid #EBD4DA;border-radius:7px;background:#FCF4F6}
 .dn-base-fija .icon{width:17px;height:17px;color:var(--brand)}
 .dn-base-fija span{margin-left:auto;font-size:11px;color:var(--muted)}
+/* ===== Panel propio de cada módulo ===== */
+.md-tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin:0 0 18px}
+.md-tabs button{border:0;background:transparent;font:inherit;font-size:14px;font-weight:700;color:var(--muted);padding:10px 16px;border-bottom:3px solid transparent;margin-bottom:-1px;display:flex;align-items:center;gap:8px;cursor:pointer}
+.md-tabs button .icon{width:17px;height:17px}
+.md-tabs button:hover{color:var(--brand)}
+.md-tabs button.active{color:var(--brand);border-bottom-color:var(--brand)}
+.md-tabs .md-count{background:#EEF0F3;color:#4B5058;border-radius:10px;font-size:11px;padding:1px 8px}
+.dx-go{cursor:pointer;border-radius:6px}
+.dx-hbar-row.dx-go:hover .dx-hbar-label,.dx-status-row.dx-go:hover span{color:var(--brand);text-decoration:underline}
+.md-stack{height:20px}
+.dx-stack-seg.serious{background:var(--st-serious)}
+.md-alerts{display:grid;gap:8px}
+.md-alert summary{list-style:none}
+.md-alert summary::-webkit-details-marker{display:none}
+.md-alert[open] summary{border-color:var(--brand);border-bottom-left-radius:0;border-bottom-right-radius:0}
+.md-alert ul{list-style:none;margin:0;padding:6px 10px;border:1px solid var(--brand);border-top:0;border-radius:0 0 8px 8px;background:#FFFAFB}
+.md-alert li{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:7px 4px;border-bottom:1px solid #F3E6EA;font-size:12.5px}
+.md-alert li:last-child{border-bottom:0}
+.md-alert li small{display:block;color:var(--muted);font-size:11px;margin-top:2px}
+.md-alert li.md-more{color:var(--muted);justify-content:flex-start}
 </style>
 </head>
 <body>
@@ -2387,7 +2407,7 @@ function dxTile({label,value,sub,iconName,view,tone=""}){
 function dxHBars(rows,{unit="registro(s)",empty="Sin datos"}={}){
   const max=Math.max(1,...rows.map(r=>r.value));
   if(!rows.length||rows.every(r=>!r.value)) return `<p class="dx-empty">${empty}</p>`;
-  return `<div class="dx-hbars">${rows.map(r=>`<div class="dx-hbar-row">
+  return `<div class="dx-hbars">${rows.map(r=>`<div class="dx-hbar-row${r.go?" dx-go":""}" ${r.go?`role="button" title="Ver en Registros" onclick="${r.go.replace(/"/g,"&quot;")}"`:""}>
     <span class="dx-hbar-label" title="${r.label}">${r.label}</span>
     <span class="dx-hbar-track"><span class="dx-hbar" style="width:${(r.value/max*100).toFixed(1)}%;${r.value?"":"min-width:0"}" tabindex="0" data-tip="${r.label}: ${dxFmt(r.value)} ${unit}" aria-label="${r.label}: ${r.value} ${unit}"></span></span>
     <span class="dx-hbar-value">${dxFmt(r.value)}</span>
@@ -5358,6 +5378,12 @@ function buildColumnFilters(table){
   const box=card.querySelector(".col-filters");
   const key=colFilterKey(table);
   state.colFilters=state.colFilters||{}; state.colFiltersOpen=state.colFiltersOpen||{};
+  if(state.pendingColFilter && state.pendingColFilter.view===state.view){
+    const pf=state.pendingColFilter; state.pendingColFilter=null;
+    const nuevo={};
+    pf.filtros.forEach(f=>{ const i=ths.findIndex(th=>th.textContent.trim().toLowerCase()===f.col.toLowerCase()); if(i>=0) nuevo[i+"|"+(f.kind||"igual")]=f.val; });
+    state.colFilters[key]=nuevo; state.colFiltersOpen[key]=true;
+  }
   const saved=state.colFilters[key]||{};
   box.querySelectorAll("[data-col]").forEach(el=>{ const k=el.dataset.col+"|"+el.dataset.kind; if(saved[k]!=null) el.value=saved[k]; });
   if(state.colFiltersOpen[key]){ const panel=box.querySelector(".filters-collapse"); panel.removeAttribute("hidden"); const t=box.querySelector(".filters-toggle"); t.classList.add("open"); t.setAttribute("aria-expanded","true"); }
@@ -5423,6 +5449,305 @@ function actualizarReloj(){
   el.dateTime = now.toISOString(); el.textContent = `${fecha} · ${hora}`;
 }
 actualizarReloj(); setInterval(actualizarReloj, 30000);
+
+/* ================= Panel propio de cada módulo (pestañas "Panel del módulo" / "Registros") ================= */
+const MOD_PANEL = {
+  "servidores":{fn:"renderServidores", nombre:"servidores", datos:()=>state.data.servidoresSolicitudes, fecha:x=>x.fecha, dep:x=>x.dependencia},
+  "incidentes-seguridad":{fn:"renderIncidentesSeguridad", nombre:"incidentes", datos:()=>state.data.incidentes, fecha:x=>x.fechaDeteccion,
+    dep:x=>findIn(state.data.solicitantes,x.solicitanteId)?.dependencia||findIn(state.data.servidoresSolicitudes,x.servidorId)?.dependencia||"—"},
+  "actas-seguridad":{fn:"renderActasSeguridad", nombre:"protocolos", datos:()=>state.data.actasSeguridad, fecha:x=>x.fecha, dep:x=>x.secretaria},
+  "dominios":{fn:"renderDominios", nombre:"registros", datos:()=>state.data.dominios, fecha:x=>x.fecha, dep:x=>x.dependencia},
+  "vpn":{fn:"renderVpn", nombre:"solicitudes", datos:()=>state.data.vpns, fecha:x=>x.fecha, dep:x=>findIn(state.data.solicitantes,x.solicitanteId)?.dependencia||"—"}
+};
+const MD_PERIODOS = [["todo","Todo el historial"],["anio","Este año"],["12m","Últimos 12 meses"],["6m","Últimos 6 meses"]];
+function mdFiltro(view){ state.mdFiltros=state.mdFiltros||{}; return state.mdFiltros[view]=state.mdFiltros[view]||{dep:"Todas",periodo:"todo"}; }
+function mdEnPeriodo(f,periodo){
+  if(periodo==="todo") return true;
+  const d=dxFecha(f); if(!d) return false;
+  const hoy=new Date();
+  if(periodo==="anio") return d.getFullYear()===hoy.getFullYear();
+  const meses = periodo==="12m"?12:6;
+  return d >= new Date(hoy.getFullYear(), hoy.getMonth()-meses+1, 1);
+}
+function mdRegistros(view){
+  const c=MOD_PANEL[view], f=mdFiltro(view);
+  return c.datos().filter(x=>(f.dep==="Todas"||c.dep(x)===f.dep) && mdEnPeriodo(c.fecha(x),f.periodo));
+}
+function irARegistros(view,filtros=[]){
+  state.modTab=state.modTab||{}; state.modTab[view]="registros";
+  if(view==="dominios"){
+    const df={dep:"",est:"",ip:"",desde:"",hasta:""};
+    filtros.forEach(x=>{ if(x.col==="Estatus") df.est=x.val; if(x.col==="Dependencia") df.dep=x.val; if(x.col==="IP") df.ip=x.val; });
+    state.domFiltros=df; state.domFiltrosOpen=filtros.length>0;
+  } else if(filtros.length){ state.pendingColFilter={view,filtros}; }
+  state.search = state.search||{};
+  navigate(view);
+}
+function mdGo(view,filtros){ return `irARegistros('${view}',${JSON.stringify(filtros).replace(/"/g,"'")})`; }
+function mdTile({label,value,sub,iconName,tone="",go}){
+  return `<${go?`button type="button" onclick="${go}" title="Ver en Registros"`:"div"} class="dx-tile ${tone}">
+    <span class="dx-tile-label">${icon(iconName)}${label}</span><strong class="dx-tile-value">${typeof value==="number"?dxFmt(value):value}</strong><span class="dx-tile-sub">${sub}</span></${go?"button":"div"}>`;
+}
+function mdCardBars(id,title,sub,rows,unit){
+  return `<article class="card">${dxCardHead(title,sub,rows.some(r=>r.value)?id:"")}<div class="dx-chart">${dxHBars(rows,{unit,empty:"Sin datos para esta selección."})}</div>${dxTablaVista(id,[title.replace(/^(Por|Servidores por|Incidentes por) /,""),"Cantidad"],rows.map(r=>[r.label,r.value]))}</article>`;
+}
+function mdCardStack(id,title,sub,segs){
+  const tot=segs.reduce((a,b)=>a+b.n,0);
+  if(!tot) return `<article class="card">${dxCardHead(title,sub)}<p class="dx-empty">Sin datos para esta selección.</p></article>`;
+  return `<article class="card">${dxCardHead(title,sub,id)}<div class="dx-chart"><div class="dx-stack md-stack">${segs.filter(x=>x.n).map(x=>`<span class="dx-stack-seg ${x.tone}" style="flex-grow:${x.n}" tabindex="0" data-tip="${x.label}: ${x.n} (${Math.round(x.n/tot*100)}%)"></span>`).join("")}</div>
+    <div class="dx-status-list">${segs.map(x=>`<div class="dx-status-row${x.go?" dx-go":""}" ${x.go?`role="button" onclick="${x.go}" title="Ver en Registros"`:""}><span class="dx-state ${x.tone}">${icon(x.icon)}${x.label}</span><b>${x.n}</b><small>${Math.round(x.n/tot*100)}%</small></div>`).join("")}</div></div>
+    ${dxTablaVista(id,[title,"Cantidad","%"],segs.map(x=>[x.label,x.n,Math.round(x.n/tot*100)+"%"]))}</article>`;
+}
+function mdCardAlertas(title,sub,alertas){
+  const act=alertas.filter(a=>a.items.length);
+  const toneLabel={critical:"Crítico",serious:"Atender",warning:"Revisar",info:"Pendiente"};
+  return `<article class="card">${dxCardHead(title,sub)}${act.length?`<div class="md-alerts">${act.map(a=>`<details class="md-alert ${a.tone}">
+      <summary class="dx-alert ${a.tone}"><span class="dx-alert-icon">${icon(a.icon)}</span><span class="dx-alert-text"><strong>${a.t}</strong><small>${toneLabel[a.tone]} · ver cuáles</small></span><span class="dx-alert-n">${a.items.length}</span></summary>
+      <ul>${a.items.slice(0,8).map(it=>`<li><span><strong>${it.label}</strong>${it.sub?`<small>${it.sub}</small>`:""}</span><button type="button" class="button ghost dx-mini" onclick="${it.ver}">Ver</button></li>`).join("")}${a.items.length>8?`<li class="md-more">y ${a.items.length-8} más…</li>`:""}</ul>
+    </details>`).join("")}</div>`
+    :`<div class="dx-allgood">${icon("check-circle")}<strong>Sin pendientes</strong><span>No hay nada que atender para esta selección.</span></div>`}</article>`;
+}
+function mdCardMensual(id,title,sub,regs,fechaFn,periodo){
+  const hoy=new Date(); const n = periodo==="12m"?12:(periodo==="anio"?hoy.getMonth()+1:6);
+  const meses=[]; for(let k=n-1;k>=0;k--){ const m=new Date(hoy.getFullYear(),hoy.getMonth()-k,1); meses.push({y:m.getFullYear(),m:m.getMonth(),label:`${MESES_CORTOS[m.getMonth()]} ${String(m.getFullYear()).slice(2)}`}); }
+  const serie=meses.map(mm=>({label:mm.label,v:regs.filter(x=>{const f=dxFecha(fechaFn(x));return f&&f.getFullYear()===mm.y&&f.getMonth()===mm.m;}).length}));
+  const max=Math.max(1,...serie.map(r=>r.v));
+  const rawStep=max/4, mag=Math.pow(10,Math.floor(Math.log10(Math.max(rawStep,1)))); const step=[1,2,5,10].map(k=>k*mag).find(v=>v>=rawStep)||10*mag;
+  const top=Math.max(step,Math.ceil(max/step)*step); const ticks=[]; for(let t=0;t<=top;t+=step) ticks.push(t);
+  return `<article class="card">${dxCardHead(title,sub,id)}<div class="dx-chart">
+    <div class="dx-colchart"><div class="dx-yaxis">${ticks.slice().reverse().map(t=>`<span style="bottom:${(t/top*100).toFixed(1)}%">${t}</span>`).join("")}</div>
+      <div class="dx-plot">${ticks.map(t=>`<i class="dx-grid" style="bottom:${(t/top*100).toFixed(1)}%"></i>`).join("")}${serie.map(r=>`<div class="dx-col">${r.v?`<div class="dx-col-stack" style="height:${(r.v/top*100).toFixed(1)}%"><span class="dx-seg" style="flex-grow:1;background:var(--brand)" tabindex="0" data-tip="${r.label}: ${r.v}"></span></div><span class="dx-col-total" style="bottom:calc(${(r.v/top*100).toFixed(1)}% + 4px)">${r.v}</span>`:""}</div>`).join("")}</div></div>
+    <div class="dx-xaxis">${serie.map(r=>`<span>${r.label}</span>`).join("")}</div></div>
+    ${dxTablaVista(id,["Mes","Registros"],serie.map(r=>[r.label,r.v]))}</article>`;
+}
+function mdContar(arr,fn,orden){
+  const m=new Map(); arr.forEach(x=>{ const k=fn(x)||"Sin dato"; m.set(k,(m.get(k)||0)+1); });
+  const rows=[...m.entries()].map(([label,value])=>({label,value}));
+  if(orden) return orden.map(o=>({label:o,value:m.get(o)||0}));
+  return rows.sort((a,b)=>b.value-a.value);
+}
+function mdDiasEntre(a,b){ const x=dxFecha(a), y=dxFecha(b); return x&&y?Math.max(0,Math.round((y-x)/86400000)):null; }
+function mdDiasDesde(f){ const d=dxFecha(f); return d?Math.floor((new Date()-d)/86400000):0; }
+function mdFechaEstatus(reg,estatus){ const b=(reg.bitacora||[]).filter(e=>(e.movimiento||"").includes("→ "+estatus)).pop(); return b?b.fecha:null; }
+
+/* ---- Contenido de cada panel ---- */
+const MD_CONTENIDO = {
+  "servidores":(regs,f)=>{
+    const d=state.data, ids=new Set(regs.map(x=>x.id));
+    const activos=regs.filter(x=>!["Rechazado","Dado de baja"].includes(x.estatus));
+    const conProt=new Set(d.actasSeguridad.map(a=>a.servidorId));
+    const incAb=d.incidentes.filter(i=>ids.has(i.servidorId)&&!INC_CERRADOS.includes(i.estatus));
+    const srvInc=new Set(incAb.map(i=>i.servidorId));
+    const sinAv=activos.filter(x=>x.antivirus!=="Sí"), sinProt=activos.filter(x=>!conProt.has(x.id));
+    const op=regs.filter(x=>x.estatus==="En operación").length, mant=regs.filter(x=>x.estatus==="En mantenimiento").length;
+    const v="servidores", lbl=x=>`${x.ip||"IP por asignar"} · ${x.tipoServidor||"Virtual"}`;
+    return {
+      tiles:[
+        mdTile({label:"Servidores registrados",value:regs.length,sub:`${regs.filter(x=>x.tipoServidor!=="Físico").length} virtual(es) · ${regs.filter(x=>x.tipoServidor==="Físico").length} físico(s)`,iconName:"server",tone:"lead",go:mdGo(v,[])}),
+        mdTile({label:"En operación",value:op,sub:`${regs.length?Math.round(op/regs.length*100):0}% del total · ${mant} en mantenimiento`,iconName:"check-circle",go:mdGo(v,[{col:"Estatus",val:"En operación"}])}),
+        mdTile({label:"Sin antivirus",value:sinAv.length,sub:"Servidores vigentes sin antivirus",iconName:"ban",tone:sinAv.length?"alert":"",go:mdGo(v,[{col:"Antivirus",kind:"presencia",val:"sin"}])}),
+        mdTile({label:"Sin Protocolo de Seguridad",value:sinProt.length,sub:"No han pasado evaluación",iconName:"shield",tone:sinProt.length?"alert":""}),
+        mdTile({label:"Con incidentes abiertos",value:srvInc.size,sub:`${incAb.length} incidente(s) en atención`,iconName:"alert",tone:srvInc.size?"alert":""})
+      ],
+      filas:[
+        ["1fr 1fr",[
+          mdCardBars("mdSrvEst","Servidores por estatus","Ciclo de vida: de la solicitud a la baja.",mdContar(regs,x=>x.estatus||"Registrado",FLUJOS_ESTATUS.servidoresSolicitudes.orden).map(r=>({...r,go:mdGo(v,[{col:"Estatus",val:r.label}])})),"servidor(es)"),
+          mdCardStack("mdSrvCob","Cobertura de seguridad","Antivirus y Protocolo de Seguridad en servidores vigentes.",[
+            {label:"Antivirus y protocolo",n:activos.filter(x=>x.antivirus==="Sí"&&conProt.has(x.id)).length,tone:"good",icon:"check-circle"},
+            {label:"Con antivirus, sin protocolo",n:activos.filter(x=>x.antivirus==="Sí"&&!conProt.has(x.id)).length,tone:"warning",icon:"shield"},
+            {label:"Con protocolo, sin antivirus",n:activos.filter(x=>x.antivirus!=="Sí"&&conProt.has(x.id)).length,tone:"serious",icon:"ban"},
+            {label:"Sin antivirus ni protocolo",n:activos.filter(x=>x.antivirus!=="Sí"&&!conProt.has(x.id)).length,tone:"critical",icon:"alert"}])
+        ]],
+        ["repeat(3,1fr)",[
+          mdCardBars("mdSrvSo","Por sistema operativo","Plataforma instalada.",mdContar(regs,x=>x.so).map(r=>({...r,go:mdGo(v,[{col:"Sistema Operativo",val:r.label}])})),"servidor(es)"),
+          mdCardBars("mdSrvDep","Por dependencia","Dónde está la infraestructura.",mdContar(regs,x=>x.dependencia).map(r=>({...r,go:mdGo(v,[{col:"Dependencia",val:r.label}])})),"servidor(es)"),
+          mdCardBars("mdSrvBd","Tipo de base de datos","Motor instalado (opcional).",mdContar(regs,x=>x.tipoBD||"No aplica"),"servidor(es)")
+        ]],
+        ["1fr 1.3fr",[
+          mdCardAlertas("Requieren atención","Pendientes de este módulo.",[
+            {tone:"critical",icon:"alert",t:"Servidores con incidentes abiertos",items:regs.filter(x=>srvInc.has(x.id)).map(x=>({label:lbl(x),sub:x.dependencia,ver:`verServidor('${x.id}')`}))},
+            {tone:"warning",icon:"shield",t:"Sin Protocolo de Seguridad",items:sinProt.map(x=>({label:lbl(x),sub:x.dependencia,ver:`verServidor('${x.id}')`}))},
+            {tone:"warning",icon:"ban",t:"Sin antivirus instalado",items:sinAv.map(x=>({label:lbl(x),sub:x.dependencia,ver:`verServidor('${x.id}')`}))},
+            {tone:"info",icon:"clock",t:"En aprovisionamiento hace más de 15 días",items:regs.filter(x=>x.estatus==="En aprovisionamiento"&&mdDiasDesde(x.fecha)>15).map(x=>({label:lbl(x),sub:`Registrado el ${fmtFecha(x.fecha)}`,ver:`verServidor('${x.id}')`}))}
+          ]),
+          mdCardMensual("mdSrvMes","Altas por mes","Servidores registrados por mes.",regs,x=>x.fecha,f.periodo)
+        ]]
+      ]};
+  },
+  "incidentes-seguridad":(regs,f)=>{
+    const d=state.data, v="incidentes-seguridad";
+    const imp=i=>findIn(d.activos,i.activoId)?.impacto||"Sin dato";
+    const abiertos=regs.filter(i=>!INC_CERRADOS.includes(i.estatus));
+    const criticos=abiertos.filter(i=>/crítico|alto/i.test(imp(i)));
+    const cerrados=regs.filter(i=>["Resuelto","Cerrado"].includes(i.estatus));
+    const tiempos=cerrados.map(i=>mdDiasEntre(i.fechaDeteccion, mdFechaEstatus(i,"Cerrado")||mdFechaEstatus(i,"Resuelto")||(i.bitacora||[]).at(-1)?.fecha)).filter(x=>x!=null);
+    const prom=tiempos.length?Math.round(tiempos.reduce((a,b)=>a+b,0)/tiempos.length):null;
+    const srvLbl=i=>{ const s=findIn(d.servidoresSolicitudes,i.servidorId); return s?`${s.ip||"IP por asignar"} · ${s.tipoServidor||"Virtual"}`:"Sin servidor"; };
+    const it=i=>({label:i.folio,sub:`${i.tipoIncidente} · ${i.estatus}`,ver:`verIncidente('${i.id}')`});
+    return {
+      tiles:[
+        mdTile({label:"Incidentes registrados",value:regs.length,sub:`${cerrados.length} resuelto(s) o cerrado(s) · ${regs.filter(i=>i.estatus==="Descartado").length} descartado(s)`,iconName:"alert",tone:"lead",go:mdGo(v,[])}),
+        mdTile({label:"Abiertos",value:abiertos.length,sub:"En alguna etapa de atención",iconName:"clock",tone:abiertos.length?"alert":""}),
+        mdTile({label:"Impacto alto o crítico",value:criticos.length,sub:"Abiertos sobre activos sensibles",iconName:"alert",tone:criticos.length?"alert":""}),
+        mdTile({label:"En análisis",value:regs.filter(i=>i.estatus==="En análisis").length,sub:"Investigando causa y alcance",iconName:"search",go:mdGo(v,[{col:"Estatus",val:"En análisis"}])}),
+        mdTile({label:"Tiempo promedio de cierre",value:prom==null?"—":prom,sub:prom==null?"Aún no hay incidentes cerrados":"día(s) desde la detección",iconName:"calendar"})
+      ],
+      filas:[
+        ["1fr 1fr",[
+          mdCardBars("mdIncEst","Incidentes por estatus","Etapas de atención, de apertura a cierre.",mdContar(regs,i=>i.estatus,INC_ESTATUS).map(r=>({...r,go:mdGo(v,[{col:"Estatus",val:r.label}])})),"incidente(s)"),
+          mdCardStack("mdIncImp","Impacto de los incidentes abiertos","Según el activo afectado.",[
+            {label:"Crítico",n:abiertos.filter(i=>imp(i)==="Crítico").length,tone:"critical",icon:"alert",go:mdGo(v,[{col:"Impacto",val:"Crítico"}])},
+            {label:"Alto",n:abiertos.filter(i=>imp(i)==="Alto").length,tone:"serious",icon:"alert",go:mdGo(v,[{col:"Impacto",val:"Alto"}])},
+            {label:"Medio",n:abiertos.filter(i=>imp(i)==="Medio").length,tone:"warning",icon:"file-text",go:mdGo(v,[{col:"Impacto",val:"Medio"}])},
+            {label:"Bajo",n:abiertos.filter(i=>imp(i)==="Bajo").length,tone:"good",icon:"check-circle",go:mdGo(v,[{col:"Impacto",val:"Bajo"}])}])
+        ]],
+        ["repeat(3,1fr)",[
+          mdCardBars("mdIncTipo","Por tipo de incidente","Catálogo Tipo de Incidente.",mdContar(regs,i=>i.tipoIncidente).map(r=>({...r,go:mdGo(v,[{col:"Tipo de Incidente",val:r.label}])})),"incidente(s)"),
+          mdCardBars("mdIncSrv","Servidores más afectados","Incidentes por servidor.",mdContar(regs,srvLbl).slice(0,6),"incidente(s)"),
+          mdCardBars("mdIncAct","Activos afectados","Incidentes por activo.",mdContar(regs,i=>findIn(d.activos,i.activoId)?.nombre||"Sin activo").slice(0,6),"incidente(s)")
+        ]],
+        ["1fr 1.3fr",[
+          mdCardAlertas("Requieren atención","Pendientes de este módulo.",[
+            {tone:"critical",icon:"alert",t:"Abiertos de impacto alto o crítico",items:criticos.map(it)},
+            {tone:"serious",icon:"clock",t:"Abiertos hace más de 15 días",items:abiertos.filter(i=>mdDiasDesde(i.fechaDeteccion)>15).map(it)},
+            {tone:"warning",icon:"upload",t:"Abiertos sin evidencias",items:abiertos.filter(i=>!totalEvidencias(i)).map(it)},
+            {tone:"info",icon:"check-circle",t:"Resueltos pendientes de cerrar",items:regs.filter(i=>i.estatus==="Resuelto").map(it)}
+          ]),
+          mdCardMensual("mdIncMes","Incidentes por mes","Por fecha de detección.",regs,i=>i.fechaDeteccion,f.periodo)
+        ]]
+      ]};
+  },
+  "actas-seguridad":(regs,f)=>{
+    const d=state.data, v="actas-seguridad";
+    const cnt=e=>regs.filter(a=>a.estatus===e).length;
+    const it=a=>({label:a.oficio,sub:`${a.secretaria} · ${a.estatus}`,ver:`verActa('${a.id}')`});
+    const conProt=new Set(d.actasSeguridad.map(a=>a.servidorId));
+    const srvSin=d.servidoresSolicitudes.filter(s=>s.estatus==="En operación"&&!conProt.has(s.id)&&(f.dep==="Todas"||s.dependencia===f.dep));
+    const escaneos=regs.flatMap(a=>(a.escaneos||[]).map(e=>({fecha:e.fecha})));
+    return {
+      tiles:[
+        mdTile({label:"Protocolos registrados",value:regs.length,sub:`${escaneos.length} escaneo(s) con evidencias`,iconName:"shield",tone:"lead",go:mdGo(v,[])}),
+        mdTile({label:"En evaluación",value:cnt("En evaluación")+cnt("Registrado"),sub:`${cnt("Registrado")} sin iniciar · ${cnt("En evaluación")} en análisis`,iconName:"search"}),
+        mdTile({label:"Con observaciones",value:cnt("Con observaciones"),sub:"Pendientes de corrección",iconName:"file-text",tone:cnt("Con observaciones")?"alert":"",go:mdGo(v,[{col:"Estatus",val:"Con observaciones"}])}),
+        mdTile({label:"Aprobados",value:cnt("Aprobado")+cnt("Acta firmada"),sub:`${cnt("Acta firmada")} con acta firmada`,iconName:"check-circle"}),
+        mdTile({label:"No aprobados",value:cnt("No aprobado"),sub:"No pueden publicarse",iconName:"ban",tone:cnt("No aprobado")?"alert":"",go:mdGo(v,[{col:"Estatus",val:"No aprobado"}])})
+      ],
+      filas:[
+        ["1fr 1fr",[
+          mdCardBars("mdActEst","Protocolos por estatus","Del registro al acta firmada.",mdContar(regs,a=>a.estatus,FLUJOS_ESTATUS.actasSeguridad.orden).map(r=>({...r,go:mdGo(v,[{col:"Estatus",val:r.label}])})),"protocolo(s)"),
+          mdCardStack("mdActRes","Resultado del análisis","Protocolos evaluados.",[
+            {label:"Aprobado",n:regs.filter(a=>resultadoClass(a.resultado)==="aprobado"&&a.estatus!=="Registrado"&&a.estatus!=="En evaluación").length,tone:"good",icon:"check-circle",go:mdGo(v,[{col:"Resultado",val:"Aprobado"}])},
+            {label:"Con observaciones",n:regs.filter(a=>resultadoClass(a.resultado)==="observaciones").length,tone:"warning",icon:"file-text",go:mdGo(v,[{col:"Resultado",val:"Con observaciones"}])},
+            {label:"Rechazado",n:regs.filter(a=>resultadoClass(a.resultado)==="rechazado").length,tone:"critical",icon:"ban",go:mdGo(v,[{col:"Resultado",val:"Rechazado"}])}])
+        ]],
+        ["repeat(2,1fr)",[
+          mdCardBars("mdActSec","Por secretaría","Dependencia evaluada.",mdContar(regs,a=>a.secretaria).map(r=>({...r,go:mdGo(v,[{col:"Secretaría",val:r.label}])})),"protocolo(s)"),
+          mdCardBars("mdActSrv","Por servidor","Protocolos por servidor evaluado.",mdContar(regs,a=>{const s=findIn(d.servidoresSolicitudes,a.servidorId);return s?`${s.ip||"IP por asignar"} · ${s.tipoServidor||"Virtual"}`:"Sin servidor";}),"protocolo(s)")
+        ]],
+        ["1fr 1.3fr",[
+          mdCardAlertas("Requieren atención","Pendientes de este módulo.",[
+            {tone:"warning",icon:"file-text",t:"Con observaciones por corregir",items:regs.filter(a=>a.estatus==="Con observaciones").map(it)},
+            {tone:"warning",icon:"upload",t:"Registrados sin escaneo",items:regs.filter(a=>!(a.escaneos||[]).length).map(it)},
+            {tone:"info",icon:"signature",t:"Aprobados sin acta firmada",items:regs.filter(a=>a.estatus==="Aprobado").map(it)},
+            {tone:"serious",icon:"server",t:"Servidores en operación sin protocolo",items:srvSin.map(s=>({label:`${s.ip||"IP por asignar"} · ${s.tipoServidor||"Virtual"}`,sub:s.dependencia,ver:`verServidor('${s.id}')`}))}
+          ]),
+          mdCardMensual("mdActMes","Escaneos por mes","Evidencias de evaluación subidas.",escaneos,e=>e.fecha,f.periodo)
+        ]]
+      ]};
+  },
+  "dominios":(regs,f)=>{
+    const v="dominios";
+    const doms=regs.filter(x=>x.tipo==="Dominio"), subs=regs.filter(x=>x.tipo==="Subdominio");
+    const pend=subs.filter(x=>["Registrado","Validado","Autorizado"].includes(x.estatus||"Registrado"));
+    const it=x=>({label:x.nombre,sub:`${x.dependencia} · ${x.estatus||"Registrado"}`,ver:`state.editing.dominioId='${x.id}';navigate('dominios-detalle')`});
+    return {
+      tiles:[
+        mdTile({label:"Subdominios",value:subs.length,sub:`sobre ${doms.length} dominio(s) base`,iconName:"link",tone:"lead",go:mdGo(v,[])}),
+        mdTile({label:"Notificados",value:subs.filter(x=>x.estatus==="Notificado").length,sub:"Ya operan con IP",iconName:"check-circle",go:mdGo(v,[{col:"Estatus",val:"Notificado"}])}),
+        mdTile({label:"En trámite",value:pend.length,sub:"Registrados, validados o autorizados",iconName:"clock"}),
+        mdTile({label:"Sin IP",value:subs.filter(x=>!x.ip).length,sub:"Subdominios sin IP asignada",iconName:"key",tone:subs.filter(x=>!x.ip).length?"alert":"",go:mdGo(v,[{col:"IP",val:"sin"}])}),
+        mdTile({label:"Rechazados o de baja",value:regs.filter(x=>["Rechazado","Dado de baja"].includes(x.estatus)).length,sub:"Dominios y subdominios",iconName:"ban"})
+      ],
+      filas:[
+        ["1fr 1fr",[
+          mdCardBars("mdDomBase","Subdominios por dominio","Cuánto cuelga de cada dominio.",doms.map(d=>({label:d.nombre,value:subdominiosDe(d).filter(x=>subs.includes(x)).length})).sort((a,b)=>b.value-a.value),"subdominio(s)"),
+          mdCardBars("mdDomEst","Subdominios por estatus","Del registro a la notificación.",mdContar(subs,x=>x.estatus||"Registrado",FLUJOS_ESTATUS.dominios.orden).map(r=>({...r,go:mdGo(v,[{col:"Estatus",val:r.label}])})),"subdominio(s)")
+        ]],
+        ["1fr 1fr",[
+          mdCardBars("mdDomDep","Por dependencia","Subdominios solicitados por dependencia.",mdContar(subs,x=>x.dependencia).map(r=>({...r,go:mdGo(v,[{col:"Dependencia",val:r.label}])})),"subdominio(s)"),
+          mdCardStack("mdDomIp","Asignación de IP","Subdominios con y sin IP.",[
+            {label:"Con IP",n:subs.filter(x=>x.ip).length,tone:"good",icon:"check-circle",go:mdGo(v,[{col:"IP",val:"con"}])},
+            {label:"Sin IP",n:subs.filter(x=>!x.ip).length,tone:"warning",icon:"key",go:mdGo(v,[{col:"IP",val:"sin"}])}])
+        ]],
+        ["1fr 1.3fr",[
+          mdCardAlertas("Requieren atención","Pendientes de este módulo.",[
+            {tone:"warning",icon:"key",t:"Subdominios sin IP",items:subs.filter(x=>!x.ip&&!["Rechazado","Dado de baja"].includes(x.estatus)).map(it)},
+            {tone:"info",icon:"bell",t:"Autorizados pendientes de notificar",items:subs.filter(x=>x.estatus==="Autorizado").map(it)},
+            {tone:"serious",icon:"clock",t:"Registrados hace más de 15 días",items:subs.filter(x=>(x.estatus||"Registrado")==="Registrado"&&mdDiasDesde(x.fecha)>15).map(it)}
+          ]),
+          mdCardMensual("mdDomMes","Subdominios por mes","Solicitudes registradas por mes.",subs,x=>x.fecha,f.periodo)
+        ]]
+      ]};
+  },
+  "vpn":(regs,f)=>{
+    const v="vpn", cnt=e=>regs.filter(x=>(x.estatus||"Registrada")===e).length;
+    const it=x=>({label:x.nombre,sub:`${MOD_PANEL.vpn.dep(x)} · ${x.estatus||"Registrada"}`,ver:`verVpn('${x.id}')`});
+    return {
+      tiles:[
+        mdTile({label:"Solicitudes de VPN",value:regs.length,sub:"En el periodo seleccionado",iconName:"key",tone:"lead",go:mdGo(v,[])}),
+        mdTile({label:"Activas",value:cnt("Activa"),sub:"Accesos operando con IP",iconName:"check-circle",go:mdGo(v,[{col:"Estatus",val:"Activa"}])}),
+        mdTile({label:"Por autorizar",value:cnt("Registrada"),sub:"Esperan aprobación",iconName:"clock",tone:cnt("Registrada")?"alert":"",go:mdGo(v,[{col:"Estatus",val:"Registrada"}])}),
+        mdTile({label:"Autorizadas sin IP",value:cnt("Autorizada"),sub:"Listas para asignar IP",iconName:"key",tone:cnt("Autorizada")?"alert":"",go:mdGo(v,[{col:"Estatus",val:"Autorizada"}])}),
+        mdTile({label:"Revocadas o rechazadas",value:cnt("Revocada")+cnt("Rechazada"),sub:`${cnt("Revocada")} revocada(s) · ${cnt("Rechazada")} rechazada(s)`,iconName:"ban"})
+      ],
+      filas:[
+        ["1fr 1fr",[
+          mdCardBars("mdVpnEst","Solicitudes por estatus","Del registro a la revocación.",mdContar(regs,x=>x.estatus||"Registrada",FLUJOS_ESTATUS.vpns.orden).map(r=>({...r,go:mdGo(v,[{col:"Estatus",val:r.label}])})),"solicitud(es)"),
+          mdCardBars("mdVpnDep","Por dependencia","Quién solicita acceso remoto.",mdContar(regs,MOD_PANEL.vpn.dep).map(r=>({...r,go:r.label!=="—"?mdGo(v,[{col:"Dependencia",val:r.label}]):""})),"solicitud(es)")
+        ]],
+        ["1fr 1.3fr",[
+          mdCardAlertas("Requieren atención","Pendientes de este módulo.",[
+            {tone:"warning",icon:"clock",t:"Solicitudes por autorizar",items:regs.filter(x=>(x.estatus||"Registrada")==="Registrada").map(it)},
+            {tone:"info",icon:"key",t:"Autorizadas pendientes de IP",items:regs.filter(x=>x.estatus==="Autorizada").map(it)}
+          ]),
+          mdCardMensual("mdVpnMes","Solicitudes por mes","Solicitudes registradas por mes.",regs,x=>x.fecha,f.periodo)
+        ]]
+      ]};
+  }
+};
+function renderPanelModulo(view){
+  const c=MOD_PANEL[view], f=mdFiltro(view);
+  const deps=["Todas",...[...new Set(c.datos().map(c.dep).filter(x=>x&&x!=="—"))].sort((a,b)=>a.localeCompare(b,"es"))];
+  if(!deps.includes(f.dep)) f.dep="Todas";
+  const regs=mdRegistros(view);
+  const cont=MD_CONTENIDO[view](regs,f);
+  return `<div class="md-panel">
+    <div class="dx-filterbar">
+      <div class="field"><label for="mdDep">Dependencia</label><select id="mdDep" onchange="mdFiltro('${view}').dep=this.value;renderers['${view}']()">${deps.map(o=>`<option ${o===f.dep?"selected":""}>${o}</option>`).join("")}</select></div>
+      <div class="field" style="min-width:200px"><label for="mdPer">Periodo</label><select id="mdPer" onchange="mdFiltro('${view}').periodo=this.value;renderers['${view}']()">${MD_PERIODOS.map(([k,l])=>`<option value="${k}" ${k===f.periodo?"selected":""}>${l}</option>`).join("")}</select></div>
+      <p class="dx-filter-note">Indicadores, gráficas y pendientes se recalculan con estos filtros (el periodo usa la fecha de registro).<br><span>Las tarjetas y barras te llevan a "Registros" ya filtrado.</span></p>
+    </div>
+    <div class="dx-tiles">${cont.tiles.join("")}</div>
+    ${cont.filas.map(([cols,cards])=>`<div class="dx-row" style="grid-template-columns:${cols.split(" ").map(x=>x.includes("repeat")?x:`minmax(0,${x})`).join(" ")}">${cards.join("")}</div>`).join("")}
+  </div>`;
+}
+function renderModulo(view,orig){
+  state.modTab=state.modTab||{};
+  const tab=state.modTab[view]||"registros";
+  orig();
+  const header=$("#mainContent .page-header"); if(!header) return;
+  const total=MOD_PANEL[view].datos().length;
+  header.insertAdjacentHTML("afterend",`<div class="md-tabs" role="tablist">
+    <button type="button" role="tab" aria-selected="${tab==="panel"}" class="${tab==="panel"?"active":""}" onclick="state.modTab['${view}']='panel';renderers['${view}']()">${icon("chart")} Panel del módulo</button>
+    <button type="button" role="tab" aria-selected="${tab==="registros"}" class="${tab==="registros"?"active":""}" onclick="state.modTab['${view}']='registros';renderers['${view}']()">${icon("columns")} Registros <span class="md-count">${total}</span></button>
+  </div>`);
+  if(tab==="panel"){
+    $$("#mainContent > article.card").forEach(el=>el.remove());
+    header.querySelectorAll(".export-wrap").forEach(el=>el.remove());
+    $("#mainContent .md-tabs").insertAdjacentHTML("afterend",renderPanelModulo(view));
+  }
+}
+Object.entries(MOD_PANEL).forEach(([view,c])=>{ const orig=window[c.fn]; if(typeof orig==="function") window[c.fn]=function(){ return renderModulo(view,orig); }; });
 </script>
 </body>
 </html>
