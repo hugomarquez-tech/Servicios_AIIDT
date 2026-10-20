@@ -1033,7 +1033,9 @@ button.dx-tile:hover{border-color:var(--brand)}
 @media (max-width:1250px){.dx-tiles{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:1000px){.dx-row{grid-template-columns:minmax(0,1fr)!important}}
 @media (max-width:640px){.dx-tiles{grid-template-columns:repeat(2,minmax(0,1fr))}.dx-tile.lead{grid-column:1/-1}.dx-filterbar .field{min-width:0;width:100%}.dx-tile-value{font-size:28px}}
-.st-current{display:grid;grid-template-columns:auto auto 1fr;align-items:center;gap:10px;margin-bottom:14px}
+.st-current{display:grid;grid-template-columns:auto auto 1fr auto;align-items:center;gap:10px;margin-bottom:14px}
+.st-guia-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;color:var(--brand);white-space:nowrap}
+.st-guia-link .icon{width:15px;height:15px}
 .st-current>span{font-size:12px;font-weight:700;color:var(--muted)}
 .st-current small{color:var(--muted);font-size:12px}
 .st-flow{display:flex;flex-wrap:wrap;gap:6px 16px;align-items:center;padding:10px 12px;background:#FAFBFC;border:1px solid var(--line);border-radius:8px;margin-bottom:16px}
@@ -1101,6 +1103,45 @@ tr.open .dn-count{background:var(--brand);color:#fff}
 .md-alert li:last-child{border-bottom:0}
 .md-alert li small{display:block;color:var(--muted);font-size:11px;margin-top:2px}
 .md-alert li.md-more{color:var(--muted);justify-content:flex-start}
+/* ===== Guía de estatus ===== */
+.gx-btn{display:inline-flex;align-items:center;gap:7px;height:40px;padding:0 14px;border:1px solid #D5D9E0;border-radius:7px;background:#fff;color:var(--ink);font:inherit;font-weight:700;font-size:13px;cursor:pointer;white-space:nowrap}
+.gx-btn .icon{width:18px;height:18px;color:var(--brand)}
+.gx-btn:hover{border-color:var(--brand);color:var(--brand)}
+.gx-help{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;border:0;background:#EEF0F3;color:#5A5F69;font:inherit;font-size:11px;font-weight:800;margin-left:6px;vertical-align:-3px;cursor:pointer;padding:0}
+.gx-help:hover{background:var(--brand);color:#fff}
+.modal.gx-modal{width:min(1180px,96vw)}
+.gx-flow{display:flex;align-items:flex-start;gap:6px;padding:16px;border:1px solid var(--line);border-radius:10px;background:#FAFBFC;margin-bottom:18px;overflow-x:auto}
+.gx-step{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:96px;text-align:center;font-size:12px;font-weight:700;color:var(--ink)}
+.gx-step i{width:44px;height:44px;border-radius:10px;display:grid;place-items:center;font-style:normal}
+.gx-step i .icon{width:20px;height:20px}
+.gx-step small{font-weight:400;color:var(--muted);font-size:10.5px;max-width:130px}
+.gx-step.current i{outline:3px solid var(--brand);outline-offset:2px}
+.gx-arrow{color:#B5B9C0;margin-top:12px;font-size:18px}
+.gx-sep{width:1px;align-self:stretch;background:var(--line);margin:0 8px}
+.gx-legend{display:flex;gap:8px 16px;flex-wrap:wrap;align-items:center;font-size:11.5px;color:var(--muted);margin:-6px 0 14px}
+.gx-legend>span{display:inline-flex;align-items:center;gap:6px}
+.gx-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.gx-card{border-radius:10px;padding:14px;border:1px solid}
+.gx-card.current{box-shadow:0 0 0 3px var(--brand)}
+.gx-card-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.gx-auto,.gx-actual{display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:700;color:#5A5F69;background:rgba(255,255,255,.7);border-radius:10px;padding:2px 8px}
+.gx-auto .icon{width:11px;height:11px}
+.gx-actual{background:var(--brand);color:#fff}
+.gx-card h4{margin:8px 0 10px;font-size:12.5px;color:var(--ink);font-weight:400;line-height:1.35}
+.gx-card h5{display:flex;align-items:center;gap:6px;font-size:12px;margin:10px 0 6px;color:var(--ink)}
+.gx-card h5 .icon{width:14px;height:14px}
+.gx-card ul{margin:0;padding:0 0 0 2px;list-style:none;display:grid;gap:4px}
+.gx-card li{font-size:12px;color:#4B5058;display:flex;gap:6px;line-height:1.3}
+.gx-card li .icon{width:13px;height:13px;flex:none;margin-top:1px}
+.gx-next{margin-top:10px;padding-top:8px;border-top:1px dashed rgba(0,0,0,.12);font-size:11.5px;color:#4B5058}
+.gx-next b{color:var(--ink)}
+.gx-req{color:var(--brand)}
+.gx-card.t-pending{background:#FFF8EB;border-color:#F0D9A8}.t-pending i{background:#FCEBC7;color:#A86F00}
+.gx-card.t-review{background:#EEF5FD;border-color:#C8DDF5}.t-review i{background:#D6E8FA;color:#1674C7}
+.gx-card.t-approved{background:#EEF8F1;border-color:#C5E6CF}.t-approved i{background:#D3EEDC;color:#21834A}
+.gx-card.t-observed{background:#FDF1F3;border-color:#F2CBD3}.t-observed i{background:#F9DCE2;color:#C72D43}
+@media (max-width:1000px){.gx-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.gx-grid{grid-template-columns:1fr}.st-current{grid-template-columns:auto 1fr}.st-current small,.st-guia-link{grid-column:1/-1}}
 </style>
 </head>
 <body>
@@ -3673,7 +3714,7 @@ function abrirCambiarEstatus(col,id){
   const autoSig=def.next.filter(n=>f.estados[n].auto);
   const titulo=(BITACORA_TITULOS[col]?.[1]||(()=>""))(reg);
   const body = `
-    <div class="st-current"><span>Estatus actual</span>${badgeEstatus(actual)}<small>${def.cuando||""}</small></div>
+    <div class="st-current"><span>Estatus actual</span>${badgeEstatus(actual)}<small>${def.cuando||""}</small>${GUIA_ESTATUS[col]?`<a href="#" class="st-guia-link" onclick="abrirGuiaEstatus('${col}','${id}');return false">${icon("help")} ¿Qué significa cada estatus?</a>`:""}</div>
     ${flujoChips(col,actual)}
     ${opciones.length?`<p class="st-label">Cambiar a:</p><div class="st-options">${opciones.map((n,i)=>`<label class="st-option"><input type="radio" name="stNuevo" value="${n}" ${i===0?"checked":""}><span><strong>${n}${REAPERTURA[col]?.includes(actual)&&f.orden.indexOf(n)<f.orden.indexOf(actual)?" (reapertura)":""}</strong><small>${f.estados[n].cuando}</small></span></label>`).join("")}</div>
       <div class="field" style="margin-top:14px"><label for="stObs">Observación <span id="stObsReq" class="required-mark" hidden>*</span></label><textarea id="stObs" rows="3" placeholder="Motivo o comentario del cambio"></textarea></div>`
@@ -5141,9 +5182,10 @@ function pintarReporte(tipo){
 renderNavigation();
 
 /* ================= Tablas estilo Frest: selección, menú ⋮ y exportar ================= */
+function thLabel(th){ return (th.dataset.label||th.textContent).trim(); }
 function tableDataColumns(table){
   const ths=[...table.querySelectorAll("thead tr:first-child th")];
-  return ths.map((th,i)=>({i,label:th.textContent.trim()})).filter(c=>{
+  return ths.map((th,i)=>({i,label:thLabel(th)})).filter(c=>{
     const th=ths[c.i];
     if(th.classList.contains("select-col")||th.querySelector("input.select-all")) return false;
     if(/^acciones$/i.test(c.label)) return false;
@@ -5350,9 +5392,9 @@ function buildColumnFilters(table){
   const rows=[...table.querySelectorAll("tbody tr")].filter(tr=>tr.querySelector("input.row-check"));
   const fields=[];
   conf.forEach(cf=>{
-    const i=ths.findIndex(th=>th.textContent.trim().toLowerCase()===cf.col.toLowerCase());
+    const i=ths.findIndex(th=>thLabel(th).toLowerCase()===cf.col.toLowerCase());
     if(i<0) return;
-    const label=ths[i].textContent.trim();
+    const label=thLabel(ths[i]);
     const id=`cf_${table.id}_${i}`;
     if(cf.tipo==="fecha"){
       fields.push(`<div class="field date-field"><label>${label} (desde – hasta)</label><div class="date-pair"><input type="date" id="${id}_d" data-col="${i}" data-kind="desde" aria-label="${label} desde"><input type="date" id="${id}_h" data-col="${i}" data-kind="hasta" aria-label="${label} hasta"></div></div>`);
@@ -5381,7 +5423,7 @@ function buildColumnFilters(table){
   if(state.pendingColFilter && state.pendingColFilter.view===state.view){
     const pf=state.pendingColFilter; state.pendingColFilter=null;
     const nuevo={};
-    pf.filtros.forEach(f=>{ const i=ths.findIndex(th=>th.textContent.trim().toLowerCase()===f.col.toLowerCase()); if(i>=0) nuevo[i+"|"+(f.kind||"igual")]=f.val; });
+    pf.filtros.forEach(f=>{ const i=ths.findIndex(th=>thLabel(th).toLowerCase()===f.col.toLowerCase()); if(i>=0) nuevo[i+"|"+(f.kind||"igual")]=f.val; });
     state.colFilters[key]=nuevo; state.colFiltersOpen[key]=true;
   }
   const saved=state.colFilters[key]||{};
@@ -5449,6 +5491,83 @@ function actualizarReloj(){
   el.dateTime = now.toISOString(); el.textContent = `${fecha} · ${hora}`;
 }
 actualizarReloj(); setInterval(actualizarReloj, 30000);
+
+
+/* ================= Guía de estatus (qué significa cada estatus, cuándo se asigna y qué se puede hacer) ================= */
+const VISTA_COLECCION = {"vpn":"vpns","dominios":"dominios","servidores":"servidoresSolicitudes","actas-seguridad":"actasSeguridad","incidentes-seguridad":"incidentes"};
+const GUIA_ESTATUS = {
+  vpns:{titulo:"Solicitudes de VPN", principal:["Registrada","Autorizada","Activa","Revocada"], alternos:["Rechazada"], e:{
+    "Registrada":{i:"clipboard",sig:"La solicitud de acceso VPN se capturó y espera autorización.",cuando:"Automáticamente al guardar la solicitud.",acc:["Editar los datos de la solicitud","Agregar observaciones en la Bitácora"]},
+    "Autorizada":{i:"check-circle",sig:"El responsable aprobó el acceso; falta asignar la IP.",cuando:"Con \"Cambiar estatus\", al aprobar la solicitud.",acc:["Asignar IP (pasa sola a Activa)","Rechazar con motivo"]},
+    "Activa":{i:"key",sig:"El acceso remoto está operando con su IP.",cuando:"Automáticamente al asignar la IP.",acc:["Cambiar la IP asignada","Revocar el acceso con motivo"]},
+    "Revocada":{i:"ban",sig:"Se retiró el acceso (baja del servidor público, fin de un proyecto, etc.).",cuando:"Con \"Cambiar estatus\"; requiere motivo.",acc:["Consultar el historial en la Bitácora","Reactivar (regresa a Autorizada)"]},
+    "Rechazada":{i:"ban",sig:"La solicitud no procede.",cuando:"Con \"Cambiar estatus\"; requiere motivo.",acc:["Consultar la solicitud y su motivo","Ya no admite cambios"]}}},
+  dominios:{titulo:"Dominios y Subdominios", principal:["Registrado","Validado","Autorizado","Notificado","Dado de baja"], alternos:["Rechazado"], e:{
+    "Registrado":{i:"clipboard",sig:"Se capturó la solicitud recibida por oficio.",cuando:"Automáticamente al agregar el dominio o subdominio.",acc:["Editar los datos","Asignar IP/NAT","Agregar observaciones en la Bitácora"]},
+    "Validado":{i:"search",sig:"Se revisó que el nombre esté disponible y que los datos del oficio sean correctos.",cuando:"Con \"Cambiar estatus\", después de la revisión.",acc:["Asignar IP/NAT","Rechazar con motivo"]},
+    "Autorizado":{i:"check-circle",sig:"El titular del área aprobó la publicación.",cuando:"Con \"Cambiar estatus\", al obtener la autorización.",acc:["Asignar IP/NAT (necesaria para notificar)","Rechazar con motivo"]},
+    "Notificado":{i:"bell",sig:"Ya tiene IP y se notificó a la dependencia por oficio de respuesta.",cuando:"Con \"Cambiar estatus\"; solo si ya tiene IP asignada.",acc:["Agregar subdominios (si es un dominio)","Dar de baja con motivo"]},
+    "Dado de baja":{i:"ban",sig:"El dominio o subdominio se retiró de operación.",cuando:"Con \"Cambiar estatus\"; requiere motivo.",acc:["Consultar el historial en la Bitácora","Ya no admite cambios ni nuevos subdominios"]},
+    "Rechazado":{i:"ban",sig:"La solicitud no procede.",cuando:"Con \"Cambiar estatus\"; requiere motivo.",acc:["Consultar la solicitud y su motivo","Ya no admite cambios"]}}},
+  servidoresSolicitudes:{titulo:"Servidores Físicos y Virtuales", principal:["Registrado","En aprovisionamiento","En operación","En mantenimiento","Dado de baja"], alternos:["Rechazado"], e:{
+    "Registrado":{i:"clipboard",sig:"Se capturó la solicitud del servidor.",cuando:"Automáticamente al registrar el servidor.",acc:["Editar los datos técnicos","Agregar observaciones en la Bitácora"]},
+    "En aprovisionamiento":{i:"settings",sig:"Infraestructura prepara e instala el servidor (recursos, sistema operativo, antivirus).",cuando:"Con \"Cambiar estatus\", al iniciar la instalación.",acc:["Capturar IP, sistema operativo y antivirus (Editar)","Rechazar con motivo"]},
+    "En operación":{i:"server",sig:"El servidor ya da servicio.",cuando:"Con \"Cambiar estatus\"; solo si ya tiene IP.",acc:["Ligarle Protocolos e Incidentes de Seguridad","Pasarlo a mantenimiento","Darlo de baja con motivo"]},
+    "En mantenimiento":{i:"refresh",sig:"Fuera de servicio temporalmente (parches, migración, falla).",cuando:"Con \"Cambiar estatus\"; requiere motivo.",acc:["Documentar el mantenimiento en la Bitácora","Regresar a En operación"]},
+    "Dado de baja":{i:"ban",sig:"Retirado definitivamente; ya no se ofrece para nuevos Protocolos o Incidentes.",cuando:"Con \"Cambiar estatus\"; requiere motivo.",acc:["Consultar el expediente y la Bitácora","Ya no admite cambios"]},
+    "Rechazado":{i:"ban",sig:"La solicitud del servidor no procede.",cuando:"Con \"Cambiar estatus\"; requiere motivo.",acc:["Consultar la solicitud y su motivo","Ya no admite cambios"]}}},
+  actasSeguridad:{titulo:"Protocolos de Seguridad", principal:["Registrado","En evaluación","Con observaciones","Aprobado","Acta firmada"], alternos:["No aprobado"], e:{
+    "Registrado":{i:"clipboard",sig:"Se capturó la solicitud de evaluación de seguridad.",cuando:"Automáticamente al registrar el protocolo.",acc:["Editar los datos","Subir el primer escaneo (pasa sola a En evaluación)"]},
+    "En evaluación":{i:"search",sig:"Se realizan los escaneos y el análisis de seguridad.",cuando:"Automáticamente al subir el primer escaneo, o con \"Cambiar estatus\".",acc:["Subir más escaneos y evidencias","Registrar el resultado del análisis"]},
+    "Con observaciones":{i:"file-text",sig:"El análisis encontró hallazgos que la dependencia debe corregir.",cuando:"Con \"Cambiar estatus\"; requiere observación.",acc:["Reevaluar tras las correcciones (regresa a En evaluación)","Marcar como No aprobado"]},
+    "Aprobado":{i:"check-circle",sig:"El análisis no tiene hallazgos que impidan la publicación.",cuando:"Con \"Cambiar estatus\", al concluir el análisis.",acc:["Imprimir el acta","Recabar las firmas"]},
+    "Acta firmada":{i:"signature",sig:"El acta fue firmada por los firmantes del departamento.",cuando:"Con \"Cambiar estatus\", al recibir el acta firmada.",acc:["Imprimir o consultar el acta","Ya no admite cambios"]},
+    "No aprobado":{i:"ban",sig:"El servicio no puede publicarse.",cuando:"Con \"Cambiar estatus\"; requiere motivo.",acc:["Iniciar una nueva evaluación (regresa a En evaluación)","Consultar los hallazgos"]}}},
+  incidentes:{titulo:"Incidentes de Seguridad", principal:["Abierto","En análisis","Contenido","Erradicado","Resuelto","Cerrado"], alternos:["Descartado"], e:{
+    "Abierto":{i:"alert",sig:"El incidente se acaba de reportar y aún no se investiga.",cuando:"Automáticamente al registrar el incidente.",acc:["Editar los datos del incidente","Subir evidencias","Agregar observaciones en la Bitácora"]},
+    "En análisis":{i:"search",sig:"Se investiga el alcance, la causa y el activo afectado.",cuando:"Cuando el responsable o el comité inicia la investigación.",acc:["Subir evidencias del análisis","Actualizar la descripción y el activo","Registrar hallazgos en la Bitácora"]},
+    "Contenido":{i:"shield",sig:"Se detuvo la propagación o el daño (aislamiento, bloqueo).",cuando:"Al aislar el equipo, bloquear accesos o detener el daño.",acc:["Documentar las medidas de contención","Subir evidencias","Regresar a análisis si reaparece"]},
+    "Erradicado":{i:"check-circle",sig:"Se eliminó la causa raíz (malware, cuenta comprometida, vulnerabilidad).",cuando:"Una vez corregida la causa que originó el incidente.",acc:["Documentar la corrección aplicada","Subir evidencias del saneamiento"]},
+    "Resuelto":{i:"refresh",sig:"El servicio se recuperó y opera con normalidad.",cuando:"Cuando se confirma que el servicio funciona de nuevo.",acc:["Verificar el funcionamiento del servicio","Reabrir (a En análisis) si el problema vuelve"]},
+    "Cerrado":{i:"file-check",sig:"Revisión final concluida y lecciones aprendidas documentadas.",cuando:"Tras la revisión final; se pide observación de cierre.",acc:["Consultar el expediente y la Bitácora","Reabrir con motivo, si hace falta"]},
+    "Descartado":{i:"ban",sig:"No era un incidente real (falso positivo).",cuando:"Si al revisar se confirma que no hubo incidente.",acc:["Consultar el expediente","Ya no admite cambios"]}}}
+};
+function guiaTono(estatus){
+  const v=estatus.toLowerCase();
+  if(ESTATUS_CLASE.observed.includes(v)) return "t-observed";
+  if(ESTATUS_CLASE.approved.includes(v)) return "t-approved";
+  if(ESTATUS_CLASE.review.includes(v)) return "t-review";
+  return "t-pending";
+}
+function abrirGuiaEstatus(col,volverId){
+  const g=GUIA_ESTATUS[col], f=FLUJOS_ESTATUS[col]; if(!g||!f) return;
+  const actual = volverId ? estatusActual(col,findIn(state.data[col],volverId)) : null;
+  const step=e=>`<div class="gx-step ${guiaTono(e)} ${e===actual?"current":""}"><i>${icon(g.e[e].i)}</i>${e}${g.alternos.includes(e)?`<small>Desde ${Object.keys(f.estados).filter(k=>f.estados[k].next.includes(e)).join(" o ")}</small>`:""}</div>`;
+  const flujo=`<div class="gx-flow">${g.principal.map((e,k)=>step(e)+(k<g.principal.length-1?`<span class="gx-arrow">→</span>`:"")).join("")}${g.alternos.length?`<span class="gx-sep"></span>${g.alternos.map(step).join("")}`:""}</div>`;
+  const card=e=>{ const m=g.e[e], d=f.estados[e]||{next:[]}; const auto=/^Automáticamente/.test(m.cuando);
+    return `<div class="gx-card ${guiaTono(e)} ${e===actual?"current":""}">
+      <div class="gx-card-top">${badgeEstatus(e)}${e===actual?`<span class="gx-actual">Estatus actual</span>`:(auto?`<span class="gx-auto">${icon("refresh")} Automático</span>`:"")}</div>
+      <h4>${m.sig}</h4>
+      <h5>${icon("clock")} ¿Cuándo se asigna?</h5><ul><li>${m.cuando}</li></ul>
+      <h5>${icon("check-circle")} Acciones posibles</h5><ul>${m.acc.map(a=>`<li>${icon("check-circle")}${a}</li>`).join("")}</ul>
+      <div class="gx-next">${d.next.length?`<b>Puede pasar a:</b> ${d.next.join(" · ")}`:"<b>Estatus final.</b>"}${d.motivo?`<br><span class="gx-req">Requiere observación al asignarlo.</span>`:""}</div>
+    </div>`; };
+  const orden=[...g.principal,...g.alternos];
+  openModal({title:`Guía de estatus · ${g.titulo}`, subtitle:"Qué significa cada estatus, cuándo se asigna y qué se puede hacer en él.", size:"large",
+    confirm: volverId?"Regresar a Cambiar estatus":"Entendido",
+    body:`${flujo}
+      <div class="gx-legend"><span>${badgeEstatus(g.principal[0])} Inicio</span><span><span class="badge review">En proceso</span> En atención</span><span><span class="badge approved">Concluido</span> Operando o concluido</span><span><span class="badge observed">Final</span> Rechazo o baja</span><span>Para cambiar de estatus usa <b>Cambiar estatus</b> en el menú ⋮ de cada registro.</span></div>
+      <div class="gx-grid">${orden.map(card).join("")}</div>`,
+    onConfirm:()=>{ if(volverId) abrirCambiarEstatus(col,volverId); else closeModal(); }});
+  $("#modalRoot .modal")?.classList.add("gx-modal");
+}
+function botonGuiaEstatus(view){
+  const col=VISTA_COLECCION[view]; if(!col||!GUIA_ESTATUS[col]) return;
+  const acts=$("#mainContent .datatable-actions");
+  if(acts && !acts.querySelector(".gx-btn")) acts.insertAdjacentHTML("afterbegin",`<button type="button" class="gx-btn" onclick="abrirGuiaEstatus('${col}')">${icon("help")} Guía de estatus</button>`);
+  const th=$$("#mainContent table thead th").find(t=>(t.dataset.label||t.textContent).trim()==="Estatus" && !t.closest(".dn-subtable"));
+  if(th && !th.querySelector(".gx-help")){ th.dataset.label="Estatus"; th.insertAdjacentHTML("beforeend",`<button type="button" class="gx-help" title="¿Qué significa cada estatus?" aria-label="Guía de estatus" onclick="abrirGuiaEstatus('${col}')">?</button>`); }
+}
 
 /* ================= Panel propio de cada módulo (pestañas "Panel del módulo" / "Registros") ================= */
 const MOD_PANEL = {
@@ -5741,6 +5860,7 @@ function renderModulo(view,orig){
     <button type="button" role="tab" aria-selected="${tab==="panel"}" class="${tab==="panel"?"active":""}" onclick="state.modTab['${view}']='panel';renderers['${view}']()">${icon("chart")} Panel del módulo</button>
     <button type="button" role="tab" aria-selected="${tab==="registros"}" class="${tab==="registros"?"active":""}" onclick="state.modTab['${view}']='registros';renderers['${view}']()">${icon("columns")} Registros <span class="md-count">${total}</span></button>
   </div>`);
+  if(tab!=="panel") botonGuiaEstatus(view);
   if(tab==="panel"){
     $$("#mainContent > article.card").forEach(el=>el.remove());
     header.querySelectorAll(".export-wrap").forEach(el=>el.remove());
