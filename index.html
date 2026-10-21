@@ -1142,6 +1142,23 @@ tr.open .dn-count{background:var(--brand);color:#fff}
 .gx-card.t-observed{background:#FDF1F3;border-color:#F2CBD3}.t-observed i{background:#F9DCE2;color:#C72D43}
 @media (max-width:1000px){.gx-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:640px){.gx-grid{grid-template-columns:1fr}.st-current{grid-template-columns:auto 1fr}.st-current small,.st-guia-link{grid-column:1/-1}}
+/* ===== Verificación de publicación ===== */
+.pub-cell{display:flex;flex-direction:column;align-items:flex-start;gap:2px;border:0;background:transparent;padding:0;font:inherit;cursor:pointer;text-align:left}
+.pub-cell:hover .dx-state{text-decoration:underline}
+.pub-cell .subtext{margin:0;font-size:10.5px}
+.dx-state.info .icon{color:#1674C7}.dx-state.neutral{color:#70747C}.dx-state.neutral .icon{color:#9A9EA7}
+.pub-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:12px 14px;border-radius:8px;margin-bottom:14px;border:1px solid var(--line);background:#FAFBFC}
+.pub-head .dx-state{font-size:15px}.pub-head .dx-state .icon{width:20px;height:20px}
+.pub-head small{color:var(--muted);font-size:12px}
+.pub-head.pub-good{background:#EEF8F1;border-color:#C5E6CF}.pub-head.pub-critical{background:#FDF1F3;border-color:#F2CBD3}
+.pub-head.pub-serious{background:#FDF3EE;border-color:#F3D3C2}.pub-head.pub-warning{background:#FFF8EB;border-color:#F0D9A8}.pub-head.pub-info{background:#EEF5FD;border-color:#C8DDF5}
+.pub-checks{list-style:none;margin:0;padding:0;border:1px solid var(--line);border-radius:8px}
+.pub-checks li{display:flex;gap:12px;align-items:flex-start;padding:11px 14px;border-bottom:1px solid #EFF1F4}
+.pub-checks li:last-child{border-bottom:0}
+.pub-checks li .dx-state .icon{width:18px;height:18px}
+.pub-checks strong{display:block;font-size:13px}.pub-checks small{display:block;color:var(--muted);font-size:12px;margin-top:2px}
+.pub-note{display:flex;gap:8px;align-items:flex-start;font-size:12px;color:var(--muted);margin:14px 0 0;line-height:1.5}
+.pub-note .icon{width:15px;height:15px;flex:none;margin-top:2px}
 </style>
 </head>
 <body>
@@ -1570,7 +1587,7 @@ const state = {
     ],
     dominios:[
       {id:uid("DOM"),dependencia:"Secretaría de Educación",tipo:"Subdominio",nombre:"educacion.tamaulipas.gob.mx",solicitante:"Laura González Ramírez",estatus:"Validado",fecha:"04/04/2026",ip:"172.16.10.20",nat:"200.23.45.10",scan:true,anexos:1,bitacora:[]},
-      {id:uid("DOM"),dependencia:"Secretaría de Administración",tipo:"Subdominio",nombre:"tramites.tamaulipas.gob.mx",solicitante:"Miguel Hernández López",estatus:"Notificado",fecha:"12/06/2026",ip:"",nat:"",scan:false,anexos:0,bitacora:[]},
+      {id:uid("DOM"),dependencia:"Secretaría de Administración",tipo:"Subdominio",nombre:"tramites.tamaulipas.gob.mx",solicitante:"Miguel Hernández López",estatus:"Notificado",fecha:"12/06/2026",ip:"10.10.5.20",nat:"200.23.45.30",scan:false,anexos:0,bitacora:[]},
       {id:uid("DOM"),dependencia:"Secretaría de Salud",tipo:"Subdominio",nombre:"salud.tamaulipas.gob.mx",solicitante:"Ana Torres Salinas",estatus:"Registrado",fecha:"29/06/2026",ip:"",nat:"",scan:false,anexos:1,bitacora:[]},
       {id:uid("DOM"),dependencia:"Secretaría de Innovación e Inteligencia Digital",tipo:"Dominio",nombre:"tamaulipas.gob.mx",solicitante:"Juan Pérez Pérez",estatus:"Validado",fecha:"15/01/2026",ip:"200.23.45.1",nat:"",scan:true,anexos:0,bitacora:[{fecha:"15/01/2026",hora:"09:00",usuario:"Administrador",movimiento:"Registro del dominio institucional",obs:""}]},
       {id:uid("DOM"),dependencia:"Secretaría de Innovación e Inteligencia Digital",tipo:"Dominio",nombre:"tam.gob.mx",solicitante:"Juan Pérez Pérez",estatus:"Notificado",fecha:"20/01/2026",ip:"200.23.45.2",nat:"",scan:true,anexos:0,bitacora:[{fecha:"20/01/2026",hora:"09:30",usuario:"Administrador",movimiento:"Registro del dominio institucional",obs:""}]},
@@ -2505,6 +2522,7 @@ function renderDashboard(){
     {n:srvSinAv.length, tone:"warning", ic:"ban", t:"Servidores sin antivirus instalado", v:"servidores"},
     {n:protObs+protRech, tone:"warning", ic:"file-text", t:"Protocolos con observaciones o rechazados", v:"actas-seguridad"},
     {n:vpnSinIp.length, tone:"info", ic:"key", t:"Solicitudes de VPN sin IP asignada", v:"vpn"},
+    {n:dominios.filter(x=>x.estatus==="Notificado"&&x.alcance!=="Interno"&&!PUB_OK.includes(pubResultado(x))).length, tone:"critical", ic:"globe", t:"Dominios notificados que no están publicados", v:"dominios"},
     {n:subSinIp.length, tone:"info", ic:"link", t:"Subdominios sin IP", v:"dominios"}
   ].filter(a=>a.n>0 && dxPuedeVer(a.v));
   const toneLabel = {critical:"Crítico",serious:"Atender",warning:"Revisar",info:"Pendiente"};
@@ -2998,6 +3016,7 @@ function accionesDominio(d){
   const base=[{icon:"eye",title:"Ver detalle",onclick:`state.editing.dominioId='${d.id}';navigate('dominios-detalle')`},
     {icon:"refresh",title:"Cambiar estatus",onclick:`abrirCambiarEstatus('dominios','${d.id}')`},
     {icon:"key",title:"Asignar IP/NAT",onclick:`abrirAsignarIpNat('${d.id}')`},
+    {icon:"globe",title:"Verificar publicación",onclick:`abrirVerificacion('${d.id}',true)`},
     {icon:"clock",title:"Bitácora",onclick:`abrirBitacora('dominios','${d.id}')`},
     {sep:true},
     {icon:"trash",title:"Eliminar",onclick:`eliminarDominio('${d.id}')`,cls:"danger"}];
@@ -3013,6 +3032,7 @@ function domCoincide(d,term,f){
   if(term && !matchesSearch(d,term)) return false;
   if(f.dep && d.dependencia!==f.dep) return false;
   if(f.est && (d.estatus||"Registrado")!==f.est) return false;
+  if(f.pub && pubResultado(d)!==f.pub) return false;
   if(f.ip==="con" && !d.ip) return false;
   if(f.ip==="sin" && d.ip) return false;
   const fe=dxFecha(d.fecha);
@@ -3026,7 +3046,7 @@ function renderDominios(){
   const f = state.domFiltros = state.domFiltros||{dep:"",est:"",ip:"",desde:"",hasta:""};
   state.domOpen = state.domOpen||{};
   state.domSel = state.domSel||new Set();
-  const filtrando = !!(term||f.dep||f.est||f.ip||f.desde||f.hasta);
+  const filtrando = !!(term||f.dep||f.est||f.ip||f.pub||f.desde||f.hasta);
   const all = state.data.dominios;
   const doms = all.filter(d=>d.tipo==="Dominio").sort((a,b)=>a.nombre.localeCompare(b.nombre));
   const huerfanos = all.filter(x=>x.tipo==="Subdominio" && !dominioBaseDe(x));
@@ -3036,7 +3056,7 @@ function renderDominios(){
     const domOk = g.dom ? domCoincide(g.dom,term,f) : false;
     const subsOk = g.subs.filter(x=>domCoincide(x,term,f));
     // Si el dominio coincide por sí mismo, se muestran todos sus subdominios; si no, solo los que coinciden.
-    const subsVis = filtrando ? (domOk && !(f.dep||f.est||f.ip||f.desde||f.hasta) ? g.subs : subsOk) : g.subs;
+    const subsVis = filtrando ? (domOk && !(f.dep||f.est||f.ip||f.pub||f.desde||f.hasta) ? g.subs : subsOk) : g.subs;
     const mostrar = !filtrando || domOk || subsOk.length>0;
     const abierto = g.dom ? (filtrando ? subsOk.length>0 : !!state.domOpen[g.dom.id]) : true;
     return {...g, subsVis, mostrar, abierto};
@@ -3045,18 +3065,18 @@ function renderDominios(){
   const opciones = (arr)=>[...new Set(arr.filter(Boolean))].sort((a,b)=>a.localeCompare(b,"es"));
   const deps = opciones(all.map(d=>d.dependencia));
   const ests = FLUJOS_ESTATUS.dominios.orden.filter(e=>all.some(d=>(d.estatus||"Registrado")===e));
-  const activos = ["dep","est","ip"].filter(k=>f[k]).length + ((f.desde||f.hasta)?1:0);
+  const activos = ["dep","est","ip","pub"].filter(k=>f[k]).length + ((f.desde||f.hasta)?1:0);
   const chk = (id)=>`<input type="checkbox" class="dom-check" data-id="${id}" ${state.domSel.has(id)?"checked":""} aria-label="Seleccionar registro">`;
   const ipCell = d=>d.ip?d.ip:`<span class="subtext" style="margin:0">Sin IP</span>`;
   const subTabla = g=>`<div class="dn-box">
       <div class="dn-head"><strong>${g.dom?`Subdominios de ${g.dom.nombre}`:"Subdominios sin dominio base"}</strong><span>${g.subsVis.length} registro(s)${g.subsVis.filter(x=>!x.ip).length?` · ${g.subsVis.filter(x=>!x.ip).length} sin IP`:""}</span></div>
-      ${g.subsVis.length?`<table class="dn-subtable" data-enh="1" data-cf="1"><thead><tr><th class="dn-sel"></th><th>Subdominio</th><th>Dependencia</th><th>Solicitante</th><th>IP</th><th>Estatus</th><th>Fecha</th><th>Acciones</th></tr></thead>
-        <tbody>${g.subsVis.map(x=>`<tr><td class="dn-sel">${chk(x.id)}</td><td><span class="dn-sub-name">${icon("link")}<strong>${x.nombre}</strong></span></td><td>${x.dependencia}</td><td>${x.solicitante||"—"}</td><td>${ipCell(x)}</td><td>${badgeEstatus(x.estatus||"Registrado")}</td><td>${x.fecha}</td><td>${accionesDominio(x)}</td></tr>`).join("")}</tbody></table>`
+      ${g.subsVis.length?`<table class="dn-subtable" data-enh="1" data-cf="1"><thead><tr><th class="dn-sel"></th><th>Subdominio</th><th>Dependencia</th><th>Solicitante</th><th>IP</th><th>Publicación</th><th>Estatus</th><th>Fecha</th><th>Acciones</th></tr></thead>
+        <tbody>${g.subsVis.map(x=>`<tr><td class="dn-sel">${chk(x.id)}</td><td><span class="dn-sub-name">${icon("link")}<strong>${x.nombre}</strong></span></td><td>${x.dependencia}</td><td>${x.solicitante||"—"}</td><td>${ipCell(x)}</td><td>${pubCelda(x)}</td><td>${badgeEstatus(x.estatus||"Registrado")}</td><td>${x.fecha}</td><td>${accionesDominio(x)}</td></tr>`).join("")}</tbody></table>`
         :`<p class="dn-empty">${g.dom?"Este dominio aún no tiene subdominios.":""}</p>`}
       ${g.dom && !["Rechazado","Dado de baja"].includes(g.dom.estatus)?`<button type="button" class="dn-add-sub" onclick="agregarSubdominio('${g.dom.id}')">${icon("plus")} Agregar subdominio a ${g.dom.nombre}</button>`:""}
     </div>`;
   const filas = vis.map(g=>{
-    if(!g.dom) return `<tr class="dn-dom open"><td></td><td></td><td colspan="7"><strong>Sin dominio base</strong> <span class="subtext" style="display:inline">Subdominios cuyo dominio no está registrado.</span></td></tr><tr class="dn-nest"><td colspan="9">${subTabla(g)}</td></tr>`;
+    if(!g.dom) return `<tr class="dn-dom open"><td></td><td></td><td colspan="8"><strong>Sin dominio base</strong> <span class="subtext" style="display:inline">Subdominios cuyo dominio no está registrado.</span></td></tr><tr class="dn-nest"><td colspan="10">${subTabla(g)}</td></tr>`;
     const d=g.dom, total=g.subs.length;
     return `<tr class="dn-dom ${g.abierto?"open":""}">
         <td><button type="button" class="dn-toggle" onclick="toggleDominio('${d.id}')" aria-expanded="${g.abierto}" title="${g.abierto?"Ocultar":"Ver"} subdominios">${icon("chevron-down")}</button></td>
@@ -3064,15 +3084,16 @@ function renderDominios(){
         <td><span class="dn-dom-name">${icon("globe")}<strong>${d.nombre}</strong></span></td>
         <td>${d.dependencia}</td>
         <td><button type="button" class="dn-count" onclick="toggleDominio('${d.id}')">${total} subdominio${total===1?"":"s"}</button></td>
-        <td>${ipCell(d)}</td><td>${badgeEstatus(d.estatus||"Registrado")}</td><td>${d.fecha}</td>
+        <td>${ipCell(d)}</td><td>${pubCelda(d)}</td><td>${badgeEstatus(d.estatus||"Registrado")}</td><td>${d.fecha}</td>
         <td>${accionesDominio(d)}</td></tr>
-      ${g.abierto?`<tr class="dn-nest"><td colspan="9">${subTabla(g)}</td></tr>`:""}`;
+      ${g.abierto?`<tr class="dn-nest"><td colspan="10">${subTabla(g)}</td></tr>`:""}`;
   }).join("");
   content.innerHTML = `
   ${breadcrumb([{label:"Servicios"},{label:"Dominios y Subdominios"}])}
   <div class="page-header"><div><h1>Dominios y Subdominios</h1><p>Cada dominio agrupa sus subdominios. Despliega un dominio para ver o agregar sus subdominios.</p></div>
     <div class="page-actions">
       <div class="export-wrap"><button type="button" class="button export-btn" id="domExportBtn" onclick="openExportDominios(this)">${icon("upload")} Exportar ${icon("chevron-down")}${state.domSel.size?`<span class="count-pill">${state.domSel.size}</span>`:""}</button></div>
+      <button type="button" class="button secondary" onclick="verificarTodosDominios()" title="Revisa DNS, IP, HTTPS y certificado de todos los registros vigentes">${icon("refresh")} Verificar publicación</button>
       <button class="button primary" onclick="state.editing.dominioTipo='Dominio';state.editing.dominioId=null;navigate('dominios-form')">${icon("globe")} Agregar Dominio</button>
     </div>
   </div>
@@ -3083,6 +3104,7 @@ function renderDominios(){
         <div class="filters-grid">
           <div class="field"><label for="dfDep">Dependencia</label><select id="dfDep" data-k="dep"><option value="">Todas</option>${deps.map(o=>`<option ${o===f.dep?"selected":""}>${o}</option>`).join("")}</select></div>
           <div class="field"><label for="dfEst">Estatus</label><select id="dfEst" data-k="est"><option value="">Todos</option>${ests.map(o=>`<option ${o===f.est?"selected":""}>${o}</option>`).join("")}</select></div>
+          <div class="field"><label for="dfPub">Publicación</label><select id="dfPub" data-k="pub"><option value="">Todos</option>${Object.keys(PUB_ESTADOS).filter(k=>all.some(d=>pubResultado(d)===k)).map(o=>`<option ${o===f.pub?"selected":""}>${o}</option>`).join("")}</select></div>
           <div class="field"><label for="dfIp">IP</label><select id="dfIp" data-k="ip"><option value="">Todos</option><option value="con" ${f.ip==="con"?"selected":""}>Con IP</option><option value="sin" ${f.ip==="sin"?"selected":""}>Sin IP</option></select></div>
           <div class="field date-field"><label>Fecha (desde – hasta)</label><div class="date-pair"><input type="date" id="dfDesde" data-k="desde" value="${f.desde}" aria-label="Fecha desde"><input type="date" id="dfHasta" data-k="hasta" value="${f.hasta}" aria-label="Fecha hasta"></div></div>
         </div>
@@ -3092,8 +3114,8 @@ function renderDominios(){
     <div class="datatable-toolbar"><div class="entries-control">Mostrar <select><option>10</option></select> registros</div>
       <div class="datatable-actions">${searchBox("dominiosSearch","Buscar dominio o subdominio",term)}</div></div>
     <div class="table-wrap"><table class="dn-table" data-enh="1" data-cf="1">
-      <thead><tr><th style="width:44px"></th><th class="dn-sel"><input type="checkbox" id="domSelAll" aria-label="Seleccionar todos"></th><th>Dominio</th><th>Dependencia propietaria</th><th>Subdominios</th><th>IP</th><th>Estatus</th><th>Fecha</th><th>Acciones</th></tr></thead>
-      <tbody>${filas || `<tr><td colspan="9" class="empty-state">${filtrando?"No hay dominios ni subdominios que coincidan.":"Aún no hay dominios registrados. Usa \"Agregar Dominio\" para registrar el primero."}</td></tr>`}</tbody>
+      <thead><tr><th style="width:44px"></th><th class="dn-sel"><input type="checkbox" id="domSelAll" aria-label="Seleccionar todos"></th><th>Dominio</th><th>Dependencia propietaria</th><th>Subdominios</th><th>IP</th><th>Publicación</th><th>Estatus</th><th>Fecha</th><th>Acciones</th></tr></thead>
+      <tbody>${filas || `<tr><td colspan="10" class="empty-state">${filtrando?"No hay dominios ni subdominios que coincidan.":"Aún no hay dominios registrados. Usa \"Agregar Dominio\" para registrar el primero."}</td></tr>`}</tbody>
     </table></div>
     <div class="pagination"><span>Mostrando ${nDom} dominio(s) · ${nSub} subdominio(s)${filtrando?" (filtrados)":""}</span><div class="pagination-buttons"><button disabled>Anterior</button><button class="active">1</button><button disabled>Siguiente</button></div></div>
   </article>`;
@@ -3113,16 +3135,16 @@ function filasExportDominios(){
   state.data.dominios.filter(d=>d.tipo==="Dominio").sort((a,b)=>a.nombre.localeCompare(b.nombre)).forEach(d=>{
     const subs=subdominiosDe(d);
     const incluyeDom = usar ? usar.includes(d.id) : (visibles.has(d.id) || !visibles.size);
-    if(incluyeDom) rows.push(["Dominio",d.nombre,"—",d.dependencia,d.solicitante||"",d.ip||"",d.estatus||"Registrado",d.fecha,String(subs.length)]);
+    if(incluyeDom) rows.push(["Dominio",d.nombre,"—",d.dependencia,d.solicitante||"",d.ip||"",pubResultado(d),d.estatus||"Registrado",d.fecha,String(subs.length)]);
     subs.forEach(x=>{
       const incluye = usar ? usar.includes(x.id) : (filtroActivoDominios() ? visibles.has(x.id) : true);
-      if(incluye) rows.push(["Subdominio",x.nombre,d.nombre,x.dependencia,x.solicitante||"",x.ip||"",x.estatus||"Registrado",x.fecha,""]);
+      if(incluye) rows.push(["Subdominio",x.nombre,d.nombre,x.dependencia,x.solicitante||"",x.ip||"",pubResultado(x),x.estatus||"Registrado",x.fecha,""]);
     });
   });
-  state.data.dominios.filter(x=>x.tipo==="Subdominio"&&!dominioBaseDe(x)).forEach(x=>{ if(!usar||usar.includes(x.id)) rows.push(["Subdominio",x.nombre,"Sin dominio base",x.dependencia,x.solicitante||"",x.ip||"",x.estatus||"Registrado",x.fecha,""]); });
-  return {headers:["Tipo","Nombre","Dominio base","Dependencia","Solicitante","IP","Estatus","Fecha","Subdominios"],rows,esSeleccion:!!usar};
+  state.data.dominios.filter(x=>x.tipo==="Subdominio"&&!dominioBaseDe(x)).forEach(x=>{ if(!usar||usar.includes(x.id)) rows.push(["Subdominio",x.nombre,"Sin dominio base",x.dependencia,x.solicitante||"",x.ip||"",pubResultado(x),x.estatus||"Registrado",x.fecha,""]); });
+  return {headers:["Tipo","Nombre","Dominio base","Dependencia","Solicitante","IP","Publicación","Estatus","Fecha","Subdominios"],rows,esSeleccion:!!usar};
 }
-function filtroActivoDominios(){ const f=state.domFiltros||{}; return !!(state.search.dominios||f.dep||f.est||f.ip||f.desde||f.hasta); }
+function filtroActivoDominios(){ const f=state.domFiltros||{}; return !!(state.search.dominios||f.dep||f.est||f.ip||f.pub||f.desde||f.hasta); }
 function openExportDominios(btn){
   const n=(state.domSel||new Set()).size;
   openFloatingMenu(btn,`<div class="row-menu-title">${n?`Exportar ${n} seleccionado(s)`:(filtroActivoDominios()?"Exportar registros filtrados":"Exportar todos los registros")}</div>
@@ -3148,7 +3170,7 @@ function abrirAsignarIpNat(id){
     body:`${fieldIp("IP","fAsigIp",d.ip)}${fieldIp("NAT","fAsigNat",d.nat)}${fieldSelect("Validar SCAN","fAsigScan",[["si","Sí"],["no","No"]],d.scan?"si":"no")}`,
     onConfirm:()=>{
       if(!validateFields([{id:"fAsigIp",label:"IP",type:"ip",required:false},{id:"fAsigNat",label:"NAT",type:"ip",required:false}])) return;
-      d.ip=$("#fAsigIp").value; d.nat=$("#fAsigNat").value; d.scan=$("#fAsigScan").value==="si"; d.bitacora.push({fecha:todayStr(),hora:nowTime(),usuario:"Administrador",movimiento:"Asignación de IP/NAT/SCAN",obs:""}); closeModal(); toast("Datos de red actualizados."); renderDominios(); }});
+      d.ip=$("#fAsigIp").value; d.nat=$("#fAsigNat").value; d.scan=$("#fAsigScan").value==="si"; d.bitacora.push({fecha:todayStr(),hora:nowTime(),usuario:"Administrador",movimiento:"Asignación de IP/NAT/SCAN",obs:""}); verificarDominio(d,"auto"); closeModal(); toast(`Datos de red actualizados. Publicación: ${pubResultado(d)}.`); renderers[state.view](); }});
 }
 function eliminarDominio(id){
   const d=findIn(state.data.dominios,id);
@@ -3193,6 +3215,7 @@ function renderDominioForm(tipo,editId){
         ${fieldIp("IP del Subdominio","fDomSubIp",d?.ip)}
         <div class="field"><label>Vista previa</label><div class="inline-note" id="previaSubdominio" style="margin:0">—</div></div>
       `:`${fieldUrlInput("Nombre del "+tipo,"fDomNombre",d?.nombre,{required:true,full:true})}`}
+      ${fieldSelect("Alcance de publicación","fDomAlcance",[["Público","Público (internet)"],["Interno","Interno (solo red de gobierno)"]],d?.alcance||"Público")}
       ${fieldInput("No. de Oficio","fDomOficio",d?.oficio)}
       ${fieldInput("Nombre del Proyecto","fDomProyecto",p.nombre)}
       ${fieldSelect("Tipo de servicio","fDomTipoServicio",catNames("cat-tipo-servicio"),p.tipoServicio)}
@@ -3231,7 +3254,7 @@ function guardarDominio(tipo,editId){
   if(duplicado){ toast(`"${nombreFinal}" ya está registrado.`,"error"); return; }
   const prev = editId?findIn(state.data.dominios,editId):null;
   const payload = {
-    dependencia:sol.dependencia, nombre:nombreFinal, oficio:$("#fDomOficio").value,
+    dependencia:sol.dependencia, nombre:nombreFinal, oficio:$("#fDomOficio").value, alcance:$("#fDomAlcance").value,
     solicitante:nombreCompleto(sol), solicitanteId:sol.id, tipo,
     fechaPublicacion:$("#fDomFechaPub").value,
     proyecto:{nombre:$("#fDomProyecto").value, tipoServicio:$("#fDomTipoServicio").value, desarrollado:$("#fDomDesarrollado").value,
@@ -3268,6 +3291,7 @@ function renderDominioDetalle(id){
       <div><span>IP</span><strong>${d.ip||"Sin asignar"}</strong></div>
       <div><span>NAT</span><strong>${d.nat||"Sin asignar"}</strong></div>
       <div><span>Estatus</span><strong>${d.estatus}</strong></div>
+      <div><span>Publicación</span><strong>${pubCelda(d)}</strong></div>
       <div><span>SCAN</span><strong>${d.scan?"Validado":"Pendiente"}</strong></div>
       <div><span>Solicitante</span><strong>${d.solicitante}</strong></div>
       <div><span>Fecha de solicitud</span><strong>${d.fecha}</strong></div>
@@ -3663,7 +3687,7 @@ const FLUJOS_ESTATUS = {
     "Registrado":{cuando:"Al capturar la solicitud recibida por oficio.", next:["Validado","Rechazado"]},
     "Validado":{cuando:"Se revisó que el nombre esté disponible y los datos del oficio sean correctos.", next:["Autorizado","Rechazado"]},
     "Autorizado":{cuando:"El titular del área aprueba la publicación.", next:["Notificado","Rechazado"]},
-    "Notificado":{cuando:"Ya tiene IP y se notificó a la dependencia (oficio de respuesta).", next:["Dado de baja"], requiere:r=>r.ip?"":"Para notificar, primero asigna la IP (acción \"Asignar IP/NAT\")."},
+    "Notificado":{cuando:"Ya tiene IP, se verificó que está publicado y se notificó a la dependencia.", next:["Dado de baja"], requiere:r=>{ if(!r.ip) return "Para notificar, primero asigna la IP (acción \"Asignar IP/NAT\")."; if(r.alcance==="Interno") return ""; const res=verificarDominio(r,"manual").resultado; return PUB_OK.includes(res)?"":`No se puede notificar: la verificación de publicación resultó "${res}". Revisa "Verificación de publicación".`; }},
     "Rechazado":{cuando:"La solicitud no procede.", next:[], motivo:true, final:true},
     "Dado de baja":{cuando:"El dominio/subdominio se retira de operación.", next:[], motivo:true, final:true}
   }},
@@ -3735,6 +3759,97 @@ function abrirCambiarEstatus(col,id){
     }});
   const sync=()=>{ const n=$('input[name="stNuevo"]:checked')?.value; const req=$("#stObsReq"); if(req&&n){ const esRe=REAPERTURA[col]?.includes(actual)&&f.orden.indexOf(n)<f.orden.indexOf(actual); req.hidden=!(f.estados[n].motivo||esRe); } };
   $$('input[name="stNuevo"]').forEach(r=>r.onchange=sync); sync();
+}
+
+
+/* ================= Verificación de publicación de dominios y subdominios =================
+   En el sistema real la ejecuta el servidor (backend): consulta DNS, compara la IP, solicita la página por HTTPS
+   y lee el certificado SSL; corre diario de forma automática y bajo demanda ("Verificar ahora").
+   En este prototipo el resultado se SIMULA con los datos del registro. */
+const SIM_PUBLICACION = {
+  "tamaulipas.gob.mx":{dns:"200.23.45.1",http:200,ms:142,ssl:214},
+  "tam.gob.mx":{dns:"200.23.45.2",http:200,ms:188,ssl:18},
+  "tramites.tamaulipas.gob.mx":{dns:"200.23.45.30",http:0,ms:0,ssl:null},
+  "pagos.tam.gob.mx":{dns:"200.23.45.77",http:200,ms:233,ssl:96},
+  "turismotamaulipas.com":{dns:null},
+  "salud.tamaulipas.gob.mx":{dns:null}
+};
+const PUB_ESTADOS = {
+  "Publicado":{tone:"good",icon:"check-circle"},
+  "Certificado por vencer":{tone:"warning",icon:"clock"},
+  "Apunta a otra IP":{tone:"serious",icon:"alert"},
+  "No responde":{tone:"serious",icon:"ban"},
+  "No resuelve":{tone:"critical",icon:"alert"},
+  "Interno":{tone:"info",icon:"shield"},
+  "Sin verificar":{tone:"neutral",icon:"clock"}
+};
+const PUB_OK = ["Publicado","Certificado por vencer"];
+function pubHash(t){ let h=0; for(const c of t) h=(h*31+c.charCodeAt(0))%9973; return h; }
+function simularConsulta(d){
+  const sim = SIM_PUBLICACION[d.nombre];
+  const registrada = [d.ip,d.nat].filter(Boolean);
+  if(sim && !(sim.dns===null && registrada.length)) return {...sim, dns: sim.dns===undefined ? (registrada[0]||null) : sim.dns};
+  if(!registrada.length) return {dns:null};
+  const h=pubHash(d.nombre);
+  return {dns:d.nat||d.ip, http:200, ms:90+h%200, ssl:45+h%300};
+}
+function verificarDominio(d,origen="manual"){
+  const hoy=todayStr(), hora=nowTime();
+  let v;
+  if(d.alcance==="Interno"){
+    v={resultado:"Interno", detalle:"Solo existe en la red de gobierno; se verifica desde un equipo interno.", checks:[]};
+  } else {
+    const r=simularConsulta(d);
+    const registrada=[d.ip,d.nat].filter(Boolean);
+    const checks=[];
+    checks.push(r.dns?{ok:true,t:"Resolución DNS",d:`El nombre resuelve a ${r.dns}`}:{ok:false,t:"Resolución DNS",d:"El nombre no existe en DNS (no está publicado en internet)."});
+    if(r.dns){
+      const coincide = !registrada.length || registrada.includes(r.dns);
+      checks.push(!registrada.length?{ok:null,t:"Coincide con la IP registrada",d:"No hay IP registrada para comparar."}:coincide?{ok:true,t:"Coincide con la IP registrada",d:`IP/NAT registrada: ${registrada.join(" / ")}`}:{ok:false,t:"Coincide con la IP registrada",d:`Registrada: ${registrada.join(" / ")} · resuelve a ${r.dns}`});
+      checks.push(r.http?{ok:true,t:"Responde por HTTPS",d:`HTTP ${r.http} · ${r.ms} ms`}:{ok:false,t:"Responde por HTTPS",d:"Sin respuesta (tiempo de espera agotado)."});
+      if(r.http) checks.push(r.ssl>30?{ok:true,t:"Certificado SSL",d:`Válido · vence en ${r.ssl} días`}:{ok:"warn",t:"Certificado SSL",d:`Vence en ${r.ssl} días: renovar pronto`});
+      else checks.push({ok:null,t:"Certificado SSL",d:"No se pudo revisar (el sitio no responde)."});
+    } else {
+      ["Coincide con la IP registrada","Responde por HTTPS","Certificado SSL"].forEach(t=>checks.push({ok:null,t,d:"No aplica: el nombre no resuelve."}));
+    }
+    const fallaIp = checks[1]?.ok===false;
+    const resultado = !r.dns ? "No resuelve" : fallaIp ? "Apunta a otra IP" : !r.http ? "No responde" : (r.ssl<=30 ? "Certificado por vencer" : "Publicado");
+    v={resultado, ipResuelta:r.dns||"", checks};
+  }
+  const previo=d.verificacion?.resultado;
+  d.verificacion={...v, fecha:hoy, hora, origen};
+  if(origen==="manual" || previo!==v.resultado) logBitacora(d, `Verificación de publicación${origen==="manual"?"":" (automática)"}: ${v.resultado}`, v.checks.filter(c=>c.ok===false).map(c=>c.d).join(" ")||"");
+  return d.verificacion;
+}
+function pubResultado(d){ return d.verificacion?.resultado || "Sin verificar"; }
+function pubCelda(d){
+  const r=pubResultado(d), e=PUB_ESTADOS[r]||PUB_ESTADOS["Sin verificar"];
+  return `<button type="button" class="pub-cell" onclick="abrirVerificacion('${d.id}')" title="Ver verificación de publicación"><span class="dx-state ${e.tone}">${icon(e.icon)}${r}</span>${d.verificacion?`<span class="subtext">${d.verificacion.fecha} ${d.verificacion.hora}</span>`:""}</button>`;
+}
+function abrirVerificacion(id,correr=false){
+  const d=findIn(state.data.dominios,id); if(!d) return;
+  if(correr) verificarDominio(d,"manual");
+  const v=d.verificacion, r=pubResultado(d), e=PUB_ESTADOS[r];
+  const ico=c=>c.ok===true?`<span class="dx-state good">${icon("check-circle")}</span>`:c.ok==="warn"?`<span class="dx-state warning">${icon("clock")}</span>`:c.ok===false?`<span class="dx-state critical">${icon("alert")}</span>`:`<span class="dx-state neutral">${icon("ban")}</span>`;
+  openModal({title:"Verificación de publicación", subtitle:`${d.tipo} · ${d.nombre}`, size:"large", confirm:"Verificar ahora", confirmClass:"primary",
+    body:`<div class="pub-head pub-${e.tone}"><span class="dx-state ${e.tone}">${icon(e.icon)}${r}</span>
+        <small>${v?`Última verificación: ${v.fecha} ${v.hora} · ${v.origen==="manual"?"manual":"automática (diaria)"}`:"Este registro aún no se ha verificado."}</small></div>
+      <div class="detail-grid" style="margin-bottom:12px">
+        <div><span>Alcance</span><strong>${d.alcance==="Interno"?"Interno (red de gobierno)":"Público (internet)"}</strong></div>
+        <div><span>IP / NAT registrada</span><strong>${[d.ip,d.nat].filter(Boolean).join(" / ")||"Sin IP"}</strong></div>
+        <div><span>IP que resuelve</span><strong>${v?.ipResuelta||"—"}</strong></div>
+        <div><span>Estatus</span><strong>${d.estatus||"Registrado"}</strong></div>
+      </div>
+      ${v?.checks?.length?`<ul class="pub-checks">${v.checks.map(c=>`<li>${ico(c)}<span><strong>${c.t}</strong><small>${c.d}</small></span></li>`).join("")}</ul>`:(v?`<div class="inline-note">${v.detail||v.detalle}</div>`:`<div class="inline-note">Da clic en <strong>Verificar ahora</strong> para revisar DNS, IP, respuesta HTTPS y certificado.</div>`)}
+      <p class="pub-note">${icon("help")}<span>El sistema revisa automáticamente cada día todos los dominios y subdominios públicos, y antes de pasar un registro a <strong>Notificado</strong>. <em>En el prototipo el resultado es simulado; en el sistema real lo realiza el servidor.</em></span></p>`,
+    onConfirm:()=>{ verificarDominio(d,"manual"); toast(`Verificación: ${pubResultado(d)}.`, PUB_OK.includes(pubResultado(d))||pubResultado(d)==="Interno"?"success":"error"); abrirVerificacion(id); if(state.view==="dominios"||state.view==="dominios-detalle") renderers[state.view](); }});
+}
+function verificarTodosDominios(){
+  const lista=state.data.dominios.filter(d=>!["Rechazado","Dado de baja"].includes(d.estatus));
+  lista.forEach(d=>verificarDominio(d,"manual"));
+  const malos=lista.filter(d=>!PUB_OK.includes(pubResultado(d))&&pubResultado(d)!=="Interno").length;
+  toast(`Se verificaron ${lista.length} registro(s): ${lista.length-malos} publicado(s) o internos, ${malos} con problema.`, malos?"error":"success");
+  renderDominios();
 }
 
 /* ================= Bitácora genérica (todos los módulos) ================= */
@@ -5506,7 +5621,7 @@ const GUIA_ESTATUS = {
     "Registrado":{i:"clipboard",sig:"Se capturó la solicitud recibida por oficio.",cuando:"Automáticamente al agregar el dominio o subdominio.",acc:["Editar los datos","Asignar IP/NAT","Agregar observaciones en la Bitácora"]},
     "Validado":{i:"search",sig:"Se revisó que el nombre esté disponible y que los datos del oficio sean correctos.",cuando:"Con \"Cambiar estatus\", después de la revisión.",acc:["Asignar IP/NAT","Rechazar con motivo"]},
     "Autorizado":{i:"check-circle",sig:"El titular del área aprobó la publicación.",cuando:"Con \"Cambiar estatus\", al obtener la autorización.",acc:["Asignar IP/NAT (necesaria para notificar)","Rechazar con motivo"]},
-    "Notificado":{i:"bell",sig:"Ya tiene IP y se notificó a la dependencia por oficio de respuesta.",cuando:"Con \"Cambiar estatus\"; solo si ya tiene IP asignada.",acc:["Agregar subdominios (si es un dominio)","Dar de baja con motivo"]},
+    "Notificado":{i:"bell",sig:"Ya tiene IP y se notificó a la dependencia por oficio de respuesta.",cuando:"Con \"Cambiar estatus\"; solo si tiene IP y la verificación de publicación es exitosa (se ejecuta al momento).",acc:["Agregar subdominios (si es un dominio)","Verificar publicación","Dar de baja con motivo"]},
     "Dado de baja":{i:"ban",sig:"El dominio o subdominio se retiró de operación.",cuando:"Con \"Cambiar estatus\"; requiere motivo.",acc:["Consultar el historial en la Bitácora","Ya no admite cambios ni nuevos subdominios"]},
     "Rechazado":{i:"ban",sig:"La solicitud no procede.",cuando:"Con \"Cambiar estatus\"; requiere motivo.",acc:["Consultar la solicitud y su motivo","Ya no admite cambios"]}}},
   servidoresSolicitudes:{titulo:"Servidores Físicos y Virtuales", principal:["Registrado","En aprovisionamiento","En operación","En mantenimiento","Dado de baja"], alternos:["Rechazado"], e:{
@@ -5595,8 +5710,8 @@ function mdRegistros(view){
 function irARegistros(view,filtros=[]){
   state.modTab=state.modTab||{}; state.modTab[view]="registros";
   if(view==="dominios"){
-    const df={dep:"",est:"",ip:"",desde:"",hasta:""};
-    filtros.forEach(x=>{ if(x.col==="Estatus") df.est=x.val; if(x.col==="Dependencia") df.dep=x.val; if(x.col==="IP") df.ip=x.val; });
+    const df={dep:"",est:"",ip:"",pub:"",desde:"",hasta:""};
+    filtros.forEach(x=>{ if(x.col==="Estatus") df.est=x.val; if(x.col==="Dependencia") df.dep=x.val; if(x.col==="IP") df.ip=x.val; if(x.col==="Publicación") df.pub=x.val; });
     state.domFiltros=df; state.domFiltrosOpen=filtros.length>0;
   } else if(filtros.length){ state.pendingColFilter={view,filtros}; }
   state.search = state.search||{};
@@ -5785,7 +5900,7 @@ const MD_CONTENIDO = {
         mdTile({label:"Notificados",value:subs.filter(x=>x.estatus==="Notificado").length,sub:"Ya operan con IP",iconName:"check-circle",go:mdGo(v,[{col:"Estatus",val:"Notificado"}])}),
         mdTile({label:"En trámite",value:pend.length,sub:"Registrados, validados o autorizados",iconName:"clock"}),
         mdTile({label:"Sin IP",value:subs.filter(x=>!x.ip).length,sub:"Subdominios sin IP asignada",iconName:"key",tone:subs.filter(x=>!x.ip).length?"alert":"",go:mdGo(v,[{col:"IP",val:"sin"}])}),
-        mdTile({label:"Rechazados o de baja",value:regs.filter(x=>["Rechazado","Dado de baja"].includes(x.estatus)).length,sub:"Dominios y subdominios",iconName:"ban"})
+        mdTile({label:"Con problema de publicación",value:regs.filter(x=>x.alcance!=="Interno"&&x.verificacion&&!PUB_OK.includes(pubResultado(x))).length,sub:`${regs.filter(x=>x.estatus==="Notificado"&&x.alcance!=="Interno"&&!PUB_OK.includes(pubResultado(x))).length} de ellos ya notificados`,iconName:"globe",tone:regs.some(x=>x.estatus==="Notificado"&&x.alcance!=="Interno"&&!PUB_OK.includes(pubResultado(x)))?"alert":""})
       ],
       filas:[
         ["1fr 1fr",[
@@ -5794,12 +5909,13 @@ const MD_CONTENIDO = {
         ]],
         ["1fr 1fr",[
           mdCardBars("mdDomDep","Por dependencia","Subdominios solicitados por dependencia.",mdContar(subs,x=>x.dependencia).map(r=>({...r,go:mdGo(v,[{col:"Dependencia",val:r.label}])})),"subdominio(s)"),
-          mdCardStack("mdDomIp","Asignación de IP","Subdominios con y sin IP.",[
-            {label:"Con IP",n:subs.filter(x=>x.ip).length,tone:"good",icon:"check-circle",go:mdGo(v,[{col:"IP",val:"con"}])},
-            {label:"Sin IP",n:subs.filter(x=>!x.ip).length,tone:"warning",icon:"key",go:mdGo(v,[{col:"IP",val:"sin"}])}])
+          mdCardStack("mdDomPub","Verificación de publicación","Resultado de la última verificación (dominios y subdominios).",
+            ["Publicado","Certificado por vencer","Apunta a otra IP","No responde","No resuelve","Interno"].map(k=>({label:k,n:regs.filter(x=>pubResultado(x)===k).length,tone:PUB_ESTADOS[k].tone==="info"?"good":PUB_ESTADOS[k].tone,icon:PUB_ESTADOS[k].icon,go:mdGo(v,[{col:"Publicación",val:k}])})).filter(x=>x.n||["Publicado","No resuelve"].includes(x.label)))
         ]],
         ["1fr 1.3fr",[
           mdCardAlertas("Requieren atención","Pendientes de este módulo.",[
+            {tone:"critical",icon:"globe",t:"Notificados que no están publicados",items:regs.filter(x=>x.estatus==="Notificado"&&x.alcance!=="Interno"&&!PUB_OK.includes(pubResultado(x))).map(x=>({label:x.nombre,sub:pubResultado(x),ver:`abrirVerificacion('${x.id}')`}))},
+            {tone:"warning",icon:"clock",t:"Certificados por vencer (30 días o menos)",items:regs.filter(x=>pubResultado(x)==="Certificado por vencer").map(x=>({label:x.nombre,sub:"Renovar certificado SSL",ver:`abrirVerificacion('${x.id}')`}))},
             {tone:"warning",icon:"key",t:"Subdominios sin IP",items:subs.filter(x=>!x.ip&&!["Rechazado","Dado de baja"].includes(x.estatus)).map(it)},
             {tone:"info",icon:"bell",t:"Autorizados pendientes de notificar",items:subs.filter(x=>x.estatus==="Autorizado").map(it)},
             {tone:"serious",icon:"clock",t:"Registrados hace más de 15 días",items:subs.filter(x=>(x.estatus||"Registrado")==="Registrado"&&mdDiasDesde(x.fecha)>15).map(it)}
@@ -5868,6 +5984,9 @@ function renderModulo(view,orig){
   }
 }
 Object.entries(MOD_PANEL).forEach(([view,c])=>{ const orig=window[c.fn]; if(typeof orig==="function") window[c.fn]=function(){ return renderModulo(view,orig); }; });
+
+/* Verificación automática inicial (simula la corrida diaria de las 06:00) */
+state.data.dominios.forEach(dm=>{ if(!dm.alcance) dm.alcance = dm.nombre==="educacion.tamaulipas.gob.mx" ? "Interno" : "Público"; if(!["Rechazado","Dado de baja"].includes(dm.estatus)){ const n=(dm.bitacora||[]).length; verificarDominio(dm,"auto"); dm.verificacion.hora="06:00"; dm.bitacora.length=n; } });
 </script>
 </body>
 </html>
