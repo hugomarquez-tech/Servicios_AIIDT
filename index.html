@@ -1159,6 +1159,39 @@ tr.open .dn-count{background:var(--brand);color:#fff}
 .pub-checks strong{display:block;font-size:13px}.pub-checks small{display:block;color:var(--muted);font-size:12px;margin-top:2px}
 .pub-note{display:flex;gap:8px;align-items:flex-start;font-size:12px;color:var(--muted);margin:14px 0 0;line-height:1.5}
 .pub-note .icon{width:15px;height:15px;flex:none;margin-top:2px}
+/* ===== Reportes ===== */
+.rp-cards{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;margin-bottom:18px}
+.rp-card{border:1px solid var(--line);border-radius:10px;background:#fff;padding:14px;display:flex;flex-direction:column;gap:6px;text-align:left;font:inherit;cursor:pointer;color:var(--ink)}
+.rp-card:hover{border-color:var(--brand)}
+.rp-card .icon{width:22px;height:22px;color:var(--brand)}
+.rp-card strong{font-size:13px;line-height:1.25}.rp-card small{font-size:11.5px;color:var(--muted);line-height:1.35}
+.rp-card.active{border:2px solid var(--brand);background:#FCF4F6}
+tr.pg-hidden{display:none}
+tr.rp-row{cursor:default}
+.rp-sub{color:#4B5058}
+.modal.rp-modal{width:min(1220px,97vw)}
+.rp-print-wrap{background:#EEF0F3;padding:18px;border-radius:8px}
+.rp-sheet{background:#fff;border:1px solid var(--line);border-radius:4px;box-shadow:0 8px 24px rgba(31,41,55,.10);padding:28px 32px;max-width:1120px;margin:0 auto;color:var(--ink)}
+.rp-head{display:flex;align-items:center;gap:18px;border-bottom:3px solid var(--wine,#980b2f);padding-bottom:14px;margin-bottom:14px}
+.rp-head .gov-logo-img{width:160px;height:46px;flex:none}
+.rp-head-t{flex:1}.rp-head-t small{display:block;font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.rp-head-t h1{font-size:19px;margin:3px 0 0;color:var(--ink)}
+.rp-head-sys{text-align:right;font-size:11px;color:var(--muted)}.rp-head-sys strong{display:block;color:var(--wine,#980b2f);font-size:15px}
+.rp-meta{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;font-size:11.5px;background:#FAFBFC;border:1px solid #EFF1F4;border-radius:6px;padding:10px 12px;margin-bottom:14px}
+.rp-meta span{color:var(--muted)}.rp-meta b{display:block;color:var(--ink);font-weight:700;margin-top:2px}
+.rp-kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:14px}
+.rp-kpi{border:1px solid #EFF1F4;border-radius:6px;padding:9px 11px}.rp-kpi span{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}.rp-kpi b{display:block;font-size:22px;margin-top:2px}
+.rp-table{width:100%;border-collapse:collapse;font-size:11.5px}
+.rp-table th{background:var(--wine,#980b2f);color:#fff;text-align:left;padding:7px 8px;font-size:10.5px;text-transform:uppercase;letter-spacing:.03em}
+.rp-table td{padding:7px 8px;border-bottom:1px solid #EFF1F4;vertical-align:top}
+.rp-table tr:nth-child(even) td{background:#FAFBFC}
+.rp-table tfoot td{font-weight:700;background:#F3F4F6!important;border-top:2px solid #D5D9E0}
+.rp-table .badge{padding:2px 6px;font-size:10px}
+.rp-firmas{display:grid;grid-template-columns:repeat(2,minmax(0,260px));justify-content:space-around;gap:40px;margin-top:46px;text-align:center;font-size:11px;color:var(--muted)}
+.rp-firmas span{display:block;border-top:1px solid var(--ink);margin-bottom:6px}
+.rp-foot{display:flex;justify-content:space-between;font-size:10.5px;color:var(--muted);margin-top:22px;padding-top:10px;border-top:1px solid #EFF1F4}
+@media (max-width:1100px){.rp-cards{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:640px){.rp-cards{grid-template-columns:repeat(2,minmax(0,1fr))}.rp-meta,.rp-kpis{grid-template-columns:1fr 1fr}.rp-sheet{padding:16px}}
 </style>
 </head>
 <body>
@@ -5249,50 +5282,134 @@ const REPORTE_CONFIG = {
   "Inventario de Software":{cols:["Dependencia","Nombre de Sistema","Siglas","Estatus"],rows:[]},
   "Productos":{cols:["Categoría","Nombre del Producto"],rows:[]}
 };
+/* ================= Reportes (Fase 1): tabla estándar en pantalla + vista de impresión ================= */
+function repSrv(id){ const x=findIn(state.data.servidoresSolicitudes,id); return x?`${x.ip||"IP por asignar"} (${x.tipoServidor||"Virtual"})`:"—"; }
+function repSol(id){ return findIn(state.data.solicitantes,id); }
+const REPORTES = {
+  servidores:{titulo:"Inventario de servidores", icon:"server", desc:"Infraestructura y su cobertura de seguridad",
+    filtros:[{col:"Dependencia"},{col:"Tipo"},{col:"Estatus"},{col:"Antivirus"},{col:"Registro",tipo:"fecha"}],
+    cols:["IP","Tipo","Dependencia","Sistema operativo","Antivirus","Base de datos","Estatus","Protocolos","Incidentes abiertos","Registro"],
+    filas:()=>{ const d=state.data; return d.servidoresSolicitudes.map(x=>({ver:`verServidor('${x.id}')`,c:[`<strong>${x.ip||"IP por asignar"}</strong>`,x.tipoServidor||"Virtual",x.dependencia,x.so||"—",x.antivirus==="Sí"?(x.antivirusNombre||"Sí"):"Sin antivirus",x.tipoBD||"No aplica",badgeEstatus(x.estatus||"Registrado"),d.actasSeguridad.filter(a=>a.servidorId===x.id).length,d.incidentes.filter(i=>i.servidorId===x.id&&!INC_CERRADOS.includes(i.estatus)).length,fmtFecha(x.fecha)]})); },
+    kpis:f=>[["Servidores",f.length],["En operación",f.filter(r=>r[6]==="En operación").length],["Sin antivirus",f.filter(r=>r[4]==="Sin antivirus").length],["Con protocolo",f.filter(r=>+r[7]>0).length],["Incidentes abiertos",f.reduce((a,r)=>a+(+r[8]||0),0)]]},
+  incidentes:{titulo:"Incidentes de seguridad", icon:"alert", desc:"Atención, impacto y tiempos",
+    filtros:[{col:"Tipo"},{col:"Impacto"},{col:"Estatus"},{col:"Servidor"},{col:"Detección",tipo:"fecha"}],
+    cols:["Folio","Detección","Servidor","Activo afectado","Tipo","Impacto","Estatus","Días de atención","Evidencias"],
+    filas:()=>state.data.incidentes.map(i=>{ const a=findIn(state.data.activos,i.activoId); const dias=Math.max(0,Math.round((new Date()-dxFecha(i.fechaDeteccion))/864e5));
+      return {ver:`verIncidente('${i.id}')`,c:[`<strong>${i.folio}</strong>`,fmtFecha(i.fechaDeteccion),repSrv(i.servidorId),a?.nombre||"—",i.tipoIncidente,a?.impacto||"—",badgeEstatus(i.estatus),INC_CERRADOS.includes(i.estatus)?"Concluido":dias,totalEvidencias(i)]}; }),
+    kpis:f=>[["Incidentes",f.length],["Abiertos",f.filter(r=>r[7]!=="Concluido").length],["Impacto crítico/alto",f.filter(r=>/Crítico|Alto/.test(r[5])).length],["Concluidos",f.filter(r=>r[7]==="Concluido").length],["Evidencias",f.reduce((a,r)=>a+(+r[8]||0),0)]]},
+  protocolos:{titulo:"Protocolos de seguridad", icon:"shield", desc:"Evaluaciones, resultados y actas",
+    filtros:[{col:"Secretaría"},{col:"Resultado"},{col:"Estatus"},{col:"Servidor"},{col:"Emisión",tipo:"fecha"}],
+    cols:["Oficio / GLPI","Emisión","Servidor","Secretaría","URL / aplicativo","Resultado","Estatus","Escaneos","Firmantes"],
+    filas:()=>state.data.actasSeguridad.map(a=>({ver:`verActa('${a.id}')`,c:[`<strong>${a.oficio}</strong>`,fmtFecha(a.fecha),repSrv(a.servidorId),a.secretaria,a.url,a.resultado,badgeEstatus(a.estatus||"Registrado"),(a.escaneos||[]).length,(a.firmantes||[]).map(x=>x.nombre.replace(/^Ing\.\s*/,"")).join(" / ")||"—"]})),
+    kpis:f=>[["Protocolos",f.length],["Aprobados",f.filter(r=>r[5]==="Aprobado").length],["Con observaciones",f.filter(r=>r[5]==="Con observaciones").length],["Actas firmadas",f.filter(r=>r[6]==="Acta firmada").length],["Escaneos",f.reduce((a,r)=>a+(+r[7]||0),0)]]},
+  dominios:{titulo:"Dominios y subdominios", icon:"globe", desc:"Publicación, IP y estatus",
+    filtros:[{col:"Tipo"},{col:"Dominio base"},{col:"Dependencia"},{col:"Publicación"},{col:"Estatus"},{col:"Registro",tipo:"fecha"}],
+    cols:["Tipo","Nombre","Dominio base","Dependencia","IP / NAT","Publicación","Estatus","Registro"],
+    filas:()=>{ const ord=[]; state.data.dominios.filter(x=>x.tipo==="Dominio").sort((a,b)=>a.nombre.localeCompare(b.nombre)).forEach(dm=>{ ord.push(dm); subdominiosDe(dm).forEach(x=>ord.push(x)); });
+      state.data.dominios.filter(x=>x.tipo==="Subdominio"&&!dominioBaseDe(x)).forEach(x=>ord.push(x));
+      return ord.map(x=>({ver:`state.editing.dominioId='${x.id}';navigate('dominios-detalle')`,c:[x.tipo,x.tipo==="Dominio"?`<strong>${x.nombre}</strong>`:`<span class="rp-sub">↳ ${x.nombre}</span>`,x.tipo==="Dominio"?x.nombre:(dominioBaseDe(x)?.nombre||"Sin dominio base"),x.dependencia,[x.ip,x.nat].filter(Boolean).join(" / ")||"Sin IP",pubResultado(x),badgeEstatus(x.estatus||"Registrado"),fmtFecha(x.fecha)]})); },
+    kpis:f=>[["Dominios",f.filter(r=>r[0]==="Dominio").length],["Subdominios",f.filter(r=>r[0]==="Subdominio").length],["Publicados",f.filter(r=>PUB_OK.includes(r[5])).length],["Con problema",f.filter(r=>!PUB_OK.includes(r[5])&&r[5]!=="Interno").length],["Sin IP",f.filter(r=>r[4]==="Sin IP").length]]},
+  vpn:{titulo:"Accesos VPN", icon:"key", desc:"Solicitudes y accesos activos",
+    filtros:[{col:"Dependencia"},{col:"Estatus"},{col:"IP asignada",tipo:"presencia",con:"Con IP",sin:"Sin IP"},{col:"Registro",tipo:"fecha"}],
+    cols:["Solicitante","Dependencia","Correo","Teléfono","IP asignada","Estatus","Registro","Observaciones"],
+    filas:()=>state.data.vpns.map(v=>({ver:`verVpn('${v.id}')`,c:[`<strong>${v.nombre}</strong>`,repSol(v.solicitanteId)?.dependencia||"—",v.correo,`${v.telefono||""}${v.ext?" ext. "+v.ext:""}`,v.ip||"Sin asignar",badgeEstatus(v.estatus||"Registrada"),fmtFecha(v.fecha),v.observaciones||"—"]})),
+    kpis:f=>[["Solicitudes",f.length],["Activas",f.filter(r=>r[5]==="Activa").length],["Por autorizar",f.filter(r=>r[5]==="Registrada").length],["Sin IP",f.filter(r=>r[4]==="Sin asignar").length],["Revocadas",f.filter(r=>r[5]==="Revocada").length]]},
+  concentrado:{titulo:"Concentrado por dependencia", icon:"chart", desc:"Resumen de todos los servicios",
+    filtros:[{col:"Dependencia"}],
+    cols:["Dependencia","Servidores","Sin antivirus","Subdominios","VPN activas","Protocolos","Incidentes abiertos","Total de servicios"],
+    filas:()=>{ const d=state.data;
+      const depInc=i=>repSol(i.solicitanteId)?.dependencia||findIn(d.servidoresSolicitudes,i.servidorId)?.dependencia;
+      const deps=[...new Set([...d.servidoresSolicitudes.map(x=>x.dependencia),...d.dominios.map(x=>x.dependencia),...d.actasSeguridad.map(a=>a.secretaria),...d.vpns.map(v=>repSol(v.solicitanteId)?.dependencia),...d.incidentes.map(depInc)].filter(Boolean))];
+      return deps.map(dp=>{ const sv=d.servidoresSolicitudes.filter(x=>x.dependencia===dp);
+        const sb=d.dominios.filter(x=>x.tipo==="Subdominio"&&x.dependencia===dp).length, vp=d.vpns.filter(v=>repSol(v.solicitanteId)?.dependencia===dp&&v.estatus==="Activa").length;
+        const pr=d.actasSeguridad.filter(a=>a.secretaria===dp).length, ia=d.incidentes.filter(i=>!INC_CERRADOS.includes(i.estatus)&&depInc(i)===dp).length;
+        return {c:[`<strong>${dp}</strong>`,sv.length,sv.filter(x=>x.antivirus!=="Sí").length,sb,vp,pr,ia,sv.length+sb+vp+pr]}; }).sort((a,b)=>b.c[7]-a.c[7]); },
+    kpis:f=>[["Dependencias",f.length],["Servidores",f.reduce((a,r)=>a+(+r[1]||0),0)],["Subdominios",f.reduce((a,r)=>a+(+r[3]||0),0)],["Protocolos",f.reduce((a,r)=>a+(+r[5]||0),0)],["Incidentes abiertos",f.reduce((a,r)=>a+(+r[6]||0),0)]],
+    totales:true}
+};
 function renderReportes(){
-  const rep = state.editing.reporteTipo;
+  const role=currentRole();
+  const visibles=Object.entries(REPORTES).filter(([k])=>{ const v={servidores:"servidores",incidentes:"incidentes-seguridad",protocolos:"actas-seguridad",dominios:"dominios",vpn:"vpn"}[k]; return !v||!role.allowedViews||role.allowedViews.includes(v); });
+  if(!state.repTipo||!REPORTES[state.repTipo]) state.repTipo=visibles[0][0];
+  const key=state.repTipo, R=REPORTES[key];
+  FILTROS_VISTA.reportes=R.filtros;
+  state.repPagina=state.repPagina||1; state.repTam=state.repTam||10;
+  const term=state.search.reportes||"";
+  const filas=R.filas().filter(f=>!term||f.c.some(v=>String(v).replace(/<[^>]+>/g,"").toLowerCase().includes(term.toLowerCase())));
   content.innerHTML = `
-  ${breadcrumb([{label:"Inicio",view:"dashboard"},{label:"Reportes"}])}
-  <div class="page-header"><div><h1>Reportes</h1><p>Genera reportes de servicios de tecnología por dependencia y periodo.</p></div></div>
-  <article class="card">
-    <div class="form-grid">
-      ${fieldSelect("Dependencia","fRepDep",["Ninguna","Todas",...depNames()])}
-      ${fieldInput("Fecha de Inicio","fRepDesde",todayStr(),"date")}
-      ${fieldInput("Fecha Final","fRepHasta",todayStr(),"date")}
-      ${fieldSelect("Mostrar por","fRepTipo",Object.keys(REPORTE_CONFIG),rep||"")}
+  ${breadcrumb([{label:"Reportes"},{label:R.titulo}])}
+  <div class="page-header"><div><h1>Reportes</h1><p>Elige un reporte, filtra, revisa y expórtalo. Para imprimir o generar el PDF institucional usa "Vista de impresión".</p></div>
+    <div class="page-actions"><button type="button" class="button primary" onclick="abrirVistaImpresion()">${icon("print")} Vista de impresión</button></div></div>
+  <div class="rp-cards">${visibles.map(([k,v])=>`<button type="button" class="rp-card ${k===key?"active":""}" onclick="state.repTipo='${k}';state.repPagina=1;state.search.reportes='';renderReportes()">${icon(v.icon)}<strong>${v.titulo}</strong><small>${v.desc}</small></button>`).join("")}</div>
+  <article class="card table-card">
+    <div class="datatable-toolbar">
+      <div class="entries-control">Mostrar <select id="repTam">${[10,25,50].map(n=>`<option ${n===state.repTam?"selected":""}>${n}</option>`).join("")}</select> registros</div>
+      <div class="datatable-actions">${searchBox("repSearch","Buscar en el reporte",term)}</div>
     </div>
-    <button class="button primary" style="margin-top:14px" onclick="crearReporte()">${icon("chart")} Crear Reporte</button>
-  </article>
-  <div id="reportResult"></div>`;
-  if(rep) pintarReporte(rep);
-}
-function crearReporte(){
-  state.editing.reporteTipo = $("#fRepTipo").value;
-  pintarReporte(state.editing.reporteTipo);
-}
-function pintarReporte(tipo){
-  const cfg = REPORTE_CONFIG[tipo]||{cols:[],rows:[]};
-  let rows = cfg.rows;
-  if(tipo==="Inventario de Software") rows = state.data.softwareInv.map(s=>[s.dependencia,s.nombre,s.siglas,s.estatus]);
-  if(tipo==="Dominio y Subdominio") rows = state.data.dominios.map(d=>[d.nombre,"Proyecto "+d.nombre.split(".")[0],d.tipo]);
-  if(tipo==="Productos") rows = [...state.data.dominiosProductos.map(p=>["Dominio",p.nombre]),...state.data.servidoresProductos.map(p=>["Servidor",p.nombre])];
-  $("#reportResult").innerHTML = `
-  <article class="card" style="margin-top:18px">
-    <div class="card-header"><h2>Reporte: ${tipo}</h2>
-      <button class="button secondary" onclick="exportTable('reporte-${tipo}',${JSON.stringify(cfg.cols)},${JSON.stringify(rows)})">${icon("download")} Exportar</button>
-    </div>
-    <div class="report-preview-meta">
-      <span>Fecha de impresión<strong>${todayStr()}</strong></span>
-      <span>Hora de impresión<strong>${nowTime()}</strong></span>
-      <span>Usuario<strong>Administrador</strong></span>
-      <span>Rango<strong>${$("#fRepDesde")?.value||todayStr()} a ${$("#fRepHasta")?.value||todayStr()}</strong></span>
-    </div>
-    <div class="table-wrap"><table><thead><tr>${cfg.cols.map(c=>`<th>${c}</th>`).join("")}</tr></thead>
-      <tbody>${rows.length?rows.map(r=>`<tr>${r.map(v=>`<td>${v}</td>`).join("")}</tr>`).join(""):`<tr><td colspan="${cfg.cols.length}" class="empty-state">Sin datos para este reporte.</td></tr>`}</tbody>
+    <div class="table-wrap"><table data-export-name="Reporte ${R.titulo}">
+      <thead><tr><th></th>${R.cols.map(c=>`<th>${c}</th>`).join("")}</tr></thead>
+      <tbody>${filas.length?filas.map(f=>`<tr${f.ver?` class="rp-row" ondblclick="${f.ver}" title="Doble clic para ver el detalle"`:""}><td class="checkbox-cell"><input type="checkbox"></td>${f.c.map(v=>`<td>${v}</td>`).join("")}</tr>`).join(""):`<tr><td colspan="${R.cols.length+1}" class="empty-state">Sin registros para este reporte.</td></tr>`}</tbody>
     </table></div>
+    <div class="pagination"><span id="repInfo"></span><div class="pagination-buttons" id="repPager"></div></div>
   </article>`;
+  $("#repSearch").oninput=e=>{ state.search.reportes=e.target.value; state.repPagina=1; renderReportes(); const el=$("#repSearch"); el.focus(); el.setSelectionRange(el.value.length,el.value.length); };
+  $("#repTam").onchange=e=>{ state.repTam=+e.target.value; state.repPagina=1; repPaginar(); };
+  setTimeout(()=>repPaginar(),0);
 }
-
+function repFilasVisibles(){ const t=$("#mainContent table[data-export-name]"); return t?[...t.querySelectorAll("tbody tr")].filter(tr=>tr.querySelector("input.row-check")&&!tr.classList.contains("filtered-out")):[]; }
+function repPaginar(reset){
+  if(reset) state.repPagina=1;
+  const t=$("#mainContent table[data-export-name]"); if(!t) return;
+  const todas=[...t.querySelectorAll("tbody tr")].filter(tr=>tr.querySelector("input.row-check"));
+  const vis=todas.filter(tr=>!tr.classList.contains("filtered-out"));
+  const tam=state.repTam||10, paginas=Math.max(1,Math.ceil(vis.length/tam));
+  state.repPagina=Math.min(Math.max(1,state.repPagina||1),paginas);
+  const ini=(state.repPagina-1)*tam;
+  todas.forEach(tr=>tr.classList.add("pg-hidden"));
+  vis.slice(ini,ini+tam).forEach(tr=>tr.classList.remove("pg-hidden"));
+  const info=$("#repInfo"); if(info) info.textContent = vis.length ? `Mostrando ${ini+1} a ${Math.min(ini+tam,vis.length)} de ${vis.length} registros${vis.length<todas.length?` (filtrados de ${todas.length})`:""}` : "Sin registros que coincidan";
+  const pg=$("#repPager"); if(pg){
+    const b=(lbl,n,dis,act)=>`<button type="button" ${dis?"disabled":""} class="${act?"active":""}" onclick="state.repPagina=${n};repPaginar()">${lbl}</button>`;
+    pg.innerHTML = b("Anterior",state.repPagina-1,state.repPagina===1) + Array.from({length:paginas},(_,k)=>b(k+1,k+1,false,k+1===state.repPagina)).join("") + b("Siguiente",state.repPagina+1,state.repPagina===paginas);
+  }
+}
+function abrirVistaImpresion(){
+  const R=REPORTES[state.repTipo]; const t=$("#mainContent table[data-export-name]"); if(!t) return;
+  const todas=[...t.querySelectorAll("tbody tr")].filter(tr=>tr.querySelector("input.row-check"));
+  const sel=todas.filter(tr=>tr.querySelector("input.row-check").checked);
+  const usar=(sel.length?sel:todas.filter(tr=>!tr.classList.contains("filtered-out")));
+  const txt=td=>cellText(td);
+  const filas=usar.map(tr=>[...tr.children].slice(1).map(txt));
+  const htmlFilas=usar.map(tr=>[...tr.children].slice(1).map(td=>td.innerHTML));
+  const box=$("#mainContent .col-filters");
+  const aplicados=box?[...box.querySelectorAll("[data-col]")].filter(el=>el.value).map(el=>{ const lbl=el.closest(".field").querySelector("label").textContent.replace(" (desde – hasta)",""); const v=el.tagName==="SELECT"?el.selectedOptions[0].textContent:fmtFecha(el.value); return el.dataset.kind==="desde"?`${lbl} desde ${v}`:el.dataset.kind==="hasta"?`${lbl} hasta ${v}`:`${lbl}: ${v}`; }):[];
+  if(state.search.reportes) aplicados.push(`Búsqueda: "${state.search.reportes}"`);
+  const fechas=box?[...box.querySelectorAll('[data-kind="desde"],[data-kind="hasta"]')].map(el=>el.value):[];
+  const periodo=(fechas[0]||fechas[1])?`${fechas[0]?fmtFecha(fechas[0]):"Inicio"} – ${fechas[1]?fmtFecha(fechas[1]):todayStr()}`:"Todo el historial";
+  const kpis=R.kpis(filas);
+  const totales = R.totales && filas.length ? `<tr><td>Total</td>${R.cols.slice(1).map((c,k)=>`<td>${filas.reduce((a,r)=>a+(+r[k+1]||0),0)}</td>`).join("")}</tr>` : `<tr><td colspan="${R.cols.length}">Total de registros: ${filas.length}${sel.length?" (seleccionados)":""}</td></tr>`;
+  const doc=`<div class="rp-sheet" id="rpSheet">
+    <div class="rp-head"><span class="gov-logo-img" role="img" aria-label="Tamaulipas · Gobierno del Estado"></span><div class="rp-head-t"><small>Secretaría de Innovación e Inteligencia Digital</small><h1>Reporte: ${R.titulo}</h1></div><div class="rp-head-sys"><strong>SIGEST</strong>Sistema de Gestión de Servicios<br>Tecnológicos de la SIID</div></div>
+    <div class="rp-meta"><div><span>Fecha de emisión</span><b>${todayStr()} · ${nowTime()}</b></div><div><span>Generado por</span><b>${currentRole().label}</b></div><div><span>Periodo</span><b>${periodo}</b></div><div><span>Filtros aplicados</span><b>${aplicados.join(" · ")||"Todos los registros"}</b></div></div>
+    <div class="rp-kpis">${kpis.map(([l,v])=>`<div class="rp-kpi"><span>${l}</span><b>${v}</b></div>`).join("")}</div>
+    <table class="rp-table"><thead><tr>${R.cols.map(c=>`<th>${c}</th>`).join("")}</tr></thead><tbody>${htmlFilas.length?htmlFilas.map(r=>`<tr>${r.map(v=>`<td>${v}</td>`).join("")}</tr>`).join(""):`<tr><td colspan="${R.cols.length}">Sin registros.</td></tr>`}</tbody><tfoot>${totales}</tfoot></table>
+    <div class="rp-firmas"><div><span></span>Elaboró</div><div><span></span>Revisó</div></div>
+    <div class="rp-foot"><span>SIGEST · Secretaría de Innovación e Inteligencia Digital · Gobierno del Estado de Tamaulipas</span><span>Página 1 de 1</span></div>
+  </div>`;
+  openModal({title:"Vista de impresión", subtitle:`${R.titulo} · ${filas.length} registro(s)${sel.length?" seleccionados":""}`, size:"large", confirm:"Imprimir / Guardar PDF", body:`<div class="rp-print-wrap">${doc}</div>`,
+    onConfirm:()=>imprimirReporte(R.titulo)});
+  $("#modalRoot .modal")?.classList.add("rp-modal");
+  const cancel=[...$$("#modalRoot .modal-footer .modal-close")][0];
+  if(cancel){ cancel.insertAdjacentHTML("afterend",`<button type="button" class="button secondary" id="rpExcel">${icon("file-sheet")} Excel</button>`); $("#rpExcel").onclick=()=>exportarFilas(R.cols,filas,"excel",!!sel.length); }
+}
+function imprimirReporte(titulo){
+  const sheet=$("#rpSheet"); if(!sheet) return;
+  const w=window.open("","_blank");
+  if(!w){ toast("Permite ventanas emergentes para imprimir.","error"); return; }
+  const css=[...document.querySelectorAll("style")].map(s=>s.textContent).join("\n");
+  w.document.write(`<html><head><meta charset="utf-8"><title>Reporte ${titulo}</title><style>${css}\nbody{background:#fff;padding:0;margin:0}.rp-sheet{box-shadow:none;border:0;max-width:none}@page{size:letter landscape;margin:12mm}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}</style></head><body>${sheet.outerHTML}</body></html>`);
+  w.document.close(); w.focus(); setTimeout(()=>w.print(),300);
+}
 /* ================= Arranque de la aplicación ================= */
 renderNavigation();
 
@@ -5320,7 +5437,7 @@ function tableExportData(table){
   return {headers:cols.map(c=>c.label),rows,scope:sel.length?"sel":"all"};
 }
 function tableExportName(){
-  const h=$("#mainContent .page-header h1")?.textContent||$("#mainContent h2")?.textContent||"tabla";
+  const h=$("#mainContent table[data-export-name]")?.dataset.exportName||$("#mainContent .page-header h1")?.textContent||$("#mainContent h2")?.textContent||"tabla";
   return h.trim().toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")+"-"+todayStr().replace(/\//g,"-");
 }
 function exportarTabla(tableId,formato){
@@ -5480,7 +5597,7 @@ function cellText(td){
   walk(td); return parts.join(" ").replace(/\s+/g," ").trim();
 }
 const toISO = v=>{ v=(v||"").trim(); let m=/^(\d{2})\/(\d{2})\/(\d{4})$/.exec(v); if(m) return `${m[3]}-${m[2]}-${m[1]}`; m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(v); return m?v:""; };
-function colFilterKey(table){ const all=$$("#mainContent table[data-enh]"); return (state.view||"")+"#"+all.indexOf(table); }
+function colFilterKey(table){ const all=$$("#mainContent table[data-enh]"); return (state.view||"")+(state.view==="reportes"?":"+(state.repTipo||""):"")+"#"+all.indexOf(table); }
 /* Filtros por vista: solo columnas útiles para filtrar (catálogos, estatus y fechas).
    Los datos personales o de texto libre (nombre, correo, teléfono, observaciones) se buscan con la caja "Buscar". */
 const FILTROS_VISTA = {
@@ -5580,6 +5697,7 @@ function applyColumnFilters(table,box){
   box.querySelector(".filters-result").textContent = activos ? `${visible} de ${rows.length} registro(s) coinciden` : `${rows.length} registro(s)`;
   const card=table.closest(".card"); const pag=card?.querySelector(".pagination > span");
   if(pag){ pag.textContent = activos ? `Mostrando ${visible} de ${rows.length} registros (filtrados)` : (pag.dataset.orig||pag.textContent); }
+  if(state.view==="reportes") repPaginar(true);
   updateExportCount(table);
 }
 function enhanceTables(){
