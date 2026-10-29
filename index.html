@@ -1192,6 +1192,113 @@ tr.rp-row{cursor:default}
 .rp-foot{display:flex;justify-content:space-between;font-size:10.5px;color:var(--muted);margin-top:22px;padding-top:10px;border-top:1px solid #EFF1F4}
 @media (max-width:1100px){.rp-cards{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:640px){.rp-cards{grid-template-columns:repeat(2,minmax(0,1fr))}.rp-meta,.rp-kpis{grid-template-columns:1fr 1fr}.rp-sheet{padding:16px}}
+.depto-service-row.depto-off{background:#F7F8FA}
+.depto-service-row.depto-off .depto-service-check{color:#9A9EA7;cursor:not-allowed}
+.phase-tag-inline{display:inline-flex;align-items:center;gap:4px;margin-left:8px;font-style:normal;font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.03em;background:#EEF0F3;color:#8B8F98;border-radius:10px;padding:2px 8px}
+.phase-tag-inline .icon{width:11px;height:11px}
+
+/* Solicitudes: folio, etapa */
+.sol-folio{font-family:Arial,sans-serif;font-size:12.5px;letter-spacing:.02em;color:var(--wine);white-space:nowrap}
+.sol-chipbar{display:flex;align-items:center;gap:8px;padding:12px 20px 0;font-size:12.5px;color:var(--muted)}
+.sol-chip{display:inline-flex;align-items:center;gap:6px;background:#FBEFF2;color:var(--wine);border:1px solid #F0CBD5;border-radius:14px;padding:3px 6px 3px 10px;font-weight:700}
+.sol-chip button{border:0;background:transparent;color:inherit;font-size:15px;line-height:1;cursor:pointer;padding:0 2px}
+/* Ver detalle en solo lectura */
+.ro-banner{border:1px solid #E3D3D8;background:#FCF8F9;border-radius:12px;padding:14px 18px;margin:0 0 16px}
+.ro-banner-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+.ro-pill{display:inline-flex;align-items:center;gap:6px;background:var(--wine);color:#fff;border-radius:14px;padding:4px 11px;font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.03em}
+.ro-pill .icon{width:14px;height:14px}
+.ro-hint{font-size:12.5px;color:var(--muted)}
+.ro-banner-body{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.ro-meta{display:flex;flex-wrap:wrap;gap:8px 28px;margin:0}
+.ro-meta dt{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.03em;font-weight:700;margin-bottom:3px}
+.ro-meta dd{margin:0;font-size:13.5px;color:var(--text,#1F2430)}
+.ro-actions{display:flex;gap:8px;flex-wrap:wrap}
+.ro-card .ro-field, .ro-card .ro-field:disabled{background:#F6F7F9;color:#1F2430;-webkit-text-fill-color:#1F2430;opacity:1;cursor:default;border-color:#E2E5EA;box-shadow:none}
+.ro-card select.ro-field{appearance:none;-webkit-appearance:none;background-image:none}
+.ro-card input[type=checkbox].ro-field,.ro-card input[type=radio].ro-field{opacity:.9}
+.ro-hidden{display:none !important}
+.dx-stack-seg.info{background:#3E7CC0}.dx-stack-seg.neutral{background:#A3A8B1}
+.badge.canceled{background:#EEF0F3;color:#5F6670}
+.dx-stack-seg.cancel{background:#6B7280}.dx-state.cancel{color:#5F6670}
+
+/* Catálogo de estatus */
+.st-c-ambar{background:#FEF3DC !important;color:#A15C00 !important}
+.st-c-azul{background:#E3EEFB !important;color:#1D5FA8 !important}
+.st-c-verde{background:#E1F4E6 !important;color:#17733A !important}
+.st-c-rojo{background:#FCE4E4 !important;color:#B42318 !important}
+.st-c-gris{background:#EEF0F3 !important;color:#5F6670 !important}
+.st-c-morado{background:#EEE7FA !important;color:#6B3FB0 !important}
+.st-c-turquesa{background:#DDF3F1 !important;color:#0F6E68 !important}
+.st-c-naranja{background:#FDE9DA !important;color:#B4480F !important}
+
+.ce-tabs{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 16px}
+.ce-tabs button{border:1px solid #D5D9E0;background:#fff;border-radius:18px;padding:7px 14px;font:inherit;font-size:13px;font-weight:700;color:#4B5058;cursor:pointer}
+.ce-tabs button.on{background:var(--wine);border-color:var(--wine);color:#fff}
+.ce-tabs button small{font-weight:700;opacity:.75;margin-left:5px}
+.ce-flow{display:flex;align-items:center;flex-wrap:wrap;gap:6px;padding:14px 16px;background:#F7F8FA;border:1px solid #E6E8EC;border-radius:10px;margin:0 0 16px}
+.ce-flow b{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.03em;margin-right:6px}
+.ce-flow i{color:#A3A8B1;font-style:normal}
+.ce-trans{display:flex;flex-wrap:wrap;gap:4px}.ce-trans span{font-size:11px;border:1px solid #DDE0E5;border-radius:10px;padding:2px 7px;color:#4B5058;background:#fff;white-space:nowrap}
+.ce-trans em{font-size:11px;color:#9A9EA7;font-style:normal}
+.ce-tag{display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.03em;border-radius:10px;padding:2px 8px;white-space:nowrap}
+.ce-tag.sys{background:#EEF0F3;color:#5F6670}.ce-tag.cus{background:#FBEFF2;color:var(--wine)}
+.ce-tag .icon{width:11px;height:11px}
+tr.ce-off td{opacity:.55}
+.ce-sec{font-size:13px;font-weight:800;margin:16px 0 8px;color:#1F2430}
+.ce-note{font-size:12px;color:var(--muted);margin:0 0 8px}
+.ce-sw{display:flex;gap:10px;flex-wrap:wrap}
+.ce-sw label{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11px;color:#4B5058;cursor:pointer}
+.ce-sw input{position:absolute;opacity:0;pointer-events:none}
+.ce-sw .dot{width:36px;height:36px;border-radius:8px;border:2px solid transparent;display:grid;place-items:center;font-weight:800;font-size:12px}
+.ce-sw label.sel .dot{border-color:#1F2430;box-shadow:0 0 0 2px #fff inset}
+.ce-sw label:focus-within .dot{outline:2px solid var(--wine);outline-offset:2px}
+.ce-prev{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:12px 14px;border:1px dashed #D5D9E0;border-radius:10px;background:#FAFBFC;margin-top:10px}
+.ce-prev b{font-size:12px;color:var(--muted)}.ce-prev small{font-size:12px;color:var(--muted)}
+.ce-chk{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.ce-chk label{display:flex;align-items:center;gap:8px;border:1px solid #D5D9E0;border-radius:8px;padding:7px 10px;cursor:pointer}
+.ce-chk label.dis{background:#F6F7F9;opacity:.6;cursor:not-allowed}
+.ce-lock{background:#F6F7F9;border:1px solid #E2E5EA;border-radius:10px;padding:10px 12px;font-size:12.5px;color:#4B5058;display:flex;gap:8px;align-items:flex-start;line-height:1.5}
+.ce-lock .icon{width:16px;height:16px;flex-shrink:0;margin-top:2px}
+.ce-fixed{display:grid;gap:8px;font-size:12.5px}.ce-fixed b{display:inline-block;min-width:110px;color:var(--muted);font-size:11.5px;text-transform:uppercase;letter-spacing:.03em}
+.ce-fixed .badge{margin:2px 3px 2px 0}
+@media(max-width:700px){.ce-chk{grid-template-columns:1fr 1fr}}
+.st-option strong .badge{margin-bottom:4px}.st-reap{font-style:normal;font-size:12px;color:var(--muted);font-weight:600}
+
+.ce-always{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;color:#5F6670;white-space:nowrap}
+.ce-always .icon{width:13px;height:13px}
+.dp-firms{display:flex;flex-direction:column;gap:2px;font-size:12px}
+.dp-firm b{color:var(--muted);font-weight:700}
+.dp-warn{display:inline-flex;align-items:center;gap:5px;color:#B4480F;font-weight:700;font-size:12px}.dp-warn .icon{width:13px;height:13px}
+.dp-docs{display:inline-flex;align-items:center;gap:5px}.dp-docs .icon{width:15px;height:15px;color:var(--brand)}
+
+.fx-off td{color:#9A9EA7}.fx-off td strong{color:#8B8F98}
+.fx-vig{font-size:12px;white-space:nowrap}.fx-vig small{display:block;color:var(--muted);font-size:11px}
+.fx-chips{display:flex;flex-wrap:wrap;gap:4px}.fx-chips span{font-size:11px;border:1px solid #DDE0E5;border-radius:10px;padding:2px 7px;background:#fff;color:#4B5058;white-space:nowrap}
+.fx-link{display:inline-flex;align-items:center;gap:5px;font:inherit;font-size:12px;font-weight:700;color:var(--wine);background:#FBEFF2;border:1px solid #F0CBD5;border-radius:14px;padding:4px 10px;white-space:nowrap;margin-top:6px;cursor:pointer;width:fit-content}
+.fx-link:hover{background:#F7E1E7}.fx-link .icon{width:13px;height:13px}
+.fx-note{display:flex;gap:8px;align-items:flex-start;background:#F4F8FD;border:1px solid #D6E4F5;color:#1D4E89;border-radius:10px;padding:10px 12px;font-size:12.5px;line-height:1.5}
+.fx-note .icon{width:16px;height:16px;flex-shrink:0;margin-top:2px}
+.fx-who{display:flex;flex-direction:column}.fx-who small{color:var(--muted);font-size:11.5px}
+.fx-hist{font-size:11px !important;font-weight:800;text-transform:uppercase;letter-spacing:.03em;color:var(--muted) !important;padding:10px 12px 6px !important;background:#FAFBFC}
+.fx-bar{display:flex;justify-content:space-between;align-items:center;margin:16px 0 10px}.fx-bar strong{font-size:14px}
+.fx-swap{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center;margin:4px 0 14px}
+.fx-card{border:1px solid #E2E5EA;border-radius:10px;padding:10px 12px;font-size:12.5px}.fx-card b{display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.03em;margin-bottom:4px}
+.fx-card span{color:var(--muted)}.fx-card.new{border-color:var(--wine);background:#FCF8F9}
+.fx-arrow{font-size:20px;color:var(--wine);font-weight:800}
+.fx-list{list-style:none;margin:0;padding:0;display:grid;gap:6px}.fx-list li{display:flex;justify-content:space-between;align-items:center;gap:10px;border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:12.5px}
+@media(max-width:700px){.fx-swap{grid-template-columns:1fr}.fx-arrow{transform:rotate(90deg);justify-self:center}}
+.col-acciones{width:1%;white-space:nowrap}
+
+.td-chk{display:flex;flex-wrap:wrap;gap:6px}
+.td-chk label{display:inline-flex;align-items:center;gap:6px;border:1px solid #D5D9E0;border-radius:8px;padding:6px 10px;font-size:12.5px;font-weight:700;font-family:Consolas,monospace;cursor:pointer}
+.ce-chk label small{margin-left:auto;font-size:10.5px;color:var(--muted);font-weight:600}
+.ce-chk label.td-prox{background:#FAFBFC}
+.td-ext span{font-family:Consolas,monospace}
+.ev-uploader{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1.2fr) auto;gap:10px;align-items:end}
+.ev-uploader .field{margin:0}
+.ev-tipo{display:inline-block;margin-left:8px;font-size:10.5px;font-weight:700;background:#EEF0F3;color:#4B5058;border-radius:10px;padding:2px 8px;vertical-align:middle}
+.ev-size{margin-left:6px;color:var(--muted);font-size:11px}
+@media(max-width:700px){.ev-uploader{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -1354,9 +1461,24 @@ const ESTATUS_CLASE = {
   review:["validado","en revisión","en evaluación","en análisis","en aprovisionamiento","autorizada","contenido","turnado","en proceso","notificado","erradicado"],
   approved:["autorizado","activa","activo","en operación","aprobado","acta firmada","resuelto","cerrado","producción"],
   warning:["con observaciones","en mantenimiento"],
-  observed:["rechazado","rechazada","no aprobado","revocada","dado de baja","descartado","inactivo","cancelado"]
+  observed:["rechazado","rechazada","no aprobado","revocada","dado de baja","descartado"],
+  canceled:["cancelado","cancelada","inactivo"]
 };
-function badgeEstatus(status){
+/* Paleta institucional de estatus (contraste verificado) */
+const ESTATUS_PALETA = {
+  ambar:{l:"Ámbar",bg:"#FEF3DC",fg:"#A15C00"}, azul:{l:"Azul",bg:"#E3EEFB",fg:"#1D5FA8"}, verde:{l:"Verde",bg:"#E1F4E6",fg:"#17733A"},
+  rojo:{l:"Rojo",bg:"#FCE4E4",fg:"#B42318"}, gris:{l:"Gris",bg:"#EEF0F3",fg:"#5F6670"}, morado:{l:"Morado",bg:"#EEE7FA",fg:"#6B3FB0"},
+  turquesa:{l:"Turquesa",bg:"#DDF3F1",fg:"#0F6E68"}, naranja:{l:"Naranja",bg:"#FDE9DA",fg:"#B4480F"}
+};
+function colorEstatus(status,col){
+  if(typeof FLUJOS_ESTATUS==="undefined") return null;
+  const ctx = col || state._ctxCol || (typeof VISTA_COLECCION!=="undefined" ? VISTA_COLECCION[state.view] : null);
+  const cols = [ctx, ...Object.keys(FLUJOS_ESTATUS)].filter(Boolean);
+  for(const c of cols){ const e=FLUJOS_ESTATUS[c]?.estados[status]; if(e?.color) return e.color; }
+  return null;
+}
+function badgeEstatus(status,col){
+  const cc=colorEstatus(status,col); if(cc) return `<span class="badge st-c-${cc}">${status}</span>`;
   const v=(status||"").toLowerCase().trim();
   let cls=Object.keys(ESTATUS_CLASE).find(k=>ESTATUS_CLASE[k].includes(v))||"neutral";
   if(cls==="warning") cls="pending";
@@ -1380,6 +1502,7 @@ function fieldSelect(label,id,options,selected="",extra=""){
   }).join("")}</select></div>`;
 }
 function fieldInput(label,id,value="",type="text",extra=""){
+  if(type==="date" && typeof value==="string" && /^\d{2}\/\d{2}\/\d{4}$/.test(value)){ const [dd,mm,yy]=value.split("/"); value=`${yy}-${mm}-${dd}`; }
   const full = extra.includes("class=full");
   const realExtra = extra.replace("class=full","").trim();
   return `<div class="field${full?" full":""}"><label for="${id}">${label}</label><input id="${id}" type="${type}" value="${value??""}" ${realExtra}></div>`;
@@ -1783,8 +1906,7 @@ const state = {
       "cat-motor-bd":["MySQL","MariaDB","MSSQLServer 2014","MSSQLServer 2019","Oracle 11g","PostgreSQL"].map(n=>({id:uid("MBD"),nombre:n})),
       "cat-version-bd":["4.0","5.7","8.0","2014","2019","11.2.04"].map(n=>({id:uid("VBD"),nombre:n})),
       "cat-plataforma":["Windows Server 2019","Linux CentOS 7","Linux Ubuntu 22.04","Multisite WordPress"].map(n=>({id:uid("PLT"),nombre:n})),
-      "cat-tipo-solicitudes":["Dominio","Subdominio","Sitio Web","Base de Datos","VPN","Servidor Físico o Virtual","RRD"].map(n=>({id:uid("TSO"),nombre:n})),
-      "cat-tipo-servicio":["HTTP","HTTPS","API","WS","MySQL","MSSQL"].map(n=>({id:uid("TSV"),nombre:n})),
+      "cat-protocolo":["HTTP","HTTPS","API","WebSocket","MySQL","MSSQL"].map(n=>({id:uid("PRC"),nombre:n})),
       "cat-dependencias":DEPENDENCIAS.map(n=>({id:uid("DPN"),nombre:n})),
       "cat-tramite":["Alta de dominio","Renovación de certificado","Solicitud de hospedaje","Publicación de sistema"].map(n=>({id:uid("TRM"),nombre:n})),
       "cat-dominios":["www.tamaulipas.gob.mx","www.tamaulipas2.gob.mx"].map(n=>({id:uid("CDM"),nombre:n})),
@@ -1796,6 +1918,7 @@ const state = {
     }
   }
 };
+/* Módulos que existen en el sistema (pantallas). El catálogo "Tipo de Servicio" se liga a uno de ellos. */
 const MODULOS_SERVICIO = [
   ["sitios-web","Sitios Web"],
   ["rrd","RRD"],
@@ -1806,7 +1929,19 @@ const MODULOS_SERVICIO = [
   ["actas-seguridad","Protocolos de Seguridad"],
   ["incidentes-seguridad","Incidentes de Seguridad"]
 ];
-function moduloLabel(key){ return MODULOS_SERVICIO.find(m=>m[0]===key)?.[1]||key; }
+function tiposServicio(){
+  if(!state.data.tiposServicio){
+    const fase2=["sitios-web","rrd","crear-bd"];
+    state.data.tiposServicio = [
+      ["servidores","Servidores Físicos y Virtuales"],["dominios","Dominios y Subdominios"],["vpn","VPN"],
+      ["actas-seguridad","Protocolos de Seguridad"],["incidentes-seguridad","Incidentes de Seguridad"],
+      ["sitios-web","Sitios Web"],["crear-bd","Crear BD"],["rrd","RRD"]
+    ].map(([m,n])=>({id:uid("TSV"),nombre:n,modulo:m,estatus:fase2.includes(m)?"Próxima fase":"Activo",generaDocumentos:m==="actas-seguridad"}));
+  }
+  return state.data.tiposServicio;
+}
+function tipoServicioDeModulo(m){ return tiposServicio().find(t=>t.modulo===m); }
+function moduloLabel(key){ return tiposServicio().find(t=>t.modulo===key||t.id===key)?.nombre || MODULOS_SERVICIO.find(m=>m[0]===key)?.[1] || key; }
 function findIn(arr,id){ return arr.find(x=>x.id===id); }
 function removeIn(arr,id){ const i=arr.findIndex(x=>x.id===id); if(i>-1) arr.splice(i,1); }
 function depNames(){ return state.data.catalogosSimples["cat-dependencias"].map(c=>c.nombre); }
@@ -1923,7 +2058,7 @@ function abrirSelectorSolicitante(prefix){
 }
 function renderSelectorSolicitanteModal(prefix){
   const term = state.ui.solicitanteSelectorTerm||"";
-  const rows = state.data.solicitantes.filter(s=>matchesSearch(s,term));
+  const rows = state.data.solicitantes.filter(s=>(s.estatus||"Activo")==="Activo" && matchesSearch(s,term));
   openModal({
     title:"Seleccionar solicitante", subtitle:"Busca en el directorio o registra uno nuevo", size:"large", confirm:"",
     body:`
@@ -1974,7 +2109,7 @@ function servicioRelacionadoBlock(prefix,selDominioId,selServidorId){
     <div class="field"><label for="${prefix}Servidor">Servidor Físico/Virtual<span class="required-mark">*</span></label>
       <select id="${prefix}Servidor" onchange="alCambiarServidorRelacionado('${prefix}')">
         <option value="">Selecciona un servidor</option>
-        ${servidores.filter(s=>s.id===selServidorId||!["Rechazado","Dado de baja"].includes(s.estatus)).map(s=>`<option value="${s.id}" ${s.id===selServidorId?"selected":""}>${servidorLabel(s)}${s.estatus&&s.estatus!=="En operación"?` · ${s.estatus}`:""}</option>`).join("")}
+        ${servidores.filter(s=>s.id===selServidorId||!["Rechazado","Dado de baja","Cancelado"].includes(s.estatus)).map(s=>`<option value="${s.id}" ${s.id===selServidorId?"selected":""}>${servidorLabel(s)}${s.estatus&&s.estatus!=="En operación"?` · ${s.estatus}`:""}</option>`).join("")}
       </select>
     </div>
     <div class="field"><label for="${prefix}Dominio">Dominio / Subdominio relacionado (opcional)</label>
@@ -2204,15 +2339,18 @@ const navConfig = [
     ["cat-departamentos","Departamentos"],
     ["cat-dependencias","Dependencias"],
     ["cat-dominios","Dominios"],
+    ["cat-estatus","Estatus"],
+    ["cat-firmantes","Firmantes"],
     ["cat-medidas-seguridad","Medidas de Seguridad"],
     ["cat-motor-bd","Motor de BD"],
     ["cat-plataforma","Plataforma de alojamiento"],
     ["cat-productos","Productos"],
+    ["cat-protocolo","Protocolo de Comunicación"],
     ["cat-tipo-activo","Tipo de Activo"],
     ["cat-tipo-bd","Tipo de Base de Datos"],
+    ["cat-tipo-documento","Tipo de Documento"],
     ["cat-tipo-incidente","Tipo de Incidente"],
     ["cat-tipo-servicio","Tipo de Servicio"],
-    ["cat-tipo-solicitudes","Tipo de Solicitudes"],
     ["cat-tramite","Trámite o Servicio"],
     ["cat-version-bd","Versión de BD"]
   ]},
@@ -2226,14 +2364,14 @@ const groupOf = {};
 navConfig.forEach(item=>{ if(item.group) item.items.forEach(([key])=>groupOf[key]=item.group); });
 
 /* ================= Fase 1: módulos activos / inhabilitados ================= */
-const MODULOS_FASE2 = {"sitios-web":"Sitios Web","rrd":"RRD (Respaldo de Bases de Datos)","crear-bd":"Crear BD"};
+const MODULOS_FASE2 = {"sitios-web":"Sitios Web","rrd":"RRD (Respaldo de Bases de Datos)","crear-bd":"Crear BD","inv-software":"Inventario de Software","inv-hardware":"Inventario de Hardware"};
 const MODULOS_FASE1 = [["vpn","VPN"],["dominios","Dominios y Subdominios"],["servidores","Servidores Físicos y Virtuales"],["actas-seguridad","Protocolos de Seguridad"],["incidentes-seguridad","Incidentes de Seguridad"]];
 function moduloFase2DeVista(view){ return Object.keys(MODULOS_FASE2).find(k=>view===k||view.startsWith(k+"-"))||null; }
 function renderModuloInhabilitado(key){
   const role = currentRole();
   const activos = MODULOS_FASE1.filter(([k])=>!role.allowedViews||role.allowedViews.includes(k));
   content.innerHTML = `
-  ${breadcrumb([{label:"Servicios"},{label:MODULOS_FASE2[key]}])}
+  ${breadcrumb([{label:key.startsWith("inv-")?"Inventarios":"Servicios"},{label:MODULOS_FASE2[key]}])}
   <div class="page-header"><div><h1>${MODULOS_FASE2[key]}</h1><p>Módulo contemplado para una fase posterior del proyecto.</p></div></div>
   <article class="card phase-off-card">
     <div class="phase-icon">${icon("lock")}</div>
@@ -2309,8 +2447,11 @@ const renderers = {
   "cat-tipo-bd": ()=>renderSimpleCatalog("cat-tipo-bd","Tipo de Base de Datos"),
   "cat-medidas-seguridad": ()=>renderSimpleCatalog("cat-medidas-seguridad","Medidas de Seguridad"),
   "cat-tipo-incidente": ()=>renderSimpleCatalog("cat-tipo-incidente","Tipo de Incidente"),
-  "cat-tipo-solicitudes": ()=>renderSimpleCatalog("cat-tipo-solicitudes","Tipo de Solicitudes"),
-  "cat-tipo-servicio": ()=>renderSimpleCatalog("cat-tipo-servicio","Tipo de Servicio"),
+  "cat-tipo-servicio": ()=>renderCatTiposServicio(),
+  "cat-estatus": ()=>renderCatEstatus(),
+  "cat-firmantes": ()=>renderCatFirmantes(),
+  "cat-tipo-documento": ()=>renderCatTipoDocumento(),
+  "cat-protocolo": ()=>renderSimpleCatalog("cat-protocolo","Protocolo de Comunicación"),
   "cat-dependencias": ()=>renderSimpleCatalog("cat-dependencias","Dependencias"),
   "cat-tramite": ()=>renderSimpleCatalog("cat-tramite","Trámite o Servicio"),
   "cat-dominios": ()=>renderSimpleCatalog("cat-dominios","Dominios"),
@@ -2325,6 +2466,7 @@ function navigate(view){
     toast("No tienes permisos para acceder a ese módulo con tu rol actual.","error");
     view = "dashboard";
   }
+  if(state.editing.soloLectura && state.editing.soloLectura.view!==view) state.editing.soloLectura=null;
   state.view = view;
   const group = groupOf[view];
   if(group) state.expandedMenus[group]=true;
@@ -2451,7 +2593,7 @@ const DX_MODULOS = [
   {key:"vpns", label:"VPN", color:"var(--dx-s5)", view:"vpn"}
 ];
 const INC_ESTATUS = ["Abierto","En análisis","Contenido","Erradicado","Resuelto","Cerrado","Descartado"];
-const INC_CERRADOS = ["Resuelto","Cerrado","Descartado"];
+const INC_CERRADOS = ["Resuelto","Cerrado","Descartado","Cancelado"];
 const MESES_CORTOS = ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"];
 function fmtFecha(v){ const m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(v||""); return m?`${m[3]}/${m[2]}/${m[1]}`:(v||"—"); }
 function dxFecha(v){
@@ -2700,7 +2842,7 @@ function renderSolicitantes(){
   content.innerHTML = `
   ${breadcrumb([{label:"Inicio",view:"dashboard"},{label:"Lista de Solicitantes"}])}
   <div class="page-header"><div><h1>Lista de Solicitantes</h1><p>Directorio de personas que han presentado solicitudes de servicios de tecnología.</p></div>
-    <div class="page-actions"><button class="button primary" onclick="navigate('solicitantes-form');state.editing.solicitanteId=null">${icon("plus")} Registrar solicitante</button></div>
+    <div class="page-actions"><button class="button primary" onclick="state.editing.solicitanteId=null;navigate('solicitantes-form')">${icon("plus")} Registrar solicitante</button></div>
   </div>
   <article class="card table-card">
     <div class="datatable-toolbar">
@@ -2708,24 +2850,36 @@ function renderSolicitantes(){
       <div class="datatable-actions">${searchBox("solicitantesSearch","Buscar registros",term)}</div>
     </div>
     <div class="table-wrap"><table>
-      <thead><tr><th>Nombre de Solicitante</th><th>Puesto</th><th>Teléfono</th><th>Correo Electrónico</th><th>Dependencia</th><th>Área o depto</th><th>Fecha de registro</th><th>Acciones</th></tr></thead>
+      <thead><tr><th>Nombre de Solicitante</th><th>Puesto</th><th>Teléfono</th><th>Correo Electrónico</th><th>Dependencia</th><th>Área o depto</th><th>Estatus</th><th>Fecha de registro</th><th>Acciones</th></tr></thead>
       <tbody>${rows.length?rows.map(s=>`<tr>
         <td><strong>${s.nombre} ${s.apPaterno} ${s.apMaterno}</strong><span class="subtext">${s.curp}</span></td>
         <td>${s.puesto}</td><td>${s.telefono}${s.ext?" ext. "+s.ext:""}</td><td>${s.correo}</td>
-        <td>${s.dependencia}</td><td>${s.area}</td><td>${fmtFecha(s.fechaRegistro)}</td>
+        <td>${s.dependencia}</td><td>${s.area}</td><td>${badgeEstatus(s.estatus||"Activo")}</td><td>${fmtFecha(s.fechaRegistro)}</td>
         <td><div class="actions-cell">
           ${actionBtn("eye","Ver datos",`verSolicitante('${s.id}')`)}
-          ${actionBtn("clock","Ver historial",`navigate('historial');state.editing.solicitanteId='${s.id}'`)}
-          ${actionBtn("edit","Editar",`navigate('solicitantes-form');state.editing.solicitanteId='${s.id}'`,"warning")}
-          ${actionBtn("trash","Eliminar",`eliminarSolicitante('${s.id}')`,"danger")}
-          ${actionBtn("plus","Nueva solicitud",`abrirNuevaSolicitud('${s.id}')`,"success")}
-        </div></td></tr>`).join(""):`<tr><td colspan="8" class="empty-state">No hay solicitantes registrados con estos criterios.</td></tr>`}</tbody>
+          ${actionBtn("clock","Ver historial",`state.editing.solicitanteId='${s.id}';navigate('historial')`)}
+          ${actionBtn("edit","Editar",`state.editing.solicitanteId='${s.id}';navigate('solicitantes-form')`,"warning")}
+          ${(s.estatus||"Activo")==="Activo"
+            ?actionBtn("ban","Inactivar",`cambiarEstatusSolicitante('${s.id}')`,"danger")+actionBtn("plus","Nueva solicitud",`abrirNuevaSolicitud('${s.id}')`,"success")
+            :actionBtn("refresh","Reactivar",`cambiarEstatusSolicitante('${s.id}')`)}
+          ${actionBtn("clock","Bitácora",`abrirBitacora('solicitantes','${s.id}')`)}
+        </div></td></tr>`).join(""):`<tr><td colspan="9" class="empty-state">No hay solicitantes registrados con estos criterios.</td></tr>`}</tbody>
     </table></div>
     ${paginationFoot(rows.length,"solicitantes")}
   </article>`;
   $("#solicitantesSearch").oninput = e=>{ state.search.solicitantes=e.target.value; renderSolicitantes(); $("#solicitantesSearch").focus(); const v=$("#solicitantesSearch").value; $("#solicitantesSearch").value=v; $("#solicitantesSearch").setSelectionRange(v.length,v.length); };
 }
-function verSolicitante(id){
+function verSolicitante(id){ return verDetalle("solicitantes-form",id); }
+function cambiarEstatusSolicitante(id){
+  const s=findIn(state.data.solicitantes,id); const activo=(s.estatus||"Activo")==="Activo";
+  const n=solicitudesConsolidadas().filter(r=>r.solicitanteId===id).length;
+  openModal({title:activo?"Inactivar solicitante":"Reactivar solicitante", subtitle:`${s.nombre} ${s.apPaterno} ${s.apMaterno}`, confirm:activo?"Inactivar":"Reactivar", confirmClass:activo?"danger":"primary",
+    body:`<p style="margin:0 0 12px">${activo?`Ya no aparecerá en "Seleccionar solicitante" ni podrá recibir nuevas solicitudes. Su historial (${n} solicitud(es)) se conserva.`:"Volverá a aparecer en \"Seleccionar solicitante\"."}</p>${fieldTextarea("Motivo"+(activo?" *":""),"fSolMotivo","")}`,
+    onConfirm:()=>{ const m=$("#fSolMotivo").value.trim(); if(activo&&!m){ toast("Escribe el motivo de la inactivación.","error"); return; }
+      s.estatus=activo?"Inactivo":"Activo"; logBitacora(s,`Cambio de estatus: ${activo?"Activo → Inactivo":"Inactivo → Activo"}`,m);
+      closeModal(); toast(activo?"Solicitante inactivado.":"Solicitante reactivado."); renderers[state.view](); }});
+}
+function verSolicitanteModal(id){
   const s = findIn(state.data.solicitantes,id);
   openModal({title:"Datos del solicitante", subtitle:s.dependencia, size:"large", confirm:"Cerrar",
     body:`<div class="detail-grid">
@@ -2752,24 +2906,94 @@ function eliminarSolicitante(id){
     body:`<p>¿Deseas eliminar a <strong>${findIn(state.data.solicitantes,id).nombre}</strong> del directorio de solicitantes?</p>`,
     onConfirm:()=>{ removeIn(state.data.solicitantes,id); closeModal(); toast("Solicitante eliminado."); renderSolicitantes(); }});
 }
+const MODULO_FORM = {"servidores":()=>{state.editing.servidorId=null;navigate("servidores-form");},
+  "dominios:Subdominio":()=>{state.editing.dominioTipo="Subdominio";state.editing.dominioId=null;state.editing.dominioBaseId=null;navigate("dominios-form");},
+  "dominios:Dominio":()=>{state.editing.dominioTipo="Dominio";state.editing.dominioId=null;state.editing.dominioBaseId=null;navigate("dominios-form");},
+  "vpn":()=>{state.editing.vpnId=null;navigate("vpn-form");},
+  "actas-seguridad":()=>{state.editing.actaId=null;navigate("actas-seguridad-form");},
+  "incidentes-seguridad":()=>{state.editing.incidenteId=null;navigate("incidentes-seguridad-form");}};
 function abrirNuevaSolicitud(solicitanteId){
-  openModal({title:"Seleccionar Solicitud a realizar", confirm:"Continuar",
-    body:`${fieldSelect("Tipo de solicitud","tipoNuevaSolicitud",["Servidores Físicos y Virtuales","SubDominio","Dominio","Solicitudes de VPN","Protocolo de Seguridad","Incidente de Seguridad"])}
-      <p style="color:var(--muted);font-size:12px;margin:10px 0 0">Sitios Web, RRD y Crear BD están inhabilitados en esta fase.</p>`,
+  const role=currentRole();
+  const activos=tiposServicio().filter(t=>t.estatus==="Activo"&&t.modulo&&!MODULOS_FASE2[t.modulo]&&(!role.allowedViews||role.allowedViews.includes(t.modulo)));
+  const opciones=activos.flatMap(t=>t.modulo==="dominios"?[["dominios:Subdominio",`${t.nombre} — Subdominio`],["dominios:Dominio",`${t.nombre} — Dominio`]]:[[t.modulo,t.nombre]]);
+  const prox=tiposServicio().filter(t=>t.estatus==="Próxima fase").map(t=>t.nombre);
+  openModal({title:"Nueva solicitud", subtitle:"Elige el tipo de servicio a registrar", confirm:"Continuar",
+    body:`${fieldSelect("Tipo de servicio","tipoNuevaSolicitud",opciones)}
+      ${prox.length?`<p style="color:var(--muted);font-size:12px;margin:10px 0 0">Próxima fase (aún no disponibles): ${prox.join(", ")}.</p>`:""}`,
     onConfirm:()=>{
-      const tipo = $("#tipoNuevaSolicitud").value;
-      closeModal();
+      const v=$("#tipoNuevaSolicitud").value; closeModal();
       state.editing.presetSolicitanteId = solicitanteId;
-      if(tipo==="Dominio"||tipo==="SubDominio"){ state.editing.dominioTipo = tipo==="Dominio"?"Dominio":"Subdominio"; state.editing.dominioId=null; state.editing.dominioBaseId=null; navigate("dominios-form"); }
-      else if(tipo==="Sitio Web"){ state.editing.sitioId=null; navigate("sitios-web-form"); }
-      else if(tipo==="Crear BD"){ state.editing.bdId=null; navigate("crear-bd-form"); }
-      else if(tipo==="RRD"){ state.editing.rrdId=null; navigate("rrd-form"); }
-      else if(tipo==="Servidores Físicos y Virtuales"){ state.editing.servidorId=null; navigate("servidores-form"); }
-      else if(tipo==="Solicitudes de VPN"){ state.editing.vpnId=null; navigate("vpn-form"); }
-      else if(tipo==="Protocolo de Seguridad"){ state.editing.actaId=null; navigate("actas-seguridad-form"); }
-      else if(tipo==="Incidente de Seguridad"){ state.editing.incidenteId=null; navigate("incidentes-seguridad-form"); }
-      else navigate("dashboard");
+      (MODULO_FORM[v]||(()=>navigate("dashboard")))();
     }});
+}
+
+/* ================= Catálogo: Tipo de Servicio ================= */
+const TS_ESTATUS = ["Activo","Próxima fase","Inactivo"];
+function tsUso(t){
+  const deptos=state.data.departamentosCatalogo.filter(d=>d.servicios.some(sv=>sv.modulo===t.modulo||sv.modulo===t.id)).length;
+  const cuenta={servidores:"servidoresSolicitudes",dominios:"dominios",vpn:"vpns","actas-seguridad":"actasSeguridad","incidentes-seguridad":"incidentes","sitios-web":"sitiosWeb","crear-bd":"basesDatos",rrd:"rrd"}[t.modulo];
+  const registros = cuenta && state.data[cuenta] ? state.data[cuenta].length : 0;
+  return {deptos,registros};
+}
+function renderCatTiposServicio(){
+  const term=state.search["cat-tipo-servicio"]||"";
+  const lista=tiposServicio().filter(t=>matchesSearch({n:t.nombre,m:moduloNombreSistema(t.modulo),e:t.estatus},term));
+  content.innerHTML=`
+  ${breadcrumb([{label:"Catálogos"},{label:"Tipo de Servicio"}])}
+  <div class="page-header"><div><h1>Catálogo de Tipo de Servicio</h1><p>Servicios que opera el sistema. Los servicios <strong>activos</strong> aparecen en Departamentos ("Servicios que presta"), en la bandeja de Solicitudes y en "Nueva solicitud".</p></div>
+    <div class="page-actions"><button class="button primary" onclick="abrirTipoServicio()">${icon("plus")} Agregar tipo de servicio</button></div></div>
+  <article class="card table-card">
+    <div class="datatable-toolbar"><div class="entries-control">Mostrar <select><option>10</option></select> registros</div>
+      <div class="datatable-actions">${searchBox("tsSearch","Buscar registros",term)}</div></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Tipo de servicio</th><th>Módulo del sistema</th><th>Estatus</th><th>¿Genera documentos?</th><th>Departamentos</th><th>Registros</th><th>Acciones</th></tr></thead>
+      <tbody>${lista.length?lista.map(t=>{ const u=tsUso(t); return `<tr>
+        <td><strong>${t.nombre}</strong></td><td>${t.modulo?moduloNombreSistema(t.modulo):`<span class="subtext" style="margin:0">Sin módulo aún</span>`}</td>
+        <td><span class="badge ${t.estatus==="Activo"?"approved":t.estatus==="Inactivo"?"observed":"neutral"}">${t.estatus}</span></td>
+        <td>${t.generaDocumentos?"Sí":"No"}</td><td>${u.deptos}</td><td>${u.registros}</td>
+        <td><div class="actions-cell">
+          ${actionBtn("edit","Editar",`abrirTipoServicio('${t.id}')`,"warning")}
+          ${actionBtn("trash","Eliminar",`eliminarTipoServicio('${t.id}')`,"danger")}
+        </div></td></tr>`; }).join(""):`<tr><td colspan="7" class="empty-state">Sin registros.</td></tr>`}</tbody>
+    </table></div>
+    ${paginationFoot(lista.length,"tipos de servicio")}
+  </article>`;
+  $("#tsSearch").oninput=e=>{ state.search["cat-tipo-servicio"]=e.target.value; renderCatTiposServicio(); };
+}
+function moduloNombreSistema(m){ const n={servidores:"Servidores Físicos y Virtuales",dominios:"Dominios y Subdominios",vpn:"VPN","actas-seguridad":"Protocolos de Seguridad","incidentes-seguridad":"Incidentes de Seguridad","sitios-web":"Sitios Web","crear-bd":"Crear BD",rrd:"RRD"}[m]; return n?`Servicios › ${n}`:"—"; }
+function abrirTipoServicio(id){
+  const t=id?findIn(tiposServicio(),id):null;
+  const usados=new Set(tiposServicio().filter(x=>x.modulo&&x.id!==id).map(x=>x.modulo));
+  const mods=MODULOS_SERVICIO.filter(([k])=>!usados.has(k)).map(([k])=>[k,moduloNombreSistema(k)]);
+  openModal({title:t?"Editar tipo de servicio":"Agregar tipo de servicio", confirm:"Guardar",
+    body:`<div class="form-grid">
+      ${fieldInput("Nombre del servicio","fTsNombre",t?.nombre,"text","class=full")}
+      ${fieldSelect("Módulo del sistema","fTsModulo",[["","Sin módulo aún (se desarrollará después)"],...mods],t?.modulo||"")}
+      ${fieldSelect("Estatus","fTsEstatus",TS_ESTATUS,t?.estatus||"Activo")}
+      ${fieldSelect("¿Genera documentos? (valor por defecto)","fTsDocs",[["no","No"],["si","Sí"]],t?.generaDocumentos?"si":"no")}
+    </div>
+    <p class="inline-note" style="margin:14px 0 0">Un servicio sin módulo del sistema se guarda como <strong>Próxima fase</strong>: se ve en Departamentos, pero deshabilitado, hasta que exista su módulo.</p>`,
+    onConfirm:()=>{
+      if(!validateFields([{id:"fTsNombre",label:"Nombre del servicio",required:true}])) return;
+      const nombre=$("#fTsNombre").value.trim();
+      if(tiposServicio().some(x=>x.nombre.toLowerCase()===nombre.toLowerCase()&&x.id!==id)){ toast("Ya existe un tipo de servicio con ese nombre.","error"); return; }
+      const modulo=$("#fTsModulo").value;
+      let estatus=$("#fTsEstatus").value; if(!modulo&&estatus==="Activo") estatus="Próxima fase";
+      const datos={nombre,modulo,estatus,generaDocumentos:$("#fTsDocs").value==="si"};
+      if(t) Object.assign(t,datos); else tiposServicio().push({id:uid("TSV"),...datos});
+      closeModal(); toast(t?"Tipo de servicio actualizado.":"Tipo de servicio agregado."+(!modulo?" Quedó como Próxima fase.":"")); renderCatTiposServicio();
+    }});
+}
+function eliminarTipoServicio(id){
+  const t=findIn(tiposServicio(),id), u=tsUso(t);
+  if(u.deptos||u.registros){
+    openModal({title:"No se puede eliminar", confirm:"Inactivar", confirmClass:"secondary",
+      body:`<p><strong>${t.nombre}</strong> está en uso: ${u.deptos} departamento(s) y ${u.registros} registro(s). Para dejar de usarlo, puedes <strong>inactivarlo</strong>; dejará de aparecer en Departamentos y en Nueva solicitud.</p>`,
+      onConfirm:()=>{ t.estatus="Inactivo"; closeModal(); toast("Tipo de servicio inactivado."); renderCatTiposServicio(); }});
+    return;
+  }
+  openModal({title:"Eliminar tipo de servicio", confirmClass:"danger", confirm:"Eliminar", body:`<p>¿Deseas eliminar <strong>${t.nombre}</strong> del catálogo?</p>`,
+    onConfirm:()=>{ removeIn(tiposServicio(),id); closeModal(); toast("Tipo de servicio eliminado."); renderCatTiposServicio(); }});
 }
 
 function renderSolicitanteForm(editId){
@@ -2832,11 +3056,11 @@ function guardarSolicitante(editId){
 function renderHistorial(solicitanteId){
   const s = findIn(state.data.solicitantes,solicitanteId);
   if(!s){ navigate("solicitantes"); return; }
-  const rows = solicitudesConsolidadas().filter(r=>r.solicitanteId===solicitanteId).map(r=>({tipo:r.tipo,fecha:r.fecha,estatus:r.estatus,area:r.registro,view:r.view,ver:r.ver}));
+  const rows = solicitudesConsolidadas().filter(r=>r.solicitanteId===solicitanteId).map(r=>({col:r.col,folio:r.folio,tipo:r.tipo,fecha:r.fecha,estatus:r.estatus,area:r.registro,view:r.view,ver:r.ver}));
   content.innerHTML = `
   ${breadcrumb([{label:"Lista de Solicitantes",view:"solicitantes"},{label:"Ver detalle"}])}
   <div class="page-header"><div><h1>Historial de solicitudes</h1><p>Todas las solicitudes presentadas por este solicitante en cualquier módulo.</p></div>
-    <div class="page-actions"><button class="button secondary" onclick="exportTable('historial-${s.nombre}',['Tipo de Solicitud','Fecha','Estatus','Registro'],${JSON.stringify(rows.map(r=>[r.tipo,r.fecha,r.estatus,r.area]))})">${icon("download")} Exportar a Excel</button></div>
+    <div class="page-actions"><button class="button secondary" onclick="exportTable('historial-${s.nombre}',['Folio','Tipo de servicio','Fecha','Estatus','Registro'],${JSON.stringify(rows.map(r=>[r.folio,r.tipo,r.fecha,r.estatus,r.area]))})">${icon("download")} Exportar a Excel</button></div>
   </div>
   <article class="card">
     <div class="detail-grid cols-4">
@@ -2846,9 +3070,9 @@ function renderHistorial(solicitanteId){
       <div><span>Teléfono</span><strong>${s.telefono}</strong></div>
     </div>
     <div class="table-wrap"><table>
-      <thead><tr><th>Tipo de Solicitud</th><th>Fecha de Solicitud</th><th>Estatus</th><th>Registro</th><th>Acciones</th></tr></thead>
-      <tbody>${rows.length?rows.map(r=>`<tr><td>${r.tipo}</td><td>${fmtFecha(r.fecha)}</td><td>${badgeEstatus(r.estatus)}</td><td>${r.area}</td>
-        <td><div class="actions-cell">${actionBtn("eye","Ver detalle",r.ver)}${actionBtn("link","Ir al módulo",`navigate('${r.view}')`)}</div></td></tr>`).join(""):`<tr><td colspan="5" class="empty-state">Sin solicitudes registradas para este solicitante.</td></tr>`}</tbody>
+      <thead><tr><th>Folio</th><th>Tipo de servicio</th><th>Fecha de Solicitud</th><th>Estatus</th><th>Registro</th><th>Acciones</th></tr></thead>
+      <tbody>${rows.length?rows.map(r=>`<tr><td><strong class="sol-folio">${r.folio}</strong></td><td>${r.tipo}</td><td>${fmtFecha(r.fecha)}</td><td>${badgeEstatus(r.estatus,r.col)}</td><td>${r.area}</td>
+        <td><div class="actions-cell">${actionBtn("eye","Ver detalle",r.ver)}${actionBtn("link","Ir al módulo",`navigate('${r.view}')`)}</div></td></tr>`).join(""):`<tr><td colspan="6" class="empty-state">Sin solicitudes registradas para este solicitante.</td></tr>`}</tbody>
     </table></div>
   </article>
   <div class="page-actions" style="margin-top:18px"><button class="button ghost" onclick="navigate('solicitantes')">&raquo; Regresar</button></div>`;
@@ -2856,26 +3080,58 @@ function renderHistorial(solicitanteId){
 /* ================= Solicitudes: bandeja consolidada de los módulos de la Fase 1 =================
    No tiene datos propios: se arma en vivo con los registros de cada módulo, así que todo lo que
    se registra en VPN, Dominios, Servidores, Protocolos o Incidentes aparece aquí automáticamente. */
+/* Folio de solicitud: SOL-AAAA-NNNN, consecutivo por año, asignado una sola vez a cada registro
+   de los módulos que generan solicitudes (en orden de fecha de registro). */
+const SOL_COLECCIONES = [["servidoresSolicitudes",x=>x.fecha],["dominios",x=>x.fecha],["vpns",x=>x.fecha],["actasSeguridad",x=>x.fecha],["incidentes",x=>x.fechaDeteccion]];
+function asignarFolios(){
+  const d=state.data; d.folioSeq=d.folioSeq||{};
+  const pend=[];
+  SOL_COLECCIONES.forEach(([c,f])=>(d[c]||[]).forEach(x=>{ if(!x.folioSolicitud) pend.push({x,t:(dxFecha(f(x))||new Date()).getTime()}); }));
+  pend.sort((a,b)=>a.t-b.t).forEach(({x,t})=>{ const y=new Date(t).getFullYear(); d.folioSeq[y]=(d.folioSeq[y]||0)+1; x.folioSolicitud=`SOL-${y}-${String(d.folioSeq[y]).padStart(4,"0")}`; });
+}
+function folioDe(x){ if(x && !x.folioSolicitud) asignarFolios(); return x?.folioSolicitud||"—"; }
+/* Etapa de atención: agrupa los estatus propios de cada módulo en 5 etapas comunes para la bandeja */
+const SOL_ETAPAS = [
+  {k:"Por atender", tone:"info", icon:"clock"},
+  {k:"En trámite", tone:"warning", icon:"refresh"},
+  {k:"Atendida", tone:"good", icon:"check-circle"},
+  {k:"No procedente", tone:"critical", icon:"ban"},
+  {k:"Baja o revocada", tone:"neutral", icon:"trash"},
+  {k:"Cancelada", tone:"cancel", icon:"ban"}
+];
+const SOL_ETAPA_DE = {
+  "Registrada":"Por atender","Registrado":"Por atender","Abierto":"Por atender",
+  "Autorizada":"En trámite","Validado":"En trámite","Autorizado":"En trámite","En aprovisionamiento":"En trámite","En evaluación":"En trámite","Con observaciones":"En trámite","Aprobado":"En trámite","En análisis":"En trámite","Contenido":"En trámite","Erradicado":"En trámite",
+  "Activa":"Atendida","Notificado":"Atendida","En operación":"Atendida","En mantenimiento":"Atendida","Acta firmada":"Atendida","Resuelto":"Atendida","Cerrado":"Atendida",
+  "Rechazada":"No procedente","Rechazado":"No procedente","No aprobado":"No procedente","Descartado":"No procedente",
+  "Revocada":"Baja o revocada","Dado de baja":"Baja o revocada",
+  "Cancelado":"Cancelada","Cancelada":"Cancelada"
+};
+function etapaSolicitud(est,col){ return (col&&typeof FLUJOS_ESTATUS!=="undefined"&&FLUJOS_ESTATUS[col]?.estados[est]?.etapa) || SOL_ETAPA_DE[est] || "En trámite"; }
 function solicitudesConsolidadas(){
   const d = state.data;
+  asignarFolios();
   const sol = id=>findIn(d.solicitantes,id);
   const srv = id=>findIn(d.servidoresSolicitudes,id);
   const rows = [];
-  d.servidoresSolicitudes.forEach(x=>rows.push({id:x.id, col:"servidoresSolicitudes", view:"servidores", tipo:"Servidor "+(x.tipoServidor||"Virtual"),
+  const TS = m=>moduloLabel(m);
+  d.servidoresSolicitudes.forEach(x=>rows.push({id:x.id, col:"servidoresSolicitudes", view:"servidores", tipo:TS("servidores"), subtipo:"Servidor "+(x.tipoServidor||"Virtual"),
     registro:x.ip||"IP por asignar", dependencia:x.dependencia||"—", solicitante:x.solicitante||"—", solicitanteId:x.solicitanteId,
-    servidor:x.ip||"—", fecha:x.fecha, estatus:x.estatus||"Registrado", ver:`verServidor('${x.id}')`}));
-  d.dominios.forEach(x=>rows.push({id:x.id, col:"dominios", view:"dominios", tipo:x.tipo,
+    servidor:x.ip||"—", fecha:x.fecha, estatus:x.estatus||"Registrado", ver:`verDetalle('servidores-form','${x.id}')`}));
+  d.dominios.forEach(x=>rows.push({id:x.id, col:"dominios", view:"dominios", tipo:TS("dominios"), subtipo:x.tipo,
     registro:x.nombre, dependencia:x.dependencia||"—", solicitante:x.solicitante||"—", solicitanteId:x.solicitanteId,
-    servidor:"—", fecha:x.fecha, estatus:x.estatus||"Registrado", ver:`state.editing.dominioId='${x.id}';navigate('dominios-detalle')`}));
-  d.vpns.forEach(x=>{ const s=sol(x.solicitanteId); rows.push({id:x.id, col:"vpns", view:"vpn", tipo:"VPN",
+    servidor:"—", fecha:x.fecha, estatus:x.estatus||"Registrado", ver:`verDetalle('dominios-form','${x.id}')`}));
+  d.vpns.forEach(x=>{ const s=sol(x.solicitanteId); rows.push({id:x.id, col:"vpns", view:"vpn", tipo:TS("vpn"), subtipo:"Acceso VPN",
     registro:x.ip?`IP ${x.ip}`:"IP por asignar", dependencia:s?.dependencia||"—", solicitante:x.nombre||"—", solicitanteId:x.solicitanteId,
     servidor:"—", fecha:x.fecha, estatus:x.estatus||"Registrada", ver:`verVpn('${x.id}')`}); });
-  d.actasSeguridad.forEach(x=>rows.push({id:x.id, col:"actasSeguridad", view:"actas-seguridad", tipo:"Protocolo de Seguridad",
+  d.actasSeguridad.forEach(x=>rows.push({id:x.id, col:"actasSeguridad", view:"actas-seguridad", tipo:TS("actas-seguridad"), subtipo:"Protocolo",
     registro:x.oficio, dependencia:x.secretaria||"—", solicitante:x.contacto||"—", solicitanteId:x.solicitanteId,
     servidor:srv(x.servidorId)?.ip||"—", fecha:x.fecha, estatus:x.estatus||"Registrado", ver:`verActa('${x.id}')`}));
-  d.incidentes.forEach(x=>{ const s=sol(x.solicitanteId); rows.push({id:x.id, col:"incidentes", view:"incidentes-seguridad", tipo:"Incidente de Seguridad",
+  d.incidentes.forEach(x=>{ const s=sol(x.solicitanteId); rows.push({id:x.id, col:"incidentes", view:"incidentes-seguridad", tipo:TS("incidentes-seguridad"), subtipo:"Incidente",
     registro:x.folio, dependencia:s?.dependencia||srv(x.servidorId)?.dependencia||"—", solicitante:s?nombreCompleto(s):"—", solicitanteId:x.solicitanteId,
     servidor:srv(x.servidorId)?.ip||"—", fecha:x.fechaDeteccion, estatus:x.estatus||"Abierto", ver:`verIncidente('${x.id}')`}); });
+  rows.forEach(r=>{ const reg=findIn(d[r.col],r.id); r.folio=reg.folioSolicitud; r.etapa=etapaSolicitud(r.estatus,r.col);
+    const b=(reg.bitacora||[]).filter(e=>e.fecha).pop(); r.ultMov=b?b.fecha:r.fecha; });
   const fechaKey = r=>{ const f=dxFecha(r.fecha); return f?f.getTime():0; };
   const role = currentRole();
   return rows.filter(r=>!role.allowedViews||role.allowedViews.includes(r.view)).sort((a,b)=>fechaKey(b)-fechaKey(a));
@@ -2883,24 +3139,27 @@ function solicitudesConsolidadas(){
 function renderSolicitudes(){
   const term = state.search.solicitudes||"";
   const todas = solicitudesConsolidadas();
-  const rows = todas.filter(r=>matchesSearch(r,term));
+  const etapa = state.solEtapa||"";
+  const rows = todas.filter(r=>matchesSearch(r,term) && (!etapa||r.etapa===etapa));
   content.innerHTML = `
   ${breadcrumb([{label:"Inicio",view:"dashboard"},{label:"Solicitudes"}])}
-  <div class="page-header"><div><h1>Solicitudes</h1><p>Bandeja consolidada: reúne en vivo lo registrado en VPN, Dominios y Subdominios, Servidores, Protocolos e Incidentes de Seguridad. Para editar un registro, ábrelo en su módulo.</p></div>
+  <div class="page-header"><div><h1>Solicitudes</h1><p>Bandeja consolidada: reúne en vivo lo registrado en VPN, Dominios y Subdominios, Servidores, Protocolos e Incidentes de Seguridad. Cada solicitud recibe un folio único.</p></div>
     <div class="page-actions"><button class="button primary" onclick="abrirNuevaSolicitud()">${icon("plus")} Nueva solicitud</button></div>
   </div>
   <article class="card table-card">
+    ${etapa?`<div class="sol-chipbar">Mostrando la etapa <span class="sol-chip">${etapa}<button type="button" title="Quitar" onclick="state.solEtapa='';renderSolicitudes()">×</button></span></div>`:""}
     <div class="datatable-toolbar"><div class="entries-control">Mostrar <select><option>10</option><option>25</option></select> registros</div>
       <div class="datatable-actions">${searchBox("solicitudesSearch","Buscar registros",term)}</div></div>
     <div class="table-wrap"><table>
-      <thead><tr><th>Tipo de solicitud</th><th>Registro</th><th>Dependencia</th><th>Solicitante</th><th>Servidor</th><th>Fecha</th><th>Estatus</th><th>Acciones</th></tr></thead>
+      <thead><tr><th>Folio</th><th>Tipo de servicio</th><th>Registro</th><th>Dependencia</th><th>Solicitante</th><th>Servidor</th><th>Fecha</th><th>Estatus</th><th>Acciones</th></tr></thead>
       <tbody>${rows.length?rows.map(r=>`<tr>
-        <td>${r.tipo}</td><td><strong>${r.registro}</strong></td><td>${r.dependencia}</td><td>${r.solicitante}</td><td>${r.servidor}</td><td>${fmtFecha(r.fecha)}</td><td>${badgeEstatus(r.estatus)}</td>
+        <td><strong class="sol-folio">${r.folio}</strong></td>
+        <td>${r.tipo}</td><td><strong>${r.registro}</strong><span class="subtext">${r.subtipo}</span></td><td>${r.dependencia}</td><td>${r.solicitante}</td><td>${r.servidor}</td><td>${fmtFecha(r.fecha)}</td><td>${badgeEstatus(r.estatus,r.col)}</td>
         <td><div class="actions-cell">
           ${actionBtn("eye","Ver detalle",r.ver)}
           ${actionBtn("link","Ir al módulo",`navigate('${r.view}')`)}
           ${actionBtn("clock","Bitácora",`abrirBitacora('${r.col}','${r.id}')`)}
-        </div></td></tr>`).join(""):`<tr><td colspan="8" class="empty-state">${todas.length?"No hay solicitudes que coincidan con la búsqueda.":"Aún no hay solicitudes registradas en los módulos."}</td></tr>`}</tbody>
+        </div></td></tr>`).join(""):`<tr><td colspan="9" class="empty-state">${todas.length?"No hay solicitudes que coincidan con la búsqueda.":"Aún no hay solicitudes registradas en los módulos."}</td></tr>`}</tbody>
     </table></div>
     ${paginationFoot(rows.length,"solicitudes")}
   </article>`;
@@ -3046,19 +3305,17 @@ function rowActionsHtml(items,editOnclick){
   return `<div class="row-actions"><button type="button" class="ra-btn ra-more" title="Más acciones" aria-haspopup="menu" data-items="${enc}" onclick="openRowMenu(this)">${icon("more-vertical")}</button>${editOnclick?`<button type="button" class="ra-btn edit" title="Editar" onclick="${editOnclick.replace(/"/g,"&quot;")}">${icon("edit")}</button>`:""}</div>`;
 }
 function accionesDominio(d){
-  const base=[{icon:"eye",title:"Ver detalle",onclick:`state.editing.dominioId='${d.id}';navigate('dominios-detalle')`},
+  const base=[{icon:"eye",title:"Ver detalle",onclick:`verDetalle('dominios-form','${d.id}')`},
     {icon:"refresh",title:"Cambiar estatus",onclick:`abrirCambiarEstatus('dominios','${d.id}')`},
     {icon:"key",title:"Asignar IP/NAT",onclick:`abrirAsignarIpNat('${d.id}')`},
     {icon:"globe",title:"Verificar publicación",onclick:`abrirVerificacion('${d.id}',true)`},
-    {icon:"clock",title:"Bitácora",onclick:`abrirBitacora('dominios','${d.id}')`},
-    {sep:true},
-    {icon:"trash",title:"Eliminar",onclick:`eliminarDominio('${d.id}')`,cls:"danger"}];
+    {icon:"clock",title:"Bitácora",onclick:`abrirBitacora('dominios','${d.id}')`}];
   if(d.tipo==="Dominio") base.unshift({icon:"plus",title:"Agregar subdominio",onclick:`agregarSubdominio('${d.id}')`},{sep:true});
   return rowActionsHtml(base,`state.editing.dominioTipo='${d.tipo}';state.editing.dominioId='${d.id}';navigate('dominios-form')`);
 }
 function agregarSubdominio(domId){
   const dom=findIn(state.data.dominios,domId);
-  if(dom && ["Rechazado","Dado de baja"].includes(dom.estatus)){ toast(`El dominio ${dom.nombre} está ${dom.estatus.toLowerCase()}; no admite nuevos subdominios.`,"error"); return; }
+  if(dom && ["Rechazado","Dado de baja","Cancelado"].includes(dom.estatus)){ toast(`El dominio ${dom.nombre} está ${dom.estatus.toLowerCase()}; no admite nuevos subdominios.`,"error"); return; }
   state.editing.dominioTipo="Subdominio"; state.editing.dominioId=null; state.editing.dominioBaseId=domId; navigate("dominios-form");
 }
 function domCoincide(d,term,f){
@@ -3106,7 +3363,7 @@ function renderDominios(){
       ${g.subsVis.length?`<table class="dn-subtable" data-enh="1" data-cf="1"><thead><tr><th class="dn-sel"></th><th>Subdominio</th><th>Dependencia</th><th>Solicitante</th><th>IP</th><th>Publicación</th><th>Estatus</th><th>Fecha</th><th>Acciones</th></tr></thead>
         <tbody>${g.subsVis.map(x=>`<tr><td class="dn-sel">${chk(x.id)}</td><td><span class="dn-sub-name">${icon("link")}<strong>${x.nombre}</strong></span></td><td>${x.dependencia}</td><td>${x.solicitante||"—"}</td><td>${ipCell(x)}</td><td>${pubCelda(x)}</td><td>${badgeEstatus(x.estatus||"Registrado")}</td><td>${x.fecha}</td><td>${accionesDominio(x)}</td></tr>`).join("")}</tbody></table>`
         :`<p class="dn-empty">${g.dom?"Este dominio aún no tiene subdominios.":""}</p>`}
-      ${g.dom && !["Rechazado","Dado de baja"].includes(g.dom.estatus)?`<button type="button" class="dn-add-sub" onclick="agregarSubdominio('${g.dom.id}')">${icon("plus")} Agregar subdominio a ${g.dom.nombre}</button>`:""}
+      ${g.dom && !["Rechazado","Dado de baja","Cancelado"].includes(g.dom.estatus)?`<button type="button" class="dn-add-sub" onclick="agregarSubdominio('${g.dom.id}')">${icon("plus")} Agregar subdominio a ${g.dom.nombre}</button>`:""}
     </div>`;
   const filas = vis.map(g=>{
     if(!g.dom) return `<tr class="dn-dom open"><td></td><td></td><td colspan="8"><strong>Sin dominio base</strong> <span class="subtext" style="display:inline">Subdominios cuyo dominio no está registrado.</span></td></tr><tr class="dn-nest"><td colspan="10">${subTabla(g)}</td></tr>`;
@@ -3208,7 +3465,7 @@ function abrirAsignarIpNat(id){
 function eliminarDominio(id){
   const d=findIn(state.data.dominios,id);
   if(d.tipo==="Dominio"){
-    const activos=subdominiosDe(d).filter(x=>!["Rechazado","Dado de baja"].includes(x.estatus));
+    const activos=subdominiosDe(d).filter(x=>!["Rechazado","Dado de baja","Cancelado"].includes(x.estatus));
     if(activos.length){ openModal({title:"No se puede eliminar el dominio", confirm:"Entendido", body:`<p><strong>${d.nombre}</strong> tiene ${activos.length} subdominio(s) activo(s). Para eliminarlo, primero da de baja o elimina sus subdominios.</p>`, onConfirm:closeModal}); return; }
   }
   openModal({title:`Eliminar ${d.tipo.toLowerCase()}`, confirmClass:"danger", confirm:"Eliminar",
@@ -3216,7 +3473,7 @@ function eliminarDominio(id){
     onConfirm:()=>{ removeIn(state.data.dominios,id); state.domSel?.delete(id); closeModal(); toast(`${d.tipo} eliminado.`); renderDominios(); }});
 }
 function dominiosBase(){
-  return [...new Set(state.data.dominios.filter(d=>d.tipo==="Dominio"&&!["Rechazado","Dado de baja"].includes(d.estatus)).map(d=>d.nombre.replace(/^www\./,"")))].sort((a,b)=>a.split(".").length-b.split(".").length||a.localeCompare(b));
+  return [...new Set(state.data.dominios.filter(d=>d.tipo==="Dominio"&&!["Rechazado","Dado de baja","Cancelado"].includes(d.estatus)).map(d=>d.nombre.replace(/^www\./,"")))].sort((a,b)=>a.split(".").length-b.split(".").length||a.localeCompare(b));
 }
 function renderDominioForm(tipo,editId){
   const d = editId?findIn(state.data.dominios,editId):null;
@@ -3251,7 +3508,7 @@ function renderDominioForm(tipo,editId){
       ${fieldSelect("Alcance de publicación","fDomAlcance",[["Público","Público (internet)"],["Interno","Interno (solo red de gobierno)"]],d?.alcance||"Público")}
       ${fieldInput("No. de Oficio","fDomOficio",d?.oficio)}
       ${fieldInput("Nombre del Proyecto","fDomProyecto",p.nombre)}
-      ${fieldSelect("Tipo de servicio","fDomTipoServicio",catNames("cat-tipo-servicio"),p.tipoServicio)}
+      ${fieldSelect("Protocolo de comunicación","fDomProtocolo",catNames("cat-protocolo"),p.protocolo||p.tipoServicio)}
       ${fieldSelect("Desarrollado por","fDomDesarrollado",["SIID","Dependencia","Externo"],p.desarrollado)}
       ${fieldSelect("Usuario Final","fDomUsuarioFinal",["Servidores Públicos","Público en General","Empresas"],p.usuarioFinal)}
       ${fieldSelect("Motor de Base de Datos","fDomMotor",catNames("cat-motor-bd"),p.motor)}
@@ -3290,7 +3547,7 @@ function guardarDominio(tipo,editId){
     dependencia:sol.dependencia, nombre:nombreFinal, oficio:$("#fDomOficio").value, alcance:$("#fDomAlcance").value,
     solicitante:nombreCompleto(sol), solicitanteId:sol.id, tipo,
     fechaPublicacion:$("#fDomFechaPub").value,
-    proyecto:{nombre:$("#fDomProyecto").value, tipoServicio:$("#fDomTipoServicio").value, desarrollado:$("#fDomDesarrollado").value,
+    proyecto:{nombre:$("#fDomProyecto").value, protocolo:$("#fDomProtocolo").value, desarrollado:$("#fDomDesarrollado").value,
       usuarioFinal:$("#fDomUsuarioFinal").value, motor:$("#fDomMotor").value, hospedaje:$("#fDomHospedaje").value, descripcion:$("#fDomDescripcion").value}
   };
   if(tipo==="Subdominio"){
@@ -3486,7 +3743,6 @@ function renderVpn(){
           ${actionBtn("refresh","Cambiar estatus",`abrirCambiarEstatus('vpns','${v.id}')`)}
           ${actionBtn("key","Asignar IP",`asignarIpVpn('${v.id}')`)}
           ${actionBtn("clock","Bitácora",`abrirBitacora('vpns','${v.id}')`)}
-          ${actionBtn("trash","Eliminar",`eliminarVpn('${v.id}')`,"danger")}
         </div></td></tr>`).join(""):`<tr><td colspan="10" class="empty-state">No hay solicitudes de VPN.</td></tr>`}</tbody>
     </table></div>
     ${paginationFoot(rows.length,"solicitudes de VPN")}
@@ -3527,7 +3783,8 @@ function guardarVpn(editId){
 }
 function abrirSolicitudVpn(editId){ state.editing.vpnId=editId||null; navigate("vpn-form"); }
 function editarVpn(id){ abrirSolicitudVpn(id); }
-function verVpn(id){
+function verVpn(id){ return verDetalle("vpn-form",id); }
+function verVpnModal(id){
   const v = findIn(state.data.vpns,id);
   openModal({title:v.nombre, confirm:"Cerrar", body:`<div class="detail-grid">
     <div><span>Correo</span><strong>${v.correo}</strong></div><div><span>Teléfono</span><strong>${v.telefono} ext. ${v.ext}</strong></div>
@@ -3538,7 +3795,7 @@ function asignarIpVpn(id){
   const v = findIn(state.data.vpns,id);
   const est = v.estatus||"Registrada";
   if(est==="Registrada"){ toast("Primero autoriza la solicitud (Cambiar estatus → Autorizada) para poder asignar la IP.","error"); return; }
-  if(["Revocada","Rechazada"].includes(est)){ toast(`La solicitud está ${est.toLowerCase()}; no se puede asignar IP.`,"error"); return; }
+  if(["Revocada","Rechazada","Cancelada"].includes(est)){ toast(`La solicitud está ${est.toLowerCase()}; no se puede asignar IP.`,"error"); return; }
   openModal({title:"Asignar IP", subtitle:est==="Autorizada"?"Al guardar, la solicitud pasará automáticamente a Activa.":"Cambio de IP de un acceso activo.", confirm:"Guardar", body:fieldIp("IP o grupo de IP","fVpnIp",v.ip,{required:true}),
     onConfirm:()=>{
       if(!validateFields([{id:"fVpnIp",label:"IP",type:"ip",required:true}])) return;
@@ -3588,14 +3845,14 @@ function renderServidores(){
           ${actionBtn("refresh","Cambiar estatus",`abrirCambiarEstatus('servidoresSolicitudes','${s.id}')`)}
           ${actionBtn("edit","Editar",`state.editing.servidorId='${s.id}';navigate('servidores-form')`,"warning")}
           ${actionBtn("clock","Bitácora",`abrirBitacora('servidoresSolicitudes','${s.id}')`)}
-          ${actionBtn("trash","Eliminar",`eliminarServidor('${s.id}')`,"danger")}
         </div></td></tr>`).join(""):`<tr><td colspan="9" class="empty-state">No hay servidores registrados.</td></tr>`}</tbody>
     </table></div>
     ${paginationFoot(rows.length,"servidores")}
   </article>`;
   $("#servidoresSearch").oninput = e=>{ state.search.servidores=e.target.value; renderServidores(); };
 }
-function verServidor(id){
+function verServidor(id){ return verDetalle("servidores-form",id); }
+function verServidorModal(id){
   const s = findIn(state.data.servidoresSolicitudes,id);
   const ligados = [
     ...state.data.actasSeguridad.filter(a=>a.servidorId===id).map(a=>`Protocolo · ${a.oficio}`),
@@ -3632,11 +3889,29 @@ function tipoServidorChecks(sel){
 function seleccionarTipoServidor(t){
   $$('input[name="fSrvTipo"]').forEach(cb=>{ cb.checked = cb.value===t; cb.closest(".choice-check").classList.toggle("checked",cb.checked); });
   const wrap=$("#fSrvTipoWrap"); if(wrap) clearFieldError(wrap);
-  const host=$("#fSrvHostWrap"); if(host) host.hidden = t!=="Virtual";
-  const cpuLbl=$('label[for="fSrvCpu"]'); if(cpuLbl) cpuLbl.textContent = t==="Físico"?"Cantidad de CPUs (núcleos físicos)":"Cantidad de CPUs virtuales requeridos";
+  actualizarCamposCondicionalesServidor();
 }
-function toggleAntivirusServidor(){
-  const w=$("#fSrvAntivirusNombreWrap"); if(w) w.hidden = $("#fSrvAntivirus").value!=="Sí";
+function toggleAntivirusServidor(){ actualizarCamposCondicionalesServidor(); }
+/* Los campos condicionales siempre se muestran (mismo orden en Registro, Edición y Ver detalle);
+   cuando no aplican quedan bloqueados con la leyenda correspondiente. */
+function srvCpuLabel(t){ return t==="Físico"?"Cantidad de CPUs (núcleos físicos)":t==="Virtual"?"Cantidad de CPUs virtuales requeridos":"Cantidad de CPUs"; }
+function setCondicional(selId,aplica,leyenda){
+  const sel=$("#"+selId); if(!sel) return;
+  let ph=sel.querySelector("option[data-ph]");
+  if(!aplica){
+    if(!ph){ ph=document.createElement("option"); ph.value=""; ph.dataset.ph="1"; sel.prepend(ph); }
+    ph.textContent=leyenda; ph.hidden=false; sel.value=""; sel.disabled=true;
+  } else {
+    if(ph){ ph.textContent="Seleccione"; ph.hidden=true; }
+    if(!sel.value){ const first=[...sel.options].find(o=>!o.dataset.ph); if(first) sel.value=first.value; }
+    sel.disabled=false;
+  }
+}
+function actualizarCamposCondicionalesServidor(){
+  const t=$$('input[name="fSrvTipo"]').find(cb=>cb.checked)?.value||"";
+  setCondicional("fSrvServidor", t==="Virtual", t==="Físico"?"No aplica (servidor físico)":"Selecciona primero el tipo de servidor");
+  setCondicional("fSrvAntivirusNombre", $("#fSrvAntivirus")?.value==="Sí", "No aplica (sin antivirus)");
+  const cpuLbl=$('label[for="fSrvCpu"]'); if(cpuLbl) cpuLbl.textContent = srvCpuLabel(t);
 }
 function renderServidorForm(editId){
   const s = editId?findIn(state.data.servidoresSolicitudes,editId):null;
@@ -3654,17 +3929,17 @@ function renderServidorForm(editId){
     <div class="form-grid">
       ${fieldIp("IP del Servidor","fSrvIp",s?.ip)}
       ${fieldInput("No. de Oficio","fSrvOficio",s?.oficio)}
-      ${fieldInput(tipo==="Físico"?"Cantidad de CPUs (núcleos físicos)":"Cantidad de CPUs virtuales requeridos","fSrvCpu",s?.cpu,"number")}
+      ${fieldInput(srvCpuLabel(tipo),"fSrvCpu",s?.cpu,"number")}
       ${fieldInput("Memoria requerida (GB)","fSrvMem",s?.memoria,"number")}
       ${fieldInput("Almacenamiento requerido (GB)","fSrvDisco",s?.disco,"number")}
       ${fieldSelect("Esquema de respaldo requerido","fSrvRespaldo",["Sin respaldo","Diario","Semanal","Mensual"],s?.respaldo)}
-      <div id="fSrvHostWrap" class="field-host" ${tipo==="Virtual"?"":"hidden"}>${fieldSelect("Servidor de alojamiento (host)","fSrvServidor",state.data.servidoresProductos.map(p=>p.nombre),s?.servidorAlojamiento)}</div>
+      <div id="fSrvHostWrap" class="field-host">${fieldSelect("Servidor de alojamiento (host)","fSrvServidor",state.data.servidoresProductos.map(p=>p.nombre),s?.servidorAlojamiento)}</div>
       ${fieldSelect("¿Requiere apoyo para la instalación?","fSrvApoyo",["Sí","No"],s?.apoyo)}
       ${fieldSelect("¿Quién instalará el servicio?","fSrvQuien",["Infraestructura","Servicios Externos","Usuario solicitante"],s?.quienInstala)}
       ${fieldSelect("Plataforma / Sistema Operativo","fSrvSo",catNames("cat-plataforma"),s?.so)}
       ${fieldInput("Versión del Sistema Operativo","fSrvSoVer",s?.soVersion)}
       ${fieldSelect("¿Tiene antivirus instalado?","fSrvAntivirus",["No","Sí"],s?.antivirus||"No",'onchange="toggleAntivirusServidor()"')}
-      <div id="fSrvAntivirusNombreWrap" class="field-host" ${s?.antivirus==="Sí"?"":"hidden"}>${fieldSelect("Antivirus instalado","fSrvAntivirusNombre",catNames("cat-antivirus"),s?.antivirusNombre)}</div>
+      <div id="fSrvAntivirusNombreWrap" class="field-host">${fieldSelect("Antivirus instalado","fSrvAntivirusNombre",catNames("cat-antivirus"),s?.antivirusNombre)}</div>
       ${fieldSelect("Tipo de Base de Datos (opcional)","fSrvTipoBD",[["","No aplica / Ninguna"],...catNames("cat-tipo-bd")],s?.tipoBD||"")}
       ${fieldTextarea("Observaciones","fSrvObs",s?.observaciones)}
     </div>
@@ -3673,6 +3948,7 @@ function renderServidorForm(editId){
     <button class="button ghost" onclick="navigate('servidores')">&raquo; Regresar</button>
     <button class="button primary" onclick="guardarServidor('${editId||""}')">Guardar</button>
   </div>`;
+  actualizarCamposCondicionalesServidor();
 }
 function guardarServidor(editId){
   const tipo = $$('input[name="fSrvTipo"]').find(cb=>cb.checked)?.value;
@@ -3750,6 +4026,30 @@ const FLUJOS_ESTATUS = {
     "Descartado":{cuando:"No era un incidente real (falso positivo).", next:[], motivo:true, final:true}
   }}
 };
+/* Estatus "Cancelado": sustituye a la acción Eliminar. Para registros capturados por error o duplicados.
+   Es final, pide motivo, conserva folio y bitácora, y se puede aplicar desde cualquier estatus no final. */
+const CANCEL_NOMBRE = {vpns:"Cancelada"};
+const CANCEL_REQUIERE = {
+  dominios:r=>{ if(r.tipo!=="Dominio") return ""; const v=subdominiosDe(r).filter(x=>!["Rechazado","Dado de baja","Cancelado"].includes(x.estatus)); return v.length?`El dominio tiene ${v.length} subdominio(s) vigente(s). Cancélalos o dalos de baja primero.`:""; },
+  servidoresSolicitudes:r=>{ const p=state.data.actasSeguridad.filter(a=>a.servidorId===r.id&&!["Acta firmada","No aprobado","Cancelado"].includes(a.estatus)).length, i=state.data.incidentes.filter(x=>x.servidorId===r.id&&!INC_CERRADOS.includes(x.estatus)).length; return (p||i)?`El servidor tiene ${p} protocolo(s) y ${i} incidente(s) en curso ligados. Atiéndelos o cancélalos primero.`:""; }
+};
+Object.entries(FLUJOS_ESTATUS).forEach(([col,f])=>{
+  const nom=CANCEL_NOMBRE[col]||"Cancelado";
+  Object.values(f.estados).forEach(e=>{ if(!e.final) e.next=[...e.next,nom]; });
+  f.estados[nom]={cuando:"El registro se capturó por error o está duplicado. Sustituye a Eliminar: conserva folio y bitácora.", next:[], motivo:true, final:true, cancelado:true, ...(CANCEL_REQUIERE[col]?{requiere:CANCEL_REQUIERE[col]}:{})};
+  f.orden.push(nom);
+});
+(function(){
+  const desdeClase={pending:"ambar",review:"azul",approved:"verde",warning:"naranja",observed:"rojo",canceled:"gris"};
+  Object.values(FLUJOS_ESTATUS).forEach(f=>{
+    f.orden.forEach((n,i)=>{ const e=f.estados[n]; const v=n.toLowerCase();
+      const cls=Object.keys(ESTATUS_CLASE).find(k=>ESTATUS_CLASE[k].includes(v));
+      e.color=e.color||desdeClase[cls]||"gris";
+      e.etapa=e.etapa||SOL_ETAPA_DE[n]||"En trámite";
+      e.sistema=true; e.activo=true; e.inicial=(i===0);
+    });
+  });
+})();
 const REAPERTURA = {incidentes:["Cerrado","Resuelto"], actasSeguridad:["No aprobado","Con observaciones"], vpns:["Revocada"]};
 function estatusActual(col,reg){ return reg.estatus || FLUJOS_ESTATUS[col].orden[0]; }
 function aplicarEstatus(col,reg,nuevo,obs="",auto=false){
@@ -3757,23 +4057,25 @@ function aplicarEstatus(col,reg,nuevo,obs="",auto=false){
   reg.estatus = nuevo;
   const def = FLUJOS_ESTATUS[col].estados[nuevo];
   if(def?.resultado) reg.resultado = def.resultado;
+  if(col==="actasSeguridad" && nuevo==="Acta firmada"){ reg.firmantesFirmados = firmantesActa(reg).map(f=>({...f})); reg.fechaFirma = todayStr(); }
   logBitacora(reg, `${auto?"Cambio automático de estatus":"Cambio de estatus"}: ${prev} → ${nuevo}`, obs);
 }
 function flujoChips(col,actual){
   const f=FLUJOS_ESTATUS[col];
-  return `<div class="st-flow">${f.orden.map(e=>`<span class="st-chip ${e===actual?"current":""} ${f.estados[e].final?"final":""}">${e}</span>`).join("")}</div>`;
+  return `<div class="st-flow">${f.orden.filter(e=>f.estados[e].activo!==false||e===actual).map(e=>`<span class="st-chip ${e===actual?"current":""} ${f.estados[e].final?"final":""}">${e}</span>`).join("")}</div>`;
 }
 function abrirCambiarEstatus(col,id){
   const f=FLUJOS_ESTATUS[col]; const reg=findIn(state.data[col],id); if(!reg) return;
   const actual=estatusActual(col,reg);
   const def=f.estados[actual]||{next:[]};
-  const opciones=def.next.filter(n=>!f.estados[n].auto);
-  const autoSig=def.next.filter(n=>f.estados[n].auto);
+  state._ctxCol=col;
+  const opciones=def.next.filter(n=>f.estados[n] && !f.estados[n].auto && f.estados[n].activo!==false).sort((x,y)=>f.orden.indexOf(x)-f.orden.indexOf(y));
+  const autoSig=def.next.filter(n=>f.estados[n]?.auto && f.estados[n].activo!==false);
   const titulo=(BITACORA_TITULOS[col]?.[1]||(()=>""))(reg);
   const body = `
     <div class="st-current"><span>Estatus actual</span>${badgeEstatus(actual)}<small>${def.cuando||""}</small>${GUIA_ESTATUS[col]?`<a href="#" class="st-guia-link" onclick="abrirGuiaEstatus('${col}','${id}');return false">${icon("help")} ¿Qué significa cada estatus?</a>`:""}</div>
     ${flujoChips(col,actual)}
-    ${opciones.length?`<p class="st-label">Cambiar a:</p><div class="st-options">${opciones.map((n,i)=>`<label class="st-option"><input type="radio" name="stNuevo" value="${n}" ${i===0?"checked":""}><span><strong>${n}${REAPERTURA[col]?.includes(actual)&&f.orden.indexOf(n)<f.orden.indexOf(actual)?" (reapertura)":""}</strong><small>${f.estados[n].cuando}</small></span></label>`).join("")}</div>
+    ${opciones.length?`<p class="st-label">Cambiar a:</p><div class="st-options">${opciones.map((n,i)=>`<label class="st-option"><input type="radio" name="stNuevo" value="${n}" ${i===0?"checked":""}><span><strong>${badgeEstatus(n,col)}${REAPERTURA[col]?.includes(actual)&&f.orden.indexOf(n)<f.orden.indexOf(actual)?" <em class=\"st-reap\">(reapertura)</em>":""}</strong><small>${f.estados[n].cuando}</small></span></label>`).join("")}</div>
       <div class="field" style="margin-top:14px"><label for="stObs">Observación <span id="stObsReq" class="required-mark" hidden>*</span></label><textarea id="stObs" rows="3" placeholder="Motivo o comentario del cambio"></textarea></div>`
     : `<div class="inline-note" style="margin:10px 0 0">${autoSig.length?`El siguiente estatus (<strong>${autoSig.join(", ")}</strong>) lo asigna el sistema automáticamente: ${f.estados[autoSig[0]].cuando}`:"Este es un estatus final: ya no admite más cambios."}</div>`}
     ${autoSig.length&&opciones.length?`<p class="st-auto-note">${icon("refresh")} <strong>${autoSig.join(", ")}</strong> se asigna automáticamente: ${f.estados[autoSig[0]].cuando}</p>`:""}`;
@@ -3792,6 +4094,7 @@ function abrirCambiarEstatus(col,id){
     }});
   const sync=()=>{ const n=$('input[name="stNuevo"]:checked')?.value; const req=$("#stObsReq"); if(req&&n){ const esRe=REAPERTURA[col]?.includes(actual)&&f.orden.indexOf(n)<f.orden.indexOf(actual); req.hidden=!(f.estados[n].motivo||esRe); } };
   $$('input[name="stNuevo"]').forEach(r=>r.onchange=sync); sync();
+  state._ctxCol=null;
 }
 
 
@@ -3878,7 +4181,7 @@ function abrirVerificacion(id,correr=false){
     onConfirm:()=>{ verificarDominio(d,"manual"); toast(`Verificación: ${pubResultado(d)}.`, PUB_OK.includes(pubResultado(d))||pubResultado(d)==="Interno"?"success":"error"); abrirVerificacion(id); if(state.view==="dominios"||state.view==="dominios-detalle") renderers[state.view](); }});
 }
 function verificarTodosDominios(){
-  const lista=state.data.dominios.filter(d=>!["Rechazado","Dado de baja"].includes(d.estatus));
+  const lista=state.data.dominios.filter(d=>!["Rechazado","Dado de baja","Cancelado"].includes(d.estatus));
   lista.forEach(d=>verificarDominio(d,"manual"));
   const malos=lista.filter(d=>!PUB_OK.includes(pubResultado(d))&&pubResultado(d)!=="Interno").length;
   toast(`Se verificaron ${lista.length} registro(s): ${lista.length-malos} publicado(s) o internos, ${malos} con problema.`, malos?"error":"success");
@@ -3887,6 +4190,8 @@ function verificarTodosDominios(){
 
 /* ================= Bitácora genérica (todos los módulos) ================= */
 const BITACORA_TITULOS = {
+  firmantes:["Bitácora del firmante",r=>`${r.nombre} · ${r.puesto}`],
+  solicitantes:["Bitácora del solicitante",r=>`${r.nombre} ${r.apPaterno} ${r.apMaterno}`],
   servidoresSolicitudes:["Bitácora del servidor",r=>servidorLabel(r)],
   vpns:["Bitácora de la solicitud de VPN",r=>r.nombre],
   dominios:["Bitácora del dominio/subdominio",r=>r.nombre],
@@ -4030,7 +4335,7 @@ function renderActasSeguridad(){
       <tbody>${rows.length?rows.map(a=>{ const totalEv=totalEvidencias(a); return `<tr>
         <td><strong>${a.oficio}</strong></td><td>${servidorCelda(a.servidorId)}</td><td>${a.secretaria}</td><td>${a.url}</td><td>${fmtFecha(a.fecha)}</td>
         <td><span class="acta-result ${resultadoClass(a.resultado)}">${a.resultado}</span></td><td>${badgeEstatus(a.estatus)}</td>
-        <td>${a.firmantes.length}</td>
+        <td>${firmantesActa(a).length}</td>
         <td class="checkbox-cell"><button type="button" class="action-icon ${totalEv?'':'neutral'}" title="Ver evidencias" onclick="abrirEvidencias('acta','${a.id}')">${icon("file-text")}${totalEv?`<span class="evidence-count">${totalEv}</span>`:""}</button></td>
         <td><div class="actions-cell">
           ${actionBtn("eye","Ver detalle",`verActa('${a.id}')`)}
@@ -4039,14 +4344,14 @@ function renderActasSeguridad(){
           ${actionBtn("upload","Subir evidencias",`abrirEvidencias('acta','${a.id}')`,"success")}
           ${actionBtn("print","Imprimir",`state.editing.actaId='${a.id}';navigate('actas-seguridad-print')`,"success")}
           ${actionBtn("clock","Bitácora",`abrirBitacora('actasSeguridad','${a.id}')`)}
-          ${actionBtn("trash","Eliminar",`eliminarActa('${a.id}')`,"danger")}
         </div></td></tr>`;}).join(""):`<tr><td colspan="10" class="empty-state">No hay protocolos de seguridad registrados.</td></tr>`}</tbody>
     </table></div>
     ${paginationFoot(rows.length,"protocolos")}
   </article>`;
   $("#actasSearch").oninput = e=>{ state.search.actas=e.target.value; renderActasSeguridad(); };
 }
-function verActa(id){
+function verActa(id){ return verDetalle("actas-seguridad-form",id); }
+function verActaModal(id){
   const a = findIn(state.data.actasSeguridad,id);
   openModal({title:a.oficio, subtitle:a.secretaria, size:"large", confirm:"Imprimir", confirmClass:"secondary",
     body:`<div class="detail-grid cols-4">
@@ -4141,7 +4446,7 @@ function renderEvidenciasModal(){
       <h3 style="font-size:13px;margin:0 0 10px">Último escaneo realizado</h3>
       ${ultimo?`<div class="escaneo-box">
           <div class="escaneo-box-head"><strong>${ultimo.fecha}</strong><span>${ultimo.hora||""}</span></div>
-          <ul class="acta-evidence-list">${ultimo.evidencias.map(e=>`<li>${icon("file-text")} ${e.nombre}</li>`).join("")||"<li>Sin archivos.</li>"}</ul>
+          <ul class="acta-evidence-list">${ultimo.evidencias.map(evItem).join("")||"<li>Sin archivos.</li>"}</ul>
         </div>`
         :`<p class="empty-state" style="padding:14px 0">Aún no se ha registrado ningún escaneo con evidencia.</p>`}
 
@@ -4150,15 +4455,21 @@ function renderEvidenciasModal(){
         ${fieldInput("Fecha del escaneo","fNuevoEscaneoFecha",todayStr(),"date")}
       </div>
       <div id="nuevoEscaneoEvidencias" style="margin-top:10px">${renderNuevoEscaneoEvidencias()}</div>
-      <div style="display:flex;gap:10px;margin-top:12px">
-        <button type="button" class="button secondary" onclick="agregarEvidenciaNuevoEscaneo()">${icon("upload")} Agregar evidencia</button>
+      ${(()=>{ const tps=tiposDocumento().filter(t=>t.estatus==="Activo"&&t.modulos.includes(EV_MODULO[tipo])); const t0=tps[0];
+        return tps.length?`<div class="ev-uploader">
+          <div class="field"><label for="fEvTipo">Tipo de documento *</label><select id="fEvTipo" onchange="evSyncTipo()">${tps.map(t=>`<option value="${t.id}">${t.nombre}</option>`).join("")}</select></div>
+          <div class="field"><label for="fEvArchivo">Archivo *</label><input type="file" id="fEvArchivo" accept="${t0.extensiones.map(e=>"."+e).join(",")}"></div>
+          <button type="button" class="button secondary" onclick="agregarEvidenciaNuevoEscaneo()">${icon("upload")} Agregar evidencia</button>
+        </div><p class="ce-note" id="fEvAyuda" style="margin-top:6px">${evAyuda(t0)}</p>`
+        :`<div class="inline-note">No hay tipos de documento activos para este módulo. Configúralos en <a href="#" onclick="closeModal();navigate('cat-tipo-documento');return false">Catálogos › Tipo de Documento</a>.</div>`; })()}
+      <div style="display:flex;gap:10px;margin-top:12px;justify-content:flex-end">
         <button type="button" class="button primary" onclick="guardarNuevoEscaneo()">${icon("plus")} Guardar escaneo</button>
       </div>
 
       <h3 style="font-size:13px;margin:24px 0 10px">Historial de escaneos anteriores</h3>
       ${anteriores.length?anteriores.map(e=>`<div class="escaneo-box" style="background:#F4F6F8">
           <div class="escaneo-box-head"><strong>${e.fecha}</strong><span>${e.hora||""}</span></div>
-          <ul class="acta-evidence-list">${e.evidencias.map(x=>`<li>${icon("file-text")} ${x.nombre}</li>`).join("")||"<li>Sin archivos.</li>"}</ul>
+          <ul class="acta-evidence-list">${e.evidencias.map(evItem).join("")||"<li>Sin archivos.</li>"}</ul>
         </div>`).join(""):`<p class="empty-state" style="padding:10px 0">Sin escaneos anteriores registrados.</p>`}
     `,
     onConfirm:closeModal});
@@ -4166,13 +4477,21 @@ function renderEvidenciasModal(){
 function renderNuevoEscaneoEvidencias(){
   const draft = state.editing.nuevoEscaneoDraft.evidencias;
   if(!draft.length) return `<p class="empty-state" style="padding:8px 0">Sin archivos agregados todavía para este nuevo escaneo.</p>`;
-  return `<div class="firmantes-editor">${draft.map((e,i)=>`<div class="attach-row"><span>${icon("file-text")} ${e.nombre}</span><button type="button" class="action-icon danger" title="Quitar" onclick="quitarEvidenciaNuevoEscaneo(${i})">${icon("trash")}</button></div>`).join("")}</div>`;
+  return `<div class="firmantes-editor">${draft.map((e,i)=>`<div class="attach-row"><span>${icon("file-text")} ${e.nombre} <span class="ev-tipo">${evTipoNombre(e)}</span>${e.tamano?` <small class="ev-size">${tamanoLegible(e.tamano)}</small>`:""}</span><button type="button" class="action-icon danger" title="Quitar" onclick="quitarEvidenciaNuevoEscaneo(${i})">${icon("trash")}</button></div>`).join("")}</div>`;
 }
-function agregarEvidenciaNuevoEscaneo(){
-  const n = state.editing.nuevoEscaneoDraft.evidencias.length+1;
-  state.editing.nuevoEscaneoDraft.evidencias.push({nombre:`evidencia_escaneo_${n}.pdf`});
+function evAyuda(t){ return t?`${t.descripcion?t.descripcion+" · ":""}Formatos: ${t.extensiones.map(e=>"."+e).join(", ")} · máximo ${t.tamanoMax} MB por archivo.`:""; }
+function evSyncTipo(){ const t=findIn(tiposDocumento(),$("#fEvTipo").value); $("#fEvArchivo").accept=t.extensiones.map(e=>"."+e).join(","); $("#fEvAyuda").textContent=evAyuda(t); }
+function agregarEvidenciaNuevoEscaneo(fileOverride){
+  const t=findIn(tiposDocumento(),$("#fEvTipo")?.value);
+  const file=fileOverride||$("#fEvArchivo")?.files?.[0];
+  const err=validarArchivoTipo(t,file);
+  if(err){ toast(err,"error"); if(!file) markFieldError($("#fEvArchivo"),"Selecciona el archivo."); return; }
+  const draft=state.editing.nuevoEscaneoDraft.evidencias;
+  if(draft.some(e=>e.nombre===file.name)){ toast(`"${file.name}" ya está en la lista.`,"warning"); return; }
+  draft.push({nombre:file.name, tipoId:t.id, tamano:file.size});
   $("#nuevoEscaneoEvidencias").innerHTML = renderNuevoEscaneoEvidencias();
-  toast("Archivo agregado (simulado).");
+  if($("#fEvArchivo")) $("#fEvArchivo").value="";
+  toast(`Archivo agregado como "${t.nombre}".`);
 }
 function quitarEvidenciaNuevoEscaneo(idx){
   state.editing.nuevoEscaneoDraft.evidencias.splice(idx,1);
@@ -4303,7 +4622,7 @@ function renderActaPrint(id){
   const a = findIn(state.data.actasSeguridad,id);
   if(!a){ navigate("actas-seguridad"); return; }
   const ultimoImpresion = findUltimoEscaneo(a);
-  const firmantesHtml = a.firmantes.map(f=>`<div class="signature-block">
+  const firmantesHtml = firmantesActa(a).map(f=>`<div class="signature-block">
       <em>${f.rol}</em>
       <div class="signature-line"></div>
       <strong>${f.nombre||"&nbsp;"}</strong>
@@ -4538,30 +4857,36 @@ function abrirRegistrarProducto(){
 
 /* ================= Catálogos > Categorías ================= */
 function renderCatCategorias(){
-  const cats = state.data.categorias;
+  const term = state.search.categorias||"";
+  const cats = state.data.categorias.filter(c=>matchesSearch({n:c.nombre,s:c.subcategorias.map(x=>x.nombre).join(" ")},term));
   content.innerHTML = `
   ${breadcrumb([{label:"Catálogos"},{label:"Categorías"}])}
-  <div class="page-header"><div><h1>Catálogo de Categorías</h1><p>Administra las categorías y subcategorías del inventario de hardware.</p></div></div>
-  <article class="card">
-    <div class="form-grid">
-      ${fieldInput("Nombre de la Categoría","fCatNombre")}
-    </div>
-    <button class="button primary" style="margin-top:10px" onclick="agregarCategoria()">${icon("plus")} Añadir</button>
-    <h2 style="font-size:15px;margin:22px 0 10px">Categorías registradas</h2>
-    <div class="table-wrap"><table><thead><tr><th>Categoría</th><th>Subcategorías</th><th>Acciones</th></tr></thead>
-      <tbody>${cats.map(c=>`<tr><td><strong>${c.nombre}</strong></td><td>${c.subcategorias.map(s=>s.nombre).join(", ")||"—"}</td>
+  <div class="page-header"><div><h1>Catálogo de Categorías</h1><p>Administra las categorías y subcategorías del inventario de hardware.</p></div>
+    <div class="page-actions"><button class="button primary" onclick="agregarCategoria()">${icon("plus")} Agregar categoría</button></div></div>
+  <article class="card table-card">
+    <div class="datatable-toolbar"><div class="entries-control">Mostrar <select><option>10</option><option>25</option></select> registros</div>
+      <div class="datatable-actions">${searchBox("catSearch","Buscar registros",term)}</div></div>
+    <div class="table-wrap"><table data-export-name="catalogo-categorias"><thead><tr><th>Categoría</th><th>Subcategorías</th><th class="col-acciones">Acciones</th></tr></thead>
+      <tbody>${cats.length?cats.map(c=>`<tr><td><strong>${c.nombre}</strong></td><td>${c.subcategorias.length?`<div class="fx-chips">${c.subcategorias.map(s=>`<span>${s.nombre}</span>`).join("")}</div>`:"—"}</td>
         <td><div class="actions-cell">
           ${actionBtn("plus","Agregar subcategoría",`abrirSubcategoria('${c.id}')`)}
+          ${actionBtn("edit","Editar",`agregarCategoria('${c.id}')`,"warning")}
           ${actionBtn("trash","Eliminar",`eliminarCategoria('${c.id}')`,"danger")}
-        </div></td></tr>`).join("")}</tbody>
+        </div></td></tr>`).join(""):`<tr><td colspan="3" class="empty-state">Sin categorías registradas.</td></tr>`}</tbody>
     </table></div>
+    ${paginationFoot(cats.length,"categorías")}
   </article>`;
+  $("#catSearch").oninput=e=>{ state.search.categorias=e.target.value; renderCatCategorias(); const i=$("#catSearch"); i.focus(); i.setSelectionRange(i.value.length,i.value.length); };
 }
-function agregarCategoria(){
-  const nombre = $("#fCatNombre").value.trim();
-  if(!nombre){ toast("Escribe el nombre de la categoría.","warning"); return; }
-  state.data.categorias.push({id:uid("CAT"),nombre,subcategorias:[]});
-  toast("Categoría registrada."); renderCatCategorias();
+function agregarCategoria(id){
+  const c=id?findIn(state.data.categorias,id):null;
+  openModal({title:c?"Editar categoría":"Agregar categoría", confirm:"Guardar", body:fieldInput("Nombre de la categoría *","fCatNombre",c?.nombre||"","text","class=full maxlength=60"),
+    onConfirm:()=>{ const nombre=$("#fCatNombre").value.trim();
+      if(!nombre){ toast("Escribe el nombre de la categoría.","error"); return; }
+      if(state.data.categorias.some(x=>x.id!==id&&x.nombre.toLowerCase()===nombre.toLowerCase())){ toast("Esa categoría ya existe.","error"); return; }
+      if(c){ state.data.componentes.forEach(x=>{ if(x.categoria===c.nombre) x.categoria=nombre; }); c.nombre=nombre; }
+      else state.data.categorias.push({id:uid("CAT"),nombre,subcategorias:[]});
+      closeModal(); toast(c?"Categoría actualizada.":"Categoría registrada."); renderCatCategorias(); }});
 }
 function eliminarCategoria(id){
   openModal({title:"Eliminar categoría", confirmClass:"danger", confirm:"Eliminar", body:"<p>¿Deseas eliminar esta categoría y sus subcategorías?</p>",
@@ -4580,55 +4905,146 @@ function renderCatComponentes(){
   const rows = state.data.componentes.filter(c=>matchesSearch(c,term));
   content.innerHTML = `
   ${breadcrumb([{label:"Catálogos"},{label:"Componentes"}])}
-  <div class="page-header"><div><h1>Catálogo de Componentes</h1><p>Campos capturables por categoría y subcategoría de hardware.</p></div></div>
-  <article class="card">
-    <div class="form-grid">
-      ${fieldSelect("Categoría","fCmpCat",state.data.categorias.map(c=>c.nombre))}
-      ${fieldSelect("Subcategoría","fCmpSub",state.data.categorias.flatMap(c=>c.subcategorias.map(s=>s.nombre)))}
-      ${fieldInput("Nombre de Componente","fCmpNombre")}
-    </div>
-    <button class="button primary" style="margin-top:10px" onclick="agregarComponente()">${icon("plus")} Agregar</button>
-    <div class="table-wrap" style="margin-top:18px"><table><thead><tr><th>Categoría</th><th>Subcategoría</th><th>Componente</th><th>Acciones</th></tr></thead>
-      <tbody>${rows.length?rows.map(c=>`<tr><td>${c.categoria}</td><td>${c.subcategoria}</td><td>${c.nombre}</td>
-        <td>${actionBtn("trash","Eliminar",`eliminarComponente('${c.id}')`,"danger")}</td></tr>`).join(""):`<tr><td colspan="4" class="empty-state">Sin componentes registrados.</td></tr>`}</tbody>
+  <div class="page-header"><div><h1>Catálogo de Componentes</h1><p>Campos capturables por categoría y subcategoría de hardware.</p></div>
+    <div class="page-actions"><button class="button primary" onclick="agregarComponente()">${icon("plus")} Agregar componente</button></div></div>
+  <article class="card table-card">
+    <div class="datatable-toolbar"><div class="entries-control">Mostrar <select><option>10</option><option>25</option></select> registros</div>
+      <div class="datatable-actions">${searchBox("cmpSearch","Buscar registros",term)}</div></div>
+    <div class="table-wrap"><table data-export-name="catalogo-componentes"><thead><tr><th>Categoría</th><th>Subcategoría</th><th>Componente</th><th class="col-acciones">Acciones</th></tr></thead>
+      <tbody>${rows.length?rows.map(c=>`<tr><td>${c.categoria}</td><td>${c.subcategoria}</td><td><strong>${c.nombre}</strong></td>
+        <td><div class="actions-cell">${actionBtn("edit","Editar",`agregarComponente('${c.id}')`,"warning")}${actionBtn("trash","Eliminar",`eliminarComponente('${c.id}')`,"danger")}</div></td></tr>`).join(""):`<tr><td colspan="4" class="empty-state">Sin componentes registrados.</td></tr>`}</tbody>
     </table></div>
+    ${paginationFoot(rows.length,"componentes")}
   </article>`;
+  $("#cmpSearch").oninput=e=>{ state.search.componentes=e.target.value; renderCatComponentes(); const i=$("#cmpSearch"); i.focus(); i.setSelectionRange(i.value.length,i.value.length); };
 }
-function agregarComponente(){
-  const nombre = $("#fCmpNombre").value.trim();
-  if(!nombre){ toast("Escribe el nombre del componente.","warning"); return; }
-  state.data.componentes.push({id:uid("CMP"),categoria:$("#fCmpCat").value,subcategoria:$("#fCmpSub").value,nombre});
-  toast("Componente registrado."); renderCatComponentes();
+function cmpSubOpciones(catNombre,sel){ const c=state.data.categorias.find(x=>x.nombre===catNombre); return (c?.subcategorias||[]).map(s=>`<option ${s.nombre===sel?"selected":""}>${s.nombre}</option>`).join("")||`<option value="">Sin subcategorías</option>`; }
+function agregarComponente(id){
+  const c=id?findIn(state.data.componentes,id):null;
+  const cat0=c?.categoria||state.data.categorias[0]?.nombre||"";
+  openModal({title:c?"Editar componente":"Agregar componente", confirm:"Guardar",
+    body:`<div class="form-grid">
+      ${fieldSelect("Categoría *","fCmpCat",state.data.categorias.map(x=>x.nombre),cat0,`onchange="$('#fCmpSub').innerHTML=cmpSubOpciones(this.value)"`)}
+      <div class="field"><label for="fCmpSub">Subcategoría *</label><select id="fCmpSub">${cmpSubOpciones(cat0,c?.subcategoria)}</select></div>
+      ${fieldInput("Nombre del componente *","fCmpNombre",c?.nombre||"","text","class=full maxlength=60")}
+    </div>`,
+    onConfirm:()=>{ const nombre=$("#fCmpNombre").value.trim(), cat=$("#fCmpCat").value, sub=$("#fCmpSub").value;
+      if(!nombre){ toast("Escribe el nombre del componente.","error"); return; }
+      if(!sub){ toast("La categoría no tiene subcategorías; agrégalas en el catálogo de Categorías.","error"); return; }
+      if(state.data.componentes.some(x=>x.id!==id&&x.categoria===cat&&x.subcategoria===sub&&x.nombre.toLowerCase()===nombre.toLowerCase())){ toast("Ese componente ya existe en esa subcategoría.","error"); return; }
+      if(c) Object.assign(c,{categoria:cat,subcategoria:sub,nombre}); else state.data.componentes.push({id:uid("CMP"),categoria:cat,subcategoria:sub,nombre});
+      closeModal(); toast(c?"Componente actualizado.":"Componente registrado."); renderCatComponentes(); }});
 }
-function eliminarComponente(id){ removeIn(state.data.componentes,id); toast("Componente eliminado."); renderCatComponentes(); }
+function eliminarComponente(id){
+  openModal({title:"Eliminar componente", confirmClass:"danger", confirm:"Eliminar", body:"<p>¿Deseas eliminar este componente del catálogo?</p>",
+    onConfirm:()=>{ removeIn(state.data.componentes,id); closeModal(); toast("Componente eliminado."); renderCatComponentes(); }});
+}
 
 /* ================= Catálogos > Departamentos ================= */
+function deptoServKey(t){ return t.modulo||t.id; }
+function tipoServicioDeKey(k){ return tiposServicio().find(t=>deptoServKey(t)===k); }
+function toggleDepto(id){ state.deptoOpen=state.deptoOpen||{}; state.deptoOpen[id]=!state.deptoOpen[id]; renderCatDepartamentos(); }
 function renderCatDepartamentos(){
-  const term = state.search.departamentos||"";
-  const rows = state.data.departamentosCatalogo.filter(d=>matchesSearch({nombre:d.nombre,titular:d.titular?.nombre,correo:d.titular?.correo},term));
+  const term = (state.search.departamentos||"").toLowerCase();
+  state.deptoOpen=state.deptoOpen||{};
+  const todos=state.data.departamentosCatalogo;
+  const coincide=d=>!term||[d.nombre,d.titular?.nombre,d.titular?.correo,...d.servicios.map(sv=>moduloLabel(sv.modulo))].join(" ").toLowerCase().includes(term);
+  const rows=todos.filter(coincide);
+  const totalSvc=rows.reduce((a,d)=>a+d.servicios.length,0);
+  const firmTxt=(d,sv)=>{ if(!sv.generaDocumentos) return `<span class="subtext" style="margin:0">No aplica</span>`;
+    const vig=firmasVigentes(sv), hist=(sv.firmas||[]).length-vig.length;
+    return `${vig.length?vig.map(f=>{ const p=findIn(state.data.firmantes,f.firmanteId); return `<span class="dp-firm"><b>${f.rol||"—"}:</b> ${p?.nombre||"—"}</span>`; }).join(""):`<span class="dp-warn">${icon("alert")} Sin firmantes</span>`}
+      <button type="button" class="fx-link" onclick="abrirFirmasServicio('${d.id}','${sv.modulo}')">${icon("signature")} Gestionar firmas · ${vig.length} vigente${vig.length===1?"":"s"}${hist?` · ${hist} en historial`:""}</button>`; };
+  const subTabla=d=>{
+    const disp=tiposServicio().filter(t=>t.estatus==="Activo"&&!d.servicios.some(sv=>sv.modulo===deptoServKey(t)));
+    return `<div class="dn-box">
+      <div class="dn-head"><strong>Servicios que presta ${d.nombre}</strong><span>${d.servicios.length} servicio(s)${d.servicios.filter(sv=>sv.generaDocumentos&&!firmasVigentes(sv).length).length?` · ${d.servicios.filter(sv=>sv.generaDocumentos&&!firmasVigentes(sv).length).length} sin firmantes`:""}</span></div>
+      ${d.servicios.length?`<table class="dn-subtable" data-enh="1" data-cf="1"><thead><tr><th>Tipo de servicio</th><th>Estatus del servicio</th><th>¿Genera documentos?</th><th>Firmantes</th><th>Acciones</th></tr></thead>
+        <tbody>${d.servicios.map(sv=>{ const t=tipoServicioDeKey(sv.modulo); const est=t?.estatus||"Activo"; return `<tr>
+          <td><span class="dn-sub-name">${icon("box")}<strong>${moduloLabel(sv.modulo)}</strong></span></td>
+          <td><span class="badge ${est==="Activo"?"approved":est==="Inactivo"?"canceled":"neutral"}">${est}</span></td>
+          <td>${sv.generaDocumentos?`<span class="dp-docs">${icon("file-text")} Sí</span>`:"No"}</td>
+          <td><div class="dp-firms">${firmTxt(d,sv)}</div></td>
+          <td>${rowActionsHtml([{icon:"edit",title:"Editar servicio",onclick:`abrirServicioDepto('${d.id}','${sv.modulo}')`},...(sv.generaDocumentos?[{icon:"signature",title:"Gestionar firmas",onclick:`abrirFirmasServicio('${d.id}','${sv.modulo}')`}]:[]),{sep:true},{icon:"ban",title:"Quitar servicio",onclick:`quitarServicioDepto('${d.id}','${sv.modulo}')`,cls:"danger"}],`abrirServicioDepto('${d.id}','${sv.modulo}')`)}</td></tr>`; }).join("")}</tbody></table>`
+        :`<p class="dn-empty">Este departamento aún no tiene servicios asignados.</p>`}
+      ${disp.length?`<button type="button" class="dn-add-sub" onclick="abrirServicioDepto('${d.id}')">${icon("plus")} Agregar servicio a ${d.nombre}</button>`:`<p class="dn-empty" style="border-top:1px dashed #E3C7CF">Ya presta todos los servicios activos del catálogo Tipo de Servicio.</p>`}
+    </div>`;
+  };
+  const filas=rows.map(d=>{ const ab=!!state.deptoOpen[d.id]||(!!term&&d.servicios.some(sv=>moduloLabel(sv.modulo).toLowerCase().includes(term))); const n=d.servicios.length;
+    return `<tr class="dn-dom ${ab?"open":""}">
+      <td><button type="button" class="dn-toggle" onclick="toggleDepto('${d.id}')" aria-expanded="${ab}" title="${ab?"Ocultar":"Ver"} servicios">${icon("chevron-down")}</button></td>
+      <td><span class="dn-dom-name">${icon("users")}<strong>${d.nombre}</strong></span></td>
+      <td>${d.titular?.nombre||"—"}</td><td>${d.titular?.correo||"—"}</td>
+      <td>${d.titular?.telefono||"—"}${d.titular?.ext?" ext. "+d.titular.ext:""}</td>
+      <td><button type="button" class="dn-count" onclick="toggleDepto('${d.id}')">${n} servicio${n===1?"":"s"}</button></td>
+      <td>${rowActionsHtml([{icon:"eye",title:"Ver",onclick:`verDepartamento('${d.id}')`},{icon:"plus",title:"Agregar servicio",onclick:`abrirServicioDepto('${d.id}')`},{sep:true},{icon:"trash",title:"Eliminar",onclick:`eliminarDepartamento('${d.id}')`,cls:"danger"}],`state.editing.departamentoId='${d.id}';navigate('cat-departamentos-form')`)}</td></tr>
+      ${ab?`<tr class="dn-nest"><td colspan="7">${subTabla(d)}</td></tr>`:""}`; }).join("");
   content.innerHTML = `
   ${breadcrumb([{label:"Catálogos"},{label:"Departamentos"}])}
-  <div class="page-header"><div><h1>Catálogo de Departamentos</h1><p>Departamentos responsables de administrar los servicios de tecnología del sistema.</p></div>
+  <div class="page-header"><div><h1>Catálogo de Departamentos</h1><p>Departamentos responsables de administrar los servicios de tecnología. Despliega un departamento para ver o agregar los servicios que presta; los servicios salen del catálogo <a href="#" onclick="navigate('cat-tipo-servicio')">Tipo de Servicio</a>.</p></div>
     <div class="page-actions"><button class="button primary" onclick="state.editing.departamentoId=null;navigate('cat-departamentos-form')">${icon("plus")} Registro de Departamento</button></div>
   </div>
   <article class="card table-card">
-    <div class="datatable-toolbar"><div class="entries-control">Mostrar <select><option>10</option></select> registros</div>
-      <div class="datatable-actions">${searchBox("departamentosSearch","Buscar registros",term)}</div></div>
-    <div class="table-wrap"><table>
-      <thead><tr><th>Departamento</th><th>Titular</th><th>Correo</th><th>Teléfono</th><th>Servicios que presta</th><th>Acciones</th></tr></thead>
-      <tbody>${rows.length?rows.map(d=>`<tr>
-        <td><strong>${d.nombre}</strong></td><td>${d.titular?.nombre||"—"}</td><td>${d.titular?.correo||"—"}</td>
-        <td>${d.titular?.telefono||"—"}${d.titular?.ext?" ext. "+d.titular.ext:""}</td>
-        <td>${d.servicios.length?d.servicios.map(s=>`<span class="badge neutral" style="margin:2px 3px 2px 0">${moduloLabel(s.modulo)}${s.generaDocumentos?" "+icon("file-text"):""}</span>`).join(""):"—"}</td>
-        <td><div class="actions-cell">
-          ${actionBtn("eye","Ver",`verDepartamento('${d.id}')`)}
-          ${actionBtn("edit","Editar",`state.editing.departamentoId='${d.id}';navigate('cat-departamentos-form')`,"warning")}
-          ${actionBtn("trash","Eliminar",`eliminarDepartamento('${d.id}')`,"danger")}
-        </div></td></tr>`).join(""):`<tr><td colspan="6" class="empty-state">Sin departamentos registrados.</td></tr>`}</tbody>
+    <div class="datatable-toolbar"><div class="entries-control">${rows.length} departamento(s) · ${totalSvc} servicio(s) asignados</div>
+      <div class="datatable-actions"><button type="button" class="button ghost dx-mini" onclick="state.data.departamentosCatalogo.forEach(d=>state.deptoOpen[d.id]=true);renderCatDepartamentos()">Desplegar todos</button><button type="button" class="button ghost dx-mini" onclick="state.deptoOpen={};renderCatDepartamentos()">Contraer todos</button>${searchBox("departamentosSearch","Buscar departamento o servicio",state.search.departamentos||"")}</div></div>
+    <div class="table-wrap"><table class="dn-table" data-enh="1" data-cf="1">
+      <thead><tr><th style="width:44px"></th><th>Departamento</th><th>Titular</th><th>Correo</th><th>Teléfono</th><th>Servicios que presta</th><th>Acciones</th></tr></thead>
+      <tbody>${filas||`<tr><td colspan="7" class="empty-state">Sin departamentos que coincidan.</td></tr>`}</tbody>
     </table></div>
     ${paginationFoot(rows.length,"departamentos")}
   </article>`;
-  $("#departamentosSearch").oninput = e=>{ state.search.departamentos=e.target.value; renderCatDepartamentos(); };
+  $("#departamentosSearch").oninput = e=>{ state.search.departamentos=e.target.value; renderCatDepartamentos(); const i=$("#departamentosSearch"); i.focus(); i.setSelectionRange(i.value.length,i.value.length); };
+}
+/* Agregar / editar un servicio del departamento (sale del catálogo Tipo de Servicio) */
+function abrirServicioDepto(depId,key){
+  const d=findIn(state.data.departamentosCatalogo,depId); const sv=key?d.servicios.find(x=>x.modulo===key):null;
+  const disponibles=tiposServicio().filter(t=>t.estatus!=="Inactivo"&&!d.servicios.some(x=>x.modulo===deptoServKey(t)));
+  if(!sv && !disponibles.some(t=>t.estatus==="Activo")){ toast("Este departamento ya presta todos los servicios activos del catálogo Tipo de Servicio.","warning"); return; }
+  const primero=disponibles.find(t=>t.estatus==="Activo");
+  state.editing.svcDepto={depId, key:key||deptoServKey(primero), generaDocumentos:sv?sv.generaDocumentos:!!primero?.generaDocumentos, firmantes:sv?sv.firmantes.map(f=>({...f})):[]};
+  if(!sv && state.editing.svcDepto.generaDocumentos) state.editing.svcDepto.firmantes=[{rol:"Elaboración",nombre:"",puesto:""},{rol:"Autorización",nombre:"",puesto:""}];
+  const opts=disponibles.map(t=>`<option value="${deptoServKey(t)}" ${t.estatus!=="Activo"?"disabled":""} ${deptoServKey(t)===state.editing.svcDepto.key?"selected":""}>${t.nombre}${t.estatus!=="Activo"?" — Próxima fase":""}</option>`).join("");
+  openModal({title:sv?"Editar servicio del departamento":"Agregar servicio", subtitle:d.nombre, size:"large", confirm:"Guardar",
+    body:`<div class="form-grid">
+      ${sv?fieldInput("Tipo de servicio","fSvcTipo",moduloLabel(key),"text","disabled")
+        :`<div class="field"><label for="fSvcTipo">Tipo de servicio *</label><select id="fSvcTipo" onchange="svcCambiaTipo()">${opts}</select></div>`}
+      ${fieldSelect("¿Este servicio generará documentos?","fSvcDocs",[["no","No"],["si","Sí"]],state.editing.svcDepto.generaDocumentos?"si":"no",'onchange="svcCambiaDocs()"')}
+    </div>
+    <p class="ce-note" style="margin-top:8px">${sv?"El tipo de servicio no se puede cambiar; si es otro, quita este y agrega el nuevo.":`Solo se pueden elegir los servicios <strong>Activos</strong> del catálogo Tipo de Servicio que este departamento aún no presta; los de "Próxima fase" aparecen deshabilitados.`}</p>
+    <div class="fx-note" style="margin-top:12px">${icon("signature")}<span>Si el servicio genera documentos, sus firmantes se administran con <strong>Gestionar firmas</strong> (se eligen del Catálogo de Firmantes y conservan su historial).${sv?"":" Al guardar se abrirá para que agregues las firmas."}</span></div>`,
+    onConfirm:()=>guardarServicioDepto(!!sv)});
+}
+function svcSyncFirm(){ (state.editing.svcDepto.firmantes||[]).forEach((f,i)=>{ const r=$(`#fSvcRol_${i}`),n=$(`#fSvcNom_${i}`),p=$(`#fSvcPue_${i}`); if(r) f.rol=r.value; if(n) f.nombre=n.value; if(p) f.puesto=p.value; }); }
+function svcFirmantesHtml(){
+  const sd=state.editing.svcDepto; if(!sd.generaDocumentos) return "";
+  return `<p class="ce-sec">${icon("signature")} Firmantes de los documentos</p>
+    <div class="firmantes-editor">${sd.firmantes.map((f,i)=>`<div class="firmante-row">
+      <div class="field"><label for="fSvcRol_${i}">Rol / Cargo</label><input id="fSvcRol_${i}" value="${(f.rol||"").replace(/"/g,"&quot;")}" placeholder="Ej. Elaboración, Vo.Bo., Autorización"></div>
+      <div class="field"><label for="fSvcNom_${i}">Nombre completo</label><input id="fSvcNom_${i}" value="${(f.nombre||"").replace(/"/g,"&quot;")}" placeholder="Nombre del firmante"></div>
+      <div class="field"><label for="fSvcPue_${i}">Puesto</label><input id="fSvcPue_${i}" value="${(f.puesto||"").replace(/"/g,"&quot;")}" placeholder="Puesto institucional"></div>
+      <button type="button" class="action-icon danger" title="Quitar firmante" onclick="svcSyncFirm();state.editing.svcDepto.firmantes.splice(${i},1);$('#svcFirmWrap').innerHTML=svcFirmantesHtml()">${icon("trash")}</button>
+    </div>`).join("")}</div>
+    <button type="button" class="button secondary" style="margin-top:8px" onclick="svcSyncFirm();state.editing.svcDepto.firmantes.push({rol:'',nombre:'',puesto:''});$('#svcFirmWrap').innerHTML=svcFirmantesHtml()">${icon("plus")} Agregar firmante</button>`;
+}
+function svcCambiaTipo(){ const sd=state.editing.svcDepto; sd.key=$("#fSvcTipo").value; const t=tipoServicioDeKey(sd.key); sd.generaDocumentos=!!t?.generaDocumentos; $("#fSvcDocs").value=sd.generaDocumentos?"si":"no"; }
+function svcCambiaDocs(){ state.editing.svcDepto.generaDocumentos=$("#fSvcDocs").value==="si"; }
+function guardarServicioDepto(editando){
+  const sd=state.editing.svcDepto; const d=findIn(state.data.departamentosCatalogo,sd.depId);
+  if(!sd.key){ toast("Elige el tipo de servicio.","error"); return; }
+  sd.generaDocumentos=$("#fSvcDocs").value==="si";
+  let sv=d.servicios.find(x=>x.modulo===sd.key);
+  if(editando) sv.generaDocumentos=sd.generaDocumentos; else { sv={modulo:sd.key, generaDocumentos:sd.generaDocumentos, firmas:[], firmantes:[]}; d.servicios.push(sv); }
+  state.deptoOpen=state.deptoOpen||{}; state.deptoOpen[d.id]=true;
+  closeModal(); toast(editando?`Servicio "${moduloLabel(sd.key)}" actualizado.`:`"${moduloLabel(sd.key)}" agregado a ${d.nombre}.`); renderCatDepartamentos();
+  if(sd.generaDocumentos && !(sv.firmas||[]).some(f=>f.estatus==="Vigente")) abrirFirmasServicio(d.id,sd.key);
+}
+function quitarServicioDepto(depId,key){
+  const d=findIn(state.data.departamentosCatalogo,depId); const nom=moduloLabel(key);
+  const otros=state.data.departamentosCatalogo.filter(x=>x.id!==depId&&x.servicios.some(sv=>sv.modulo===key));
+  openModal({title:"Quitar servicio", subtitle:d.nombre, confirm:"Quitar", confirmClass:"danger",
+    body:`<p style="margin:0 0 10px">¿Quitar <strong>${nom}</strong> de los servicios que presta este departamento? El servicio sigue existiendo en el catálogo Tipo de Servicio.</p>
+      ${!otros.length?`<div class="inline-note">${icon("alert")} Ningún otro departamento presta <strong>${nom}</strong>${key==="actas-seguridad"?"; los Protocolos de Seguridad se quedarían sin firmantes al imprimir el acta":""}.</div>`:""}`,
+    onConfirm:()=>{ d.servicios=d.servicios.filter(x=>x.modulo!==key); closeModal(); toast(`"${nom}" se quitó de ${d.nombre}.`); renderCatDepartamentos(); }});
 }
 function verDepartamento(id){
   const d = findIn(state.data.departamentosCatalogo,id);
@@ -4656,7 +5072,7 @@ function renderDepartamentoForm(editId){
   if(dep) dep.servicios.forEach(s=>{ state.editing.departamentoDraft.servicios[s.modulo] = {activo:true, generaDocumentos:s.generaDocumentos, firmantes:s.firmantes.map(f=>({...f}))}; });
   content.innerHTML = `
   ${breadcrumb([{label:"Catálogos"},{label:"Departamentos",view:"cat-departamentos"},{label:editId?"Editar Departamento":"Registro de Departamento"}])}
-  <div class="page-header"><div><h1>${editId?"Editar":"Registro de"} Departamento</h1><p>Datos del titular y los servicios de tecnología que administra este departamento.</p></div></div>
+  <div class="page-header"><div><h1>${editId?"Editar":"Registro de"} Departamento</h1><p>Datos del departamento y de su titular.</p></div></div>
   <article class="card">
     <div class="form-grid">
       ${fieldInput("Nombre del Departamento","fDeptoNombre",dep?.nombre,"text","class=full")}
@@ -4667,9 +5083,7 @@ function renderDepartamentoForm(editId){
       ${fieldEmail("Correo electrónico","fDeptoTitularCorreo",dep?.titular?.correo,{required:true})}
       ${fieldInputPair("Teléfono","fDeptoTitularTel",dep?.titular?.telefono,"Extensión","fDeptoTitularExt",dep?.titular?.ext,"2fr 1fr",["phone","numeric"])}
     </div>
-    <h2 style="font-size:15px;margin:22px 0 4px">Servicios que presta este Departamento</h2>
-    <p style="color:var(--muted);font-size:12px;margin:0 0 14px">Marca los módulos que administra. Si un servicio genera documentos oficiales (como los Protocolos de Seguridad), podrás capturar quiénes lo firman.</p>
-    ${renderServiciosDepartamentoSection()}
+    <div class="inline-note" style="margin-top:18px">${icon("box")} <span>Los <strong>servicios que presta</strong> el departamento se agregan desde la lista: despliega el departamento y usa "Agregar servicio". Salen del catálogo Tipo de Servicio.</span></div>
   </article>
   <div class="page-actions" style="margin-top:18px;justify-content:flex-end">
     <button class="button ghost" onclick="navigate('cat-departamentos')">&raquo; Regresar</button>
@@ -4677,10 +5091,15 @@ function renderDepartamentoForm(editId){
   </div>`;
 }
 function renderServiciosDepartamentoSection(){
-  return `<div id="deptoServiciosWrap">${MODULOS_SERVICIO.map(([key])=>renderDeptoServiceRow(key)).join("")}</div>`;
+  const draft=state.editing.departamentoDraft.servicios;
+  const lista=tiposServicio().filter(t=>t.estatus!=="Inactivo" || draft[t.modulo||t.id]?.activo);
+  return `<div id="deptoServiciosWrap">${lista.map(t=>renderDeptoServiceRow(t.modulo||t.id)).join("")}</div>
+    <p style="color:var(--muted);font-size:12px;margin:4px 0 0">La lista sale del catálogo <strong>Tipo de Servicio</strong>. Los servicios en "Próxima fase" se muestran deshabilitados.</p>`;
 }
 function renderDeptoServiceRow(key){
   const label = moduloLabel(key);
+  const ts = tiposServicio().find(t=>t.modulo===key||t.id===key);
+  if(ts && ts.estatus==="Próxima fase") return `<div class="depto-service-row depto-off" id="deptoSvcRow_${key}"><label class="depto-service-check"><input type="checkbox" disabled><strong>${label}</strong><em class="phase-tag-inline">${icon("lock")} Próxima fase</em></label></div>`;
   state.editing.departamentoDraft.servicios[key] = state.editing.departamentoDraft.servicios[key] || {activo:false,generaDocumentos:false,firmantes:[]};
   const cfg = state.editing.departamentoDraft.servicios[key];
   return `<div class="depto-service-row" id="deptoSvcRow_${key}">
@@ -4721,6 +5140,8 @@ function syncDeptoFirmantes(key){
 function toggleDeptoServicio(key,checked){
   state.editing.departamentoDraft.servicios[key] = state.editing.departamentoDraft.servicios[key] || {activo:false,generaDocumentos:false,firmantes:[]};
   state.editing.departamentoDraft.servicios[key].activo = checked;
+  const ts=tiposServicio().find(t=>t.modulo===key||t.id===key);
+  if(checked && ts?.generaDocumentos && !state.editing.departamentoDraft.servicios[key].generaDocumentos){ state.editing.departamentoDraft.servicios[key].generaDocumentos=true; if(!state.editing.departamentoDraft.servicios[key].firmantes.length) state.editing.departamentoDraft.servicios[key].firmantes=[{rol:"Elaboración",nombre:"",puesto:""},{rol:"Autorización",nombre:"",puesto:""}]; }
   $(`#deptoSvcRow_${key}`).outerHTML = renderDeptoServiceRow(key);
 }
 function toggleDeptoGeneraDocs(key,value){
@@ -4747,17 +5168,15 @@ function guardarDepartamento(editId){
     {id:"fDeptoTitularTel",label:"Teléfono",type:"phone",required:true}
   ]);
   if(!ok) return;
-  Object.keys(state.editing.departamentoDraft.servicios).forEach(key=>syncDeptoFirmantes(key));
-  const servicios = Object.entries(state.editing.departamentoDraft.servicios)
-    .filter(([,cfg])=>cfg.activo)
-    .map(([key,cfg])=>({modulo:key, generaDocumentos:cfg.generaDocumentos, firmantes:cfg.generaDocumentos?cfg.firmantes.filter(f=>f.nombre.trim()):[]}));
+  const previo = editId?findIn(state.data.departamentosCatalogo,editId):null;
+  const servicios = previo?previo.servicios:[];
   const payload = {
     nombre:$("#fDeptoNombre").value||"Departamento sin nombre",
     titular:{nombre:$("#fDeptoTitularNombre").value, correo:$("#fDeptoTitularCorreo").value, telefono:$("#fDeptoTitularTel").value, ext:$("#fDeptoTitularExt").value},
     servicios
   };
   if(editId){ Object.assign(findIn(state.data.departamentosCatalogo,editId),payload); toast("Departamento actualizado."); }
-  else { state.data.departamentosCatalogo.push({id:uid("DEP"),...payload}); toast("Departamento registrado."); }
+  else { const nd={id:uid("DEP"),...payload}; state.data.departamentosCatalogo.push(nd); state.deptoOpen=state.deptoOpen||{}; state.deptoOpen[nd.id]=true; toast("Departamento registrado. Ahora agrega los servicios que presta."); }
   navigate("cat-departamentos");
 }
 
@@ -5036,14 +5455,14 @@ function renderIncidentesSeguridad(){
           ${actionBtn("refresh","Cambiar estatus",`abrirCambiarEstatus('incidentes','${i.id}')`)}
           ${actionBtn("upload","Subir evidencias",`abrirEvidencias('incidente','${i.id}')`,"success")}
           ${actionBtn("clock","Bitácora",`abrirBitacora('incidentes','${i.id}')`)}
-          ${actionBtn("trash","Eliminar",`eliminarIncidente('${i.id}')`,"danger")}
         </div></td></tr>`;}).join(""):`<tr><td colspan="9" class="empty-state">No hay incidentes de seguridad registrados.</td></tr>`}</tbody>
     </table></div>
     ${paginationFoot(rows.length,"incidentes")}
   </article>`;
   $("#incidentesSearch").oninput = e=>{ state.search.incidentes=e.target.value; renderIncidentesSeguridad(); };
 }
-function verIncidente(id){
+function verIncidente(id){ return verDetalle("incidentes-seguridad-form",id); }
+function verIncidenteModal(id){
   const i = findIn(state.data.incidentes,id);
   const act = findIn(state.data.activos,i.activoId);
   openModal({title:i.folio, subtitle:i.tipoIncidente, size:"large", confirm:"Cerrar",
@@ -5154,36 +5573,44 @@ function guardarIncidente(editId){
 }
 
 /* ================= Catálogos simples (Motor de BD, Versión, Plataforma, etc.) ================= */
+const SIMPLE_SINGULAR = {"cat-motor-bd":"motor de BD","cat-version-bd":"versión de BD","cat-plataforma":"plataforma de alojamiento","cat-tipo-activo":"tipo de activo","cat-antivirus":"antivirus","cat-tipo-bd":"tipo de base de datos","cat-medidas-seguridad":"medida de seguridad","cat-tipo-incidente":"tipo de incidente","cat-protocolo":"protocolo de comunicación","cat-dependencias":"dependencia","cat-tramite":"trámite o servicio","cat-dominios":"dominio"};
 function renderSimpleCatalog(key,title){
   const term = state.search[key]||"";
   const list = state.data.catalogosSimples[key];
   const rows = list.filter(r=>matchesSearch(r,term));
+  const sing = SIMPLE_SINGULAR[key]||"registro";
   content.innerHTML = `
   ${breadcrumb([{label:"Catálogos"},{label:title}])}
-  <div class="page-header"><div><h1>Catálogo de ${title}</h1><p>Valores utilizados a lo largo de los formularios de solicitud del sistema.</p></div></div>
-  <article class="card">
-    <div style="display:flex;gap:10px;margin-bottom:14px"><input id="fSimpleNuevo" placeholder="Nombre de ${title.toLowerCase()}" style="flex:1"><button class="button primary" onclick="agregarSimple('${key}')">${icon("plus")} Añadir</button></div>
-    <div class="datatable-toolbar" style="padding:0 0 14px;border:0"><div class="datatable-actions" style="margin-left:auto">${searchBox("simpleSearch","Buscar registros",term)}</div></div>
-    <div class="table-wrap"><table><thead><tr><th>Nombre</th><th>Acciones</th></tr></thead>
+  <div class="page-header"><div><h1>Catálogo de ${title}</h1><p>Valores utilizados a lo largo de los formularios de solicitud del sistema.</p></div>
+    <div class="page-actions"><button class="button primary" onclick="agregarSimple('${key}')">${icon("plus")} Agregar ${sing}</button></div></div>
+  <article class="card table-card">
+    <div class="datatable-toolbar"><div class="entries-control">Mostrar <select><option>10</option><option>25</option><option>50</option></select> registros</div>
+      <div class="datatable-actions">${searchBox("simpleSearch","Buscar registros",term)}</div></div>
+    <div class="table-wrap"><table data-export-name="catalogo-${key.replace(/^cat-/,"")}"><thead><tr><th>Nombre</th><th class="col-acciones">Acciones</th></tr></thead>
       <tbody>${rows.length?rows.map(r=>`<tr><td>${r.nombre}</td><td><div class="actions-cell">
         ${actionBtn("edit","Editar",`editarSimple('${key}','${r.id}')`,"warning")}
         ${actionBtn("trash","Eliminar",`eliminarSimple('${key}','${r.id}')`,"danger")}
-      </div></td></tr>`).join(""):`<tr><td colspan="2" class="empty-state">Sin registros.</td></tr>`}</tbody>
+      </div></td></tr>`).join(""):`<tr><td colspan="2" class="empty-state">${term?"No hay registros que coincidan con la búsqueda.":"Sin registros."}</td></tr>`}</tbody>
     </table></div>
     ${paginationFoot(rows.length,"registros")}
   </article>`;
-  $("#simpleSearch").oninput = e=>{ state.search[key]=e.target.value; renderSimpleCatalog(key,title); };
+  $("#simpleSearch").oninput = e=>{ state.search[key]=e.target.value; renderSimpleCatalog(key,title); const i=$("#simpleSearch"); i.focus(); i.setSelectionRange(i.value.length,i.value.length); };
 }
 function agregarSimple(key){
-  const v = $("#fSimpleNuevo").value.trim();
-  if(!v){ toast("Escribe un nombre antes de añadir.","warning"); return; }
-  state.data.catalogosSimples[key].push({id:uid("GEN"),nombre:v});
-  toast("Registro agregado."); renderers[key]();
+  const sing = SIMPLE_SINGULAR[key]||"registro";
+  openModal({title:`Agregar ${sing}`, confirm:"Guardar", body:fieldInput("Nombre *","fSimpleNuevo","","text","class=full maxlength=80"),
+    onConfirm:()=>{ const v=$("#fSimpleNuevo").value.trim();
+      if(!v){ markFieldError($("#fSimpleNuevo"),"Escribe el nombre."); toast("Escribe el nombre antes de guardar.","error"); return; }
+      if(state.data.catalogosSimples[key].some(x=>x.nombre.toLowerCase()===v.toLowerCase())){ toast(`"${v}" ya existe en el catálogo.`,"error"); return; }
+      state.data.catalogosSimples[key].push({id:uid("GEN"),nombre:v}); closeModal(); toast("Registro agregado."); renderers[key](); }});
+  setTimeout(()=>$("#fSimpleNuevo")?.focus(),30);
 }
 function editarSimple(key,id){
   const item = findIn(state.data.catalogosSimples[key],id);
   openModal({title:"Editar registro", confirm:"Guardar", body:fieldInput("Nombre","fSimpleEdit",item.nombre),
-    onConfirm:()=>{ item.nombre=$("#fSimpleEdit").value; closeModal(); toast("Registro actualizado."); renderers[key](); }});
+    onConfirm:()=>{ const v=$("#fSimpleEdit").value.trim(); if(!v){ toast("Escribe el nombre.","error"); return; }
+      if(state.data.catalogosSimples[key].some(x=>x.id!==id&&x.nombre.toLowerCase()===v.toLowerCase())){ toast(`"${v}" ya existe en el catálogo.`,"error"); return; }
+      item.nombre=v; closeModal(); toast("Registro actualizado."); renderers[key](); }});
 }
 function eliminarSimple(key,id){
   openModal({title:"Eliminar registro", confirmClass:"danger", confirm:"Eliminar", body:"<p>¿Deseas eliminar este registro del catálogo?</p>",
@@ -5307,7 +5734,7 @@ const REPORTES = {
     cols:["Tipo","Nombre","Dominio base","Dependencia","IP / NAT","Publicación","Estatus","Registro"],
     filas:()=>{ const ord=[]; state.data.dominios.filter(x=>x.tipo==="Dominio").sort((a,b)=>a.nombre.localeCompare(b.nombre)).forEach(dm=>{ ord.push(dm); subdominiosDe(dm).forEach(x=>ord.push(x)); });
       state.data.dominios.filter(x=>x.tipo==="Subdominio"&&!dominioBaseDe(x)).forEach(x=>ord.push(x));
-      return ord.map(x=>({ver:`state.editing.dominioId='${x.id}';navigate('dominios-detalle')`,c:[x.tipo,x.tipo==="Dominio"?`<strong>${x.nombre}</strong>`:`<span class="rp-sub">↳ ${x.nombre}</span>`,x.tipo==="Dominio"?x.nombre:(dominioBaseDe(x)?.nombre||"Sin dominio base"),x.dependencia,[x.ip,x.nat].filter(Boolean).join(" / ")||"Sin IP",pubResultado(x),badgeEstatus(x.estatus||"Registrado"),fmtFecha(x.fecha)]})); },
+      return ord.map(x=>({ver:`verDetalle('dominios-form','${x.id}')`,c:[x.tipo,x.tipo==="Dominio"?`<strong>${x.nombre}</strong>`:`<span class="rp-sub">↳ ${x.nombre}</span>`,x.tipo==="Dominio"?x.nombre:(dominioBaseDe(x)?.nombre||"Sin dominio base"),x.dependencia,[x.ip,x.nat].filter(Boolean).join(" / ")||"Sin IP",pubResultado(x),badgeEstatus(x.estatus||"Registrado"),fmtFecha(x.fecha)]})); },
     kpis:f=>[["Dominios",f.filter(r=>r[0]==="Dominio").length],["Subdominios",f.filter(r=>r[0]==="Subdominio").length],["Publicados",f.filter(r=>PUB_OK.includes(r[5])).length],["Con problema",f.filter(r=>!PUB_OK.includes(r[5])&&r[5]!=="Interno").length],["Sin IP",f.filter(r=>r[4]==="Sin IP").length]]},
   vpn:{titulo:"Accesos VPN", icon:"key", desc:"Solicitudes y accesos activos",
     filtros:[{col:"Dependencia"},{col:"Estatus"},{col:"IP asignada",tipo:"presencia",con:"Con IP",sin:"Sin IP"},{col:"Registro",tipo:"fecha"}],
@@ -5601,9 +6028,9 @@ function colFilterKey(table){ const all=$$("#mainContent table[data-enh]"); retu
 /* Filtros por vista: solo columnas útiles para filtrar (catálogos, estatus y fechas).
    Los datos personales o de texto libre (nombre, correo, teléfono, observaciones) se buscan con la caja "Buscar". */
 const FILTROS_VISTA = {
-  "solicitantes":[{col:"Dependencia"},{col:"Área o depto"},{col:"Fecha de registro",tipo:"fecha"}],
-  "historial":[{col:"Tipo de Solicitud"},{col:"Estatus"},{col:"Fecha de Solicitud",tipo:"fecha"}],
-  "solicitudes":[{col:"Tipo de solicitud"},{col:"Dependencia"},{col:"Estatus"},{col:"Fecha",tipo:"fecha"}],
+  "solicitantes":[{col:"Dependencia"},{col:"Área o depto"},{col:"Estatus"},{col:"Fecha de registro",tipo:"fecha"}],
+  "historial":[{col:"Tipo de servicio"},{col:"Estatus"},{col:"Fecha de Solicitud",tipo:"fecha"}],
+  "solicitudes":[{col:"Tipo de servicio"},{col:"Dependencia"},{col:"Estatus"},{col:"Fecha",tipo:"fecha"}],
   "vpn":[{col:"Dependencia"},{col:"Estatus"},{col:"IP",tipo:"presencia",con:"Con IP asignada",sin:"Sin IP"},{col:"Fecha de registro",tipo:"fecha"}],
   "servidores":[{col:"Tipo"},{col:"Dependencia"},{col:"Sistema Operativo"},{col:"Antivirus",tipo:"presencia",con:"Con antivirus",sin:"Sin antivirus"},{col:"Estatus"},{col:"Fecha de registro",tipo:"fecha"}],
   "actas-seguridad":[{col:"Servidor"},{col:"Secretaría"},{col:"Resultado"},{col:"Estatus"},{col:"Fecha de emisión",tipo:"fecha"}],
@@ -5766,14 +6193,23 @@ const GUIA_ESTATUS = {
     "Descartado":{i:"ban",sig:"No era un incidente real (falso positivo).",cuando:"Si al revisar se confirma que no hubo incidente.",acc:["Consultar el expediente","Ya no admite cambios"]}}}
 };
 function guiaTono(estatus){
+  const cc=colorEstatus(estatus); if(cc) return {verde:"t-approved",rojo:"t-observed",azul:"t-review",turquesa:"t-review",morado:"t-review",gris:"t-observed"}[cc]||"t-pending";
   const v=estatus.toLowerCase();
   if(ESTATUS_CLASE.observed.includes(v)) return "t-observed";
   if(ESTATUS_CLASE.approved.includes(v)) return "t-approved";
   if(ESTATUS_CLASE.review.includes(v)) return "t-review";
   return "t-pending";
 }
+Object.entries(GUIA_ESTATUS).forEach(([col,g])=>{
+  const nom=CANCEL_NOMBRE[col]||"Cancelado"; if(g.e[nom]) return;
+  g.alternos=[...(g.alternos||[]),nom];
+  g.e[nom]={i:"ban",sig:"El registro se capturó por error o está duplicado. Ya no se elimina: queda cancelado con su folio y su historial.",cuando:"Con \"Cambiar estatus\" desde cualquier estatus no final; requiere motivo.",acc:["Consultar el registro y su motivo en la Bitácora","Ya no admite cambios"]};
+});
 function abrirGuiaEstatus(col,volverId){
-  const g=GUIA_ESTATUS[col], f=FLUJOS_ESTATUS[col]; if(!g||!f) return;
+  const g0=GUIA_ESTATUS[col], f=FLUJOS_ESTATUS[col]; if(!g0||!f) return;
+  state._ctxCol=col;
+  const act=e=>f.estados[e]&&f.estados[e].activo!==false&&g0.e[e];
+  const g={...g0, principal:g0.principal.filter(act), alternos:g0.alternos.filter(act)};
   const actual = volverId ? estatusActual(col,findIn(state.data[col],volverId)) : null;
   const step=e=>`<div class="gx-step ${guiaTono(e)} ${e===actual?"current":""}"><i>${icon(g.e[e].i)}</i>${e}${g.alternos.includes(e)?`<small>Desde ${Object.keys(f.estados).filter(k=>f.estados[k].next.includes(e)).join(" o ")}</small>`:""}</div>`;
   const flujo=`<div class="gx-flow">${g.principal.map((e,k)=>step(e)+(k<g.principal.length-1?`<span class="gx-arrow">→</span>`:"")).join("")}${g.alternos.length?`<span class="gx-sep"></span>${g.alternos.map(step).join("")}`:""}</div>`;
@@ -5793,6 +6229,7 @@ function abrirGuiaEstatus(col,volverId){
       <div class="gx-grid">${orden.map(card).join("")}</div>`,
     onConfirm:()=>{ if(volverId) abrirCambiarEstatus(col,volverId); else closeModal(); }});
   $("#modalRoot .modal")?.classList.add("gx-modal");
+  state._ctxCol=null;
 }
 function botonGuiaEstatus(view){
   const col=VISTA_COLECCION[view]; if(!col||!GUIA_ESTATUS[col]) return;
@@ -5827,6 +6264,7 @@ function mdRegistros(view){
 }
 function irARegistros(view,filtros=[]){
   state.modTab=state.modTab||{}; state.modTab[view]="registros";
+  if(view==="solicitudes") state.solEtapa="";
   if(view==="dominios"){
     const df={dep:"",est:"",ip:"",pub:"",desde:"",hasta:""};
     filtros.forEach(x=>{ if(x.col==="Estatus") df.est=x.val; if(x.col==="Dependencia") df.dep=x.val; if(x.col==="IP") df.ip=x.val; if(x.col==="Publicación") df.pub=x.val; });
@@ -5886,7 +6324,7 @@ function mdFechaEstatus(reg,estatus){ const b=(reg.bitacora||[]).filter(e=>(e.mo
 const MD_CONTENIDO = {
   "servidores":(regs,f)=>{
     const d=state.data, ids=new Set(regs.map(x=>x.id));
-    const activos=regs.filter(x=>!["Rechazado","Dado de baja"].includes(x.estatus));
+    const activos=regs.filter(x=>!["Rechazado","Dado de baja","Cancelado"].includes(x.estatus));
     const conProt=new Set(d.actasSeguridad.map(a=>a.servidorId));
     const incAb=d.incidentes.filter(i=>ids.has(i.servidorId)&&!INC_CERRADOS.includes(i.estatus));
     const srvInc=new Set(incAb.map(i=>i.servidorId));
@@ -6011,7 +6449,7 @@ const MD_CONTENIDO = {
     const v="dominios";
     const doms=regs.filter(x=>x.tipo==="Dominio"), subs=regs.filter(x=>x.tipo==="Subdominio");
     const pend=subs.filter(x=>["Registrado","Validado","Autorizado"].includes(x.estatus||"Registrado"));
-    const it=x=>({label:x.nombre,sub:`${x.dependencia} · ${x.estatus||"Registrado"}`,ver:`state.editing.dominioId='${x.id}';navigate('dominios-detalle')`});
+    const it=x=>({label:x.nombre,sub:`${x.dependencia} · ${x.estatus||"Registrado"}`,ver:`verDetalle('dominios-form','${x.id}')`});
     return {
       tiles:[
         mdTile({label:"Subdominios",value:subs.length,sub:`sobre ${doms.length} dominio(s) base`,iconName:"link",tone:"lead",go:mdGo(v,[])}),
@@ -6034,7 +6472,7 @@ const MD_CONTENIDO = {
           mdCardAlertas("Requieren atención","Pendientes de este módulo.",[
             {tone:"critical",icon:"globe",t:"Notificados que no están publicados",items:regs.filter(x=>x.estatus==="Notificado"&&x.alcance!=="Interno"&&!PUB_OK.includes(pubResultado(x))).map(x=>({label:x.nombre,sub:pubResultado(x),ver:`abrirVerificacion('${x.id}')`}))},
             {tone:"warning",icon:"clock",t:"Certificados por vencer (30 días o menos)",items:regs.filter(x=>pubResultado(x)==="Certificado por vencer").map(x=>({label:x.nombre,sub:"Renovar certificado SSL",ver:`abrirVerificacion('${x.id}')`}))},
-            {tone:"warning",icon:"key",t:"Subdominios sin IP",items:subs.filter(x=>!x.ip&&!["Rechazado","Dado de baja"].includes(x.estatus)).map(it)},
+            {tone:"warning",icon:"key",t:"Subdominios sin IP",items:subs.filter(x=>!x.ip&&!["Rechazado","Dado de baja","Cancelado"].includes(x.estatus)).map(it)},
             {tone:"info",icon:"bell",t:"Autorizados pendientes de notificar",items:subs.filter(x=>x.estatus==="Autorizado").map(it)},
             {tone:"serious",icon:"clock",t:"Registrados hace más de 15 días",items:subs.filter(x=>(x.estatus||"Registrado")==="Registrado"&&mdDiasDesde(x.fecha)>15).map(it)}
           ]),
@@ -6103,8 +6541,592 @@ function renderModulo(view,orig){
 }
 Object.entries(MOD_PANEL).forEach(([view,c])=>{ const orig=window[c.fn]; if(typeof orig==="function") window[c.fn]=function(){ return renderModulo(view,orig); }; });
 
+/* ================= Catálogo de Estatus =================
+   Los flujos (FLUJOS_ESTATUS) son la fuente única: este catálogo los edita en vivo, así que tablas, filtros,
+   "Cambiar estatus", Guía de estatus, paneles y la bandeja de Solicitudes toman los cambios de inmediato.
+   Estatus de SISTEMA (los que trae el sistema y tienen reglas programadas): solo se cambia color, etapa,
+   significado, descripción y si pide motivo. Estatus PERSONALIZADOS: se configuran por completo. Ninguno se elimina. */
+const CE_MODULOS = [["servidoresSolicitudes","Servidores Físicos y Virtuales","servidores"],["dominios","Dominios y Subdominios","dominios"],["vpns","VPN","vpn"],["actasSeguridad","Protocolos de Seguridad","actas-seguridad"],["incidentes","Incidentes de Seguridad","incidentes-seguridad"]];
+const CE_ICONOS = ["clipboard","clock","refresh","check-circle","alert","ban","bell","key","shield","search","file-text","pin"];
+function ceRegistrosEn(col,n){ const f=FLUJOS_ESTATUS[col]; return (state.data[col]||[]).filter(r=>(r.estatus||f.orden[0])===n).length; }
+function ceDesde(col,n){ const f=FLUJOS_ESTATUS[col]; return f.orden.filter(k=>k!==n && f.estados[k].next.includes(n)); }
+function ceLog(col,mov,obs=""){ state.data.bitacoraEstatus=state.data.bitacoraEstatus||[]; state.data.bitacoraEstatus.push({fecha:todayStr(),hora:nowTime(),usuario:currentRole().label,modulo:CE_MODULOS.find(m=>m[0]===col)[1],movimiento:mov,obs}); }
+function cePal(c,n){ return `<span class="badge st-c-${c}">${n}</span>`; }
+function renderCatEstatus(){
+  const col=state.ceCol||"dominios"; state.ceCol=col;
+  const f=FLUJOS_ESTATUS[col]; const term=(state.search["cat-estatus"]||"").toLowerCase();
+  const lista=f.orden.filter(n=>!term||n.toLowerCase().includes(term));
+  content.innerHTML=`
+  ${breadcrumb([{label:"Catálogos"},{label:"Estatus"}])}
+  <div class="page-header"><div><h1>Catálogo de Estatus</h1><p>Estatus que maneja cada módulo: nombre, color, etapa de atención y a qué estatus puede pasar. Lo que configures aquí se refleja en las tablas, en "Cambiar estatus", en la Guía de estatus y en los paneles.</p></div>
+    <div class="page-actions"><button class="button secondary" onclick="abrirBitacoraCatEstatus()">${icon("clock")} Bitácora del catálogo</button><button class="button primary" onclick="abrirEstatusForm('${col}')">${icon("plus")} Agregar estatus</button></div></div>
+  <div class="ce-tabs" role="tablist">${CE_MODULOS.map(([c,l])=>`<button type="button" role="tab" class="${c===col?"on":""}" onclick="state.ceCol='${c}';state.search['cat-estatus']='';renderCatEstatus()">${l}<small>${FLUJOS_ESTATUS[c].orden.filter(n=>FLUJOS_ESTATUS[c].estados[n].activo!==false).length}</small></button>`).join("")}</div>
+  <div class="ce-flow"><b>Flujo actual</b>${f.orden.filter(n=>f.estados[n].activo!==false).map((n,i)=>`${i?"<i>›</i>":""}${cePal(f.estados[n].color,n)}`).join("")}</div>
+  <article class="card table-card">
+    <div class="datatable-toolbar"><div class="entries-control">Mostrar <select><option>10</option><option>25</option></select> registros</div>
+      <div class="datatable-actions">${botonGuiaCE(col)}${searchBox("ceSearch","Buscar estatus",state.search["cat-estatus"]||"")}</div></div>
+    <div class="table-wrap"><table data-export-name="catalogo-estatus-${col}">
+      <thead><tr><th>Orden</th><th>Estatus</th><th>Etapa de atención</th><th>Tipo</th><th>Pide motivo</th><th>Puede pasar a</th><th>Registros</th><th>Origen</th><th>Situación</th><th>Acciones</th></tr></thead>
+      <tbody>${lista.map(n=>{ const e=f.estados[n]; const nx=e.next.filter(k=>f.estados[k]?.activo!==false).sort((x,y)=>f.orden.indexOf(x)-f.orden.indexOf(y)); const regla=e.auto?"Lo asigna el sistema automáticamente":e.requiere?"Tiene validación del sistema":e.inicial?"Estatus inicial al registrar":""; return `<tr class="${e.activo===false?"ce-off":""}">
+        <td>${f.orden.indexOf(n)+1}</td>
+        <td>${cePal(e.color,n)}${regla?`<span class="subtext">${regla}</span>`:""}</td>
+        <td>${e.etapa}</td><td>${e.inicial?"Inicial":e.final?"Final":"Intermedio"}</td><td>${e.motivo?"Sí":"No"}</td>
+        <td><div class="ce-trans">${nx.length?nx.map(k=>`<span>${k}</span>`).join(""):`<em>— (final)</em>`}</div></td>
+        <td>${ceRegistrosEn(col,n)}</td>
+        <td>${e.sistema?`<span class="ce-tag sys">${icon("lock")} Sistema</span>`:`<span class="ce-tag cus">Personalizado</span>`}</td>
+        <td>${e.sistema?`<span class="ce-always" title="Los estatus de sistema no se pueden inactivar">${icon("lock")} Siempre activo</span>`:e.activo===false?`<span class="badge canceled">Inactivo</span>`:`<span class="badge approved">Activo</span>`}</td>
+        <td><div class="actions-cell">
+          ${actionBtn("edit","Editar",`abrirEstatusForm('${col}','${encodeURIComponent(n)}')`,"warning")}
+          ${e.sistema?"":(e.activo===false?actionBtn("refresh","Reactivar",`toggleActivoEstatus('${col}','${encodeURIComponent(n)}')`):actionBtn("ban","Inactivar",`toggleActivoEstatus('${col}','${encodeURIComponent(n)}')`,"danger"))}
+        </div></td></tr>`; }).join("")||`<tr><td colspan="10" class="empty-state">Sin estatus que coincidan.</td></tr>`}</tbody>
+    </table></div>
+    ${paginationFoot(lista.length,"estatus")}
+  </article>`;
+  $("#ceSearch").oninput=e=>{ state.search["cat-estatus"]=e.target.value; renderCatEstatus(); const i=$("#ceSearch"); i.focus(); i.setSelectionRange(i.value.length,i.value.length); };
+}
+function botonGuiaCE(col){ return `<button type="button" class="gx-btn" onclick="abrirGuiaEstatus('${col}')">${icon("help")} Ver Guía de estatus</button>`; }
+function abrirEstatusForm(col,nEnc){
+  const f=FLUJOS_ESTATUS[col]; const n=nEnc?decodeURIComponent(nEnc):null; const e=n?f.estados[n]:null;
+  const sis=!!e?.sistema; const g=GUIA_ESTATUS[col]; const ge=n?g.e[n]:null;
+  const cancel=CANCEL_NOMBRE[col]||"Cancelado";
+  const otros=f.orden.filter(k=>k!==n && f.estados[k].activo!==false);
+  const desde=n?ceDesde(col,n):[]; const hacia=e?e.next:[cancel];
+  const color=e?.color||"morado";
+  const posOpts=f.orden.filter(k=>k!==n).map(k=>[k,`Después de «${k}»`]);
+  const posSel=n?(f.orden[f.orden.indexOf(n)-1]||f.orden[0]):(f.orden.filter(k=>!f.estados[k].final).pop());
+  const chk=(name,list,sel,disFn)=>`<div class="ce-chk">${list.map(k=>{ const d=disFn(k); return `<label class="${d?"dis":""}" ${d?`title="${d}"`:""}><input type="checkbox" name="${name}" value="${k.replace(/"/g,"&quot;")}" ${sel.includes(k)?"checked":""} ${d?"disabled":""}>${cePal(f.estados[k].color,k)}</label>`; }).join("")}</div>`;
+  openModal({title:n?"Editar estatus":"Agregar estatus", subtitle:`Módulo: ${CE_MODULOS.find(m=>m[0]===col)[1]}`, size:"large", confirm:"Guardar",
+    body:`${sis?`<div class="ce-lock">${icon("lock")}<span><strong>Estatus de sistema.</strong> El sistema usa "${n}" en sus reglas${e.auto?" (se asigna automáticamente)":e.requiere?" (tiene validaciones)":e.inicial?" (es el estatus con el que nace cada registro)":""}. Puedes cambiar su color, etapa, significado, descripción y si pide motivo; su nombre, tipo y flujo quedan fijos y no se puede inactivar. Para conectarlo con un estatus nuevo, hazlo desde el estatus nuevo.</span></div>`:""}
+      <div class="form-grid" style="margin-top:${sis?14:0}px">
+        ${fieldInput("Nombre del estatus *","ceNombre",n||"","text",sis?"disabled":"maxlength=40")}
+        ${fieldSelect("Etapa de atención (paneles y bandeja) *","ceEtapa",SOL_ETAPAS.map(x=>x.k).filter(k=>k!=="Cancelada"||e?.etapa==="Cancelada"),e?.etapa||"En trámite",e?.cancelado?"disabled":"")}
+        ${fieldSelect("Tipo *","ceTipo",sis?[[e.inicial?"i":e.final?"f":"m",e.inicial?"Inicial":e.final?"Final":"Intermedio"]]:[["m","Intermedio (puede pasar a otros estatus)"],["f","Final (ya no admite cambios)"]],e?(e.final?"f":"m"):"m",sis?"disabled":'onchange="ceSyncTipo()"')}
+        ${fieldSelect("¿Pide motivo al cambiar a este estatus?","ceMotivo",[["si","Sí"],["no","No"]],e?(e.motivo?"si":"no"):"si",e?.cancelado?"disabled":"")}
+      </div>
+      <p class="ce-sec">Color de la etiqueta</p>
+      <div class="ce-sw">${Object.entries(ESTATUS_PALETA).map(([k,c])=>`<label class="${k===color?"sel":""}"><input type="radio" name="ceColor" value="${k}" ${k===color?"checked":""} onchange="ceSyncColor()"><span class="dot st-c-${k}">Aa</span>${c.l}</label>`).join("")}</div>
+      <div class="ce-prev"><b>Vista previa</b><span id="cePrev">${cePal(color,n||"Nuevo estatus")}</span><small>así se verá en tablas, filtros, reportes y en "Cambiar estatus"</small></div>
+      ${sis?`<p class="ce-sec">Flujo</p><div class="ce-fixed"><div><b>Llega desde</b>${desde.length?desde.map(k=>cePal(f.estados[k].color,k)).join(" "):"—"}</div><div><b>Puede pasar a</b>${e.next.length?e.next.map(k=>cePal(f.estados[k].color,k)).join(" "):"— (final)"}</div></div>`
+      :`<p class="ce-sec">Flujo</p>
+      <p class="ce-note">¿Desde qué estatus se puede llegar a este?</p>
+      ${chk("ceDesde",otros,desde,k=>f.estados[k].final&&!f.estados[k].next.length?"Es un estatus final":"")}
+      <div id="ceHaciaWrap"><p class="ce-note" style="margin-top:12px">¿A qué estatus puede pasar después?</p>
+      ${chk("ceHacia",otros,hacia,k=>f.estados[k].auto?"Lo asigna el sistema automáticamente":k===cancel?"Siempre disponible para registros no finales":"")}</div>
+      <div class="form-grid" style="margin-top:12px">${fieldSelect("Posición en el flujo","cePos",posOpts,posSel)}</div>`}
+      <div class="form-grid" style="margin-top:12px">
+        ${fieldTextarea("Significado (aparece en la Guía de estatus) *","ceSig",ge?.sig||"")}
+        ${fieldTextarea("¿Cuándo se usa? *","ceCuando",ge?.cuando||e?.cuando||"")}
+      </div>`,
+    onConfirm:()=>guardarEstatus(col,n)});
+  if(!sis) ceSyncTipo();
+  $("#ceNombre")?.addEventListener("input",ceSyncColor);
+}
+function ceSyncColor(){ const c=$('input[name="ceColor"]:checked')?.value||"gris"; $$('.ce-sw label').forEach(l=>l.classList.toggle("sel",l.querySelector("input").checked)); const n=$("#ceNombre").value.trim()||"Nuevo estatus"; $("#cePrev").innerHTML=cePal(c,n.replace(/</g,"&lt;")); }
+function ceSyncTipo(){ const fin=$("#ceTipo")?.value==="f"; const w=$("#ceHaciaWrap"); if(w) w.style.display=fin?"none":""; }
+function guardarEstatus(col,orig){
+  const f=FLUJOS_ESTATUS[col], g=GUIA_ESTATUS[col], cancel=CANCEL_NOMBRE[col]||"Cancelado";
+  const e=orig?f.estados[orig]:null, sis=!!e?.sistema;
+  const nombre=sis?orig:$("#ceNombre").value.trim().replace(/\s+/g," ");
+  const sig=$("#ceSig").value.trim(), cuando=$("#ceCuando").value.trim();
+  if(!nombre){ markFieldError($("#ceNombre"),"Escribe el nombre."); toast("Escribe el nombre del estatus.","error"); return; }
+  if(/[<>'"`]/.test(nombre)){ toast("El nombre no puede llevar comillas ni los símbolos < >.","error"); return; }
+  if(nombre!==orig && Object.keys(f.estados).some(k=>k.toLowerCase()===nombre.toLowerCase())){ toast(`Ya existe el estatus "${nombre}" en este módulo.`,"error"); return; }
+  if(!sig||!cuando){ toast("Escribe el significado y cuándo se usa: aparecen en la Guía de estatus.","error"); return; }
+  const color=$('input[name="ceColor"]:checked').value, etapa=$("#ceEtapa").value, motivo=$("#ceMotivo").value==="si";
+  const cambios=[];
+  if(sis){
+    if(e.color!==color) cambios.push(`color ${ESTATUS_PALETA[e.color].l} → ${ESTATUS_PALETA[color].l}`);
+    if(!e.cancelado && e.etapa!==etapa) cambios.push(`etapa ${e.etapa} → ${etapa}`);
+    if(!e.cancelado && !!e.motivo!==motivo) cambios.push(`pide motivo: ${motivo?"Sí":"No"}`);
+    if(g.e[orig].sig!==sig||g.e[orig].cuando!==cuando) cambios.push("descripción");
+    e.color=color; if(!e.cancelado){ e.etapa=etapa; e.motivo=motivo; } e.cuando=cuando; g.e[orig].sig=sig; g.e[orig].cuando=cuando;
+    closeModal(); if(cambios.length) ceLog(col,`Edición de "${orig}" (sistema)`,cambios.join(" · ")); toast(`Estatus "${orig}" actualizado.`); renderCatEstatus(); return;
+  }
+  const final=$("#ceTipo").value==="f";
+  const desde=$$('input[name="ceDesde"]:checked').map(i=>i.value);
+  let hacia=final?[]:$$('input[name="ceHacia"]:checked').map(i=>i.value);
+  if(!final && !hacia.includes(cancel)) hacia.push(cancel);
+  if(!desde.length){ toast("Marca al menos un estatus desde el que se pueda llegar a este; si no, nunca se podría asignar.","error"); return; }
+  if(!final && hacia.length<=1 && hacia[0]===cancel){ toast("Un estatus intermedio debe poder pasar al menos a otro estatus (además de Cancelado).","error"); return; }
+  const pos=$("#cePos").value;
+  // renombrar
+  if(orig && nombre!==orig){
+    f.estados[nombre]=f.estados[orig]; delete f.estados[orig];
+    f.orden=f.orden.map(k=>k===orig?nombre:k);
+    Object.values(f.estados).forEach(x=>x.next=x.next.map(k=>k===orig?nombre:k));
+    (state.data[col]||[]).forEach(r=>{ if(r.estatus===orig){ r.estatus=nombre; } });
+    g.e[nombre]=g.e[orig]; delete g.e[orig]; g.principal=g.principal.map(k=>k===orig?nombre:k); g.alternos=g.alternos.map(k=>k===orig?nombre:k);
+    cambios.push(`renombrado "${orig}" → "${nombre}"`);
+  }
+  const est=f.estados[nombre]||{};
+  Object.assign(est,{cuando, next:hacia, motivo, final, color, etapa, sistema:false, activo:est.activo!==false, inicial:false});
+  f.estados[nombre]=est;
+  // conexiones de entrada
+  Object.entries(f.estados).forEach(([k,x])=>{ if(k===nombre) return; const tiene=x.next.includes(nombre), quiere=desde.includes(k); if(quiere&&!tiene) x.next.push(nombre); if(!quiere&&tiene) x.next=x.next.filter(z=>z!==nombre); });
+  // posición
+  f.orden=f.orden.filter(k=>k!==nombre); const ix=f.orden.indexOf(pos); f.orden.splice(ix<0?f.orden.length:ix+1,0,nombre);
+  // guía
+  g.e[nombre]={i:final?"ban":"pin",sig,cuando,acc:final?["Consultar el registro y su historial en la Bitácora","Ya no admite cambios"]:[`Cambiar a: ${hacia.join(", ")}`]};
+  g.principal=g.principal.filter(k=>k!==nombre); g.alternos=g.alternos.filter(k=>k!==nombre);
+  if(final) g.alternos.splice(Math.max(0,g.alternos.indexOf(cancel)),0,nombre);
+  else { const ord=f.orden.filter(k=>g.principal.includes(k)||k===nombre); g.principal=ord; }
+  closeModal();
+  ceLog(col,orig?`Edición de "${nombre}"`:`Alta del estatus "${nombre}"`,[...cambios,`${ESTATUS_PALETA[color].l} · ${etapa} · ${final?"Final":"Intermedio"} · desde ${desde.join(", ")}${final?"":" · pasa a "+hacia.join(", ")}`].join(" · "));
+  toast(orig?`Estatus "${nombre}" actualizado.`:`Estatus "${nombre}" agregado. Ya está disponible en "Cambiar estatus".`);
+  renderCatEstatus();
+}
+function toggleActivoEstatus(col,nEnc){
+  const n=decodeURIComponent(nEnc), f=FLUJOS_ESTATUS[col], e=f.estados[n];
+  if(e.sistema) return;
+  const activo=e.activo!==false; const regs=ceRegistrosEn(col,n);
+  if(activo && regs){ openModal({title:"No se puede inactivar", confirm:"Entendido", body:`<p>Hay <strong>${regs}</strong> registro(s) en el estatus "${n}". Cámbialos a otro estatus antes de inactivarlo.</p>`, onConfirm:closeModal}); return; }
+  openModal({title:activo?"Inactivar estatus":"Reactivar estatus", confirm:activo?"Inactivar":"Reactivar", confirmClass:activo?"danger":"primary",
+    body:`<p style="margin:0 0 12px">${activo?`"${n}" dejará de aparecer en "Cambiar estatus", en la Guía y en el flujo. Los registros que pasaron por él conservan su historial.`:`"${n}" volverá a estar disponible en "Cambiar estatus".`}</p>${fieldTextarea("Motivo *","ceMot","")}`,
+    onConfirm:()=>{ const m=$("#ceMot").value.trim(); if(!m){ toast("Escribe el motivo.","error"); return; }
+      e.activo=!activo; ceLog(col,`${activo?"Inactivación":"Reactivación"} de "${n}"`,m); closeModal(); toast(activo?"Estatus inactivado.":"Estatus reactivado."); renderCatEstatus(); }});
+}
+function abrirBitacoraCatEstatus(){
+  const b=[...(state.data.bitacoraEstatus||[])].reverse();
+  openModal({title:"Bitácora del Catálogo de Estatus", subtitle:"Altas, ediciones, inactivaciones y reactivaciones de estatus.", size:"large", confirm:"Cerrar",
+    body:`<div class="bitacora-box"><table><thead><tr><th>Fecha</th><th>Hora</th><th>Usuario</th><th>Módulo</th><th>Movimiento</th><th>Detalle</th></tr></thead>
+      <tbody>${b.length?b.map(x=>`<tr><td>${x.fecha}</td><td>${x.hora}</td><td>${x.usuario}</td><td>${x.modulo}</td><td>${x.movimiento}</td><td>${x.obs||"-"}</td></tr>`).join(""):`<tr><td colspan="6" class="empty-state">Aún no hay cambios en el catálogo.</td></tr>`}</tbody></table></div>`,
+    onConfirm:closeModal});
+}
+
+/* ================= Firmantes: catálogo + firmas por servicio con historial =================
+   - state.data.firmantes: personas que firman (se registran una vez; se inactivan, no se eliminan).
+   - servicio.firmas: asignaciones {firmanteId, rol, orden, desde, hasta, estatus Vigente|Sustituido|Inactivo, motivo}.
+     Al cerrarse una firma se guarda copia del nombre y puesto de ese momento.
+   - servicio.firmantes: lista derivada de las firmas vigentes (la usan el formulario y la impresión del acta).
+   - El acta, al pasar a "Acta firmada", congela sus firmantes; las que aún no se firman usan los vigentes. */
+const isoADmy = v=>{ if(!v) return todayStr(); if(/^\d{2}\/\d{2}\/\d{4}$/.test(v)) return v; const [y,m,d]=v.split("-"); return `${d}/${m}/${y}`; };
+const dmyAIso = v=>{ if(!v) return ""; const [d,m,y]=v.split("/"); return `${y}-${m}-${d}`; };
+const tFecha = v=>{ const d=dxFecha(v); return d?d.getTime():0; };
+function firmasVigentes(sv){ return (sv.firmas||[]).filter(f=>f.estatus==="Vigente").sort((a,b)=>a.orden-b.orden); }
+function syncFirmantesServicio(sv){ sv.firmantes=firmasVigentes(sv).map(f=>{ const p=findIn(state.data.firmantes,f.firmanteId); return {rol:f.rol,nombre:p?.nombre||"",puesto:p?.puesto||"",firmanteId:f.firmanteId}; }); }
+function firmasEnFecha(sv,fecha){ const t=tFecha(fecha); return (sv.firmas||[]).filter(f=>tFecha(f.desde)<=t && (!f.hasta||tFecha(f.hasta)>t || (f.estatus==="Vigente"))).filter(f=>!(f.hasta&&tFecha(f.hasta)<=t)).sort((a,b)=>a.orden-b.orden); }
+function snapshotFirma(f){ const p=findIn(state.data.firmantes,f.firmanteId); return {rol:f.rol,nombre:f.nombreSnap||p?.nombre||"",puesto:f.puestoSnap||p?.puesto||""}; }
+function deptoActa(a){ return findIn(state.data.departamentosCatalogo,a.departamentoId) || state.data.departamentosCatalogo.find(d=>d.servicios.some(s=>s.modulo==="actas-seguridad"&&s.generaDocumentos)); }
+function firmantesActa(a){
+  if(a.estatus==="Acta firmada" && a.firmantesFirmados) return a.firmantesFirmados;
+  const sv=deptoActa(a)?.servicios.find(s=>s.modulo==="actas-seguridad");
+  if(sv?.firmas) return firmasVigentes(sv).map(snapshotFirma);
+  return a.firmantes||[];
+}
+function firmasDeFirmante(id){ const out=[]; state.data.departamentosCatalogo.forEach(d=>d.servicios.forEach(sv=>(sv.firmas||[]).forEach(f=>{ if(f.firmanteId===id) out.push({d,sv,f}); }))); return out; }
+function cerrarFirma(f,estatus,fecha,motivo){ const p=findIn(state.data.firmantes,f.firmanteId); f.nombreSnap=p?.nombre; f.puestoSnap=p?.puesto; f.estatus=estatus; f.hasta=fecha; f.motivo=motivo; }
+
+/* ---- Catálogo de Firmantes ---- */
+function renderCatFirmantes(){
+  const term=(state.search["cat-firmantes"]||"").toLowerCase();
+  const lista=state.data.firmantes.filter(p=>!term||[p.nombre,p.puesto,p.adscripcion,p.correo].join(" ").toLowerCase().includes(term))
+    .sort((a,b)=>(a.estatus==="Activo"?0:1)-(b.estatus==="Activo"?0:1)||a.nombre.localeCompare(b.nombre,"es"));
+  content.innerHTML=`
+  ${breadcrumb([{label:"Catálogos"},{label:"Firmantes"}])}
+  <div class="page-header"><div><h1>Catálogo de Firmantes</h1><p>Servidores públicos que firman los documentos oficiales del sistema (por ejemplo, el acta del Protocolo de Seguridad). Se registran una vez y se asignan a los servicios de cada departamento desde <a href="#" onclick="navigate('cat-departamentos')">Departamentos › Gestionar firmas</a>.</p></div>
+    <div class="page-actions"><button class="button primary" onclick="abrirFirmanteForm()">${icon("plus")} Registrar firmante</button></div></div>
+  <article class="card table-card">
+    <div class="datatable-toolbar"><div class="entries-control">Mostrar <select><option>10</option><option>25</option></select> registros</div>
+      <div class="datatable-actions">${searchBox("firSearch","Buscar firmante",state.search["cat-firmantes"]||"")}</div></div>
+    <div class="table-wrap"><table data-export-name="catalogo-firmantes">
+      <thead><tr><th>Firmante</th><th>Adscripción</th><th>Correo</th><th>Firma en</th><th>Vigencia</th><th>Estatus</th><th>Acciones</th></tr></thead>
+      <tbody>${lista.length?lista.map(p=>{ const vig=firmasDeFirmante(p.id).filter(x=>x.f.estatus==="Vigente"); const act=p.estatus==="Activo"; return `<tr class="${act?"":"fx-off"}">
+        <td><div class="fx-who"><strong>${p.nombre}</strong><small>${p.puesto}</small></div></td>
+        <td>${p.adscripcion||"—"}</td><td>${p.correo||"—"}</td>
+        <td>${vig.length?`<div class="fx-chips">${vig.map(x=>`<span title="${x.d.nombre}">${moduloLabel(x.sv.modulo)} · ${x.f.rol}</span>`).join("")}</div>`:`<span class="subtext" style="margin:0">Sin firmas vigentes</span>`}</td>
+        <td class="fx-vig">Desde ${p.desde||"—"}<small>${p.hasta?`Hasta ${p.hasta}`:"Vigente"}</small></td>
+        <td>${badgeEstatus(p.estatus)}</td>
+        <td><div class="actions-cell">
+          ${actionBtn("edit","Editar",`abrirFirmanteForm('${p.id}')`,"warning")}
+          ${act?actionBtn("ban","Inactivar",`toggleFirmante('${p.id}')`,"danger"):actionBtn("refresh","Reactivar",`toggleFirmante('${p.id}')`)}
+          ${actionBtn("signature","Historial de firmas",`abrirHistorialFirmante('${p.id}')`)}
+          ${actionBtn("clock","Bitácora",`abrirBitacora('firmantes','${p.id}')`)}
+        </div></td></tr>`; }).join(""):`<tr><td colspan="7" class="empty-state">Sin firmantes que coincidan.</td></tr>`}</tbody>
+    </table></div>
+    ${paginationFoot(lista.length,"firmantes")}
+  </article>`;
+  $("#firSearch").oninput=e=>{ state.search["cat-firmantes"]=e.target.value; renderCatFirmantes(); const i=$("#firSearch"); i.focus(); i.setSelectionRange(i.value.length,i.value.length); };
+}
+function abrirFirmanteForm(id,alGuardar){
+  const p=id?findIn(state.data.firmantes,id):null;
+  state.editing.firmanteAlGuardar=alGuardar||null;
+  const adsc=[...new Set([...state.data.departamentosCatalogo.map(d=>d.nombre),...state.data.firmantes.map(f=>f.adscripcion).filter(Boolean)])].sort((a,b)=>a.localeCompare(b,"es"));
+  openModal({title:p?"Editar firmante":"Registrar firmante", subtitle:p?p.nombre:"Se podrá asignar a los servicios de cualquier departamento.", confirm:"Guardar",
+    body:`<div class="form-grid">
+      ${fieldInput("Nombre completo (con grado) *","fFirNombre",p?.nombre||"","text","class=full maxlength=90")}
+      ${fieldInput("Puesto *","fFirPuesto",p?.puesto||"","text","maxlength=90")}
+      ${fieldInput("Adscripción *","fFirAdsc",p?.adscripcion||"","text",'list="fFirAdscList" maxlength=90')}
+      ${fieldEmail("Correo electrónico","fFirCorreo",p?.correo||"")}
+      ${fieldInput("Vigente desde *","fFirDesde",dmyAIso(p?.desde||todayStr()),"date")}
+    </div><datalist id="fFirAdscList">${adsc.map(a=>`<option value="${a}">`).join("")}</datalist>
+    ${p?`<p class="ce-note" style="margin-top:10px">Si cambias el puesto, se actualiza en las firmas vigentes. Las firmas del historial y las actas ya firmadas conservan el puesto que tenían.</p>`:""}`,
+    onConfirm:()=>{
+      if(!validateFields([{id:"fFirNombre",label:"Nombre completo",required:true},{id:"fFirPuesto",label:"Puesto",required:true},{id:"fFirAdsc",label:"Adscripción",required:true},{id:"fFirCorreo",label:"Correo electrónico",type:"email",required:false}])) return;
+      const nombre=$("#fFirNombre").value.trim().replace(/\s+/g," ");
+      if(state.data.firmantes.some(x=>x.id!==id && x.nombre.toLowerCase()===nombre.toLowerCase())){ toast("Ya existe un firmante con ese nombre en el catálogo.","error"); return; }
+      const datos={nombre, puesto:$("#fFirPuesto").value.trim(), adscripcion:$("#fFirAdsc").value.trim(), correo:$("#fFirCorreo").value.trim(), desde:isoADmy($("#fFirDesde").value)};
+      let reg;
+      if(p){ const cambios=Object.keys(datos).filter(k=>p[k]!==datos[k]).map(k=>({nombre:"nombre",puesto:"puesto",adscripcion:"adscripción",correo:"correo",desde:"vigencia"}[k])); Object.assign(p,datos); reg=p; if(cambios.length) logBitacora(p,"Edición del firmante",`Cambió: ${cambios.join(", ")}`); }
+      else { reg={id:uid("FIR"),...datos,estatus:"Activo",hasta:"",bitacora:[]}; state.data.firmantes.push(reg); logBitacora(reg,"Registro del firmante"); }
+      state.data.departamentosCatalogo.forEach(d=>d.servicios.forEach(syncFirmantesServicio));
+      toast(p?"Firmante actualizado.":"Firmante registrado.");
+      const cb=state.editing.firmanteAlGuardar; state.editing.firmanteAlGuardar=null;
+      if(cb){ cb(reg.id); return; }
+      closeModal(); if(state.view==="cat-firmantes") renderCatFirmantes();
+    }});
+}
+function toggleFirmante(id){
+  const p=findIn(state.data.firmantes,id), act=p.estatus==="Activo";
+  const vig=firmasDeFirmante(id).filter(x=>x.f.estatus==="Vigente");
+  if(act && vig.length){ openModal({title:"No se puede inactivar", subtitle:p.nombre, confirm:"Entendido",
+    body:`<p style="margin:0 0 10px">Tiene <strong>${vig.length}</strong> firma(s) vigente(s). Primero sustitúyelo en cada servicio desde <strong>Departamentos › Gestionar firmas</strong>:</p>
+      <ul class="fx-list">${vig.map(x=>`<li><span>${x.d.nombre} · ${moduloLabel(x.sv.modulo)} · <b>${x.f.rol}</b></span><button type="button" class="button ghost dx-mini" onclick="abrirFirmasServicio('${x.d.id}','${x.sv.modulo}')">Gestionar firmas</button></li>`).join("")}</ul>`, onConfirm:closeModal}); return; }
+  openModal({title:act?"Inactivar firmante":"Reactivar firmante", subtitle:p.nombre, confirm:act?"Inactivar":"Reactivar", confirmClass:act?"danger":"primary",
+    body:`<p style="margin:0 0 12px">${act?"Ya no se podrá elegir para nuevas firmas. Su historial y las actas que firmó se conservan.":"Volverá a estar disponible para asignarlo a servicios."}</p>
+      <div class="form-grid">${act?fieldInput("Fecha de término *","fFirHasta",dmyAIso(todayStr()),"date"):""}${fieldTextarea("Motivo *","fFirMot","")}</div>`,
+    onConfirm:()=>{ const m=$("#fFirMot").value.trim(); if(!m){ toast("Escribe el motivo.","error"); return; }
+      if(act){ p.estatus="Inactivo"; p.hasta=isoADmy($("#fFirHasta").value); } else { p.estatus="Activo"; p.hasta=""; }
+      logBitacora(p,`Cambio de estatus: ${act?"Activo → Inactivo":"Inactivo → Activo"}`,m); closeModal(); toast(act?"Firmante inactivado.":"Firmante reactivado."); renderCatFirmantes(); }});
+}
+function abrirHistorialFirmante(id){
+  const p=findIn(state.data.firmantes,id); const h=firmasDeFirmante(id).sort((a,b)=>tFecha(b.f.desde)-tFecha(a.f.desde));
+  openModal({title:"Historial de firmas", subtitle:`${p.nombre} · ${p.puesto}`, size:"large", confirm:"Cerrar",
+    body:`<div class="table-wrap" style="border:1px solid var(--line);border-radius:10px"><table><thead><tr><th>Departamento</th><th>Servicio</th><th>Rol</th><th>Periodo</th><th>Estatus</th><th>Motivo</th></tr></thead>
+      <tbody>${h.length?h.map(({d,sv,f})=>`<tr class="${f.estatus==="Vigente"?"":"fx-off"}"><td>${d.nombre}</td><td>${moduloLabel(sv.modulo)}</td><td><strong>${f.rol}</strong></td><td class="fx-vig">${f.desde}<small>${f.hasta?`al ${f.hasta}`:"a la fecha"}</small></td><td>${fxBadge(f.estatus)}</td><td style="font-size:12px">${f.motivo||"—"}</td></tr>`).join(""):`<tr><td colspan="6" class="empty-state">Aún no se ha asignado a ningún servicio.</td></tr>`}</tbody></table></div>`,
+    onConfirm:closeModal});
+}
+function fxBadge(e){ return `<span class="badge ${e==="Vigente"?"approved":"canceled"}">${e}</span>`; }
+
+/* ---- Firmas de un servicio del departamento (grid) ---- */
+function abrirFirmasServicio(depId,key){
+  const d=findIn(state.data.departamentosCatalogo,depId), sv=d.servicios.find(x=>x.modulo===key); sv.firmas=sv.firmas||[];
+  const vig=firmasVigentes(sv), hist=sv.firmas.filter(f=>f.estatus!=="Vigente").sort((a,b)=>tFecha(b.hasta)-tFecha(a.hasta));
+  const who=f=>{ const s=f.estatus==="Vigente"?(()=>{const p=findIn(state.data.firmantes,f.firmanteId);return {nombre:p?.nombre||"—",puesto:p?.puesto||""};})():{nombre:f.nombreSnap,puesto:f.puestoSnap}; return `<div class="fx-who"><strong>${s.nombre}</strong><small>${s.puesto}</small></div>`; };
+  const doc=key==="actas-seguridad"?"el acta del Protocolo de Seguridad":`los documentos de ${moduloLabel(key)}`;
+  openModal({title:"Firmas del documento", subtitle:`${moduloLabel(key)} · ${d.nombre}`, size:"large", confirm:"Cerrar",
+    body:`<div class="fx-note">${icon("help")}<span>Estas firmas aparecen en ${doc} en el orden indicado. Cuando un firmante cambia, usa <strong>Sustituir</strong>: el anterior queda en el historial con su fecha de término${key==="actas-seguridad"?" y las actas ya firmadas conservan a quien firmó en su momento":""}.</span></div>
+      <div class="fx-bar"><strong>Firmas vigentes</strong><button type="button" class="button primary" onclick="abrirFirmaForm('${depId}','${key}')">${icon("plus")} Agregar firma</button></div>
+      <div class="table-wrap" style="border:1px solid var(--line);border-radius:10px"><table>
+        <thead><tr><th>Orden</th><th>Rol en el documento</th><th>Firmante</th><th>Vigente desde</th><th>Estatus</th><th>Acciones</th></tr></thead>
+        <tbody>${vig.length?vig.map(f=>`<tr><td>${f.orden}</td><td><strong>${f.rol}</strong></td><td>${who(f)}</td><td>${f.desde}</td><td>${fxBadge("Vigente")}</td>
+          <td><div class="actions-cell" style="gap:6px"><button type="button" class="button secondary dx-mini" onclick="abrirSustituirFirma('${depId}','${key}','${f.id}')">${icon("refresh")} Sustituir</button>${actionBtn("edit","Editar rol / orden",`abrirFirmaForm('${depId}','${key}','${f.id}')`,"warning")}${actionBtn("ban","Inactivar firma",`inactivarFirma('${depId}','${key}','${f.id}')`,"danger")}</div></td></tr>`).join("")
+          :`<tr><td colspan="6" class="empty-state">Sin firmas vigentes. Usa "Agregar firma".</td></tr>`}
+        ${hist.length?`<tr><td colspan="6" class="fx-hist">Historial</td></tr>${hist.map(f=>`<tr class="fx-off"><td>${f.orden}</td><td><strong>${f.rol}</strong></td><td>${who(f)}</td><td class="fx-vig">${f.desde}<small>al ${f.hasta}</small></td><td>${fxBadge(f.estatus)}</td><td style="font-size:12px">${f.motivo||"—"}</td></tr>`).join("")}`:""}
+        </tbody></table></div>`,
+    onConfirm:()=>{ closeModal(); if(state.view==="cat-departamentos") renderCatDepartamentos(); else if(state.view==="cat-firmantes") renderCatFirmantes(); }});
+}
+function opcionesFirmantes(sv,excluir=[]){
+  const ocupados=new Set(firmasVigentes(sv).map(f=>f.firmanteId).filter(id=>!excluir.includes(id)));
+  return state.data.firmantes.filter(p=>p.estatus==="Activo"&&!ocupados.has(p.id)).sort((a,b)=>a.nombre.localeCompare(b.nombre,"es"));
+}
+function abrirFirmaForm(depId,key,firmaId,preSel){
+  const d=findIn(state.data.departamentosCatalogo,depId), sv=d.servicios.find(x=>x.modulo===key); const f=firmaId?sv.firmas.find(x=>x.id===firmaId):null;
+  const ops=opcionesFirmantes(sv);
+  const roles=[...new Set(["Elaboración","Revisión","Vo.Bo.","Autorización",...state.data.departamentosCatalogo.flatMap(x=>x.servicios.flatMap(s=>(s.firmas||[]).map(y=>y.rol)))])];
+  const sigOrden=Math.max(0,...firmasVigentes(sv).map(x=>x.orden))+1;
+  const p=f?findIn(state.data.firmantes,f.firmanteId):null;
+  openModal({title:f?"Editar firma":"Agregar firma", subtitle:`${moduloLabel(key)} · ${d.nombre}`, confirm:"Guardar",
+    body:`<div class="form-grid">
+      ${fieldInput("Rol en el documento *","fFxRol",f?.rol||"","text",'list="fFxRoles" maxlength=40 placeholder="Ej. Elaboración, Vo.Bo., Autorización"')}
+      ${fieldInput("Orden *","fFxOrden",f?.orden||sigOrden,"number",'min=1 max=20')}
+      ${f?fieldInput("Firmante","fFxFir",`${p?.nombre} — ${p?.puesto}`,"text","disabled class=full")
+        :`<div class="field full"><label for="fFxFir">Firmante (del Catálogo de Firmantes) *</label><select id="fFxFir">${ops.length?ops.map(o=>`<option value="${o.id}" ${o.id===preSel?"selected":""}>${o.nombre} — ${o.puesto}</option>`).join(""):`<option value="">No hay firmantes activos disponibles</option>`}</select></div>`}
+      ${f?"":fieldInput("Vigente desde *","fFxDesde",dmyAIso(todayStr()),"date")}
+    </div><datalist id="fFxRoles">${roles.map(r=>`<option value="${r}">`).join("")}</datalist>
+    ${f?`<p class="ce-note" style="margin-top:10px">Para cambiar a la persona usa <strong>Sustituir</strong>, así queda el historial.</p>`
+       :`<p class="ce-note" style="margin-top:10px">¿No aparece? <a href="#" onclick="abrirFirmanteForm(null,id=>abrirFirmaForm('${depId}','${key}',null,id));return false">Registrar en el Catálogo de Firmantes</a>.</p>`}`,
+    onConfirm:()=>{
+      const rol=$("#fFxRol").value.trim(), orden=parseInt($("#fFxOrden").value,10);
+      if(!rol){ toast("Escribe el rol en el documento.","error"); return; }
+      if(!(orden>=1)){ toast("El orden debe ser un número mayor a 0.","error"); return; }
+      if(f){ const prev=`${f.rol} (${f.orden})`; f.rol=rol; f.orden=orden; const per=findIn(state.data.firmantes,f.firmanteId); if(per) logBitacora(per,"Edición de firma",`${d.nombre} · ${moduloLabel(key)}: ${prev} → ${rol} (${orden})`); }
+      else { const fid=$("#fFxFir").value; if(!fid){ toast("Elige un firmante.","error"); return; }
+        const nf={id:uid("FMA"),firmanteId:fid,rol,orden,desde:isoADmy($("#fFxDesde").value),hasta:"",estatus:"Vigente",motivo:""}; sv.firmas.push(nf);
+        logBitacora(findIn(state.data.firmantes,fid),"Asignación de firma",`${d.nombre} · ${moduloLabel(key)} · ${rol}`); }
+      syncFirmantesServicio(sv); toast(f?"Firma actualizada.":"Firma agregada."); abrirFirmasServicio(depId,key);
+    }});
+}
+function abrirSustituirFirma(depId,key,firmaId){
+  const d=findIn(state.data.departamentosCatalogo,depId), sv=d.servicios.find(x=>x.modulo===key), f=sv.firmas.find(x=>x.id===firmaId);
+  const act=findIn(state.data.firmantes,f.firmanteId); const ops=opcionesFirmantes(sv).filter(o=>o.id!==f.firmanteId);
+  openModal({title:"Sustituir firmante", subtitle:`Rol «${f.rol}» · ${moduloLabel(key)} · ${d.nombre}`, confirm:"Sustituir",
+    body:`<div class="fx-swap"><div class="fx-card"><b>Firmante actual</b><strong>${act?.nombre}</strong><br><span>${act?.puesto} · desde ${f.desde}</span></div><span class="fx-arrow">→</span>
+      <div class="fx-card new"><b>Nuevo firmante</b><strong id="fxNuevoN">${ops[0]?.nombre||"—"}</strong><br><span id="fxNuevoP">${ops[0]?.puesto||""}</span></div></div>
+      <div class="form-grid">
+        <div class="field full"><label for="fFxNuevo">Nuevo firmante (del Catálogo de Firmantes) *</label><select id="fFxNuevo" onchange="const o=findIn(state.data.firmantes,this.value);$('#fxNuevoN').textContent=o?.nombre||'—';$('#fxNuevoP').textContent=o?.puesto||''">${ops.length?ops.map(o=>`<option value="${o.id}">${o.nombre} — ${o.puesto}</option>`).join(""):`<option value="">No hay otros firmantes activos</option>`}</select></div>
+        ${fieldInput("Fecha del cambio *","fFxFecha",dmyAIso(todayStr()),"date")}
+        ${fieldTextarea("Motivo *","fFxMotivo","")}
+      </div>
+      <p class="ce-note" style="margin-top:8px">¿No aparece? <a href="#" onclick="abrirFirmanteForm(null,()=>abrirSustituirFirma('${depId}','${key}','${firmaId}'));return false">Registrar en el Catálogo de Firmantes</a>.</p>
+      ${key==="actas-seguridad"?`<div class="fx-note" style="margin-top:10px">${icon("check-circle")}<span>Las actas que ya estén en <strong>Acta firmada</strong> seguirán mostrando a ${act?.nombre}; las actas pendientes y las nuevas usarán al nuevo firmante.</span></div>`:""}`,
+    onConfirm:()=>{
+      const nid=$("#fFxNuevo").value, fecha=isoADmy($("#fFxFecha").value), mot=$("#fFxMotivo").value.trim();
+      if(!nid){ toast("Elige al nuevo firmante (o regístralo en el catálogo).","error"); return; }
+      if(!mot){ markFieldError($("#fFxMotivo"),"Escribe el motivo."); toast("Escribe el motivo de la sustitución.","error"); return; }
+      if(tFecha(fecha)<tFecha(f.desde)){ toast(`La fecha del cambio no puede ser anterior al ${f.desde}.`,"error"); return; }
+      const nuevo=findIn(state.data.firmantes,nid);
+      cerrarFirma(f,"Sustituido",fecha,mot);
+      sv.firmas.push({id:uid("FMA"),firmanteId:nid,rol:f.rol,orden:f.orden,desde:fecha,hasta:"",estatus:"Vigente",motivo:""});
+      logBitacora(act,"Sustituido en firma",`${d.nombre} · ${moduloLabel(key)} · ${f.rol} → ${nuevo.nombre}. ${mot}`);
+      logBitacora(nuevo,"Asignación de firma (sustitución)",`${d.nombre} · ${moduloLabel(key)} · ${f.rol}, en lugar de ${act.nombre}`);
+      syncFirmantesServicio(sv); toast(`${nuevo.nombre} sustituye a ${act.nombre} como «${f.rol}».`); abrirFirmasServicio(depId,key);
+    }});
+}
+function inactivarFirma(depId,key,firmaId){
+  const d=findIn(state.data.departamentosCatalogo,depId), sv=d.servicios.find(x=>x.modulo===key), f=sv.firmas.find(x=>x.id===firmaId), p=findIn(state.data.firmantes,f.firmanteId);
+  openModal({title:"Inactivar firma", subtitle:`${p?.nombre} · «${f.rol}»`, confirm:"Inactivar", confirmClass:"danger",
+    body:`<p style="margin:0 0 12px">Esta firma dejará de aparecer en los documentos nuevos y pasará al historial. Úsalo cuando el rol ya no se requiera; si solo cambia la persona, usa <strong>Sustituir</strong>.</p>${fieldTextarea("Motivo *","fFxMot","")}`,
+    onConfirm:()=>{ const m=$("#fFxMot").value.trim(); if(!m){ toast("Escribe el motivo.","error"); return; }
+      cerrarFirma(f,"Inactivo",todayStr(),m); logBitacora(p,"Firma inactivada",`${d.nombre} · ${moduloLabel(key)} · ${f.rol}. ${m}`); syncFirmantesServicio(sv); toast("Firma inactivada."); abrirFirmasServicio(depId,key); }});
+}
+
+/* ================= Catálogo de Tipo de Documento =================
+   Define qué documentos se pueden subir, con qué extensiones, tamaño máximo y en qué módulos.
+   Hoy se usa al subir evidencias en Protocolos e Incidentes de Seguridad. */
+const DOC_EXTENSIONES = ["pdf","docx","xlsx","csv","txt","log","html","xml","png","jpg","zip"];
+const DOC_MODULOS_CARGA = ["actas-seguridad","incidentes-seguridad"]; // módulos que hoy tienen carga de archivos
+const EV_MODULO = {acta:"actas-seguridad", incidente:"incidentes-seguridad"};
+function tiposDocumento(){
+  if(!state.data.tiposDocumento){
+    const td=(nombre,descripcion,extensiones,tamanoMax,modulos)=>({id:uid("TDO"),nombre,descripcion,extensiones,tamanoMax,modulos,estatus:"Activo"});
+    state.data.tiposDocumento=[
+      td("Reporte de escaneo de vulnerabilidades","Resultado exportado de la herramienta de análisis (Nessus, OWASP ZAP, Nikto, etc.).",["pdf","txt","html","xml"],20,["actas-seguridad","incidentes-seguridad"]),
+      td("Captura de pantalla","Imagen que evidencia un hallazgo o un resultado.",["png","jpg"],5,["actas-seguridad","incidentes-seguridad"]),
+      td("Acta firmada (escaneo)","Acta del Protocolo de Seguridad impresa, firmada y escaneada.",["pdf"],10,["actas-seguridad"]),
+      td("Registros del sistema (logs)","Bitácoras del servidor o de la aplicación relacionadas con el incidente.",["txt","log","csv","zip"],50,["incidentes-seguridad"]),
+      td("Oficio","Oficio de solicitud o de respuesta.",["pdf"],10,["actas-seguridad","incidentes-seguridad","dominios","servidores","vpn"])
+    ];
+  }
+  return state.data.tiposDocumento;
+}
+function docsDeTipo(id){ let n=0; [...state.data.actasSeguridad,...state.data.incidentes].forEach(e=>(e.escaneos||[]).forEach(sc=>sc.evidencias.forEach(ev=>{ if(ev.tipoId===id) n++; }))); return n; }
+function docModuloNombre(m){ return tipoServicioDeModulo(m)?.nombre||moduloLabel(m); }
+function renderCatTipoDocumento(){
+  const term=(state.search["cat-tipo-documento"]||"");
+  const lista=tiposDocumento().filter(t=>matchesSearch({n:t.nombre,d:t.descripcion,e:t.extensiones.join(" "),m:t.modulos.map(docModuloNombre).join(" ")},term));
+  content.innerHTML=`
+  ${breadcrumb([{label:"Catálogos"},{label:"Tipo de Documento"}])}
+  <div class="page-header"><div><h1>Catálogo de Tipo de Documento</h1><p>Documentos que se permite subir al sistema: extensiones aceptadas, tamaño máximo y módulos en los que se usan. Al subir un archivo se elige su tipo y el sistema valida que cumpla.</p></div>
+    <div class="page-actions"><button class="button primary" onclick="abrirTipoDocumento()">${icon("plus")} Agregar tipo de documento</button></div></div>
+  <article class="card table-card">
+    <div class="datatable-toolbar"><div class="entries-control">Mostrar <select><option>10</option><option>25</option></select> registros</div>
+      <div class="datatable-actions">${searchBox("tdSearch","Buscar registros",term)}</div></div>
+    <div class="table-wrap"><table data-export-name="catalogo-tipo-documento">
+      <thead><tr><th>Tipo de documento</th><th>Extensiones permitidas</th><th>Tamaño máximo</th><th>Módulos</th><th>Documentos cargados</th><th>Estatus</th><th class="col-acciones">Acciones</th></tr></thead>
+      <tbody>${lista.length?lista.map(t=>{ const n=docsDeTipo(t.id); const act=t.estatus==="Activo"; return `<tr class="${act?"":"fx-off"}">
+        <td><div class="fx-who"><strong>${t.nombre}</strong><small>${t.descripcion||""}</small></div></td>
+        <td><div class="fx-chips td-ext">${t.extensiones.map(e=>`<span>.${e}</span>`).join("")}</div></td>
+        <td>${t.tamanoMax} MB</td>
+        <td><div class="fx-chips">${t.modulos.map(m=>`<span title="${DOC_MODULOS_CARGA.includes(m)?"Con carga de archivos":"Se usará cuando el módulo tenga carga de archivos"}">${docModuloNombre(m)}${DOC_MODULOS_CARGA.includes(m)?"":" ·  próx."}</span>`).join("")}</div></td>
+        <td>${n}</td><td>${badgeEstatus(t.estatus)}</td>
+        <td><div class="actions-cell">
+          ${actionBtn("edit","Editar",`abrirTipoDocumento('${t.id}')`,"warning")}
+          ${act?actionBtn("ban","Inactivar",`toggleTipoDocumento('${t.id}')`,"danger"):actionBtn("refresh","Reactivar",`toggleTipoDocumento('${t.id}')`)}
+          ${n?"":actionBtn("trash","Eliminar",`eliminarTipoDocumento('${t.id}')`,"danger")}
+        </div></td></tr>`; }).join(""):`<tr><td colspan="7" class="empty-state">Sin tipos de documento que coincidan.</td></tr>`}</tbody>
+    </table></div>
+    ${paginationFoot(lista.length,"tipos de documento")}
+  </article>`;
+  $("#tdSearch").oninput=e=>{ state.search["cat-tipo-documento"]=e.target.value; renderCatTipoDocumento(); const i=$("#tdSearch"); i.focus(); i.setSelectionRange(i.value.length,i.value.length); };
+}
+function abrirTipoDocumento(id){
+  const t=id?findIn(tiposDocumento(),id):null;
+  const mods=tiposServicio().filter(x=>x.modulo&&x.estatus!=="Inactivo");
+  openModal({title:t?"Editar tipo de documento":"Agregar tipo de documento", size:"large", confirm:"Guardar",
+    body:`<div class="form-grid">
+      ${fieldInput("Nombre *","fTdNombre",t?.nombre||"","text","maxlength=80")}
+      ${fieldInput("Tamaño máximo por archivo (MB) *","fTdTam",t?.tamanoMax||10,"number","min=1 max=200")}
+      ${fieldTextarea("Descripción (ayuda a elegir el tipo correcto)","fTdDesc",t?.descripcion||"")}
+    </div>
+    <p class="ce-sec">Extensiones permitidas *</p>
+    <div class="td-chk">${DOC_EXTENSIONES.map(e=>`<label><input type="checkbox" name="fTdExt" value="${e}" ${t?.extensiones.includes(e)?"checked":""}>.${e}</label>`).join("")}</div>
+    <p class="ce-sec">Módulos donde se puede subir *</p>
+    <div class="ce-chk">${mods.map(m=>`<label class="${DOC_MODULOS_CARGA.includes(m.modulo)?"":"td-prox"}"><input type="checkbox" name="fTdMod" value="${m.modulo}" ${t?.modulos.includes(m.modulo)?"checked":""}>${m.nombre}${DOC_MODULOS_CARGA.includes(m.modulo)?"":`<small>próximamente</small>`}</label>`).join("")}</div>
+    <p class="ce-note" style="margin-top:8px">Hoy la carga de archivos existe en Protocolos e Incidentes de Seguridad. Los demás módulos quedan configurados para cuando tengan carga de documentos.</p>`,
+    onConfirm:()=>{
+      const nombre=$("#fTdNombre").value.trim().replace(/\s+/g," "), tam=parseInt($("#fTdTam").value,10);
+      const ext=$$('input[name="fTdExt"]:checked').map(i=>i.value), mod=$$('input[name="fTdMod"]:checked').map(i=>i.value);
+      if(!nombre){ toast("Escribe el nombre del tipo de documento.","error"); return; }
+      if(tiposDocumento().some(x=>x.id!==id&&x.nombre.toLowerCase()===nombre.toLowerCase())){ toast("Ya existe un tipo de documento con ese nombre.","error"); return; }
+      if(!(tam>=1&&tam<=200)){ toast("El tamaño máximo debe estar entre 1 y 200 MB.","error"); return; }
+      if(!ext.length){ toast("Marca al menos una extensión permitida.","error"); return; }
+      if(!mod.length){ toast("Marca al menos un módulo.","error"); return; }
+      const datos={nombre,tamanoMax:tam,descripcion:$("#fTdDesc").value.trim(),extensiones:ext,modulos:mod};
+      if(t) Object.assign(t,datos); else tiposDocumento().push({id:uid("TDO"),...datos,estatus:"Activo"});
+      closeModal(); toast(t?"Tipo de documento actualizado.":"Tipo de documento agregado."); renderCatTipoDocumento(); }});
+}
+function toggleTipoDocumento(id){
+  const t=findIn(tiposDocumento(),id), act=t.estatus==="Activo";
+  openModal({title:act?"Inactivar tipo de documento":"Reactivar tipo de documento", subtitle:t.nombre, confirm:act?"Inactivar":"Reactivar", confirmClass:act?"danger":"primary",
+    body:`<p>${act?`Ya no se podrá elegir al subir archivos. Los ${docsDeTipo(id)} documento(s) ya cargados con este tipo se conservan.`:"Volverá a estar disponible al subir archivos."}</p>`,
+    onConfirm:()=>{ t.estatus=act?"Inactivo":"Activo"; closeModal(); toast(act?"Tipo de documento inactivado.":"Tipo de documento reactivado."); renderCatTipoDocumento(); }});
+}
+function eliminarTipoDocumento(id){
+  const t=findIn(tiposDocumento(),id); if(docsDeTipo(id)){ toast("Tiene documentos cargados; solo se puede inactivar.","error"); return; }
+  openModal({title:"Eliminar tipo de documento", subtitle:t.nombre, confirm:"Eliminar", confirmClass:"danger", body:`<p>No hay documentos cargados con este tipo. ¿Deseas eliminarlo del catálogo?</p>`,
+    onConfirm:()=>{ removeIn(tiposDocumento(),id); closeModal(); toast("Tipo de documento eliminado."); renderCatTipoDocumento(); }});
+}
+/* Validación de un archivo contra su tipo de documento */
+function validarArchivoTipo(t,file){
+  if(!t) return "Elige el tipo de documento.";
+  if(!file) return "Selecciona el archivo.";
+  const ext=(file.name.split(".").pop()||"").toLowerCase();
+  if(!t.extensiones.includes(ext)) return `"${file.name}" no es un formato permitido para "${t.nombre}". Extensiones aceptadas: ${t.extensiones.map(e=>"."+e).join(", ")}.`;
+  if(file.size>t.tamanoMax*1024*1024) return `"${file.name}" pesa ${(file.size/1048576).toFixed(1)} MB; el máximo para "${t.nombre}" es ${t.tamanoMax} MB.`;
+  return "";
+}
+function tamanoLegible(b){ return !b?"":b<1048576?`${Math.max(1,Math.round(b/1024))} KB`:`${(b/1048576).toFixed(1)} MB`; }
+function evTipoNombre(ev){ return ev.tipoId?(findIn(tiposDocumento(),ev.tipoId)?.nombre||"Tipo eliminado"):"Sin clasificar"; }
+function evItem(ev){ return `<li>${icon("file-text")} <span class="ev-name">${ev.nombre}</span><span class="ev-tipo">${evTipoNombre(ev)}</span>${ev.tamano?`<small class="ev-size">${tamanoLegible(ev.tamano)}</small>`:""}</li>`; }
+
+/* ================= Ver detalle = formulario en modo solo lectura =================
+   "Ver detalle" abre el MISMO formulario de registro/edición de cada módulo, con todos sus campos,
+   pero bloqueados. Desde ahí se puede pasar a "Editar", cambiar estatus o consultar la bitácora. */
+const RO_VISTAS = {
+  "servidores-form":{col:"servidoresSolicitudes", idKey:"servidorId", lista:"servidores", titulo:r=>`Detalle del servidor ${r.tipoServidor==="Físico"?"físico":"virtual"}`},
+  "dominios-form":{col:"dominios", idKey:"dominioId", lista:"dominios", titulo:r=>`Detalle del ${r.tipo==="Subdominio"?"subdominio":"dominio"}`, extra:r=>[["IP asignada",r.ip||"Sin asignar"],["NAT",r.nat||"Sin asignar"],["Publicación",pubCelda(r)]]},
+  "vpn-form":{col:"vpns", idKey:"vpnId", lista:"vpn", titulo:()=>"Detalle de la solicitud de VPN", extra:r=>[["IP asignada",r.ip||"Sin asignar"]]},
+  "actas-seguridad-form":{col:"actasSeguridad", idKey:"actaId", lista:"actas-seguridad", titulo:()=>"Detalle del Protocolo de Seguridad", extra:r=>[["Resultado",r.resultado||"—"]]},
+  "incidentes-seguridad-form":{col:"incidentes", idKey:"incidenteId", lista:"incidentes-seguridad", titulo:()=>"Detalle del Incidente de Seguridad", extra:r=>[["Folio del incidente",r.folio||"—"]]},
+  "solicitantes-form":{col:"solicitantes", idKey:"solicitanteId", lista:"solicitantes", titulo:()=>"Detalle del solicitante", sinFolio:true, extra:r=>[["Estatus",badgeEstatus(r.estatus||"Activo")]]}
+};
+function verDetalle(view,id){
+  const c=RO_VISTAS[view]; const r=findIn(state.data[c.col],id); if(!r){ toast("No se encontró el registro.","error"); return; }
+  if($("#modalRoot")?.children.length) closeModal();
+  state.editing[c.idKey]=id;
+  if(view==="dominios-form"){ state.editing.dominioTipo=r.tipo; state.editing.dominioBaseId=null; }
+  const volver = RO_VISTAS[state.view] ? (state.editing.soloLectura?.volver||c.lista) : state.view;
+  state.editing.soloLectura={view,id,volver:volver||c.lista};
+  navigate(view);
+}
+function editarDesdeDetalle(){
+  const s=state.editing.soloLectura; if(!s) return;
+  state.editing.soloLectura=null; renderers[s.view](); content.scrollTop=0;
+  toast("Modo edición: ya puedes modificar los campos.");
+}
+function aplicarSoloLectura(view){
+  const s=state.editing.soloLectura, c=RO_VISTAS[view]; if(!s||s.view!==view||!c) return;
+  const r=findIn(state.data[c.col],s.id); if(!r) return;
+  const m=content;
+  const bc=m.querySelector(".breadcrumb .active"); if(bc) bc.textContent="Ver detalle";
+  const h1=m.querySelector(".page-header h1"); if(h1) h1.textContent=c.titulo(r);
+  // Campos: bloqueados
+  m.querySelectorAll("article.card input, article.card select, article.card textarea").forEach(el=>{ el.disabled=true; el.classList.add("ro-field"); if(!el.value && el.tagName!=="SELECT" && el.type!=="checkbox" && el.type!=="radio") el.placeholder="—"; });
+  // Botones que modifican: ocultos (se conservan los de consulta: ver, descargar, imprimir, pestañas)
+  m.querySelectorAll("article.card button, article.card .chip-remove, article.card [onclick]:not(button):not([role=tab]):not(details):not(summary)").forEach(b=>{
+    if(b.matches("[role=tab], .tab, .tab-btn, .form-tab, .dn-toggle") || b.closest("[role=tablist]")) return;
+    const ico=b.querySelector("use")?.getAttribute("href")||"";
+    if(["#i-eye","#i-download","#i-print"].includes(ico)) return;
+    b.classList.add("ro-hidden");
+  });
+  m.querySelectorAll("article.card input.ro-field[type=date], article.card input.ro-field[type=time], article.card input.ro-field[type=datetime-local]").forEach(el=>{
+    const v=el.value; el.type="text";
+    if(/^\d{4}-\d{2}-\d{2}/.test(v)){ const [y,mo,d]=v.slice(0,10).split("-"); el.value=`${d}/${mo}/${y}${v.length>10?" "+v.slice(11,16):""}`; } else { el.value=v; if(!v) el.placeholder="—"; }
+  });
+  m.querySelectorAll("article.card .required-mark").forEach(x=>x.classList.add("ro-hidden"));
+  m.querySelectorAll("article.card").forEach(a=>a.classList.add("ro-card"));
+  // Barra inferior
+  const acciones=[...m.querySelectorAll(":scope > .page-actions")].pop();
+  const volver=s.volver||c.lista;
+  if(acciones) acciones.innerHTML=`<button class="button ghost" onclick="navigate('${volver}')">&raquo; Regresar</button><button class="button primary" onclick="editarDesdeDetalle()">${icon("edit")} Editar</button>`;
+  // Banda de consulta
+  const flujo=FLUJOS_ESTATUS[c.col];
+  const datos=[...(c.sinFolio?[]:[["Folio de solicitud",`<strong class="sol-folio">${folioDe(r)}</strong>`]]),
+    ...(flujo?[["Estatus",badgeEstatus(r.estatus||flujo.orden[0])]]:[]),
+    ...(c.extra?c.extra(r):[]),
+    ["Fecha de registro",fmtFecha(r.fecha||r.fechaDeteccion||r.fechaRegistro)||"—"]];
+  const header=m.querySelector(".page-header");
+  header && header.insertAdjacentHTML("afterend",`<div class="ro-banner">
+    <div class="ro-banner-head"><span class="ro-pill">${icon("eye")} Consulta · solo lectura</span><span class="ro-hint">Los campos no se pueden modificar. Para cambiarlos usa <strong>Editar</strong>.</span></div>
+    <div class="ro-banner-body">
+      <dl class="ro-meta">${datos.map(([k,v])=>`<div><dt>${k}</dt><dd>${v}</dd></div>`).join("")}</dl>
+      <div class="ro-actions">
+        ${flujo?`<button type="button" class="button secondary" onclick="abrirCambiarEstatus('${c.col}','${r.id}')">${icon("refresh")} Cambiar estatus</button>`:""}
+        ${true?`<button type="button" class="button secondary" onclick="abrirBitacora('${c.col}','${r.id}')">${icon("clock")} Bitácora</button>`:""}
+        ${view==="actas-seguridad-form"?`<button type="button" class="button secondary" onclick="state.editing.actaId='${r.id}';navigate('actas-seguridad-print')">${icon("print")} Imprimir</button>`:""}
+        ${view==="solicitantes-form"?`<button type="button" class="button secondary" onclick="state.editing.solicitanteId='${r.id}';navigate('historial')">${icon("file-text")} Historial</button>`:""}
+        <button type="button" class="button primary" onclick="editarDesdeDetalle()">${icon("edit")} Editar</button>
+      </div>
+    </div></div>`);
+}
+Object.keys(RO_VISTAS).forEach(v=>{ const orig=renderers[v]; if(orig) renderers[v]=function(){ const r=orig.apply(this,arguments); aplicarSoloLectura(v); return r; }; });
+
+/* ================= Panel del módulo: Solicitudes ================= */
+MOD_PANEL["solicitudes"]={fn:"renderSolicitudes", nombre:"solicitudes", datos:()=>solicitudesConsolidadas(), fecha:x=>x.fecha, dep:x=>x.dependencia};
+function solIrEtapa(et){ state.solEtapa=et; state.modTab=state.modTab||{}; state.modTab.solicitudes="registros"; navigate("solicitudes"); }
+MD_CONTENIDO["solicitudes"]=(regs,f)=>{
+  const v="solicitudes";
+  const por=k=>regs.filter(r=>r.etapa===k);
+  const pa=por("Por atender"), tr=por("En trámite"), at=por("Atendida");
+  const vigentes=[...pa,...tr];
+  const sinMov=vigentes.filter(r=>mdDiasDesde(r.ultMov)>15);
+  const hoy=new Date(); const mes=regs.filter(r=>{const d=dxFecha(r.fecha);return d&&d.getMonth()===hoy.getMonth()&&d.getFullYear()===hoy.getFullYear();}).length;
+  // tiempo de atención: de la fecha de solicitud al primer estatus de etapa "Atendida" registrado en bitácora
+  const tiempos=at.map(r=>{ const reg=findIn(state.data[r.col],r.id); const fe=FLUJOS_ESTATUS[r.col].estados; const e=(reg.bitacora||[]).find(b=>Object.keys(fe).some(k=>fe[k].etapa==="Atendida"&&(b.movimiento||"").includes("→ "+k))); const fin=e||(reg.bitacora||[]).slice(1).pop(); return fin?mdDiasEntre(r.fecha,fin.fecha):null; }).filter(x=>x!==null);
+  const prom=tiempos.length?Math.round(tiempos.reduce((a,b)=>a+b,0)/tiempos.length):null;
+  const it=r=>({label:`${r.folio} · ${r.registro}`,sub:`${r.tipo} · ${r.dependencia} · ${r.estatus}`,ver:r.ver});
+  const tipos=tiposServicio().filter(t=>t.estatus==="Activo").map(t=>t.nombre);
+  return {
+    tiles:[
+      mdTile({label:"Solicitudes recibidas",value:regs.length,sub:`${mes} en el mes actual`,iconName:"clipboard",tone:"lead",go:`solIrEtapa('')`}),
+      mdTile({label:"Por atender",value:pa.length,sub:"Recién registradas, sin revisión",iconName:"clock",tone:pa.length?"alert":"",go:`solIrEtapa('Por atender')`}),
+      mdTile({label:"En trámite",value:tr.length,sub:"Autorizadas, en evaluación o en proceso",iconName:"refresh",go:`solIrEtapa('En trámite')`}),
+      mdTile({label:"Atendidas",value:at.length,sub:`${regs.length?Math.round(at.length/regs.length*100):0}% del total`,iconName:"check-circle",go:`solIrEtapa('Atendida')`}),
+      mdTile({label:"Tiempo promedio de atención",value:prom===null?"—":`${prom} d`,sub:tiempos.length?`Con base en ${tiempos.length} solicitud(es) atendida(s)`:"Aún sin solicitudes atendidas con fecha",iconName:"calendar"})
+    ],
+    filas:[
+      ["1fr 1fr",[
+        mdCardBars("mdSolTipo","Solicitudes por tipo de servicio","Cuántas solicitudes recibe cada servicio.",mdContar(regs,r=>r.tipo,tipos).map(r=>({...r,go:mdGo(v,[{col:"Tipo de servicio",val:r.label}])})),"solicitud(es)"),
+        mdCardStack("mdSolEtapa","Etapa de atención","Los estatus de cada módulo agrupados en etapas comunes.",SOL_ETAPAS.map(e=>({label:e.k,n:por(e.k).length,tone:e.tone,icon:e.icon,go:`solIrEtapa('${e.k}')`})))
+      ]],
+      ["1.25fr 1fr 1fr",[
+        mdCardMensual("mdSolMes","Solicitudes por mes","Solicitudes recibidas por mes (todas las de servicio).",regs,r=>r.fecha,f.periodo),
+        mdCardBars("mdSolDep","Dependencias con más solicitudes","Las 8 dependencias con más solicitudes.",mdContar(regs,r=>r.dependencia).filter(r=>r.label!=="—").slice(0,8).map(r=>({...r,go:mdGo(v,[{col:"Dependencia",val:r.label}])})),"solicitud(es)"),
+        mdCardAlertas("Pendientes de atender","Solicitudes que requieren seguimiento.",[
+          {tone:"serious",icon:"clock",t:"Por atender hace más de 5 días",items:pa.filter(r=>mdDiasDesde(r.fecha)>5).map(it)},
+          {tone:"warning",icon:"refresh",t:"Sin movimiento en más de 15 días",items:sinMov.map(it)},
+          {tone:"info",icon:"alert",t:"Incidentes de seguridad abiertos",items:vigentes.filter(r=>r.col==="incidentes").map(it)}
+        ])
+      ]]
+    ]};
+};
+(function(){ const orig=window.renderSolicitudes; window.renderSolicitudes=function(){ return renderModulo("solicitudes",orig); }; })();
+
+/* Migración: firmantes capturados como texto → Catálogo de Firmantes + firmas con historial */
+(function(){
+  const D=state.data; D.firmantes=D.firmantes||[];
+  const adsc={"Jefe de Departamento de Seguridad Informática":"Departamento de Seguridad Informática","Subdirector de Comunicaciones":"Subdirección de Comunicaciones"};
+  const porNombre=n=>D.firmantes.find(x=>x.nombre===n);
+  const alta=(nombre,puesto,correo,desde,extra={})=>{ let p=porNombre(nombre); if(!p){ p={id:uid("FIR"),nombre,puesto,adscripcion:adsc[puesto]||"",correo,desde,hasta:"",estatus:"Activo",bitacora:[{fecha:desde,hora:"09:00",usuario:"Administrador",movimiento:"Registro del firmante",obs:""}],...extra}; D.firmantes.push(p); } return p; };
+  // firmante histórico (ejemplo de sustitución)
+  const cantu=alta("Lic. Jorge Alberto Cantú Garza","Subdirector de Comunicaciones","jorge.cantu@tam.gob.mx","10/02/2023",{estatus:"Inactivo",hasta:"15/03/2026"});
+  alta("Mtra. Laura Treviño Ríos","Directora de Infraestructura Tecnológica","laura.trevino@tam.gob.mx","01/08/2025",{adscripcion:"Dirección de Infraestructura Tecnológica"});
+  alta("Miguel Hernández López","Jefe de Departamento de Desarrollo de Sistemas","miguel.hernandez@tam.gob.mx","02/04/2026",{adscripcion:"Departamento de Desarrollo de Sistemas"});
+  cantu.bitacora.push({fecha:"16/03/2026",hora:"10:20",usuario:"Administrador",movimiento:"Cambio de estatus: Activo → Inactivo",obs:"Cambio de titular de la Subdirección de Comunicaciones."});
+  D.departamentosCatalogo.forEach(d=>d.servicios.forEach(sv=>{
+    if(sv.firmas) return;
+    sv.firmas=(sv.firmantes||[]).filter(f=>f.nombre).map((f,i)=>{
+      const correo=f.nombre.includes("Vanoye")?"luis.vanoye@tam.gob.mx":f.nombre.includes("Martínez")?"carlos.martinez@tam.gob.mx":"";
+      const desde=f.nombre.includes("Vanoye")?"16/03/2026":"01/01/2025";
+      const p=alta(f.nombre,f.puesto,correo,desde);
+      return {id:uid("FMA"),firmanteId:p.id,rol:f.rol,orden:i+1,desde,hasta:"",estatus:"Vigente",motivo:""};
+    });
+    if(sv.modulo==="actas-seguridad" && sv.firmas.some(f=>f.rol==="Autorización")){
+      sv.firmas.push({id:uid("FMA"),firmanteId:cantu.id,rol:"Autorización",orden:2,desde:"10/02/2023",hasta:"16/03/2026",estatus:"Sustituido",motivo:"Cambio de titular de la Subdirección de Comunicaciones.",nombreSnap:cantu.nombre,puestoSnap:cantu.puesto});
+    }
+    syncFirmantesServicio(sv);
+  }));
+  // Actas ya firmadas: congelar los firmantes vigentes a la fecha del acta
+  D.actasSeguridad.forEach(a=>{ if(a.estatus==="Acta firmada" && !a.firmantesFirmados){ const sv=deptoActa(a)?.servicios.find(s=>s.modulo==="actas-seguridad"); a.firmantesFirmados = sv ? firmasEnFecha(sv,a.fecha).map(snapshotFirma) : (a.firmantes||[]); a.fechaFirma=a.fecha; } });
+})();
+
+/* Evidencias existentes: se clasifican con el catálogo Tipo de Documento según su extensión */
+[["acta",state.data.actasSeguridad],["incidente",state.data.incidentes]].forEach(([tp,arr])=>arr.forEach(e=>(e.escaneos||[]).forEach(sc=>sc.evidencias.forEach(ev=>{
+  if(ev.tipoId) return; const ext=(ev.nombre.split(".").pop()||"").toLowerCase();
+  const t=tiposDocumento().find(x=>x.modulos.includes(EV_MODULO[tp])&&x.extensiones.includes(ext)); if(t) ev.tipoId=t.id; }))));
+
 /* Verificación automática inicial (simula la corrida diaria de las 06:00) */
-state.data.dominios.forEach(dm=>{ if(!dm.alcance) dm.alcance = dm.nombre==="educacion.tamaulipas.gob.mx" ? "Interno" : "Público"; if(!["Rechazado","Dado de baja"].includes(dm.estatus)){ const n=(dm.bitacora||[]).length; verificarDominio(dm,"auto"); dm.verificacion.hora="06:00"; dm.bitacora.length=n; } });
+state.data.dominios.forEach(dm=>{ if(!dm.alcance) dm.alcance = dm.nombre==="educacion.tamaulipas.gob.mx" ? "Interno" : "Público"; if(!["Rechazado","Dado de baja","Cancelado"].includes(dm.estatus)){ const n=(dm.bitacora||[]).length; verificarDominio(dm,"auto"); dm.verificacion.hora="06:00"; dm.bitacora.length=n; } });
 </script>
 </body>
 </html>
